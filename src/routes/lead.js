@@ -9,6 +9,8 @@ router.post('/', LeadController.index);
 
 router.post('/data-hora', LeadController.setDataWeek);
 
-router.post('/split-fields', LeadController.setSplitFields);
+router.post('/split-fields/data', LeadController.setSplitDataFields);
+
+router.post('/split-fields/scheduling', LeadController.setSplitSchedulingFields);
 
 module.exports = router;

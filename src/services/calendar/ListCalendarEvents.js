@@ -9,7 +9,7 @@ const ListCalendarEvents = async (payload, access_token = null) => {
       access_token = await GetAccessToken(payload);
     }
 
-    const custom_fields = GetCustomFields(payload, access_token);
+    const custom_fields = await GetCustomFields(payload, access_token);
 
     const filledDates = custom_fields.filter(field => field.name === 'Datas ocupadas')[0];
 

@@ -1,6 +1,7 @@
 const GetAccessToken = require('../services/kommo/GetAccessToken');
 const SetActualDateHour = require('../services/kommo/SetActualDateHour');
-const SplitFields = require('../services/kommo/SplitFields');
+const SplitDataFields = require('../services/kommo/SplitDataFields');
+const SplitSchedulingFields = require('../services/kommo/SplitSchedulingFields');
 
 class LeadController {
   async index(req, res) {
@@ -17,12 +18,22 @@ class LeadController {
     }
   }
 
-  async setSplitFields(req, res) {
+  async setSplitDataFields(req, res) {
     try {
       const access_token = await GetAccessToken(req.body);
-      await SplitFields(req.body, access_token);
+      await SplitDataFields(req.body, access_token);
     } catch (error) {
-      console.error('Error on setSplitFields:', error);
+      console.error('Error on setSplitDataFields:', error);
+      res.status(500).json({ error });
+    }
+  }
+
+  async setSplitSchedulingFields(req, res) {
+    try {
+      const access_token = await GetAccessToken(req.body);
+      await SplitSchedulingFields(req.body, access_token);
+    } catch (error) {
+      console.error('Error on setSplitSchedulingFields:', error);
       res.status(500).json({ error });
     }
   }

@@ -7,7 +7,7 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
     if (!access_token) {
       access_token = await GetAccessToken(payload);
     }
-    const user = GetUser(payload, false, access_token);
+    const user = await GetUser(payload, false, access_token);
 
     const eventSummary = user?.custom_fields_values?.filter(field => field.field_name === 'Event Summary')[0];
     const eventStart = user?.custom_fields_values?.filter(field => field.field_name === 'Event Start')[0];

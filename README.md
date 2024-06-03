@@ -1,7 +1,8 @@
 **Rotas voltada apenas para modificar campos de Leads:**
 https://api.aiatende.com.br/lead/
 https://api.aiatende.com.br/lead/data-hora (armazena a data e hora + dia da semana no card)
-https://api.aiatende.com.br/lead/split-fields (antes a rota era /teste/augencio, divide o campo pai diretamente em Nome completo, data de nascimento e bairro)
+https://api.aiatende.com.br/lead/split-fields/data (antes a rota era /teste/augencio, divide o campo Registration Data com o caractere ponto e vírgula ( ; ) para os campos Field [index] )
+https://api.aiatende.com.br/lead/split-fields/scheduling (antes a rota era /teste/augencio, divide o campo Registration Data com o caractere ponto e vírgula ( ; ) para os campos Scheduling field [index] )
 
 **Rotas voltadas para requisições do OpenAI**
 https://api.aiatende.com.br/gpt/v1/

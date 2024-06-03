@@ -53,6 +53,14 @@ const GetGptAssistantMessage = async (payload, assistant_id, access_token = null
               'value': 'ok'
             }
           ]
+        },
+        {
+          'field_id': onOff?.id,
+          'values': [
+            {
+              'value': false
+            }
+          ]
         }
       ]
     };
@@ -67,14 +75,6 @@ const GetGptAssistantMessage = async (payload, assistant_id, access_token = null
           'values': [
             {
               'value': `Erro ao enviar mensagem para o assistente: ${error}`
-            }
-          ]
-        },
-        {
-          'field_id': onOff?.id,
-          'values': [
-            {
-              'value': true
             }
           ]
         }
