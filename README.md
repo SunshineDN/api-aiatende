@@ -5,7 +5,7 @@ https://api.aiatende.com.br/lead/split-fields (antes a rota era /teste/augencio,
 
 **Rotas voltadas para requisições do OpenAI**
 https://api.aiatende.com.br/gpt/v1/
-https://api.aiatende.com.br/gpt/v1/pompt (rota para prompt)
+https://api.aiatende.com.br/gpt/v1/prompt (rota para prompt)
 https://api.aiatende.com.br/gpt/v1/:assistant_id/message (rota para assistente)
 https://api.aiatende.com.br/gpt/v1/audio-to-text (rota para transcrever áudio em texto)
 https://api.aiatende.com.br/gpt/v1/text-to-audio (rota para enviar áudio do 0133 para o lead)
