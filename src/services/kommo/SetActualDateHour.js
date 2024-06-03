@@ -1,0 +1,56 @@
+const GetAccessToken = require('./GetAccessToken');
+const GetCustomFields = require('./GetCustomFields');
+const UpdateLead = require('./UpdateLead');
+
+const SetActualDateHour = async (payload, access_token = null) => {
+  try {
+    if (!access_token) {
+      access_token = await GetAccessToken(payload);
+    }
+
+    const custom_fields = await GetCustomFields(payload, access_token);
+    const date = new Date();
+    const actual_date_hour_to_ms = date.getTime();
+    const actual_date_in_ms = Math.round(actual_date_hour_to_ms / 1000);
+
+    const weekDays = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+    const weekDay = weekDays[date.getDay()];
+
+    const actual_date_field = custom_fields.filter(field => field.name === 'GPT | Data e Hora Atual')[0];
+    const actual_week_field = custom_fields.filter(field => field.name === 'GPT | Dia da Semana')[0];
+
+    const kommoData = {
+      'custom_fields_values': [
+        {
+          'field_id': actual_date_field?.id,
+          'values': [
+            {
+              'value': actual_date_in_ms
+            }
+          ]
+        },
+        {
+          'field_id': actual_week_field?.id,
+          'values': [
+            {
+              'value': weekDay
+            }
+          ]
+        }
+      ]
+    };
+    await UpdateLead(payload, kommoData, access_token);
+  } catch (error) {
+    const { response } = error;
+    if (response) {
+      console.error(response.data);
+      console.error(response.status);
+      console.error(response.headers);
+    }
+
+    console.error(error.message);
+    throw new Error(error.message);
+  }
+};
+
+module.exports = SetActualDateHour;
