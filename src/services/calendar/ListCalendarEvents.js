@@ -11,7 +11,7 @@ const ListCalendarEvents = async (payload, access_token = null) => {
 
     const custom_fields = await GetCustomFields(payload, access_token);
 
-    const filledDates = custom_fields.filter(field => field.name === 'Datas ocupadas')[0];
+    const filledDates = custom_fields?.filter(field => field.name === 'Datas ocupadas')[0];
 
     let events = [];
     try {

@@ -5,7 +5,7 @@ const decodeKommoURI = require('../middlewares/decodeKommoURI');
 
 router.use(decodeKommoURI);
 
-router.post('/', GptController.index);
+router.get('/', GptController.index);
 
 router.post('/prompt', GptController.messageToPrompt);
 

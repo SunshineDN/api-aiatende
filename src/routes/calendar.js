@@ -5,7 +5,7 @@ const decodeKommoURI = require('../middlewares/decodeKommoURI');
 
 router.use(decodeKommoURI);
 
-router.post('/', CalendarController.index);
+router.get('/', CalendarController.index);
 
 router.post('/listEvents', CalendarController.listEvents);
 

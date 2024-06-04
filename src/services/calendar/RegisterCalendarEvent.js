@@ -5,18 +5,23 @@ const GetCustomFields = require('../kommo/GetCustomFields');
 const UpdateLead = require('../kommo/UpdateLead');
 
 const RegisterCalendarEvent = async (payload, access_token = null) => {
+  console.log('Função RegisterCalendarEvent');
   try {
     if (!access_token) {
       access_token = await GetAccessToken(payload);
     }
+
     const user = await GetUser(payload, false, access_token);
     const custom_fields = await GetCustomFields(payload, access_token);
 
-    const eventSummary = user?.custom_fields.filter(field => field.name === 'Event Summary')[0];
-    const eventStart = user?.custom_fields.filter(field => field.name === 'Event Start')[0];
+    console.log('Usuário:');
+    console.dir(user, { depth: null });
 
-    const eventLink = custom_fields.filter(field => field.name === 'Event Link')[0];
-    const eventID = custom_fields.filter(field => field.name === 'Event ID')[0];
+    const eventSummary = user?.custom_fields_values?.filter(field => field.field_name === 'Event Summary')[0];
+    const eventStart = user?.custom_fields_values?.filter(field => field.field_name === 'Event Start')[0];
+
+    const eventLink = custom_fields?.filter(field => field.name === 'Event Link')[0];
+    const eventID = custom_fields?.filter(field => field.name === 'Event ID')[0];
 
     console.log('Sumário:', eventSummary?.values[0]?.value);
     console.log('Inicio do Evento:', eventStart?.values[0]?.value);
@@ -43,7 +48,7 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
           'start': eventStart?.values[0]?.value
         }).then((response) => {
           console.log('Resposta da API Google Calendar (AI Atende):', response.data);
-          return response.data;
+          eventData = response.data;
         }).catch((error) => {
           console.log('Erro ao registrar o evento no calendário:', error);
           throw new Error(error);
@@ -60,7 +65,7 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
           'field_id': eventID?.id,
           'values': [
             {
-              'value': eventData.id
+              'value': eventData?.id
             }
           ]
         },
@@ -68,7 +73,7 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
           'field_id': eventLink?.id,
           'values': [
             {
-              'value': eventData.htmlLink
+              'value': eventData?.htmlLink
             }
           ]
         }

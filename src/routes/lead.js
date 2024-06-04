@@ -5,7 +5,7 @@ const decodeKommoURI = require('../middlewares/decodeKommoURI');
 
 router.use(decodeKommoURI);
 
-router.post('/', LeadController.index);
+router.get('/', LeadController.index);
 
 router.post('/data-hora', LeadController.setDataWeek);
 

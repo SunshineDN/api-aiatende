@@ -113,6 +113,9 @@ const decodeAccoutUri = (uri) => {
 };
 
 module.exports = (req, res, next) => {
+  if (req.method === 'GET') {
+    return next();
+  }
 
   if (!req.body) {
     console.log('Body is required');

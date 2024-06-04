@@ -14,14 +14,14 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
     const user = await GetUser(payload, false, access_token);
     const custom_fields = await GetCustomFields(payload, access_token);
 
-    const eventId = user?.custom_fields.filter(field => field.name === 'Event ID')[0];
+    const eventId = user?.custom_fields_values?.filter(field => field.field_name === 'Event ID')[0];
 
-    const eventLink = custom_fields.filter(field => field.name === 'Event Link')[0];
-    const eventIdField = custom_fields.filter(field => field.name === 'Event ID')[0];
-    const eventSummary = custom_fields.filter(field => field.name === 'Event Summary')[0];
-    const eventStart = custom_fields.filter(field => field.name === 'Event Start')[0];
-    const eventFilled = custom_fields.filter(field => field.name === 'Datas ocupadas')[0];
-    const eventAvaiable = custom_fields.filter(field => field.name === 'Datas disponíveis')[0];
+    const eventLink = custom_fields?.filter(field => field.name === 'Event Link')[0];
+    const eventIdField = custom_fields?.filter(field => field.name === 'Event ID')[0];
+    const eventSummary = custom_fields?.filter(field => field.name === 'Event Summary')[0];
+    const eventStart = custom_fields?.filter(field => field.name === 'Event Start')[0];
+    const eventFilled = custom_fields?.filter(field => field.name === 'Datas ocupadas')[0];
+    const eventAvaiable = custom_fields?.filter(field => field.name === 'Datas disponíveis')[0];
 
     console.log('ID do Evento:', eventId?.values[0]?.value);
 
