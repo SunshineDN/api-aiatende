@@ -12,8 +12,7 @@ jobs:
       with:
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USER }}
-        password: ${{ secrets.REMOTE_PASSWORD }}
-        port: ${{ secrets.REMOTE_PORT }}
+        key: ${{ secrets.PRIVATE_KEY_SSH }}
         script: |
           cd /home/aiatende.com/
           git pull origin main
