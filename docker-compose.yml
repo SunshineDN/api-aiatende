@@ -1,5 +1,6 @@
+version: '3'
 services:
-  node:
+  backend:
     build: .
     command: "npm run start"
     working_dir: /home/node/app
