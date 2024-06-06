@@ -20,5 +20,5 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log('Servidor API AI Atende v1.0 está rodando na porta ' + PORT + '...');
+  console.log('Servidor API AI Atende v1.0 está rodando na porta: ' + PORT + '...');
 });
