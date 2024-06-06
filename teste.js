@@ -51,8 +51,8 @@
 //   console.log('Alguns campos do pai não existem no array de custom_fields');
 // }
 
-const dataHoraBrasil = new Date('06-03-2024');
-const dataHoraUtc = new Date(dataHoraBrasil.getTime() + (dataHoraBrasil.getTimezoneOffset() * 60000));
-const weekDays = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
-const weekDay = weekDays[dataHoraUtc.getDay()];
-console.log(weekDay);
+// const dataHoraBrasil = new Date('06-03-2024');
+// const dataHoraUtc = new Date(dataHoraBrasil.getTime() + (dataHoraBrasil.getTimezoneOffset() * 60000));
+// const weekDays = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+// const weekDay = weekDays[dataHoraUtc.getDay()];
+// console.log(weekDay);

@@ -113,6 +113,7 @@ const decodeAccoutUri = (uri) => {
 };
 
 module.exports = (req, res, next) => {
+  console.log('Request method: ', req.method);
   if (req.method === 'GET') {
     return next();
   }
