@@ -16,7 +16,7 @@ app.use('/gpt/v1', gptRouter);
 app.use('/calendar', calendarRouter);
 
 app.use((req, res) => {
-  res.status(404).message({error: 'Endpoint não encontrado!'});
+  res.status(404).json({error: 'Endpoint não encontrado!'});
 });
 
 app.listen(PORT, () => {
