@@ -16,9 +16,9 @@ app.use('/gpt/v1', gptRouter);
 app.use('/calendar', calendarRouter);
 
 app.use((req, res) => {
-  res.status(404).send('Not found');
+  res.status(404).message({error: 'Endpoint não encontrado!'});
 });
 
 app.listen(PORT, () => {
-  console.log('Server is running on port ' + PORT + '...');
+  console.log('Servidor API AI Atende v1.0 está rodando na porta ' + PORT + '...');
 });
