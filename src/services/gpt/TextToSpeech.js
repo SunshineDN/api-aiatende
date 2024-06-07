@@ -1,8 +1,9 @@
-const axios = require('axios');
+// const axios = require('axios');
 const GetCustomFields = require('../kommo/GetCustomFields');
 const GetUser = require('../kommo/GetUser');
 const GetAccessToken = require('../kommo/GetAccessToken');
 const UpdateLead = require('../kommo/UpdateLead');
+const OpenAIController = require('../../controllers/OpenAIController');
 
 const TextToSpeech = async (payload, access_token = null) => {
   console.log('Função TextToSpeech');
@@ -21,16 +22,17 @@ const TextToSpeech = async (payload, access_token = null) => {
     const gptSentAudio = custom_fields.filter(field => field.name === 'GPT | Sent Audio')[0];
     const gptAudioReceived = custom_fields.filter(field => field.name === 'GPT | Audio Received?')[0];
   
-    const URL = 'https://gpt.aiatende.com.br/text-to-audio';
-    const data = {
-      message: gptAnswer?.values[0]?.value,
-      phone: phone
-    };
+    // const URL = 'https://gpt.aiatende.com.br/text-to-audio';
+    // const data = {
+    //   message: gptAnswer?.values[0]?.value,
+    //   phone: phone
+    // };
   
     console.log('Enviando áudio para o telefone:', phone);
 
-    const response = await axios.post(URL, data);
-    console.log('Response status:', response.status);
+    // const response = await axios.post(URL, data);
+    await OpenAIController.textToAudio(gptAnswer?.values[0]?.value, phone);
+    console.log('Áudio enviado com sucesso!');
 
     const kommoData = {
       'custom_fields_values': [

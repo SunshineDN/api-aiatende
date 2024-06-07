@@ -1,8 +1,9 @@
-const axios = require('axios');
+// const axios = require('axios');
 const GetCustomFields = require('../kommo/GetCustomFields');
 const GetAccessToken = require('../kommo/GetAccessToken');
 const GetUser = require('../kommo/GetUser');
 const UpdateLead = require('../kommo/UpdateLead');
+const OpenAIController = require('../../controllers/OpenAIController');
 
 const GetGptAssistantMessage = async (payload, assistant_id, access_token = null) => {
   let logField, onOff;
@@ -22,10 +23,18 @@ const GetGptAssistantMessage = async (payload, assistant_id, access_token = null
     logField = custom_fields.filter(field => field.name === 'GPT | LOG')[0];
     onOff = custom_fields.filter(field => field.name === 'GPT | On/Off')[0];
 
-    const { data: { message } } = await axios.post(`https://gpt.aiatende.com.br/${assistant_id}/message`, {
+    const data = {
       leadID,
       text: prompt?.values[0]?.value,
-    });
+      assistant_id,
+    };
+
+    // const { data: { message } } = await axios.post(`https://gpt.aiatende.com.br/${assistant_id}/message`, {
+    //   leadID,
+    //   text: prompt?.values[0]?.value,
+    // });
+
+    const { message } = await OpenAIController.generateMessage(data);
 
     console.log('Mensagem do assistente:', message);
     const reqBody = {
