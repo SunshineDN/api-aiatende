@@ -4,7 +4,7 @@ const axios = require('axios');
 const GetAccessToken = async (payload) => {
   const { account: { id: account_id, subdomain } } = payload;
   try {
-    const { data: { access_token } } = await axios.post('http://token-api-backend-token-1:3001/auth/access_token', {
+    const { data: { access_token } } = await axios.post('http://token-api_backend-token_1:3001/auth/access_token', {
       account_id
     });
     console.log('Token existente recebido');
@@ -19,7 +19,7 @@ const GetAccessToken = async (payload) => {
         client_code: process.env.CLIENT_CODE,
         grant_type: 'authorization_code'
       };
-      const { data: { access_token } } = await axios.post('http://token-api-backend-token-1:3001/auth/access_token', req);
+      const { data: { access_token } } = await axios.post('http://token-api_backend-token_1:3001/auth/access_token', req);
       console.log('Token novo criado e recebido');
       return access_token;
 
