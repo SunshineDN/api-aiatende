@@ -6,13 +6,12 @@ const GetUser = require('../kommo/GetUser');
 const OpenAIController = require('../../controllers/OpenAIController');
 
 const GetGptPromptMessage = async (payload, access_token = null) => {
+  console.log('Função GetGptPromptMessage');
   let log;
   try {
     if (!access_token) {
       access_token = await GetAccessToken(payload);
     }
-
-    console.log('Função GetGptPromptMessage');
     const user = await GetUser(payload, false, access_token);
     const custom_fields = await GetCustomFields(payload, access_token);
   
