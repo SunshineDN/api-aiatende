@@ -25,7 +25,7 @@ const GetGptPromptMessage = async (payload, access_token = null) => {
     // });
 
     console.log('Prompt:', prompt?.values[0]?.value);
-    const message = await OpenAIController.promptMessage(prompt?.values[0]?.value);
+    const { message } = await OpenAIController.promptMessage(prompt?.values[0]?.value);
 
     console.log('Mensagem do prompt:', message);
     const reqBody = {
