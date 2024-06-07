@@ -24,10 +24,10 @@ const GetGptPromptMessage = async (payload, access_token = null) => {
     //   text: prompt?.values[0]?.value,
     // });
 
+    console.log('Prompt:', prompt?.values[0]?.value);
     const message = await OpenAIController.promptMessage(prompt?.values[0]?.value);
 
-    console.log('Mensagem do assistente:', message);
-
+    console.log('Mensagem do prompt:', message);
     const reqBody = {
       'custom_fields_values': [
         {
