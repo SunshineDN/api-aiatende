@@ -42,11 +42,11 @@ const GetUser = async (payload, with_contact = false, access_token = null) => {
     return responseData;
   } catch (error) {
     if (error.response) {
-      console.log('Erro ao pegar usuário:', error.response.data);
-      await HandlingError(payload, access_token, error.response.data);
+      console.log(`Erro ao pegar usuário: ${error.response.data}`);
+      await HandlingError(payload, access_token, `Erro ao pegar usuário: ${error.response.data}`);
     } else {
-      console.log('Erro ao pegar usuário:', error.message);
-      await HandlingError(payload, access_token, error.message);
+      console.log(`Erro ao pegar usuário: ${error.message}`);
+      await HandlingError(payload, access_token, `Erro ao pegar usuário: ${error.message}`);
     }
     throw new Error('Erro no GetUser');
   }

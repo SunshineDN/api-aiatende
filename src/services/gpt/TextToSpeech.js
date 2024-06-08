@@ -4,6 +4,7 @@ const GetUser = require('../kommo/GetUser');
 const GetAccessToken = require('../kommo/GetAccessToken');
 const UpdateLead = require('../kommo/UpdateLead');
 const OpenAIController = require('../../controllers/OpenAIController');
+const HandlingError = require('../kommo/HandlingError');
 
 const TextToSpeech = async (payload, access_token = null) => {
   console.log('Função TextToSpeech');
@@ -59,11 +60,13 @@ const TextToSpeech = async (payload, access_token = null) => {
     return;
   } catch (error) {
     if (error.response) {
-      console.log('Erro ao enviar áudio:', error.response.data);
+      console.log(`Erro ao enviar mensagem de áudio: ${error.response.data}`);
+      await HandlingError(payload, access_token, `Erro ao enviar mensagem de áudio: ${error.response.data}`);
     } else {
-      console.log('Erro ao enviar áudio:', error.message);
+      console.log(`Erro ao enviar mensagem de áudio: ${error.message}`);
+      await HandlingError(payload, access_token, `Erro ao enviar mensagem de áudio: ${error.message}`);
     }
-    throw error.message;
+    throw new Error('Erro no TextToSpeech');
   }
 };
 

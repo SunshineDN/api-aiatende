@@ -42,7 +42,8 @@ class LeadController {
   async test(req, res) {
     try {
       const access_token = await GetAccessToken(req.body);
-      await HandlingError(req.body, access_token, 'Testando tratamento de erro');
+      const error = 'Error test: BAD (400)!';
+      await HandlingError(req.body, access_token, `Testando tratamento de erro ${error}`);
     } catch (error) {
       console.error('Error on test:', error);
       res.status(500).json({ error });

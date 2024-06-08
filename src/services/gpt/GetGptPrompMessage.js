@@ -45,14 +45,29 @@ const GetGptPromptMessage = async (payload, access_token = null) => {
               'value': message
             }
           ]
+        },
+        {
+          'field_id': log?.id,
+          'values': [
+            {
+              'value': 'ok'
+            }
+          ]
         }
       ]
     };
     await UpdateLead(payload, reqBody, access_token);
     console.log('Lead atualizado com mensagem do prompt');
     return;
-  } catch (error) {
-    console.log('Erro ao enviar mensagem de prompt:', error);
+  } catch (e) {
+    let error;
+    if (e.response) {
+      error = e.response.data;
+      console.log('Erro ao enviar mensagem para o prompt:', e.response.data);
+    } else {
+      error = e.message;
+      console.log('Erro ao enviar mensagem para o prompt:', e.message);
+    }
 
     const reqBody = {
       'custom_fields_values': [

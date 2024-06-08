@@ -48,11 +48,11 @@ const SetActualDateHour = async (payload, access_token = null) => {
     console.log('Sucesso ao setar data, hora e dia da semana');
   } catch (error) {
     if (error.response) {
-      console.log('Erro ao setar data, hora e dia da semana:', error.response.data);
-      await HandlingError(payload, access_token, error.response.data);
+      console.log(`Erro ao setar data, hora e dia da semana: ${error.response.data}`);
+      await HandlingError(payload, access_token, `Erro ao setar data, hora e dia da semana: ${error.response.data}`);
     } else {
-      console.log('Erro ao setar data, hora e dia da semana:', error.message);
-      await HandlingError(payload, access_token, error.message);
+      console.log(`Erro ao setar data, hora e dia da semana: ${error.message}`);
+      await HandlingError(payload, access_token, `Erro ao setar data, hora e dia da semana: ${error.message}`);
     }
     throw new Error('Erro no SetActualDataHour');
   }

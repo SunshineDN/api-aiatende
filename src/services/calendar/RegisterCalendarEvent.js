@@ -82,11 +82,11 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
     console.log('Evento registrado com sucesso!');
   } catch (error) {
     if (error.response) {
-      console.log('Erro ao registrar evento no Google Calendar:', error.response.data);
-      await HandlingError(payload, access_token, error.response.data);
+      console.log(`Erro ao registrar evento no Google Calendar: ${error.response.data}`);
+      await HandlingError(payload, access_token, `Erro ao registrar evento no Google Calendar: ${error.response.data}`);
     } else {
-      console.log('Erro ao registrar evento no Google Calendar:', error.message);
-      await HandlingError(payload, access_token, error.message);
+      console.log(`Erro ao registrar evento no Google Calendar: ${error.message}`);
+      await HandlingError(payload, access_token, `Erro ao registrar evento no Google Calendar: ${error.message}`);
     }
     throw new Error('Erro no RegisterCalendarEvent');
   }

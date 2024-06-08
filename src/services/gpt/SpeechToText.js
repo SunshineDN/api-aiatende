@@ -4,6 +4,7 @@ const GetCustomFields = require('../kommo/GetCustomFields');
 const GetUser = require('../kommo/GetUser');
 const UpdateLead = require('../kommo/UpdateLead');
 const OpenAIController = require('../../controllers/OpenAIController');
+const HandlingError = require('../kommo/HandlingError');
 
 const SpeechToText = async (payload, access_token = null) => {
   console.log('Função SpeechToText');
@@ -48,8 +49,14 @@ const SpeechToText = async (payload, access_token = null) => {
     console.log('Lead atualizado com mensagem transcrita');
     return;
   } catch (error) {
-    console.log('Erro ao transcrever mensagem de áudio:', error);
-    throw error;
+    if (error.response) {
+      console.log(`Erro ao transcrever mensagem de áudio: ${error.response.data}`);
+      await HandlingError(payload, access_token, `Erro ao transcrever mensagem de áudio: ${error.response.data}`);
+    } else {
+      console.log(`Erro ao transcrever mensagem de áudio: ${error.message}`);
+      await HandlingError(payload, access_token, `Erro ao transcrever mensagem de áudio: ${error.message}`);
+    }
+    throw new Error('Erro no SpeechToText');
   }
 };
 

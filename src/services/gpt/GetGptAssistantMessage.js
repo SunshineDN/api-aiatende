@@ -76,8 +76,15 @@ const GetGptAssistantMessage = async (payload, assistant_id, access_token = null
 
     await UpdateLead(payload, reqBody, access_token);
     console.log('Mensagem da assistente armazenada com sucesso!');
-  } catch (error) {
-    console.log('Erro ao enviar mensagem para o assistente:', error);
+  } catch (e) {
+    let error;
+    if (e.response) {
+      error = e.response.data;
+      console.log('Erro ao enviar mensagem para o GPT Assistant:', e.response.data);
+    } else {
+      error = e.message;
+      console.log('Erro ao enviar mensagem para o GPT Assistant:', e.message);
+    }
     const reqBody = {
       'custom_fields_values': [
         {

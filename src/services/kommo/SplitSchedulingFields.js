@@ -109,11 +109,11 @@ const SplitSchedulingFields = async (payload, access_token = null) => {
     return;
   } catch (error) {
     if (error.response) {
-      console.log('Erro ao dividir campo de dados de agendamento:', error.response.data);
-      await HandlingError(payload, access_token, error.response.data);
+      console.log(`Erro ao dividir campo de dados de agendamento: ${error.response.data}`);
+      await HandlingError(payload, access_token, `Erro ao dividir campo de dados de agendamento: ${error.response.data}`);
     } else {
-      console.log('Erro ao dividir campo de dados de agendamento:', error.message);
-      await HandlingError(payload, access_token, error.message);
+      console.log(`Erro ao dividir campo de dados de agendamento: ${error.message}`);
+      await HandlingError(payload, access_token, `Erro ao dividir campo de dados de agendamento: ${error.message}`);
     }
     throw new Error('Erro no SplitSchedulingFields');
   }

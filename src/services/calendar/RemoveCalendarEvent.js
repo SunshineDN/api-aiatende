@@ -105,11 +105,11 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
 
   } catch (error) {
     if (error.response) {
-      console.log('Erro ao remover evento no Google Calendar:', error.response.data);
-      await HandlingError(payload, access_token, error.response.data);
+      console.log(`Erro ao remover evento no Google Calendar: ${error.response.data}`);
+      await HandlingError(payload, access_token, `Erro ao remover evento no Google Calendar: ${error.response.data}`);
     } else {
-      console.log('Erro ao remover evento no Google Calendar:', error.message);
-      await HandlingError(payload, access_token, error.message);
+      console.log(`Erro ao remover evento no Google Calendar: ${error.message}`);
+      await HandlingError(payload, access_token, `Erro ao remover evento no Google Calendar: ${error.message}`);
     }
     throw new Error('Erro no RemoveCalendarEvent');
   };
