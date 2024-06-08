@@ -17,7 +17,7 @@ const SpeechToText = async (payload, access_token = null) => {
     const custom_fields = await GetCustomFields(payload, access_token);
     const { text_audio, lead_id } = payload;
 
-    const message_received = user?.custom_fields_values.filter(field => field.field_name === 'GPT | Message received')[0];
+    const message_received = user?.custom_fields_values?.filter(field => field.field_name === 'GPT | Message received')[0];
 
     // const URL = 'https://gpt.aiatende.com.br/audio-to-text';
     // const data = {
@@ -26,7 +26,7 @@ const SpeechToText = async (payload, access_token = null) => {
     // };
     // const { data: response } = await axios.post(URL, data);
 
-    const message_received_field = custom_fields.filter(field => field.name === 'GPT | Message received')[0];
+    const message_received_field = custom_fields?.filter(field => field.name === 'GPT | Message received')[0];
 
     const transcription = await OpenAIController.audioToText(text_audio, lead_id);
     console.log('Mensagem transcrita:', transcription);
