@@ -159,6 +159,7 @@ class OpenAIController {
             await wait(1000);
             count++;
           }
+          count = 1;
           repeat++;
         }
       };

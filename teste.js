@@ -60,52 +60,59 @@
 // let times = 1;
 // let message = 'false';
 
-// const wait = (ms) => {
-//   return new Promise(resolve => setTimeout(resolve, ms));
-// };
+const wait = (ms) => {
+  return new Promise(resolve => setTimeout(resolve, ms));
+};
 
-// const exec = async (count) => {
-//   while(times <= count) {
-//     while(contador <= 5) {
-//       console.log('Contador:', contador);
-//       await wait(1000);
-//       if(contador === 3 || message === 'ok') {
-//         console.log('ok');
-//         return;
-//       }
-//       contador++;
-//     }
-//     contador = 1;
-//     times++;
-//   }
-// };
-
-// console.log(exec(1));
-
-function obterDataHoraLocal() {
-  // Obter a data e hora atuais para o fuso horário de Recife
-  const dataAtual = new Date();
-  const opcoes = { 
-    timeZone: 'America/Recife',
-    year: 'numeric', 
-    month: 'numeric', 
-    day: 'numeric', 
-    hour: 'numeric', 
-    minute: 'numeric', 
-    second: 'numeric' 
+const exec = async (times) => {
+  let count = 1;
+  let repeat = 1;
+  let run = {
+    status: 'running'
   };
-  
-  const dataHoraLocal = dataAtual.toLocaleString('pt-BR', opcoes);
-  
-  // Obter o dia da semana
-  const opcoesDiaSemana = { 
-    timeZone: 'America/Recife',
-    weekday: 'long'
-  };
-  const diaSemana = dataAtual.toLocaleDateString('pt-BR', opcoesDiaSemana);
-  
-  console.log(`Data e Hora local: ${dataHoraLocal}`);
-  console.log(`Dia da semana: ${diaSemana}`);
-}
+  while (repeat <= times) {
+    console.log('Running assistant');
+    while (count <= 10) {
+      console.log(`${repeat}# ${count}' Run status: ${run.status}`);
+      if(run.status === 'completed') {
+        return;
+      } else if (run.status !== 'completed' && repeat === times && count === 10) {
+        throw new Error('Erro no running da menssagem do Assistant GPT');
+      }
+      await wait(1000);
+      count++;
+    }
+    count = 1;
+    repeat++;
+  }
+};
 
-obterDataHoraLocal();
+console.log(exec(2));
+
+// function obterDataHoraLocal() {
+//   // Obter a data e hora atuais para o fuso horário de Recife
+//   const dataAtual = new Date();
+//   const opcoes = { 
+//     timeZone: 'America/Recife',
+//     year: 'numeric', 
+//     month: 'numeric', 
+//     day: 'numeric', 
+//     hour: 'numeric', 
+//     minute: 'numeric', 
+//     second: 'numeric' 
+//   };
+  
+//   const dataHoraLocal = dataAtual.toLocaleString('pt-BR', opcoes);
+  
+//   // Obter o dia da semana
+//   const opcoesDiaSemana = { 
+//     timeZone: 'America/Recife',
+//     weekday: 'long'
+//   };
+//   const diaSemana = dataAtual.toLocaleDateString('pt-BR', opcoesDiaSemana);
+  
+//   console.log(`Data e Hora local: ${dataHoraLocal}`);
+//   console.log(`Dia da semana: ${diaSemana}`);
+// }
+
+// obterDataHoraLocal();
