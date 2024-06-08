@@ -150,7 +150,7 @@ class OpenAIController {
               existThreads.threadID[indexOfAssistant],
               run.id
             );
-            console.log(`${count}* Run status: ${run.status}`);
+            console.log(`${repeat}# ${count}' Run status: ${run.status}`);
             if(run.status === 'completed') {
               return;
             } else if (run.status !== 'completed' && repeat === times && count === 10) {
@@ -163,7 +163,7 @@ class OpenAIController {
         }
       };
 
-      exec(2);
+      await exec(2);
 
       // while (run.status !== 'completed') {
       //   run = await openai.beta.threads.runs.retrieve(
