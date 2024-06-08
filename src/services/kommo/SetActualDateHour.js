@@ -1,5 +1,6 @@
 const GetAccessToken = require('./GetAccessToken');
 const GetCustomFields = require('./GetCustomFields');
+const HandlingError = require('./HandlingError');
 const UpdateLead = require('./UpdateLead');
 
 const SetActualDateHour = async (payload, access_token = null) => {
@@ -45,15 +46,14 @@ const SetActualDateHour = async (payload, access_token = null) => {
     };
     await UpdateLead(payload, kommoData, access_token);
   } catch (error) {
-    const { response } = error;
-    if (response) {
-      console.error(response.data);
-      console.error(response.status);
-      console.error(response.headers);
+    if (error.response) {
+      console.log('Erro ao setar data, hora e dia da semana:', error.response.data);
+      await HandlingError(payload, access_token, error.response.data);
+    } else {
+      console.log('Erro ao setar data, hora e dia da semana:', error.message);
+      await HandlingError(payload, access_token, error.message);
     }
-
-    console.error(error.message);
-    throw new Error(error.message);
+    throw new Error('Erro no SetActualDataHour');
   }
 };
 

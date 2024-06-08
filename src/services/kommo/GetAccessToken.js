@@ -24,8 +24,12 @@ const GetAccessToken = async (payload) => {
       return access_token;
 
     } catch (error) {
-      console.log('Erro ao pegar token:', error);
-      throw error;
+      if (error.response) {
+        console.log('Erro ao adquirir tokens:', error.response.data);
+      } else {
+        console.log('Erro ao adquirir tokens:', error.message);
+      }
+      throw new Error('Erro no GetAccessToken');
     }
   }
 };

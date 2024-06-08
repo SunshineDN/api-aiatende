@@ -136,6 +136,8 @@ class OpenAIController {
       //   { assistant_id: assistant }
       // );
 
+      console.log('The message that will be sent to assistant:', text);
+
       let run;
       const exec = async (times) => {
         let count = 1;

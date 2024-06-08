@@ -25,8 +25,8 @@ const HandlingError = async (payload, access_token = null, error) => {
     };
     await UpdateLead(payload, data, access_token);
     return;
-  } catch (error) {
-    console.log('Erro ao tratar erro:', error);
+  } catch (e) {
+    console.log('Erro ao tratar erro:', e);
     throw new Error('Erro ao tratar no HandlingError');
   }
 };

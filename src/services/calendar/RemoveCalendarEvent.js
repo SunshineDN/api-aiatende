@@ -3,6 +3,7 @@ const GetAccessToken = require('../kommo/GetAccessToken');
 const GetUser = require('../kommo/GetUser');
 const GetCustomFields = require('../kommo/GetCustomFields');
 const UpdateLead = require('../kommo/UpdateLead');
+const HandlingError = require('../kommo/HandlingError');
 
 const RemoveCalendarEvent = async (payload, access_token = null) => {
 
@@ -30,7 +31,6 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
       await axios.delete(`https://googlecalendar.api.institutodentalsante.com.br/delete/${eventId?.values[0]?.value}`).then(() => {
         console.log('Resposta vinda da API do Google Calendar: Evento deletado!');
       }).catch((error) => {
-        console.log('Erro ao remover o evento no calendário:', error);
         throw new Error(error);
       });
     } catch {
@@ -39,11 +39,9 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
         await axios.delete(`https://googlecalendar.api.institutodentalsante.com.br/delete/${eventId?.values[0]?.value}`).then(() => {
           console.log('Resposta vinda da API do Google Calendar: Evento deletado!');
         }).catch((error) => {
-          console.log('Erro ao remover o evento no calendário:', error);
           throw new Error(error);
         });
       } catch (error) {
-        console.log('Erro ao remover o evento no calendário:', error);
         throw new Error(error);
       }
     }
@@ -106,8 +104,14 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
     console.log('Evento removido com sucesso!');
 
   } catch (error) {
-    console.log('Erro no serviço RemoveCalendarEvent:', error);
-    throw new Error(error);
+    if (error.response) {
+      console.log('Erro ao remover evento no Google Calendar:', error.response.data);
+      await HandlingError(payload, access_token, error.response.data);
+    } else {
+      console.log('Erro ao remover evento no Google Calendar:', error.message);
+      await HandlingError(payload, access_token, error.message);
+    }
+    throw new Error('Erro no RemoveCalendarEvent');
   };
 };
 

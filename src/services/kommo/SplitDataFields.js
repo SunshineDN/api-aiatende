@@ -1,6 +1,7 @@
 const GetAccessToken = require('./GetAccessToken');
 const GetCustomFields = require('./GetCustomFields');
 const GetUser = require('./GetUser');
+const HandlingError = require('./HandlingError');
 const UpdateLead = require('./UpdateLead');
 
 const SplitDataFields = async (payload, access_token = null) => {
@@ -106,9 +107,15 @@ const SplitDataFields = async (payload, access_token = null) => {
     await UpdateLead(payload, bodyReq, access_token);
     console.log('Split Fields finalizado');
     return;
-  } catch (err) {
-    console.log('Erro na função SplitDataFields');
-    throw new Error(err);
+  } catch (error) {
+    if (error.response) {
+      console.log('Erro ao dividir o campo de dados:', error.response.data);
+      await HandlingError(payload, access_token, error.response.data);
+    } else {
+      console.log('Erro ao dividir o campo de dados:', error.message);
+      await HandlingError(payload, access_token, error.message);
+    }
+    throw new Error('Erro no SplitDataFields');
   }
 };
 

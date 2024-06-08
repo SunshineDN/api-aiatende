@@ -1,5 +1,6 @@
 const axios = require('axios');
 const GetAccessToken = require('./GetAccessToken');
+const HandlingError = require('./HandlingError');
 
 const GetCustomFields = async (payload, access_token = null) => {
   const { account: { account_domain: domain } } = payload;
@@ -14,8 +15,14 @@ const GetCustomFields = async (payload, access_token = null) => {
     });
     return custom_fields;
   } catch (error) {
-    console.log('Erro no serviço getCustomFields:', error);
-    throw new Error(error);
+    if (error.response) {
+      console.log('Erro ao pegar os campos customizados:', error.response.data);
+      await HandlingError(payload, access_token, error.response.data);
+    } else {
+      console.log('Erro ao pegar os campos customizados:', error.message);
+      await HandlingError(payload, access_token, error.message);
+    }
+    throw new Error('Erro no GetCustomFields');
   }
 };
 

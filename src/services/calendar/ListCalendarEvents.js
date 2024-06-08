@@ -2,6 +2,7 @@ const axios = require('axios');
 const GetAccessToken = require('../kommo/GetAccessToken');
 const GetCustomFields = require('../kommo/GetCustomFields');
 const UpdateLead = require('../kommo/UpdateLead');
+const HandlingError = require('../kommo/HandlingError');
 
 const ListCalendarEvents = async (payload, access_token = null) => {
   try {
@@ -21,7 +22,6 @@ const ListCalendarEvents = async (payload, access_token = null) => {
           console.log('Resposta da API Google Calendar (AI Atende):', response.data);
           events = response.data;
         }).catch((error) => {
-          console.log('Erro ao listar os eventos do calendário:', error);
           throw new Error(error);
         });
     } catch {
@@ -32,11 +32,9 @@ const ListCalendarEvents = async (payload, access_token = null) => {
             console.log('Resposta da API Google Calendar (AI Atende):', response.data);
             events = response.data;
           }).catch((error) => {
-            console.log('Erro ao listar os eventos do calendário:', error);
             throw new Error(error);
           });
       } catch (error) {
-        console.log('Erro ao listar os eventos do calendário:', error);
         throw new Error(error);
       }
     }
@@ -57,8 +55,14 @@ const ListCalendarEvents = async (payload, access_token = null) => {
     await UpdateLead(payload, reqBody, access_token);
     console.log('Eventos listados com sucesso!');
   } catch (error) {
-    console.log('Erro no serviço ListCalendarEvents:', error);
-    throw new Error(error);
+    if (error.response) {
+      console.log('Erro ao listar eventos no Google Calendar:', error.response.data);
+      await HandlingError(payload, access_token, error.response.data);
+    } else {
+      console.log('Erro ao listar eventos no Google Calendar:', error.message);
+      await HandlingError(payload, access_token, error.message);
+    }
+    throw new Error('Erro no ListCalendarEvents');
   }
 };
 

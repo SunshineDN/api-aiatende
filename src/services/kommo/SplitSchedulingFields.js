@@ -1,6 +1,7 @@
 const GetAccessToken = require('./GetAccessToken');
 const GetCustomFields = require('./GetCustomFields');
 const GetUser = require('./GetUser');
+const HandlingError = require('./HandlingError');
 const UpdateLead = require('./UpdateLead');
 
 const SplitSchedulingFields = async (payload, access_token = null) => {
@@ -106,9 +107,15 @@ const SplitSchedulingFields = async (payload, access_token = null) => {
     await UpdateLead(payload, bodyReq, access_token);
     console.log('Split Fields finalizado');
     return;
-  } catch (err) {
-    console.log('Erro na função SplitSchedulingFields');
-    throw new Error(err);
+  } catch (error) {
+    if (error.response) {
+      console.log('Erro ao dividir campo de dados de agendamento:', error.response.data);
+      await HandlingError(payload, access_token, error.response.data);
+    } else {
+      console.log('Erro ao dividir campo de dados de agendamento:', error.message);
+      await HandlingError(payload, access_token, error.message);
+    }
+    throw new Error('Erro no SplitSchedulingFields');
   }
 };
 

@@ -1,5 +1,6 @@
 const axios = require('axios');
 const GetAccessToken = require('./GetAccessToken');
+const HandlingError = require('./HandlingError');
 
 const UpdateLead = async (payload, data, access_token = null) => {
   console.log('Payload:', payload);
@@ -19,13 +20,17 @@ const UpdateLead = async (payload, data, access_token = null) => {
       }
     };
 
-    const { data: response } = await axios.patch(`${domain}/api/v4/leads/${lead_id}`, data, options);
-
-    console.log('Resposta do Kommo:', response);
+    await axios.patch(`${domain}/api/v4/leads/${lead_id}`, data, options);
     return;
   } catch (error) {
-    console.log('Erro ao atualizar lead:', error);
-    throw error;
+    if (error.response) {
+      console.log('Erro ao atualizar lead:', error.response.data);
+      await HandlingError(payload, access_token, error.response.data);
+    } else {
+      console.log('Erro ao atualizar lead:', error.message);
+      await HandlingError(payload, access_token, error.message);
+    }
+    throw new Error('Erro no UpdateLead');
   }
 };
 

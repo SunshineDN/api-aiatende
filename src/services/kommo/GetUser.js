@@ -1,5 +1,6 @@
 const axios = require('axios');
 const GetAccessToken = require('./GetAccessToken');
+const HandlingError = require('./HandlingError');
 
 const GetUser = async (payload, with_contact = false, access_token = null) => {
   // let { id: leadID } = decodePayload(body);
@@ -38,8 +39,14 @@ const GetUser = async (payload, with_contact = false, access_token = null) => {
     // console.dir(responseData, { depth: null });
     return responseData;
   } catch (error) {
-    console.log('Erro ao pegar usuário:', error);
-    throw new Error(error);
+    if (error.response) {
+      console.log('Erro ao pegar usuário:', error.response.data);
+      await HandlingError(payload, access_token, error.response.data);
+    } else {
+      console.log('Erro ao pegar usuário:', error.message);
+      await HandlingError(payload, access_token, error.message);
+    }
+    throw new Error('Erro no GetUser');
   }
 };
 

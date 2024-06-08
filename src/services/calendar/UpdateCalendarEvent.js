@@ -1,6 +1,7 @@
 const axios = require('axios');
 const GetAccessToken = require('../kommo/GetAccessToken');
 const GetUser = require('../kommo/GetUser');
+const HandlingError = require('../kommo/HandlingError');
 
 const UpdateCalendarEvent = async (payload, access_token = null) => {
   try {
@@ -25,7 +26,6 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
       }).then((response) => {
         console.log('Resposta da API Google Calendar (AI Atende):', response.data);
       }).catch((error) => {
-        console.log('Erro ao atualizar o evento no calendário:', error);
         throw new Error(error);
       });
 
@@ -38,19 +38,23 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
         }).then((response) => {
           console.log('Resposta da API Google Calendar (AI Atende):', response.data);
         }).catch((error) => {
-          console.log('Erro ao atualizar o evento no calendário:', error);
           throw new Error(error);
         });
       } catch (error) {
-        console.log('Erro ao atualizar o evento no calendário:', error);
         throw new Error(error);
       }
     }
     console.log('Evento atualizado com sucesso!');
 
   } catch (error) {
-    console.log('Erro no serviço RegisterCalendarEvent:', error);
-    throw new Error(error);
+    if (error.response) {
+      console.log('Erro ao atualizar evento no Google Calendar:', error.response.data);
+      await HandlingError(payload, access_token, error.response.data);
+    } else {
+      console.log('Erro ao atualizar evento no Google Calendar:', error.message);
+      await HandlingError(payload, access_token, error.message);
+    }
+    throw new Error('Erro no UpdateCalendarEvent');
   };
 };
 

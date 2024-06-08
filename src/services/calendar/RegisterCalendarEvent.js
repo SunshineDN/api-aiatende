@@ -3,6 +3,7 @@ const GetAccessToken = require('../kommo/GetAccessToken');
 const GetUser = require('../kommo/GetUser');
 const GetCustomFields = require('../kommo/GetCustomFields');
 const UpdateLead = require('../kommo/UpdateLead');
+const HandlingError = require('../kommo/HandlingError');
 
 const RegisterCalendarEvent = async (payload, access_token = null) => {
   console.log('Função RegisterCalendarEvent');
@@ -37,7 +38,6 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
         console.log('Resposta da API Google Calendar (AI Atende):', response.data);
         eventData = response.data;
       }).catch((error) => {
-        console.log('Erro ao registrar o evento no calendário:', error);
         throw new Error(error);
       });
     } catch {
@@ -50,11 +50,9 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
           console.log('Resposta da API Google Calendar (AI Atende):', response.data);
           eventData = response.data;
         }).catch((error) => {
-          console.log('Erro ao registrar o evento no calendário:', error);
           throw new Error(error);
         });
       } catch (error) {
-        console.log('Erro ao registrar o evento no calendário:', error);
         throw new Error(error);
       }
     }
@@ -83,8 +81,14 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
     await UpdateLead(payload, reqBody, access_token);
     console.log('Evento registrado com sucesso!');
   } catch (error) {
-    console.log('Erro no serviço RegisterCalendarEvent:', error);
-    throw new Error(error);
+    if (error.response) {
+      console.log('Erro ao registrar evento no Google Calendar:', error.response.data);
+      await HandlingError(payload, access_token, error.response.data);
+    } else {
+      console.log('Erro ao registrar evento no Google Calendar:', error.message);
+      await HandlingError(payload, access_token, error.message);
+    }
+    throw new Error('Erro no RegisterCalendarEvent');
   }
 };
 
