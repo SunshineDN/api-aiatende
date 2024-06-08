@@ -156,7 +156,7 @@ class OpenAIController {
             if(run.status === 'completed') {
               return;
             } else if (run.status !== 'completed' && repeat === times && count === 10) {
-              throw new Error('Erro no running da menssagem do Assistant GPT');
+              throw new Error(`Erro no running da menssagem do Assistant GPT: ${run.last_error}`);
             }
             await wait(1000);
             count++;
