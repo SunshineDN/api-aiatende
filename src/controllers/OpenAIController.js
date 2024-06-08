@@ -166,8 +166,8 @@ class OpenAIController {
         }
       };
 
-      // await exec(6);
-      await exec(1);
+      await exec(6);
+      // await exec(1);
 
       // while (run.status !== 'completed') {
       //   run = await openai.beta.threads.runs.retrieve(
