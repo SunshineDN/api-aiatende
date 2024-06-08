@@ -23,7 +23,6 @@ const HandlingError = async (payload, access_token = null, error) => {
         }
       ]
     };
-
     await UpdateLead(payload, data, access_token);
     return;
   } catch (error) {
