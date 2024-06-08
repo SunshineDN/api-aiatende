@@ -14,8 +14,8 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
     const user = await GetUser(payload, false, access_token);
     const custom_fields = await GetCustomFields(payload, access_token);
 
-    console.log('Usuário:');
-    console.dir(user, { depth: null });
+    // console.log('Usuário:');
+    // console.dir(user, { depth: null });
 
     const eventSummary = user?.custom_fields_values?.filter(field => field.field_name === 'Event Summary')[0];
     const eventStart = user?.custom_fields_values?.filter(field => field.field_name === 'Event Start')[0];
