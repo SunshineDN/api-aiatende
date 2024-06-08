@@ -126,20 +126,54 @@ class OpenAIController {
         }
       );
 
-      console.log('Running assistant'.magenta.bold);
-      let run = await openai.beta.threads.runs.create(
-        existThreads.threadID[indexOfAssistant],
-        { assistant_id: assistant }
-      );
+      const wait = (ms) => {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      };
 
-      while (run.status !== 'completed') {
-        run = await openai.beta.threads.runs.retrieve(
-          existThreads.threadID[indexOfAssistant],
-          run.id
-        );
-        console.log('Run status:'.yellow.bold, run.status);
-        setTimeout(() => { }, 2000);
-      }
+      console.log('Running assistant'.magenta.bold);
+      // let run = await openai.beta.threads.runs.create(
+      //   existThreads.threadID[indexOfAssistant],
+      //   { assistant_id: assistant }
+      // );
+
+      let run;
+      const exec = async (times) => {
+        let count = 1;
+        let repeat = 1;
+        while (repeat <= times) {
+          run = await openai.beta.threads.runs.create(
+            existThreads.threadID[indexOfAssistant],
+            { assistant_id: assistant }
+          );
+          while (count <= 10) {
+            run = await openai.beta.threads.runs.retrieve(
+              existThreads.threadID[indexOfAssistant],
+              run.id
+            );
+            console.log(`${count}* Run status: ${run.status}`);
+            if(run.status === 'completed') {
+              return;
+            } else if (run.status !== 'completed' && repeat === times && count === 10) {
+              throw new Error('Erro no running da menssagem do Assistant GPT');
+            }
+            await wait(1000);
+            count++;
+          }
+          repeat++;
+        }
+      };
+
+      exec(2);
+
+      // while (run.status !== 'completed') {
+      //   run = await openai.beta.threads.runs.retrieve(
+      //     existThreads.threadID[indexOfAssistant],
+      //     run.id
+      //   );
+      //   console.log('Run status:'.yellow.bold, run.status);
+      //   setTimeout(() => { }, 2000);
+      // }
+
       const messages_response = await openai.beta.threads.messages.list(
         existThreads.threadID[indexOfAssistant]
       );
@@ -250,7 +284,7 @@ class OpenAIController {
 
   async textToAudio(message, phone) {
 
-    if(!message || !phone) {
+    if (!message || !phone) {
       throw new Error('Missing parameters');
     }
 
@@ -261,7 +295,7 @@ class OpenAIController {
       'Authorization': `Bearer ${process.env.API_KEY_ZAPSTER}`
     };
     const data = {
-      media: {ptt: true, base64: null},
+      media: { ptt: true, base64: null },
       instance_id: process.env.INSTANCE_ID_ZAPSTER,
       recipient: phone
     };

@@ -56,3 +56,28 @@
 // const weekDays = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
 // const weekDay = weekDays[dataHoraUtc.getDay()];
 // console.log(weekDay);
+let contador = 1;
+let times = 1;
+let message = 'false';
+
+const wait = (ms) => {
+  return new Promise(resolve => setTimeout(resolve, ms));
+};
+
+const exec = async (count) => {
+  while(times <= count) {
+    while(contador <= 5) {
+      console.log('Contador:', contador);
+      await wait(1000);
+      if(contador === 3 || message === 'ok') {
+        console.log('ok');
+        return;
+      }
+      contador++;
+    }
+    contador = 1;
+    times++;
+  }
+};
+
+console.log(exec(1));
