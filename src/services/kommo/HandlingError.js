@@ -24,6 +24,7 @@ const HandlingError = async (payload, access_token = null, error) => {
       ]
     };
     await UpdateLead(payload, data, access_token);
+    console.log('Erro setado no LOG com sucesso!');
     return;
   } catch (e) {
     console.log('Erro ao tratar erro:', e);

@@ -2,6 +2,7 @@ require('dotenv').config();
 const axios = require('axios');
 
 const GetAccessToken = async (payload) => {
+  console.log('Fução GetAccessToken');
   const { account: { id: account_id, subdomain } } = payload;
   try {
     const { data: { access_token } } = await axios.post('http://token-api_backend-token_1:3001/auth/access_token', {
@@ -22,7 +23,6 @@ const GetAccessToken = async (payload) => {
       const { data: { access_token } } = await axios.post('http://token-api_backend-token_1:3001/auth/access_token', req);
       console.log('Token novo criado e recebido');
       return access_token;
-
     } catch (error) {
       if (error.response) {
         console.log('Erro ao adquirir tokens:', error.response.data);

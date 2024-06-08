@@ -6,9 +6,9 @@ const UpdateLead = require('../kommo/UpdateLead');
 const OpenAIController = require('../../controllers/OpenAIController');
 
 const GetGptAssistantMessage = async (payload, assistant_id, access_token = null) => {
+  console.log('Função GetGptAssistantMessage');
   let logField, onOff;
   try {
-    console.log('Função GetGptAssistantMessage');
     if (!access_token) {
       access_token = await GetAccessToken(payload);
     }
@@ -75,6 +75,7 @@ const GetGptAssistantMessage = async (payload, assistant_id, access_token = null
     };
 
     await UpdateLead(payload, reqBody, access_token);
+    console.log('Mensagem da assistente armazenada com sucesso!');
   } catch (error) {
     console.log('Erro ao enviar mensagem para o assistente:', error);
     const reqBody = {

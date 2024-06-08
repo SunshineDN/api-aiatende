@@ -57,7 +57,6 @@ const TextToSpeech = async (payload, access_token = null) => {
     await UpdateLead(payload, kommoData, access_token);
     console.log('Audio enviado para o lead atualizado com sucesso!');
     return;
-
   } catch (error) {
     if (error.response) {
       console.log('Erro ao enviar áudio:', error.response.data);

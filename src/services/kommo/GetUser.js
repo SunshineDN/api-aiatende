@@ -3,6 +3,7 @@ const GetAccessToken = require('./GetAccessToken');
 const HandlingError = require('./HandlingError');
 
 const GetUser = async (payload, with_contact = false, access_token = null) => {
+  console.log('Função GetUser');
   // let { id: leadID } = decodePayload(body);
   const { lead_id, account: { account_domain: domain } } = payload;
   // let leadID = decoded.status.id;
@@ -37,6 +38,7 @@ const GetUser = async (payload, with_contact = false, access_token = null) => {
     }
     // console.log('Usuário:');
     // console.dir(responseData, { depth: null });
+    console.log('Usuário obtido com sucesso');
     return responseData;
   } catch (error) {
     if (error.response) {

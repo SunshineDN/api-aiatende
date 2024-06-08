@@ -3,6 +3,8 @@ const GetAccessToken = require('./GetAccessToken');
 const HandlingError = require('./HandlingError');
 
 const GetCustomFields = async (payload, access_token = null) => {
+  console.log('Função GetCustomFields!');
+
   const { account: { account_domain: domain } } = payload;
   try {
     if (!access_token) {
@@ -13,6 +15,8 @@ const GetCustomFields = async (payload, access_token = null) => {
         Authorization: `Bearer ${access_token}`
       }
     });
+
+    console.log('Campos customizados adquiridos!');
     return custom_fields;
   } catch (error) {
     if (error.response) {

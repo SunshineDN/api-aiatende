@@ -6,12 +6,12 @@ const UpdateLead = require('../kommo/UpdateLead');
 const OpenAIController = require('../../controllers/OpenAIController');
 
 const SpeechToText = async (payload, access_token = null) => {
+  console.log('Função SpeechToText');
   try {
     if (!access_token) {
       access_token = await GetAccessToken(payload);
     }
 
-    console.log('Função SpeechToText');
     const user = await GetUser(payload, false, access_token);
     const custom_fields = await GetCustomFields(payload, access_token);
     const { text_audio, lead_id } = payload;
@@ -47,7 +47,6 @@ const SpeechToText = async (payload, access_token = null) => {
     await UpdateLead(payload, kommoData, access_token);
     console.log('Lead atualizado com mensagem transcrita');
     return;
-
   } catch (error) {
     console.log('Erro ao transcrever mensagem de áudio:', error);
     throw error;

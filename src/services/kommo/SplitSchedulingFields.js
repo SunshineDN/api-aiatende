@@ -105,7 +105,7 @@ const SplitSchedulingFields = async (payload, access_token = null) => {
     //   });
     // }
     await UpdateLead(payload, bodyReq, access_token);
-    console.log('Split Fields finalizado');
+    console.log('Split Shceduling Fields finalizado com sucesso!');
     return;
   } catch (error) {
     if (error.response) {

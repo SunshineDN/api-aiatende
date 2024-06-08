@@ -49,7 +49,7 @@ const GetGptPromptMessage = async (payload, access_token = null) => {
       ]
     };
     await UpdateLead(payload, reqBody, access_token);
-    console.log('Lead atualizado com mensagem do assistente');
+    console.log('Lead atualizado com mensagem do prompt');
     return;
   } catch (error) {
     console.log('Erro ao enviar mensagem de prompt:', error);
