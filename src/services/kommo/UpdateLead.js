@@ -35,7 +35,8 @@ const UpdateLead = async (payload, data, access_token = null) => {
     return;
   } catch (error) {
     if (error.response) {
-      console.log(`Erro ao atualizar lead: ${error.response.data}`);
+      console.log('Erro ao atualizar lead');
+      console.dir(error.response.data, { depth: null });
       await HandlingError(payload, access_token, `Erro ao atualizar lead: ${error.response.data}`);
     } else {
       console.log(`Erro ao atualizar lead: ${error.message}`);
