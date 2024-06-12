@@ -20,7 +20,7 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
 
     try {
       console.log('Primeira tentativa de atualizar evento no calendário...');
-      await axios.patch(`https://googlecalendar.api.institutodentalsante.com.br/update/${eventId?.values[0]?.value}`, {
+      await axios.patch(`http://calendar_api_calendar_api_1:3002/update/${eventId?.values[0]?.value}`, {
         'summary': eventSummary?.values[0]?.value,
         'start': eventStart?.values[0]?.value
       }).then((response) => {
@@ -32,7 +32,7 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
     } catch {
       try {
         console.log('Segunda tentativa de atualizar evento no calendário...');
-        await axios.patch(`https://googlecalendar.api.institutodentalsante.com.br/update/${eventId?.values[0]?.value}`, {
+        await axios.patch(`http://calendar_api_calendar_api_1:3002/update/${eventId?.values[0]?.value}`, {
           'summary': eventSummary?.values[0]?.value,
           'start': eventStart?.values[0]?.value
         }).then((response) => {

@@ -17,7 +17,7 @@ const ListCalendarEvents = async (payload, access_token = null) => {
     let events = [];
     try {
       console.log('Primeira tentativa de listar eventos do calendário...');
-      await axios.get('https://googlecalendar.api.institutodentalsante.com.br/list')
+      await axios.get('http://calendar_api_calendar_api_1:3002/list')
         .then((response) => {
           console.log('Resposta da API Google Calendar (AI Atende):', response.data);
           events = response.data;
@@ -27,7 +27,7 @@ const ListCalendarEvents = async (payload, access_token = null) => {
     } catch {
       try {
         console.log('Segunda tentativa de listar eventos do calendário...');
-        await axios.get('https://googlecalendar.api.institutodentalsante.com.br/list')
+        await axios.get('http://calendar_api_calendar_api_1:3002/list')
           .then((response) => {
             console.log('Resposta da API Google Calendar (AI Atende):', response.data);
             events = response.data;

@@ -28,7 +28,7 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
 
     try {
       console.log('Primeira tentativa de remover evento no calendário...');
-      await axios.delete(`https://googlecalendar.api.institutodentalsante.com.br/delete/${eventId?.values[0]?.value}`).then(() => {
+      await axios.delete(`http://calendar_api_calendar_api_1:3002/delete/${eventId?.values[0]?.value}`).then(() => {
         console.log('Resposta vinda da API do Google Calendar: Evento deletado!');
       }).catch((error) => {
         throw new Error(error);
@@ -36,7 +36,7 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
     } catch {
       try {
         console.log('Segunda tentativa de remover evento no calendário...');
-        await axios.delete(`https://googlecalendar.api.institutodentalsante.com.br/delete/${eventId?.values[0]?.value}`).then(() => {
+        await axios.delete(`http://calendar_api_calendar_api_1:3002/delete/${eventId?.values[0]?.value}`).then(() => {
           console.log('Resposta vinda da API do Google Calendar: Evento deletado!');
         }).catch((error) => {
           throw new Error(error);

@@ -31,7 +31,7 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
 
     try {
       console.log('Primeira tentativa de registrar evento no calendário...');
-      await axios.post('https://googlecalendar.api.institutodentalsante.com.br/add', {
+      await axios.post('http://calendar_api_calendar_api_1:3002/add', {
         'summary': eventSummary?.values[0]?.value,
         'start': eventStart?.values[0]?.value
       }).then((response) => {
@@ -43,7 +43,7 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
     } catch {
       try {
         console.log('Segunda tentativa de registrar evento no calendário...');
-        await axios.post('https://googlecalendar.api.institutodentalsante.com.br/add', {
+        await axios.post('http://calendar_api_calendar_api_1:3002/add', {
           'summary': eventSummary?.values[0]?.value,
           'start': eventStart?.values[0]?.value
         }).then((response) => {
