@@ -161,6 +161,20 @@ class OpenAIController {
             await wait(1000);
             count++;
           }
+          if (run.status === 'in_progress') {
+            run = await openai.beta.threads.runs.cancel(
+              existThreads.threadID[indexOfAssistant],
+              run.id
+            );
+            while (run.status !== 'cancelled') {
+              run = await openai.beta.threads.runs.retrieve(
+                existThreads.threadID[indexOfAssistant],
+                run.id
+              );
+              console.log('Run status for cancel:', run.status);
+              await wait(1000);
+            }
+          }
           count = 1;
           repeat++;
         }
