@@ -13,6 +13,8 @@ router.post('/:assistant_id/message', GptController.messageToAssistant);
 
 router.post('/message', GptController.transcribeMessage);
 
+router.post('/delete_thread', GptController.deleteThread);
+
 router.post('/audio-to-text', GptController.transcribeMessage);
 
 router.post('/text-to-audio', GptController.sendAudioFromGpt);
