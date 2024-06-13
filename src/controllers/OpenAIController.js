@@ -161,7 +161,7 @@ class OpenAIController {
             await wait(1000);
             count++;
           }
-          if (run.status === 'in_progress') {
+          if (run.status === 'in_progress' || run.status === 'queued') {
             run = await openai.beta.threads.runs.cancel(
               existThreads.threadID[indexOfAssistant],
               run.id
