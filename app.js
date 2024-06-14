@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3000;
 const leadRouter = require('./src/routes/lead');
 const gptRouter = require('./src/routes/gpt');
+const accountRouter = require('./src/routes/account');
 const sequelize = require('./src/config/database');
 const calendarRouter = require('./src/routes/calendar');
 
@@ -30,6 +31,7 @@ app.use(bodyParser.text({ type: '*/*' }));
 app.use('/lead', leadRouter);
 app.use('/gpt/v1', gptRouter);
 app.use('/calendar', calendarRouter);
+app.use('/account', accountRouter);
 
 app.use((req, res) => {
   res.status(404).json({error: 'Endpoint não encontrado!'});
