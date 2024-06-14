@@ -7,8 +7,6 @@ class AccountController {
   }
 
   async verifyFields(req, res) {
-    const body = req.body;
-    res.json({ body });
     try {
       const access_token = await GetAccessToken(req.body);
       await VerifyFieldsGpt(req.body, res, access_token);
