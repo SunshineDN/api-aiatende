@@ -10,6 +10,11 @@ const VerifyFieldsGpt = async (payload, res, access_token = null) => {
     const custom_fields = await GetCustomFields(payload, access_token);
     const exist_fields = [
       {
+        id: 123123,
+        name: 'GPT | TESTES',
+        type: 'textarea',
+      },
+      {
         id: 1366386,
         name: 'GPT | Prompt',
         type: 'textarea',
