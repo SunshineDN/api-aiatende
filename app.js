@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3000;
 const leadRouter = require('./src/routes/lead');
 const gptRouter = require('./src/routes/gpt');
@@ -27,9 +26,6 @@ colors.setTheme({
 const app = express();
 
 app.use(cors());
-app.use(bodyParser.text({ type: '*/*' }));
-app.use('/account', bodyParser.json());
-
 app.use('/lead', leadRouter);
 app.use('/gpt/v1', gptRouter);
 app.use('/calendar', calendarRouter);

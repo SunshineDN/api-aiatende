@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 const CalendarController = require('../controllers/CalendarController');
 const decodeKommoURI = require('../middlewares/decodeKommoURI');
+const bodyParser = require('body-parser');
 
+router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
 
 router.get('/', CalendarController.index);

@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 const GptController = require('../controllers/GptController');
 const decodeKommoURI = require('../middlewares/decodeKommoURI');
+const bodyParser = require('body-parser');
 
+router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
 
 router.get('/', GptController.index);
