@@ -341,6 +341,7 @@ class OpenAIController {
 
       await axios.post(URL, data, { headers });
       // return { message: 'Audio sent' };
+      console.log('===============\nAudio sent\n===============');
       return;
     } catch (error) {
       console.error('Error', error.message);
