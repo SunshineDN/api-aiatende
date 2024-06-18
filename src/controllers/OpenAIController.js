@@ -313,6 +313,9 @@ class OpenAIController {
       instance_id = process.env.INSTANCE_ID_ZAPSTER_DENTALSANTE;
     }
 
+    console.log('API Key:', access_token);
+    console.log('Instance ID:', instance_id);
+
     if (!message || !phone) {
       throw new Error('Missing parameters');
     }
@@ -325,7 +328,7 @@ class OpenAIController {
     };
     const data = {
       media: { ptt: true, base64: null },
-      instance_id,
+      instance_id: instance_id,
       recipient: phone
     };
 
