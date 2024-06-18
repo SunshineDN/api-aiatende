@@ -300,7 +300,18 @@ class OpenAIController {
     }
   }
 
-  async textToAudio(message, phone) {
+  async textToAudio(message, phone, business) {
+
+    let access_token, instance_id;
+
+    console.log('Business:', business);
+    if (business === 'kommoatende') {
+      access_token = process.env.API_KEY_ZAPSTER_AIATENDE;
+      instance_id = process.env.INSTANCE_ID_ZAPSTER_AIATENDE;
+    } else if (business === 'kommoagendamento') {
+      access_token = process.env.API_KEY_ZAPSTER_DENTALSANTE;
+      instance_id = process.env.INSTANCE_ID_ZAPSTER_DENTALSANTE;
+    }
 
     if (!message || !phone) {
       throw new Error('Missing parameters');
@@ -310,11 +321,11 @@ class OpenAIController {
     const headers = {
       'accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${process.env.API_KEY_ZAPSTER}`
+      'Authorization': `Bearer ${access_token}`
     };
     const data = {
       media: { ptt: true, base64: null },
-      instance_id: process.env.INSTANCE_ID_ZAPSTER,
+      instance_id,
       recipient: phone
     };
 
