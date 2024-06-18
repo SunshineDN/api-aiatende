@@ -48,7 +48,7 @@ const SpeechToText = async (payload, access_token = null) => {
           'field_id': send_audio_field?.id,
           'values': [
             {
-              'value': false
+              'value': true
             }
           ]
         }
