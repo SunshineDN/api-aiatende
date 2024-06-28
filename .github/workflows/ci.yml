@@ -1,0 +1,20 @@
+name: AI Atende API CI
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy to VPS AI Atende
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        key: ${{ secrets.PRIVATE_KEY_SSH }}
+        script: |
+          cd /home/aiatende.com/
+          git pull origin main
+          docker-compose down
+          docker-compose up -d --build
