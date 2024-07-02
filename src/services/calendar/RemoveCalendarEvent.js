@@ -1,10 +1,11 @@
-const { google } = require('googleapis');
-const AuthCalendar = require('../../utils/AuthCalendar');
+// const { google } = require('googleapis');
+// const AuthCalendar = require('../../utils/AuthCalendar');
 const CalendarIdValidate = require('../../utils/CalendarIdValidate');
 const GetCustomFields = require('../kommo/GetCustomFields');
 const UpdateLead = require('../kommo/UpdateLead');
 const HandlingError = require('../kommo/HandlingError');
 const GetUser = require('../kommo/GetUser');
+const CalendarUtils = require('../../utils/CalendarUtils');
 
 const RemoveCalendarEvent = async (payload, access_token = null) => {
   try {
@@ -25,166 +26,71 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
       (field) => field.field_name === 'Dentista'
     )[0];
 
-    const auth = AuthCalendar.authenticate();
     console.log('Deletando evento...');
 
     console.log('ID do Evento:', eventId?.values[0]?.value);
     try {
-      auth.authorize((err) => {
-        if (err) {
-          console.error('Erro na autenticação:', err);
-          throw new Error('Erro na autenticação');
-        }
-        const calendar = google.calendar({ version: 'v3', auth });
-        calendar.events.delete(
-          {
-            calendarId: CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'),
-            eventId,
-          },
-          (err, result) => {
-            if (err) {
-              console.error('Erro ao deletar evento:', err);
-              throw new Error('Erro ao deletar evento');
-            }
-            console.log('Evento deletado com sucesso.');
-            return result.data;
-          });
-      });
-
-      const bodyReq = {
-        'custom_fields_values': [
-          {
-            'field_id': eventLink?.id,
-            'values': [
-              {
-                'value': ''
-              }
-            ]
-          },
-          {
-            'field_id': eventIdField?.id,
-            'values': [
-              {
-                'value': ''
-              }
-            ]
-          },
-          {
-            'field_id': eventSummary?.id,
-            'values': [
-              {
-                'value': ''
-              }
-            ]
-          },
-          {
-            'field_id': eventStart?.id,
-            'values': [
-              {
-                'value': ''
-              }
-            ]
-          },
-          {
-            'field_id': eventFilled?.id,
-            'values': [
-              {
-                'value': ''
-              }
-            ]
-          },
-          {
-            'field_id': eventAvaiable?.id,
-            'values': [
-              {
-                'value': ''
-              }
-            ]
-          }
-        ]
-      };
-  
-      await UpdateLead(payload, bodyReq, access_token);
-  
-      console.log('Evento removido com sucesso!');
+      await CalendarUtils.executeRemoveEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'),eventId);
+     
     } catch {
-      auth.authorize((err) => {
-        if (err) {
-          console.error('Erro na autenticação:', err);
-          throw new Error('Erro na autenticação');
-        }
-        const calendar = google.calendar({ version: 'v3', auth });
-        calendar.events.delete(
-          {
-            calendarId: CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'),
-            eventId,
-          },
-          (err, result) => {
-            if (err) {
-              console.error('Erro ao deletar evento:', err);
-              throw new Error('Erro ao deletar evento');
-            }
-            console.log('Evento deletado com sucesso.');
-            return result.data;
-          });
-      });
-      const bodyReq = {
-        'custom_fields_values': [
-          {
-            'field_id': eventLink?.id,
-            'values': [
-              {
-                'value': ''
-              }
-            ]
-          },
-          {
-            'field_id': eventIdField?.id,
-            'values': [
-              {
-                'value': ''
-              }
-            ]
-          },
-          {
-            'field_id': eventSummary?.id,
-            'values': [
-              {
-                'value': ''
-              }
-            ]
-          },
-          {
-            'field_id': eventStart?.id,
-            'values': [
-              {
-                'value': ''
-              }
-            ]
-          },
-          {
-            'field_id': eventFilled?.id,
-            'values': [
-              {
-                'value': ''
-              }
-            ]
-          },
-          {
-            'field_id': eventAvaiable?.id,
-            'values': [
-              {
-                'value': ''
-              }
-            ]
-          }
-        ]
-      };
-  
-      await UpdateLead(payload, bodyReq, access_token);
-  
-      console.log('Evento removido com sucesso!');
+      await CalendarUtils.executeRemoveEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'),eventId);
     }
+    const bodyReq = {
+      'custom_fields_values': [
+        {
+          'field_id': eventLink?.id,
+          'values': [
+            {
+              'value': ''
+            }
+          ]
+        },
+        {
+          'field_id': eventIdField?.id,
+          'values': [
+            {
+              'value': ''
+            }
+          ]
+        },
+        {
+          'field_id': eventSummary?.id,
+          'values': [
+            {
+              'value': ''
+            }
+          ]
+        },
+        {
+          'field_id': eventStart?.id,
+          'values': [
+            {
+              'value': ''
+            }
+          ]
+        },
+        {
+          'field_id': eventFilled?.id,
+          'values': [
+            {
+              'value': ''
+            }
+          ]
+        },
+        {
+          'field_id': eventAvaiable?.id,
+          'values': [
+            {
+              'value': ''
+            }
+          ]
+        }
+      ]
+    };
+
+    await UpdateLead(payload, bodyReq, access_token);
+
+    console.log('Evento removido com sucesso!');
 
   } catch (error) {
     if (error.response) {

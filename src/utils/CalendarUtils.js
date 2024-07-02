@@ -58,7 +58,7 @@ class CalendarUtils {
       });
     });
     return await calendar_return;
-  }
+  };
 
   async executeRegisterEvent(calendarId, eventObj) {
     const createEvent = new Promise((resolve, reject) => {
@@ -86,6 +86,31 @@ class CalendarUtils {
     });
     return await createEvent;
   };
+  async executeRemoveEvent(calendarId,eventId){
+    const deleteEvent = new Promise((resolve,reject) => {
+      this.authorization.authorize((err) => {
+        if (err) {
+          console.error('Erro na autenticação:', err);
+          reject(new Error('Erro na autenticação'));
+        }
+        const calendar = google.calendar({ version: 'v3', auth:this.authorization });
+        calendar.events.delete(
+          {
+            calendarId,
+            eventId,
+          },
+          (err, result) => {
+            if (err) {
+              console.error('Erro ao deletar evento:', err);
+              reject(new Error('Erro ao deletar evento'));
+            }
+            console.log('Evento deletado com sucesso.');
+            resolve(result.data); 
+          });
+      });
+    });
+    return await deleteEvent;
+  }
 }
 
 module.exports = new CalendarUtils();
