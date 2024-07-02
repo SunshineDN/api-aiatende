@@ -13,7 +13,7 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
     const eventStart = user?.custom_fields_values?.filter(field => field.field_name === 'Event Start')[0];
     const eventId = user?.custom_fields_values?.filter(field => field.field_name === 'Event ID')[0];
     const nameDoctor = user?.custom_fields_values?.filter(
-      (field) => field.field_name === "Dentista"
+      (field) => field.field_name === 'Dentista'
     )[0];
   
     console.log('Sumário:', eventSummary?.values[0]?.value);
@@ -36,7 +36,7 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
         const calendar = google.calendar({ version: 'v3', auth });
         calendar.events.update(
           {
-            calendarId: CalendarIdValidate(nameDoctor?.values[0]?.value || "Não Encontrado"),
+            calendarId: CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'),
             eventId,
             resource: {
               eventSummary,
@@ -67,7 +67,7 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
         const calendar = google.calendar({ version: 'v3', auth });
         calendar.events.update(
           {
-            calendarId: CalendarIdValidate(nameDoctor?.values[0]?.value || "Não Encontrado"),
+            calendarId: CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'),
             eventId,
             resource: {
               eventSummary,
