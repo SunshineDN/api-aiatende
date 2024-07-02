@@ -74,7 +74,7 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
         const calendar = google.calendar({ version: "v3", auth });
         calendar.events.insert(
           {
-            calendarId: CalendarIdValidate(nameDoctor),
+            calendarId: CalendarIdValidate(nameDoctor?.values[0]?.value || "Não Encontrado"),
             resource: event,
           },
           (err, result) => {
@@ -96,7 +96,7 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
         const calendar = google.calendar({ version: "v3", auth });
         calendar.events.insert(
           {
-            calendarId: CalendarIdValidate(nameDoctor),
+            calendarId: CalendarIdValidate(nameDoctor?.values[0]?.value || "Não Encontrado"),
             resource: event,
           },
           (err, result) => {

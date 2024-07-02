@@ -1,7 +1,6 @@
 const AuthCalendar = require("../../utils/AuthCalendar");
 const CalendarIdValidate = require("../../utils/CalendarIdValidate");
 const { google } = require("googleapis");
-const GetAccessToken = require("../kommo/GetAccessToken");
 const GetCustomFields = require("../kommo/GetCustomFields");
 const UpdateLead = require("../kommo/UpdateLead");
 const HandlingError = require("../kommo/HandlingError");
@@ -76,7 +75,7 @@ const ListCalendarEvent = async (payload, access_token = null) => {
       (field) => field.name === "Datas ocupadas"
     )[0];
 
-    eventData = Calendar(CalendarIdValidate(nameDoctor));
+    eventData = Calendar(CalendarIdValidate(nameDoctor?.values[0]?.value || "Não Encontrado"));
 
     const reqBody = {
       custom_fields_values: [
@@ -94,8 +93,8 @@ const ListCalendarEvent = async (payload, access_token = null) => {
     console.log("Eventos listados com sucesso!");
   } catch (error) {
     try {
-      eventData = Calendar(CalendarIdValidate(nameDoctor));
-
+      eventData = Calendar(CalendarIdValidate(nameDoctor?.values[0]?.value || "Não Encontrado"));
+      
       const reqBody = {
         custom_fields_values: [
           {

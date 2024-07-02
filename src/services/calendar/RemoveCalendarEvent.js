@@ -1,7 +1,6 @@
 const { google } = require('googleapis');
 const AuthCalendar = require('../../utils/AuthCalendar');
 const CalendarIdValidate = require("../../utils/CalendarIdValidate");
-const GetAccessToken = require('../kommo/GetAccessToken');
 const GetCustomFields = require('../kommo/GetCustomFields');
 const UpdateLead = require('../kommo/UpdateLead');
 const HandlingError = require('../kommo/HandlingError');
@@ -39,7 +38,7 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
         const calendar = google.calendar({ version: 'v3', auth });
         calendar.events.delete(
           {
-            calendarId: CalendarIdValidate(nameDoctor),
+            calendarId: CalendarIdValidate(nameDoctor?.values[0]?.value || "Não Encontrado"),
             eventId,
           },
           (err, result) => {
@@ -117,7 +116,7 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
         const calendar = google.calendar({ version: 'v3', auth });
         calendar.events.delete(
           {
-            calendarId: CalendarIdValidate(nameDoctor),
+            calendarId: CalendarIdValidate(nameDoctor?.values[0]?.value || "Não Encontrado"),
             eventId,
           },
           (err, result) => {

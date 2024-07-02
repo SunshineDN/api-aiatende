@@ -1,7 +1,6 @@
 const { parse } = require('date-fns');
 const AuthCalendar = require('../../utils/AuthCalendar');
 const { google } = require('googleapis');
-const GetAccessToken = require('../kommo/GetAccessToken');
 const HandlingError = require('../kommo/HandlingError');
 const GetUser = require('../kommo/GetUser');
 const CalendarIdValidate = require('../../utils/CalendarIdValidate');
@@ -37,7 +36,7 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
         const calendar = google.calendar({ version: 'v3', auth });
         calendar.events.update(
           {
-            calendarId: CalendarIdValidate(nameDoctor),
+            calendarId: CalendarIdValidate(nameDoctor?.values[0]?.value || "Não Encontrado"),
             eventId,
             resource: {
               eventSummary,
@@ -68,7 +67,7 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
         const calendar = google.calendar({ version: 'v3', auth });
         calendar.events.update(
           {
-            calendarId: CalendarIdValidate(nameDoctor),
+            calendarId: CalendarIdValidate(nameDoctor?.values[0]?.value || "Não Encontrado"),
             eventId,
             resource: {
               eventSummary,
