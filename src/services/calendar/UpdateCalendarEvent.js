@@ -4,17 +4,18 @@ const { google } = require('googleapis');
 const GetAccessToken = require('../kommo/GetAccessToken');
 const HandlingError = require('../kommo/HandlingError');
 const GetUser = require('../kommo/GetUser');
+const CalendarIdValidate = require('../../utils/CalendarIdValidate');
 
 const UpdateCalendarEvent = async (payload, access_token = null) => {
   try {
-    if (!access_token) {
-      access_token = await GetAccessToken(payload);
-    }
     const user = await GetUser(payload, false, access_token);
 
     const eventSummary = user?.custom_fields_values?.filter(field => field.field_name === 'Event Summary')[0];
     const eventStart = user?.custom_fields_values?.filter(field => field.field_name === 'Event Start')[0];
     const eventId = user?.custom_fields_values?.filter(field => field.field_name === 'Event ID')[0];
+    const nameDoctor = user?.custom_fields_values?.filter(
+      (field) => field.field_name === "Dentista"
+    )[0];
   
     console.log('Sumário:', eventSummary?.values[0]?.value);
     console.log('Inicio do Evento:', eventStart?.values[0]?.value);
@@ -36,7 +37,7 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
         const calendar = google.calendar({ version: 'v3', auth });
         calendar.events.update(
           {
-            calendarId: 'clinicadentalsante@gmail.com',
+            calendarId: CalendarIdValidate(nameDoctor),
             eventId,
             resource: {
               eventSummary,
@@ -67,7 +68,7 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
         const calendar = google.calendar({ version: 'v3', auth });
         calendar.events.update(
           {
-            calendarId: 'clinicadentalsante@gmail.com',
+            calendarId: CalendarIdValidate(nameDoctor),
             eventId,
             resource: {
               eventSummary,

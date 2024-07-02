@@ -1,5 +1,6 @@
 const { google } = require('googleapis');
 const AuthCalendar = require('../../utils/AuthCalendar');
+const CalendarIdValidate = require("../../utils/CalendarIdValidate");
 const GetAccessToken = require('../kommo/GetAccessToken');
 const GetCustomFields = require('../kommo/GetCustomFields');
 const UpdateLead = require('../kommo/UpdateLead');
@@ -8,9 +9,6 @@ const GetUser = require('../kommo/GetUser');
 
 const RemoveCalendarEvent = async (payload, access_token = null) => {
   try {
-    if (!access_token) {
-      access_token = await GetAccessToken(payload);
-    }
 
     const user = await GetUser(payload, false, access_token);
     const custom_fields = await GetCustomFields(payload, access_token);
@@ -24,6 +22,9 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
     const eventStart = custom_fields?.filter(field => field.name === 'Event Start')[0];
     const eventFilled = custom_fields?.filter(field => field.name === 'Datas ocupadas')[0];
     const eventAvaiable = custom_fields?.filter(field => field.name === 'Datas disponíveis')[0];
+    const nameDoctor = user?.custom_fields_values?.filter(
+      (field) => field.field_name === "Dentista"
+    )[0];
 
     const auth = AuthCalendar.authenticate();
     console.log('Deletando evento...');
@@ -38,7 +39,7 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
         const calendar = google.calendar({ version: 'v3', auth });
         calendar.events.delete(
           {
-            calendarId: 'clinicadentalsante@gmail.com',
+            calendarId: CalendarIdValidate(nameDoctor),
             eventId,
           },
           (err, result) => {
@@ -116,7 +117,7 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
         const calendar = google.calendar({ version: 'v3', auth });
         calendar.events.delete(
           {
-            calendarId: 'clinicadentalsante@gmail.com',
+            calendarId: CalendarIdValidate(nameDoctor),
             eventId,
           },
           (err, result) => {
