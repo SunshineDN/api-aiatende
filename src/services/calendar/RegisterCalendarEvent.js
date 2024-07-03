@@ -37,6 +37,8 @@ const CalendarUtils = require('../../utils/CalendarUtils');
 // };
 
 const RegisterCalendarEvent = async (payload, access_token = null) => {
+  const CalendarUtilsClass = new CalendarUtils(payload?.account?.id);
+
   try {
     const user = await GetUser(payload, false, access_token);
     const custom_fields = await GetCustomFields(payload, access_token);
@@ -96,9 +98,9 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
     console.log('Evento:', event);
 
     try {
-      eventData = await CalendarUtils.executeRegisterEvent( CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id), event);
+      eventData = await CalendarUtilsClass.executeRegisterEvent( CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id), event);
     } catch {
-      eventData = await CalendarUtils.executeRegisterEvent( CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id), event);
+      eventData = await CalendarUtilsClass.executeRegisterEvent( CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id), event);
     }
 
     console.log('Dados do Evento (eventData):', eventData);

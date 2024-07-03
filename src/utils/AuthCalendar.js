@@ -10,7 +10,7 @@ class AuthCalendar {
         key: service_account_dental_sante.private_key,
         scopes: ['https://www.googleapis.com/auth/calendar']
       });
-    }else if (account_id === 31205035){
+    } else if (account_id === 31205035){
       return new google.auth.JWT({
         email: service_account_ai_atende.client_email,
         key: service_account_ai_atende.private_key,

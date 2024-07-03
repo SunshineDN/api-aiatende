@@ -9,6 +9,8 @@ const CalendarIdValidate = require('../../utils/CalendarIdValidate');
 
 const UpdateCalendarEvent = async (payload, access_token = null) => {
   let eventData, nameDoctor;
+  const CalendarUtilsClass = new CalendarUtils(payload?.account?.id);
+
   try {
     const user = await GetUser(payload, false, access_token);
     const eventSummary = user?.custom_fields_values?.filter(field => field.field_name === 'Event Summary')[0];
@@ -34,11 +36,11 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
     };
 
     try {
-      const resultUpdate = await CalendarUtils.executeUpdateEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), eventData);
+      const resultUpdate = await CalendarUtilsClass.executeUpdateEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), eventData);
       console.log('Fim do Updated !');
       return resultUpdate;
     }catch{
-      const resultUpdate = await CalendarUtils.executeUpdateEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), eventData);
+      const resultUpdate = await CalendarUtilsClass.executeUpdateEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), eventData);
       console.log('Fim do Updated !');
       return resultUpdate;
     }

@@ -9,6 +9,7 @@ const CalendarUtils = require('../../utils/CalendarUtils');
 
 const RemoveCalendarEvent = async (payload, access_token = null) => {
   try {
+    const CalendarUtilsClass = new CalendarUtils(payload?.account?.id);
 
     const user = await GetUser(payload, false, access_token);
     const custom_fields = await GetCustomFields(payload, access_token);
@@ -30,10 +31,10 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
 
     console.log('ID do Evento:', eventId?.values[0]?.value);
     try {
-      await CalendarUtils.executeRemoveEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id),eventId);
-     
+      await CalendarUtilsClass.executeRemoveEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id), eventId);
+
     } catch {
-      await CalendarUtils.executeRemoveEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id),eventId);
+      await CalendarUtilsClass.executeRemoveEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id), eventId);
     }
     const bodyReq = {
       'custom_fields_values': [

@@ -4,8 +4,8 @@ const AuthCalendar = require('./AuthCalendar');
 
 class CalendarUtils {
 
-  constructor() {
-    this.authorization = AuthCalendar.authenticate();;
+  constructor(account_id) {
+    this.authorization = AuthCalendar.authenticate(account_id);
   };
 
   async executeListEvents(calendarId) {
@@ -151,4 +151,4 @@ class CalendarUtils {
   };
 }
 
-module.exports = new CalendarUtils;
+module.exports = CalendarUtils;
