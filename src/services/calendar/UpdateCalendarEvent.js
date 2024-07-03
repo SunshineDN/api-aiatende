@@ -8,13 +8,13 @@ const CalendarUtils = require('../../utils/CalendarUtils');
 const CalendarIdValidate = require('../../utils/CalendarIdValidate');
 
 const UpdateCalendarEvent = async (payload, access_token = null) => {
+  let eventData, nameDoctor;
   try {
     const user = await GetUser(payload, false, access_token);
-
     const eventSummary = user?.custom_fields_values?.filter(field => field.field_name === 'Event Summary')[0];
     const eventStart = user?.custom_fields_values?.filter(field => field.field_name === 'Event Start')[0];
     const eventId = user?.custom_fields_values?.filter(field => field.field_name === 'Event ID')[0];
-    const nameDoctor = user?.custom_fields_values?.filter(
+    nameDoctor = user?.custom_fields_values?.filter(
       (field) => field.field_name === 'Dentista'
     )[0];
   
@@ -26,7 +26,7 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
     const startDateTime = parse(eventStart, 'dd/MM/yyyy HH:mm', new Date());
     let endDateTime = new Date(startDateTime);
     endDateTime.setHours(endDateTime.getHours() + 1);
-    let eventData = {
+    eventData = {
       eventId,
       eventSummary,
       startDateTime,
@@ -34,11 +34,11 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
     };
 
     try {
-      const resultUpdate = await CalendarUtils.executeUpdateEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'),eventData);
+      const resultUpdate = await CalendarUtils.executeUpdateEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), eventData);
       console.log('Fim do Updated !');
       return resultUpdate;
     }catch{
-      const resultUpdate = await CalendarUtils.executeUpdateEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'),eventData);
+      const resultUpdate = await CalendarUtils.executeUpdateEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), eventData);
       console.log('Fim do Updated !');
       return resultUpdate;
     }

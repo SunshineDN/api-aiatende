@@ -6,7 +6,7 @@ class CalendarUtils {
 
   constructor() {
     this.authorization = AuthCalendar.authenticate();;
-  }
+  };
 
   async executeListEvents(calendarId) {
     const calendar_return = new Promise((resolve, reject) => {
@@ -20,7 +20,7 @@ class CalendarUtils {
           {
             calendarId: calendarId,
             timeMin: new Date().toISOString(),
-            maxResults: 50,
+            maxResults: 600,
             singleEvents: true,
             orderBy: 'startTime',
           },
@@ -87,6 +87,7 @@ class CalendarUtils {
     });
     return await createEvent;
   };
+
   async executeRemoveEvent(calendarId,eventId){
     const deleteEvent = new Promise((resolve,reject) => {
       this.authorization.authorize((err) => {
@@ -111,7 +112,8 @@ class CalendarUtils {
       });
     });
     return await deleteEvent;
-  }
+  };
+
   async executeUpdateEvent(nameDoctor,eventData){
     const updateEvent = new Promise((resolve, reject) => {
       this.authorization.authorize((err) => {
@@ -146,7 +148,7 @@ class CalendarUtils {
       });
     });
     return await updateEvent;
-  }
+  };
 }
 
 module.exports = new CalendarUtils;

@@ -2,7 +2,8 @@ const { google } = require('googleapis');
 
 class AuthCalendar {
   authenticate(account_id) {
-    const serviceAccount = require(`../config/serviceAccount${account_id}.json`);
+    const service_account_path = `../config/service_account_${account_id}.json`;
+    const serviceAccount = require(service_account_path);
     return new google.auth.JWT({
       email: serviceAccount.client_email,
       key: serviceAccount.private_key,
@@ -11,4 +12,4 @@ class AuthCalendar {
   }
 }
 
-module.exports =  new AuthCalendar;
+module.exports = new AuthCalendar;

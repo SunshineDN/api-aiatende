@@ -62,24 +62,26 @@ const CalendarUtils = require('../../utils/CalendarUtils');
 // }
 
 const ListCalendarEvent = async (payload, access_token = null) => {
-  let eventData, custom_fields, filledDates;
+  let eventData, custom_fields, filledDates, user, nameDoctor;
 
-  const user = await GetUser(payload, false, access_token);
-  const nameDoctor = user?.custom_fields_values?.filter(
-    (field) => field.field_name === 'Dentista'
-  )[0];
-
+  
   try {
+    user = await GetUser(payload, false, access_token);
+    
+    nameDoctor = user?.custom_fields_values?.filter(
+      (field) => field.field_name === 'Dentista'
+    )[0];
+
     custom_fields = await GetCustomFields(payload, access_token);
 
     filledDates = custom_fields?.filter(
       (field) => field.name === 'Datas ocupadas'
     )[0];
 
-    eventData = await CalendarUtils.executeListEvents(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'));
+    eventData = await CalendarUtils.executeListEvents(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id));
   } catch {
     try {
-      eventData = await CalendarUtils.executeListEvents(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'));
+      eventData = await CalendarUtils.executeListEvents(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id));
     } catch (error) {
       if (error.response) {
         console.log(
