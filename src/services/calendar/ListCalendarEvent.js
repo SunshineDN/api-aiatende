@@ -77,37 +77,9 @@ const ListCalendarEvent = async (payload, access_token = null) => {
     )[0];
 
     eventData = await CalendarUtils.executeListEvents(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'));
-
-    const reqBody = {
-      custom_fields_values: [
-        {
-          field_id: filledDates?.id,
-          values: [
-            {
-              value: eventData,
-            },
-          ],
-        },
-      ],
-    };
-    await UpdateLead(payload, reqBody, access_token);
   } catch {
     try {
       eventData = await CalendarUtils.executeListEvents(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'));
-      const reqBody = {
-        custom_fields_values: [
-          {
-            field_id: filledDates?.id,
-            values: [
-              {
-                value: eventData,
-              },
-            ],
-          },
-        ],
-      };
-      await UpdateLead(payload, reqBody, access_token);
-      console.log('Fim do ListCalendar!');
     } catch (error) {
       if (error.response) {
         console.log(
@@ -131,6 +103,20 @@ const ListCalendarEvent = async (payload, access_token = null) => {
       throw new Error('Erro no ListCalendarEvents');
     }
   }
+  const reqBody = {
+    custom_fields_values: [
+      {
+        field_id: filledDates?.id,
+        values: [
+          {
+            value: eventData,
+          },
+        ],
+      },
+    ],
+  };
+  await UpdateLead(payload, reqBody, access_token);
+  console.log('Fim do ListCalendar!');
 };
 
 module.exports = ListCalendarEvent;
