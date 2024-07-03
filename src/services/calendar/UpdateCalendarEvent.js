@@ -1,8 +1,10 @@
+// const AuthCalendar = require('../../utils/AuthCalendar');
+// const { google } = require('googleapis');
+// const CalendarIdValidate = require('../../utils/CalendarIdValidate');
 const { parse } = require('date-fns');
-const AuthCalendar = require('../../utils/AuthCalendar');
-const { google } = require('googleapis');
 const HandlingError = require('../kommo/HandlingError');
 const GetUser = require('../kommo/GetUser');
+const CalendarUtils = require('../../utils/CalendarUtils');
 const CalendarIdValidate = require('../../utils/CalendarIdValidate');
 
 const UpdateCalendarEvent = async (payload, access_token = null) => {
@@ -20,75 +22,25 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
     console.log('Inicio do Evento:', eventStart?.values[0]?.value);
     console.log('ID do Evento:', eventId?.values[0]?.value);
 
-
-    const auth = AuthCalendar.authenticate();
     console.log('Atualizando evento...');
     const startDateTime = parse(eventStart, 'dd/MM/yyyy HH:mm', new Date());
     let endDateTime = new Date(startDateTime);
     endDateTime.setHours(endDateTime.getHours() + 1);
+    let eventData = {
+      eventId,
+      eventSummary,
+      startDateTime,
+      endDateTime
+    };
 
     try {
-      auth.authorize((err) => {
-        if (err) {
-          console.error('Erro na autenticação:', err);
-          throw new Error('Erro na autenticação');
-        }
-        const calendar = google.calendar({ version: 'v3', auth });
-        calendar.events.update(
-          {
-            calendarId: CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'),
-            eventId,
-            resource: {
-              eventSummary,
-              //description,
-              start: {
-                dateTime: startDateTime.toISOString(),
-              },
-              end: {
-                dateTime: endDateTime.toISOString(),
-              },
-            },
-          },
-          (err, result) => {
-            if (err) {
-              console.error('Erro ao atualizar evento:', err);
-              throw new Error('Erro ao atualizar evento');
-            }
-            console.log('Evento atualizado:', result.data.htmlLink);
-            return result.data;
-          });
-      });
+      const resultUpdate = await CalendarUtils.executeUpdateEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'),eventData);
+      console.log('Fim do Updated !');
+      return resultUpdate;
     }catch{
-      auth.authorize((err) => {
-        if (err) {
-          console.error('Erro na autenticação:', err);
-          throw new Error('Erro na autenticação');
-        }
-        const calendar = google.calendar({ version: 'v3', auth });
-        calendar.events.update(
-          {
-            calendarId: CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'),
-            eventId,
-            resource: {
-              eventSummary,
-              //description,
-              start: {
-                dateTime: startDateTime.toISOString(),
-              },
-              end: {
-                dateTime: endDateTime.toISOString(),
-              },
-            },
-          },
-          (err, result) => {
-            if (err) {
-              console.error('Erro ao atualizar evento:', err);
-              throw new Error('Erro ao atualizar evento');
-            }
-            console.log('Evento atualizado:', result.data.htmlLink);
-            return result.data;
-          });
-      });
+      const resultUpdate = await CalendarUtils.executeUpdateEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'),eventData);
+      console.log('Fim do Updated !');
+      return resultUpdate;
     }
   }catch (error) {
     if (error.response) {

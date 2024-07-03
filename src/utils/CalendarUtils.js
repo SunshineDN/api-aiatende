@@ -111,6 +111,41 @@ class CalendarUtils {
     });
     return await deleteEvent;
   }
+  async executeUpdateEvent(nameDoctor,eventData){
+    const updateEvent = new Promise((resolve, reject) => {
+      this.authorization.authorize((err) => {
+        if (err) {
+          console.error('Erro na autenticação:', err);
+          reject(new Error('Erro na autenticação')) ;
+        }
+        const calendar = google.calendar({ version: 'v3', auth: this.authorization });
+        calendar.events.update(
+          {
+            calendarId: nameDoctor,
+            eventId: eventData.eventId,
+            resource: {
+              eventSummary: eventData.eventSummary,
+              //description,
+              start: {
+                dateTime: eventData.startDateTime.toISOString(),
+              },
+              end: {
+                dateTime: eventData.endDateTime.toISOString(),
+              },
+            },
+          },
+          (err, result) => {
+            if (err) {
+              console.error('Erro ao atualizar evento:', err);
+              reject(new Error('Erro ao atualizar evento'));
+            }
+            console.log('Evento atualizado:', result.data.htmlLink);
+            resolve(result.data);
+          });
+      });
+    });
+    return await updateEvent;
+  }
 }
 
-module.exports = new CalendarUtils();
+module.exports = new CalendarUtils;
