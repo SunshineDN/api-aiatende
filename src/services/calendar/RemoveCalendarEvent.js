@@ -14,7 +14,6 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
     const user = await GetUser(payload, false, access_token);
     const custom_fields = await GetCustomFields(payload, access_token);
 
-
     const eventId = user?.custom_fields_values?.filter(field => field.field_name === 'Event ID')[0];
 
     const eventLink = custom_fields?.filter(field => field.name === 'Event Link')[0];
