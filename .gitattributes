@@ -1,3 +1,3 @@
-docker-compose.yml merge=ours
-Dockerfile merge=ours
-.dockerignore merge=ours
+docker-compose.yml export-ignore
+Dockerfile export-ignore
+.dockerignore export-ignore
