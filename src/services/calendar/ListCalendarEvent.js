@@ -62,48 +62,46 @@ const CalendarUtils = require('../../utils/CalendarUtils');
 // }
 
 const ListCalendarEvent = async (payload, access_token = null) => {
-  const CalendarUtilsClass = new CalendarUtils(payload?.account?.id);
-  let eventData, custom_fields, filledDates, user, nameDoctor;
-
-  try {
+  try{
+    const CalendarUtilsClass = new CalendarUtils(payload?.account?.id);
+    let eventData, custom_fields, filledDates, user, nameDoctor;
     user = await GetUser(payload, false, access_token);
-    
+      
     nameDoctor = user?.custom_fields_values?.filter(
       (field) => field.field_name === 'Dentista'
     )[0];
-
+  
     custom_fields = await GetCustomFields(payload, access_token);
-
+  
     filledDates = custom_fields?.filter(
       (field) => field.name === 'Datas ocupadas'
     )[0];
-
-    eventData = await CalendarUtilsClass.executeListEvents(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id));
-  } catch {
     try {
       eventData = await CalendarUtilsClass.executeListEvents(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id));
-    } catch (error) {
-      if (error.response) {
-        console.log(
-          `Erro ao listar eventos no Google Calendar: ${error.response.data}`
-        );
-        await HandlingError(
-          payload,
-          access_token,
-          `Erro ao listar eventos no Google Calendar: ${error.response.data}`
-        );
-      } else {
-        console.log(
-          `Erro ao listar eventos no Google Calendar: ${error.message}`
-        );
-        await HandlingError(
-          payload,
-          access_token,
-          `Erro ao listar eventos no Google Calendar: ${error.message}`
-        );
-      }
-      throw new Error('Erro no ListCalendarEvents');
+    } catch {
+      eventData = await CalendarUtilsClass.executeListEvents(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id));
     }
+  }catch(error) {
+    if (error.response) {
+      console.log(
+        `Erro ao listar eventos no Google Calendar: ${error.response.data}`
+      );
+      await HandlingError(
+        payload,
+        access_token,
+        `Erro ao listar eventos no Google Calendar: ${error.response.data}`
+      );
+    } else {
+      console.log(
+        `Erro ao listar eventos no Google Calendar: ${error.message}`
+      );
+      await HandlingError(
+        payload,
+        access_token,
+        `Erro ao listar eventos no Google Calendar: ${error.message}`
+      );
+    }
+    throw new Error('Erro no ListCalendarEvents');
   }
   const reqBody = {
     custom_fields_values: [
