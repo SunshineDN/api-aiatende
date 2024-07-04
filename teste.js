@@ -60,36 +60,6 @@
 // let times = 1;
 // let message = 'false';
 
-<<<<<<< HEAD
-const wait = (ms) => {
-  return new Promise(resolve => setTimeout(resolve, ms));
-};
-
-const exec = async (times) => {
-  let count = 1;
-  let repeat = 1;
-  let run = {
-    status: 'running'
-  };
-  while (repeat <= times) {
-    console.log('Running assistant');
-    while (count <= 10) {
-      console.log(`${repeat}# ${count}' Run status: ${run.status}`);
-      if(run.status === 'completed') {
-        return;
-      } else if (run.status !== 'completed' && repeat === times && count === 10) {
-        throw new Error('Erro no running da menssagem do Assistant GPT');
-      }
-      await wait(1000);
-      count++;
-    }
-    count = 1;
-    repeat++;
-  }
-};
-
-console.log(exec(2));
-=======
 // const wait = (ms) => {
 //   return new Promise(resolve => setTimeout(resolve, ms));
 // };
@@ -118,7 +88,6 @@ console.log(exec(2));
 // };
 
 // console.log(exec(2));
->>>>>>> 192770ecbd4ace5b150f3399e8e0d5e42cab6b87
 
 // function obterDataHoraLocal() {
 //   // Obter a data e hora atuais para o fuso horário de Recife
@@ -147,8 +116,6 @@ console.log(exec(2));
 // }
 
 // obterDataHoraLocal();
-<<<<<<< HEAD
-=======
 
 const { parse } = require('date-fns');
 
@@ -163,4 +130,3 @@ console.log(startDateTime);
 const endDateTime = new Date(startDateTime);
 endDateTime.setMinutes(endDateTime.getMinutes() + 30);
 console.log(endDateTime);
->>>>>>> 192770ecbd4ace5b150f3399e8e0d5e42cab6b87

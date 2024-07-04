@@ -1,30 +1,10 @@
 version: '3'
 services:
-<<<<<<< HEAD
-  database:
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: docker
-      POSTGRES_PASSWORD: docker
-      POSTGRES_DB: lead-conversation
-    ports:
-      - "5432:5432"
-    volumes:
-      - ./data:/var/lib/postgresql/data
-    networks:
-      - ai-atende-network
-
   backend:
-    depends_on:
-      - database
-=======
-  backend:
->>>>>>> 192770ecbd4ace5b150f3399e8e0d5e42cab6b87
     build: .
     command: "npm run start"
     working_dir: /home/node/app
     environment:
-<<<<<<< HEAD
       - NODE_ENV=production
       - DB_USER=docker
       - DB_PASSWORD=docker
@@ -46,7 +26,6 @@ volumes:
 networks:
   ai-atende-network:
     external: true
-=======
       - NODE_ENV=development
       - DB_USER=docker
       - DB_PASSWORD=docker
@@ -59,4 +38,3 @@ networks:
       - "3000"
     ports:
       - "3000:3000"
->>>>>>> 192770ecbd4ace5b150f3399e8e0d5e42cab6b87

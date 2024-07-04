@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-const axios = require('axios');
-const GetAccessToken = require('../kommo/GetAccessToken');
-const GetUser = require('../kommo/GetUser');
-const GetCustomFields = require('../kommo/GetCustomFields');
-const UpdateLead = require('../kommo/UpdateLead');
-const HandlingError = require('../kommo/HandlingError');
-
-const RemoveCalendarEvent = async (payload, access_token = null) => {
-
-  try {
-    if (!access_token) {
-      access_token = await GetAccessToken(payload);
-    }
-=======
 // const { google } = require('googleapis');
 // const AuthCalendar = require('../../utils/AuthCalendar');
 const CalendarIdValidate = require('../../utils/CalendarIdValidate');
@@ -25,15 +10,10 @@ const CalendarUtils = require('../../utils/CalendarUtils');
 const RemoveCalendarEvent = async (payload, access_token = null) => {
   try {
     const CalendarUtilsClass = new CalendarUtils(payload?.account?.id);
->>>>>>> 192770ecbd4ace5b150f3399e8e0d5e42cab6b87
 
     const user = await GetUser(payload, false, access_token);
     const custom_fields = await GetCustomFields(payload, access_token);
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 192770ecbd4ace5b150f3399e8e0d5e42cab6b87
     const eventId = user?.custom_fields_values?.filter(field => field.field_name === 'Event ID')[0];
 
     const eventLink = custom_fields?.filter(field => field.name === 'Event Link')[0];
@@ -42,31 +22,6 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
     const eventStart = custom_fields?.filter(field => field.name === 'Event Start')[0];
     const eventFilled = custom_fields?.filter(field => field.name === 'Datas ocupadas')[0];
     const eventAvaiable = custom_fields?.filter(field => field.name === 'Datas disponíveis')[0];
-<<<<<<< HEAD
-
-    console.log('ID do Evento:', eventId?.values[0]?.value);
-
-    try {
-      console.log('Primeira tentativa de remover evento no calendário...');
-      await axios.delete(`http://calendar_api_calendar_api_1:3002/delete/${eventId?.values[0]?.value}`).then(() => {
-        console.log('Resposta vinda da API do Google Calendar: Evento deletado!');
-      }).catch((error) => {
-        throw new Error(error);
-      });
-    } catch {
-      try {
-        console.log('Segunda tentativa de remover evento no calendário...');
-        await axios.delete(`http://calendar_api_calendar_api_1:3002/delete/${eventId?.values[0]?.value}`).then(() => {
-          console.log('Resposta vinda da API do Google Calendar: Evento deletado!');
-        }).catch((error) => {
-          throw new Error(error);
-        });
-      } catch (error) {
-        throw new Error(error);
-      }
-    }
-
-=======
     const nameDoctor = user?.custom_fields_values?.filter(
       (field) => field.field_name === 'Dentista'
     )[0];
@@ -80,7 +35,6 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
     } catch {
       await CalendarUtilsClass.executeRemoveEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id), eventId);
     }
->>>>>>> 192770ecbd4ace5b150f3399e8e0d5e42cab6b87
     const bodyReq = {
       'custom_fields_values': [
         {
@@ -149,8 +103,4 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
     throw new Error('Erro no RemoveCalendarEvent');
   };
 };
-<<<<<<< HEAD
-
-=======
->>>>>>> 192770ecbd4ace5b150f3399e8e0d5e42cab6b87
 module.exports = RemoveCalendarEvent;
