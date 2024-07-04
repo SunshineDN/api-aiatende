@@ -51,7 +51,7 @@ const FormatTelephone = (numero) => {
   }
   
   // Retornar o número formatado
-  return `+55 ${ddd} ${newNumber.substring(0,4)}-${newNumber.substring(4)}`;
+  return `+55${ddd}${newNumber.substring(0,4)}${newNumber.substring(4)}`;
 };
 
 module.exports = FormatTelephone;
