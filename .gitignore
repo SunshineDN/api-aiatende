@@ -1,8 +1,4 @@
 node_modules
 *.env
-<<<<<<< HEAD
-*data
-=======
 *data
 *service_account_*.json
->>>>>>> 192770ecbd4ace5b150f3399e8e0d5e42cab6b87
