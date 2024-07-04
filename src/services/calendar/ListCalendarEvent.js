@@ -62,9 +62,9 @@ const CalendarUtils = require('../../utils/CalendarUtils');
 // }
 
 const ListCalendarEvent = async (payload, access_token = null) => {
+  let eventData, custom_fields, filledDates, user, nameDoctor;
   try{
     const CalendarUtilsClass = new CalendarUtils(payload?.account?.id);
-    let eventData, custom_fields, filledDates, user, nameDoctor;
     user = await GetUser(payload, false, access_token);
       
     nameDoctor = user?.custom_fields_values?.filter(
