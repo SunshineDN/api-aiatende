@@ -3,6 +3,7 @@ const HandlingError = require('../services/kommo/HandlingError');
 const SetActualDateHour = require('../services/kommo/SetActualDateHour');
 const SplitDataFields = require('../services/kommo/SplitDataFields');
 const SplitSchedulingFields = require('../services/kommo/SplitSchedulingFields');
+const addTelephoneService = require('../services/kommo/AddTelephoneService')
 
 class LeadController {
   async index(req, res) {
@@ -36,6 +37,17 @@ class LeadController {
     } catch (error) {
       console.error('Error on setSplitSchedulingFields:', error);
       res.status(500).json({ error });
+    }
+  }
+
+  async addTelephone (req, res){
+    try{
+      const access_token = await GetAccessToken(req.body);
+      await  addTelephoneService(req.body, access_token)
+
+    }catch(error) {
+      console.error('Error on setSplitSchedulingFields:', error);
+      res.status(500).json({ error })
     }
   }
 
