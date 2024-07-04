@@ -27,7 +27,7 @@ services:
       - DB_HOST=localhost
       - DB_NAME=lead-conversation
       - TABLE_NAME=lead_threads
-      - DB_URL=postgres://docker:docker@aiatende.com:5432/lead-conversation
+      - DB_URL=postgres://docker:docker@database:5432/lead-conversation
     expose:
       - "3000"
     ports:
