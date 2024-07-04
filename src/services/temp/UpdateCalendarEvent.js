@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const axios = require('axios');
 const GetAccessToken = require('../kommo/GetAccessToken');
 const GetUser = require('../kommo/GetUser');
@@ -14,35 +13,11 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
     const eventSummary = user?.custom_fields_values?.filter(field => field.field_name === 'Event Summary')[0];
     const eventStart = user?.custom_fields_values?.filter(field => field.field_name === 'Event Start')[0];
     const eventId = user?.custom_fields_values?.filter(field => field.field_name === 'Event ID')[0];
-=======
-// const AuthCalendar = require('../../utils/AuthCalendar');
-// const { google } = require('googleapis');
-// const CalendarIdValidate = require('../../utils/CalendarIdValidate');
-const { parse } = require('date-fns');
-const HandlingError = require('../kommo/HandlingError');
-const GetUser = require('../kommo/GetUser');
-const CalendarUtils = require('../../utils/CalendarUtils');
-const CalendarIdValidate = require('../../utils/CalendarIdValidate');
-
-const UpdateCalendarEvent = async (payload, access_token = null) => {
-  let eventData, nameDoctor;
-  const CalendarUtilsClass = new CalendarUtils(payload?.account?.id);
-
-  try {
-    const user = await GetUser(payload, false, access_token);
-    const eventSummary = user?.custom_fields_values?.filter(field => field.field_name === 'Event Summary')[0];
-    const eventStart = user?.custom_fields_values?.filter(field => field.field_name === 'Event Start')[0];
-    const eventId = user?.custom_fields_values?.filter(field => field.field_name === 'Event ID')[0];
-    nameDoctor = user?.custom_fields_values?.filter(
-      (field) => field.field_name === 'Dentista'
-    )[0];
->>>>>>> 192770ecbd4ace5b150f3399e8e0d5e42cab6b87
   
     console.log('Sumário:', eventSummary?.values[0]?.value);
     console.log('Inicio do Evento:', eventStart?.values[0]?.value);
     console.log('ID do Evento:', eventId?.values[0]?.value);
 
-<<<<<<< HEAD
     try {
       console.log('Primeira tentativa de atualizar evento no calendário...');
       await axios.patch(`http://calendar_api_calendar_api_1:3002/update/${eventId?.values[0]?.value}`, {
@@ -72,29 +47,6 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
     console.log('Evento atualizado com sucesso!');
 
   } catch (error) {
-=======
-    console.log('Atualizando evento...');
-    const startDateTime = parse(eventStart, 'dd/MM/yyyy HH:mm', new Date());
-    let endDateTime = new Date(startDateTime);
-    endDateTime.setHours(endDateTime.getHours() + 1);
-    eventData = {
-      eventId,
-      eventSummary,
-      startDateTime,
-      endDateTime
-    };
-
-    try {
-      const resultUpdate = await CalendarUtilsClass.executeUpdateEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), eventData);
-      console.log('Fim do Updated !');
-      return resultUpdate;
-    }catch{
-      const resultUpdate = await CalendarUtilsClass.executeUpdateEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), eventData);
-      console.log('Fim do Updated !');
-      return resultUpdate;
-    }
-  }catch (error) {
->>>>>>> 192770ecbd4ace5b150f3399e8e0d5e42cab6b87
     if (error.response) {
       console.log(`Erro ao atualizar evento no Google Calendar: ${error.response.data}`);
       await HandlingError(payload, access_token, `Erro ao atualizar evento no Google Calendar: ${error.response.data}`);
@@ -103,11 +55,7 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
       await HandlingError(payload, access_token, `Erro ao atualizar evento no Google Calendar: ${error.message}`);
     }
     throw new Error('Erro no UpdateCalendarEvent');
-<<<<<<< HEAD
   };
-=======
-  }
->>>>>>> 192770ecbd4ace5b150f3399e8e0d5e42cab6b87
 };
 
 module.exports = UpdateCalendarEvent;

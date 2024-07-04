@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 const ListCalendarEvents = require('../services/calendar/ListCalendarEvents');
+=======
+const ListCalendarEvents = require('../services/calendar/ListCalendarEvent');
+>>>>>>> 192770ecbd4ace5b150f3399e8e0d5e42cab6b87
 const RegisterCalendarEvent = require('../services/calendar/RegisterCalendarEvent');
 const RemoveCalendarEvent = require('../services/calendar/RemoveCalendarEvent');
 const UpdateCalendarEvent = require('../services/calendar/UpdateCalendarEvent');

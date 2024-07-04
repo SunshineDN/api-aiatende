@@ -20,7 +20,16 @@ const GetAccessToken = async (payload) => {
         client_code: process.env.CLIENT_CODE,
         grant_type: 'authorization_code'
       };
+<<<<<<< HEAD
       const { data: { access_token } } = await axios.post('http://token-api_backend-token_1:3001/auth/access_token', req);
+=======
+      let access_token;
+      if (process.env.NODE_ENV === 'production') {
+        ({ data: { access_token } } = await axios.post('http://token-api_backend-token_1:3001/auth/access_token', req));
+      } else {
+        ({ data: { access_token } } = await axios.post('http://aiatende.com:3001/auth/access_token', req));
+      }
+>>>>>>> 192770ecbd4ace5b150f3399e8e0d5e42cab6b87
       console.log('Token novo criado e recebido');
       return access_token;
     } catch (error) {
