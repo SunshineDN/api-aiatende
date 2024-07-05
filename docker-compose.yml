@@ -14,16 +14,16 @@ services:
       - TABLE_NAME=lead_threads
       - DB_URL=postgres://docker:docker@aiatende.com:5432/lead-conversation
     expose:
-      - "3000"
+      - "3001"
     ports:
-      - "3000:3000"
+      - "3001:3001"
     networks:
       - app-network
   nginx:
     restart: always
     build: ./nginx
     ports:
-        - "8081:8080"
+        - "3000:8080"
     depends_on:
       - node-app
     networks:
