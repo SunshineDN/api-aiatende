@@ -1,3 +1,4 @@
+const ListCalendarDate = require('../services/calendar/ListCalendarDate');
 const ListCalendarEvents = require('../services/calendar/ListCalendarEvent');
 const RegisterCalendarEvent = require('../services/calendar/RegisterCalendarEvent');
 const RemoveCalendarEvent = require('../services/calendar/RemoveCalendarEvent');
@@ -28,6 +29,14 @@ class CalendarController {
       res.status(500).json({ error });
     }
   };
+  async list (req,res){
+    try {
+      await ListCalendarDate();
+    } catch (error) {
+      console.error('Error on listEvents:', error);
+      res.status(500).json({ error });
+    }
+  }
 
   async addEvent(req, res) {
     try {

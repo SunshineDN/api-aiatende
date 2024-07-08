@@ -1,6 +1,6 @@
 const CalendarId = require('../config/calendarId');
 
-const CalendarIdValidate = (condition, account_id) => {
+const CalendarIdValidate = (condition = null, account_id) => {
   console.log('Account ID (CalendarIdValidate): ', account_id);
   if (account_id === 32000011) {
     if(condition === 'Dra. Juliana Leite'){
