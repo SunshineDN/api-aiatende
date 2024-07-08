@@ -4,5 +4,5 @@ WORKDIR /home/node/app
 COPY package*.json ./
 RUN npm install
 COPY --chown=node:node . .
-EXPOSE 3001
+EXPOSE 3005
 CMD [ "node", "app.js" ]

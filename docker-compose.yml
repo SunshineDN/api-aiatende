@@ -1,7 +1,6 @@
-version: '3'
 services:
-  node-app:
-    build: ./node-app
+  backend:
+    build: .
     command: "npm run start"
     working_dir: /home/node/app
     environment:
@@ -16,19 +15,19 @@ services:
     expose:
       - "3001"
     ports:
-      - "3001:3001"
+      - "3005:3005"
     networks:
       - app-network
+
   nginx:
     restart: always
     build: ./nginx
     ports:
-        - "3000:8080"
+        - "3000:80"
     depends_on:
-      - node-app
+      - backend
     networks:
       - app-network
-
 
 networks:
   app-network:
