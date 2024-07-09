@@ -1,6 +1,6 @@
 const { google } = require('googleapis');
-const service_account_ai_atende = require('../../node-app/src/config/service_account_31205035.json');
-const service_account_dental_sante = require('../../node-app/src/config/service_account_32000011.json');
+const service_account_ai_atende = require('../config/service_account_31205035.json');
+const service_account_dental_sante = require('../config/service_account_32000011.json');
 
 class AuthCalendar {
   authenticate(account_id) {

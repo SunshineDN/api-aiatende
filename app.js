@@ -31,9 +31,9 @@ app.use('/gpt/v1', gptRouter);
 app.use('/calendar', calendarRouter);
 app.use('/account', accountRouter);
 
-app.use((req, res) => {
-  res.status(404).json({error: 'Endpoint não encontrado!'});
-});
+// app.use((req, res) => {
+//   res.status(404).json({error: 'Endpoint não encontrado!'});
+// });
 
 app.listen(PORT, async () => {
   console.log('Servidor rodando na porta: '.info + `${PORT}`.attention);
