@@ -150,9 +150,8 @@ class CalendarUtils {
     return await updateEvent;
   };
 
-  async list (calendarId) {
+  async listAvailableDate (calendarId) {
     console.log('Id: ', calendarId);
-
     const calendar_return = new Promise((resolve, reject) => {
       this.authorization.authorize((err) => {
         if (err) {
@@ -188,14 +187,12 @@ class CalendarUtils {
                   'pt-BR',
                   { timeZone: 'America/Sao_Paulo' }
                 );
-                let endDateSplit = endDate.split(', ');
-                console.log('End DAte :',endDateSplit);
+                let endDateSplit = endDate.split(', ');                
                 endDate = endDateSplit[1].substring(0,5);
                   
-                res.push({'horario': `${startDate} - ${endDate}`});
+                res.push({'Data': endDateSplit[0] , 'Horario': `${startDate} - ${endDate}`});
 
               });
-              console.log(res);
               resolve( res ); 
             } else {
               reject(new Error('Eventos não encontrados.'));

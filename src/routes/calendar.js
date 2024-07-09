@@ -11,7 +11,7 @@ router.get('/', CalendarController.index);
 
 router.post('/listEvents', CalendarController.listEvents);
 
-router.post('/list', CalendarController.list);
+router.post('/listDates', CalendarController.listAvailableDate);
 
 router.post('/addEvent', CalendarController.addEvent);
 
