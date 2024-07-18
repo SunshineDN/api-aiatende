@@ -62,6 +62,9 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
     const eventID = custom_fields?.filter(
       (field) => field.name === 'Event ID'
     )[0];
+    const dataAgendamento = custom_fields?.filter(
+      (field) => field.name === 'Data do Agendamento'
+    )[0];
 
     console.log('Sumário:', eventSummary?.values[0]?.value);
     console.log('Inicio do Evento:', eventStart?.values[0]?.value);
@@ -83,6 +86,9 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
     console.log('summary:', summary);
     console.log('startDateTime:', startDateTime);
     console.log('endDateTime:', endDateTime);
+
+    const schedule_date_hour_to_ms = startDateTime.getTime();
+    const schedule_date_in_ms = Math.round(schedule_date_hour_to_ms / 1000);
 
     const event = {
       summary,
@@ -119,6 +125,14 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
           values: [
             {
               value: eventData?.htmlLink,
+            },
+          ],
+        },
+        {
+          field_id: dataAgendamento?.id,
+          values: [
+            {
+              value: schedule_date_in_ms,
             },
           ],
         },
