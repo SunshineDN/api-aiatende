@@ -29,15 +29,16 @@ class CalendarController {
       res.status(500).json({ error });
     }
   };
-  async listAvailableDate (req,res){
+
+  async listAvailableDate(req,res) {
     try {
-      const access_token = await GetAccessToken(req.body)
-      await ListCalendarDate(req.body,access_token);
+      const access_token = await GetAccessToken(req.body);
+      await ListCalendarDate(req.body, access_token);
     } catch (error) {
       console.error('Error on listEvents:', error);
       res.status(500).json({ error });
     }
-  }
+  };
 
   async addEvent(req, res) {
     try {
