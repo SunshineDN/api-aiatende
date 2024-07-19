@@ -89,14 +89,14 @@ class CalendarUtils {
     return await createEvent;
   };
 
-  async executeRemoveEvent(calendarId,eventId){
-    const deleteEvent = new Promise((resolve,reject) => {
+  async executeRemoveEvent(calendarId, eventId) {
+    const deleteEvent = new Promise((resolve, reject) => {
       this.authorization.authorize((err) => {
         if (err) {
           console.error('Erro na autenticação:', err);
           reject(new Error('Erro na autenticação'));
         }
-        const calendar = google.calendar({ version: 'v3', auth:this.authorization });
+        const calendar = google.calendar({ version: 'v3', auth: this.authorization });
         calendar.events.delete(
           {
             calendarId,
@@ -108,19 +108,19 @@ class CalendarUtils {
               reject(new Error('Erro ao deletar evento'));
             }
             console.log('Evento deletado com sucesso.');
-            resolve(result.data); 
+            resolve(result.data);
           });
       });
     });
     return await deleteEvent;
   };
 
-  async executeUpdateEvent(nameDoctor,eventData){
+  async executeUpdateEvent(nameDoctor, eventData) {
     const updateEvent = new Promise((resolve, reject) => {
       this.authorization.authorize((err) => {
         if (err) {
           console.error('Erro na autenticação:', err);
-          reject(new Error('Erro na autenticação')) ;
+          reject(new Error('Erro na autenticação'));
         }
         const calendar = google.calendar({ version: 'v3', auth: this.authorization });
         calendar.events.update(
@@ -151,7 +151,7 @@ class CalendarUtils {
     return await updateEvent;
   };
 
-  async listAvailableDate (calendarId) {
+  async listAvailableDate(calendarId) {
     // console.log('Id: ', calendarId);
     // const calendar_return = new Promise((resolve, reject) => {
     //   this.authorization.authorize((err) => {
@@ -191,7 +191,7 @@ class CalendarUtils {
     //             );
     //             let endDateSplit = endDate.split(', ');                
     //             endDate = endDateSplit[1].substring(0,5);
-                  
+
     //             res.push({'Data': endDateSplit[0] , 'Horario': `${startDate} - ${endDate}`});
 
     //           });
@@ -249,7 +249,7 @@ class CalendarUtils {
                 const eventStart = new Date(event.start.dateTime);
                 const eventEnd = new Date(event.end.dateTime);
                 if ((interval.start >= eventStart && interval.start < eventEnd) ||
-                    (interval.end > eventStart && interval.end <= eventEnd)) {
+                  (interval.end > eventStart && interval.end <= eventEnd)) {
                   return false;
                 }
               }
@@ -265,7 +265,8 @@ class CalendarUtils {
 
             // Loop para cada dia da semana
             const daysOfWeek = [1, 2, 3, 4, 5, 6, 0]; // Domingo é 0, Sábado é 6
-            const now = new Date();
+            const dataHoraBrasil = new Date();
+            const now = new Date(dataHoraBrasil.getTime() + (dataHoraBrasil.getTimezoneOffset() * 60000));
             const daysToCheck = 31; // Por exemplo, verificar 30 dias a partir de hoje
 
             for (let i = 0; i < daysToCheck; i++) {
@@ -277,11 +278,24 @@ class CalendarUtils {
               let dayEnd = new Date(currentDate);
 
               if (dayOfWeek >= 1 && dayOfWeek <= 5) { // Segunda a Sexta
-                dayStart.setHours(8, 0, 0, 0);
-                dayEnd.setHours(20, 0, 0, 0);
+                // Setar o horário atual para o início do dia
+                if (i === 0) {
+                  let currentMinutes = currentDate.getMinutes();
+                  let currentHours = currentDate.getHours();
+                  if (currentMinutes < 30) {
+                    currentMinutes = 30;
+                  } else {
+                    currentMinutes = 0;
+                    currentHours++;
+                  }
+                  dayStart.setHours(currentHours, currentMinutes, 0, 0);
+                } else {
+                  dayStart.setHours(11, 0, 0, 0);
+                };
+                dayEnd.setHours(23, 0, 0, 0);
               } else if (dayOfWeek === 6) { // Sábado
-                dayStart.setHours(8, 0, 0, 0);
-                dayEnd.setHours(13, 0, 0, 0);
+                dayStart.setHours(11, 0, 0, 0);
+                dayEnd.setHours(16, 0, 0, 0);
               } else {
                 continue; // Ignorar domingos
               }
@@ -293,7 +307,7 @@ class CalendarUtils {
 
               const availableIntervals = getAvailableIntervalsForDay(dayStart, dayEnd, dayEvents);
               availableIntervals.forEach(interval => {
-                availableTimes.push(`${interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })} - ${interval.end.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}`);
+                availableTimes.push(`${interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[0]} ${interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo'}).split(', ')[1]}`);
               });
             }
 
@@ -302,8 +316,6 @@ class CalendarUtils {
               availableTimes.forEach(interval => {
                 string += `${interval}\n`;
               });
-              console.log(string);
-              console.log('Qtd. dados listados:', availableTimes.length);
               resolve(string);
             } else {
               reject(new Error('Nenhum intervalo disponível encontrado.'));

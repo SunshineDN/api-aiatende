@@ -101,32 +101,33 @@
 //     minute: 'numeric', 
 //     second: 'numeric' 
 //   };
-  
+
 //   const dataHoraLocal = dataAtual.toLocaleString('pt-BR', opcoes);
-  
+
 //   // Obter o dia da semana
 //   const opcoesDiaSemana = { 
 //     timeZone: 'America/Recife',
 //     weekday: 'long'
 //   };
 //   const diaSemana = dataAtual.toLocaleDateString('pt-BR', opcoesDiaSemana);
-  
+
 //   console.log(`Data e Hora local: ${dataHoraLocal}`);
 //   console.log(`Dia da semana: ${diaSemana}`);
 // }
 
 // obterDataHoraLocal();
 
-const { parse } = require('date-fns');
+// const { parse } = require('date-fns');
 
-const startDateTime = parse(
-  '03/07/2024 19:00',
-  'dd/MM/yyyy HH:mm',
-  new Date()
-);
-startDateTime.setHours(startDateTime.getHours() + 3);
-console.log(startDateTime);
+// const startDateTime = parse(
+//   '03/07/2024 19:00',
+//   'dd/MM/yyyy HH:mm',
+//   new Date()
+// );
+// startDateTime.setHours(startDateTime.getHours() + 3);
+// console.log(startDateTime);
 
-const endDateTime = new Date(startDateTime);
-endDateTime.setMinutes(endDateTime.getMinutes() + 30);
-console.log(endDateTime);
+// const endDateTime = new Date(startDateTime);
+// endDateTime.setMinutes(endDateTime.getMinutes() + 30);
+// console.log(endDateTime);
+
