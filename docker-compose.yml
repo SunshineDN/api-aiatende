@@ -44,7 +44,7 @@ services:
     depends_on:
       - backend
     networks:
-      - app-network
+      - ai-atende-network
 
 volumes:
   data:
