@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3005;
 const leadRouter = require('./src/routes/lead');
 const gptRouter = require('./src/routes/gpt');
 const accountRouter = require('./src/routes/account');
@@ -31,9 +31,9 @@ app.use('/gpt/v1', gptRouter);
 app.use('/calendar', calendarRouter);
 app.use('/account', accountRouter);
 
-app.use((req, res) => {
-  res.status(404).json({error: 'Endpoint não encontrado!'});
-});
+// app.use((req, res) => {
+//   res.status(404).json({error: 'Endpoint não encontrado!'});
+// });
 
 app.listen(PORT, async () => {
   console.log('Servidor rodando na porta: '.info + `${PORT}`.attention);

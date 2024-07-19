@@ -1,4 +1,4 @@
 node_modules
-*.env
+.env
 *data
 *service_account_*.json
