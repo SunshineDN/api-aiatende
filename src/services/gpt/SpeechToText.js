@@ -18,6 +18,7 @@ const SpeechToText = async (payload, access_token = null) => {
     const { text_audio, lead_id } = payload;
 
     const message_received = user?.custom_fields_values?.filter(field => field.field_name === 'GPT | Message received')[0];
+    const channel = user?.custom_fields_values?.filter(field => field.field_name === 'CANAL')[0];
 
     // const URL = 'https://gpt.aiatende.com.br/audio-to-text';
     // const data = {
@@ -34,26 +35,52 @@ const SpeechToText = async (payload, access_token = null) => {
 
     const message = `${message_received?.values[0]?.value || ''}\n${transcription}`;
 
-    const kommoData = {
-      'custom_fields_values': [
-        {
-          'field_id': message_received_field?.id,
-          'values': [
-            {
-              'value': message
-            }
-          ]
-        },
-        {
-          'field_id': send_audio_field?.id,
-          'values': [
-            {
-              'value': true
-            }
-          ]
-        }
-      ]
-    };
+    let kommoData;
+
+
+    if (channel?.values[0]?.value === 'WHATSAPP LITE') {
+      kommoData = {
+        'custom_fields_values': [
+          {
+            'field_id': message_received_field?.id,
+            'values': [
+              {
+                'value': message
+              }
+            ]
+          },
+          {
+            'field_id': send_audio_field?.id,
+            'values': [
+              {
+                'value': true
+              }
+            ]
+          }
+        ]
+      };
+    } else {
+      kommoData = {
+        'custom_fields_values': [
+          {
+            'field_id': message_received_field?.id,
+            'values': [
+              {
+                'value': message
+              }
+            ]
+          },
+          {
+            'field_id': send_audio_field?.id,
+            'values': [
+              {
+                'value': false
+              }
+            ]
+          }
+        ]
+      };
+    }
     await UpdateLead(payload, kommoData, access_token);
     console.log('Lead atualizado com mensagem transcrita');
     return;
