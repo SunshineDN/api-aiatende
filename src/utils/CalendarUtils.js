@@ -307,7 +307,31 @@ class CalendarUtils {
 
               const availableIntervals = getAvailableIntervalsForDay(dayStart, dayEnd, dayEvents);
               availableIntervals.forEach(interval => {
-                availableTimes.push(`${interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[0]} ${interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo'}).split(', ')[1]}`);
+                let weekday = '';
+                switch (dayOfWeek) {
+                  case 1:
+                    weekday = 'Segunda-feira';
+                    break;
+                  case 2:
+                    weekday = 'Terça-feira';
+                    break;
+                  case 3:
+                    weekday = 'Quarta-feira';
+                    break;
+                  case 4:
+                    weekday = 'Quinta-feira';
+                    break;
+                  case 5:
+                    weekday = 'Sexta-feira';
+                    break;
+                  case 6:
+                    weekday = 'Sábado';
+                    break;
+                  case 0:
+                    weekday = 'Domingo';
+                    break;
+                }
+                availableTimes.push(`${weekday} - ${interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[0]} ${interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo'}).split(', ')[1]}`);
               });
             }
 
