@@ -212,7 +212,7 @@ class OpenAIController {
             content: text
           }
         ],
-        model: 'gpt-3.5-turbo-1106'
+        model: 'gpt-4o-mini'
       });
 
       return { message: completions.choices[0].message.content };
@@ -355,7 +355,7 @@ class OpenAIController {
   async generateText(message) {
     try {
       const { data } = await axios.post('https://api.openai.com/v1/chat/completions', {
-        model: 'gpt-3.5-turbo',
+        model: 'gpt-4o-mini',
         messages: [
           {
             role: 'user',
