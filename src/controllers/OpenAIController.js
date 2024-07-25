@@ -196,7 +196,10 @@ class OpenAIController {
         existThreads.threadID[indexOfAssistant]
       );
 
-      return { message: messages_response.data[0].content[0].text.value };
+      console.log('Messages response'.magenta.bold);
+      console.dir(messages_response?.data[0], { depth: null });
+
+      return { message: messages_response?.data[0]?.content[0]?.text?.value };
     } catch (error) {
       console.error(error);
       throw new Error(error);
