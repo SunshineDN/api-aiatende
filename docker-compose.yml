@@ -22,8 +22,8 @@ services:
     working_dir: /home/node/app
     environment:
       - NODE_ENV=development
-      - DB_USER=docker
-      - DB_PASSWORD=docker
+      - DB_USER=docker_nelson
+      - DB_PASSWORD=docker_nelson
       - DB_DIALECT=postgres
       - DB_HOST=cl001-nelson-db
       - DB_NAME=lead-conversation
