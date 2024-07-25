@@ -2,15 +2,15 @@ services:
   cl001-nelson-db:
     image: postgres:latest
     environment:
-      POSTGRES_USER: docker
-      POSTGRES_PASSWORD: docker
+      POSTGRES_USER: docker_nelson
+      POSTGRES_PASSWORD: docker_nelson
       POSTGRES_DB: lead-conversation
     ports:
-      - "5433:5433"
+      - "5433:5432"
     volumes:
       - ./data:/var/lib/postgresql/data
     networks:
-      - ai-atende-network
+      - cl001-nelson-ntwrk
 
   cl001-nelson-backend:
     depends_on:
@@ -19,20 +19,21 @@ services:
     command: "npm run start"
     working_dir: /home/node/app
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - DB_USER=docker
       - DB_PASSWORD=docker
       - DB_DIALECT=postgres
-      - DB_HOST=localhost
+      - DB_HOST=cl001-nelson-db
       - DB_NAME=lead-conversation
+      - DB_PORT=5432
       - TABLE_NAME=lead_threads
-      - DB_URL=postgres://docker:docker@database:5433/lead-conversation
+      - DB_URL=postgres://docker:docker@database:5432/lead-conversation
     expose:
       - "3100"
     ports:
       - "3100:3100"
     networks:
-      - ai-atende-network
+      - cl001-nelson-ntwrk
     
   cl001-nelson-nginx:
     restart: always
@@ -42,11 +43,11 @@ services:
     depends_on:
       - cl001-nelson-backend
     networks:
-      - ai-atende-network
+      - cl001-nelson-ntwrk
 
 volumes:
   data:
 
 networks:
-  ai-atende-network:
+  cl001-nelson-ntwrk:
     external: true
