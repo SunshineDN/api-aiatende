@@ -1,3 +1,4 @@
+require('dotenv').config();
 const GetAccessToken = require('../services/kommo/GetAccessToken');
 const VerifyFieldsGpt = require('../services/kommo/VerifyFieldsGpt');
 
@@ -8,7 +9,7 @@ class AccountController {
 
   async verifyFields(req, res) {
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       await VerifyFieldsGpt(req.body, res, access_token);
     } catch (error) {
       console.error('Error on verifyFields:', error);

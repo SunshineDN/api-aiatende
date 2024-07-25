@@ -1,3 +1,4 @@
+require('dotenv').config();
 const GetGptAssistantMessage = require('../services/gpt/GetGptAssistantMessage');
 const GetGptPromptMessage = require('../services/gpt/GetGptPrompMessage');
 const SpeechToText = require('../services/gpt/SpeechToText');
@@ -16,7 +17,7 @@ class GptController {
     const { assistant_id } = req.params;
 
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       await GetGptAssistantMessage(req.body, assistant_id, access_token);
     } catch (error) {
       console.error('Error on messageToAssistant:', error);
@@ -26,7 +27,7 @@ class GptController {
 
   async messageToPrompt(req, res) {
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       await GetGptPromptMessage(req.body, access_token);
     } catch (error) {
       console.error('Error on messageToPrompt:', error);
@@ -41,7 +42,7 @@ class GptController {
     }
 
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       await SpeechToText(req.body, access_token);
     } catch (error) {
       console.error('Error on transcribeMessage:', error);
@@ -51,7 +52,7 @@ class GptController {
 
   async sendAudioFromGpt(req, res) {
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       await TextToSpeech(req.body, access_token);
     } catch (error) {
       console.error('Error on sendAudioFromGpt:', error);
@@ -62,7 +63,7 @@ class GptController {
   async deleteThread(req, res) {
     const { lead_id } = req.body;
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       await OpenAIController.deleteThread(lead_id);
       await SendLog(req.body, 'Histórico de conversas no assistente apagados com sucesso!', access_token);
     } catch (error) {

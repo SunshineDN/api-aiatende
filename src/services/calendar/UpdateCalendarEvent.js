@@ -9,7 +9,7 @@ const CalendarIdValidate = require('../../utils/CalendarIdValidate');
 
 const UpdateCalendarEvent = async (payload, access_token = null) => {
   let eventData, nameDoctor;
-  const CalendarUtilsClass = new CalendarUtils(payload?.account?.id);
+  const CalendarUtilsClass = new CalendarUtils();
 
   try {
     const user = await GetUser(payload, false, access_token);
@@ -17,7 +17,7 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
     const eventStart = user?.custom_fields_values?.filter(field => field.field_name === 'Event Start')[0];
     const eventId = user?.custom_fields_values?.filter(field => field.field_name === 'Event ID')[0];
     nameDoctor = user?.custom_fields_values?.filter(
-      (field) => field.field_name === 'Dentista'
+      (field) => field.field_name === 'Dentista' || field.field_name === 'Médico'
     )[0];
   
     console.log('Sumário:', eventSummary?.values[0]?.value);

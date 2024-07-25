@@ -1,3 +1,4 @@
+require('dotenv').config();
 const ListCalendarEvents = require('../services/calendar/ListCalendarEvent');
 const RegisterCalendarEvent = require('../services/calendar/RegisterCalendarEvent');
 const RemoveCalendarEvent = require('../services/calendar/RemoveCalendarEvent');
@@ -12,7 +13,8 @@ class CalendarController {
 
   async teste(req, res) {
     try {
-      const user = await GetUser(req.body, true);
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const user = await GetUser(req.body, true, access_token);
       res.json(user);
     } catch (error) {
       res.status(500).json({ error });
@@ -21,7 +23,7 @@ class CalendarController {
 
   async listEvents(req, res) {
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       await ListCalendarEvents(req.body, access_token);
     } catch (error) {
       console.error('Error on listEvents:', error);
@@ -31,7 +33,7 @@ class CalendarController {
 
   async addEvent(req, res) {
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       await RegisterCalendarEvent(req.body, access_token);
     } catch (error) {
       console.error('Error on addEvent:', error);
@@ -41,7 +43,7 @@ class CalendarController {
 
   async updateEvent(req, res) {
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       await UpdateCalendarEvent(req.body, access_token);
     } catch (error) {
       console.error('Error on updateEvent:', error);
@@ -51,7 +53,7 @@ class CalendarController {
 
   async removeEvent(req, res) {
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       await RemoveCalendarEvent(req.body, access_token);
     } catch (error) {
       console.error('Error on removeEvent:', error);

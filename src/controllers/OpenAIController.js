@@ -303,18 +303,9 @@ class OpenAIController {
     }
   }
 
-  async textToAudio(message, phone, business) {
-
-    let access_token, instance_id;
-
-    console.log('Business:', business);
-    if (business === 'kommoatende') {
-      access_token = process.env.API_KEY_ZAPSTER_AIATENDE;
-      instance_id = process.env.INSTANCE_ID_ZAPSTER_AIATENDE;
-    } else if (business === 'kommoagendamento') {
-      access_token = process.env.API_KEY_ZAPSTER_DENTALSANTE;
-      instance_id = process.env.INSTANCE_ID_ZAPSTER_DENTALSANTE;
-    }
+  async textToAudio(message, phone) {
+    const access_token = process.env.API_KEY_ZAPSTER;
+    const instance_id = process.env.INSTANCE_ID_ZAPSTER;
 
     console.log('API Key:', access_token);
     console.log('Instance ID:', instance_id);

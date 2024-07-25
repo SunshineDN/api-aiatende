@@ -1,34 +1,52 @@
 services:
-  backend:
+  cl001-nelson-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: lead-conversation
+    ports:
+      - "5433:5433"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    networks:
+      - ai-atende-network
+
+  cl001-nelson-backend:
+    depends_on:
+      - cl001-nelson-db
     build: .
     command: "npm run start"
     working_dir: /home/node/app
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
       - DB_USER=docker
       - DB_PASSWORD=docker
       - DB_DIALECT=postgres
-      - DB_HOST=aiatende.com
+      - DB_HOST=localhost
       - DB_NAME=lead-conversation
       - TABLE_NAME=lead_threads
-      - DB_URL=postgres://docker:docker@aiatende.com:5432/lead-conversation
+      - DB_URL=postgres://docker:docker@database:5433/lead-conversation
     expose:
-      - "3005"
+      - "3100"
     ports:
-      - "3005:3005"
+      - "3100:3100"
     networks:
-      - app-network
-
-  nginx:
+      - ai-atende-network
+    
+  cl001-nelson-nginx:
     restart: always
     build: ./nginx
     ports:
-        - "3000:80"
+        - "4000:4000"
     depends_on:
-      - backend
+      - cl001-nelson-backend
     networks:
-      - app-network
+      - ai-atende-network
+
+volumes:
+  data:
 
 networks:
-  app-network:
-    driver: bridge
+  ai-atende-network:
+    external: true

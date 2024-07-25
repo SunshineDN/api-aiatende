@@ -37,7 +37,7 @@ const CalendarUtils = require('../../utils/CalendarUtils');
 // };
 
 const RegisterCalendarEvent = async (payload, access_token = null) => {
-  const CalendarUtilsClass = new CalendarUtils(payload?.account?.id);
+  const CalendarUtilsClass = new CalendarUtils();
 
   try {
     const user = await GetUser(payload, false, access_token);
@@ -53,7 +53,7 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
       (field) => field.field_name === 'Event Start'
     )[0];
     const nameDoctor = user?.custom_fields_values?.filter(
-      (field) => field.field_name === 'Dentista'
+      (field) => field.field_name === 'Dentista' || field.field_name === 'Médico'
     )[0];
 
     const eventLink = custom_fields?.filter(
@@ -104,9 +104,9 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
     console.log('Evento:', event);
 
     try {
-      eventData = await CalendarUtilsClass.executeRegisterEvent( CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id), event);
+      eventData = await CalendarUtilsClass.executeRegisterEvent( CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), event);
     } catch {
-      eventData = await CalendarUtilsClass.executeRegisterEvent( CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id), event);
+      eventData = await CalendarUtilsClass.executeRegisterEvent( CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), event);
     }
 
     console.log('Dados do Evento (eventData):', eventData);

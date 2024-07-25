@@ -1,12 +1,10 @@
 const { google } = require('googleapis');
 const AuthCalendar = require('./AuthCalendar');
-const AvailableSlots = require('../utils/AvailableSlots');
-// const serviceAccount = require('../config/serviceAccount.json');
 
 class CalendarUtils {
 
-  constructor(account_id) {
-    this.authorization = AuthCalendar.authenticate(account_id);
+  constructor() {
+    this.authorization = AuthCalendar.authenticate();
   };
 
   async executeListEvents(calendarId) {

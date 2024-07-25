@@ -9,7 +9,7 @@ const CalendarUtils = require('../../utils/CalendarUtils');
 
 const RemoveCalendarEvent = async (payload, access_token = null) => {
   try {
-    const CalendarUtilsClass = new CalendarUtils(payload?.account?.id);
+    const CalendarUtilsClass = new CalendarUtils();
 
     const user = await GetUser(payload, false, access_token);
     const custom_fields = await GetCustomFields(payload, access_token);
@@ -23,17 +23,17 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
     const eventFilled = custom_fields?.filter(field => field.name === 'Datas ocupadas')[0];
     const eventAvaiable = custom_fields?.filter(field => field.name === 'Datas disponíveis')[0];
     const nameDoctor = user?.custom_fields_values?.filter(
-      (field) => field.field_name === 'Dentista'
+      (field) => field.field_name === 'Dentista' || field.field_name === 'Médico'
     )[0];
 
     console.log('Deletando evento...');
 
     console.log('ID do Evento:', eventId?.values[0]?.value);
     try {
-      await CalendarUtilsClass.executeRemoveEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id), eventId);
+      await CalendarUtilsClass.executeRemoveEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), eventId);
 
     } catch {
-      await CalendarUtilsClass.executeRemoveEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id), eventId);
+      await CalendarUtilsClass.executeRemoveEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), eventId);
     }
     const bodyReq = {
       'custom_fields_values': [

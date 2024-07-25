@@ -32,7 +32,7 @@ const TextToSpeech = async (payload, access_token = null) => {
     console.log('Enviando áudio para o telefone:', phone);
 
     // const response = await axios.post(URL, data);
-    await OpenAIController.textToAudio(gptAnswer?.values[0]?.value, phone, payload?.account?.subdomain);
+    await OpenAIController.textToAudio(gptAnswer?.values[0]?.value, phone);
     console.log('Áudio enviado com sucesso!');
 
     const kommoData = {
