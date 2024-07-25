@@ -1,3 +1,5 @@
+version: '3.7'
+
 services:
   cl001-nelson-db:
     image: postgres:latest
