@@ -20,14 +20,10 @@ const Fill_Lead_Message = async (payload, access_token = null) => {
 
     if (leadMessage_isFilled?.values[0]?.value) {
       const messageSplit = leadMessage_isFilled?.values[0]?.value.split('\n');
-      message = `
-      ${messageSplit.filter((_, index) => index < 3).join('\n')}
-      ${payload.text_audio}
-      `;
+      message = `${messageSplit.filter((_, index) => index < 2).join('\n')}
+${payload.text_audio.replace(/\+/g, ' ')}`;
     } else {
-      message = `
-      ${payload.text_audio}
-      `;
+      message = payload.text_audio.replace(/\+/g, ' ');
     }
 
     const data = {
