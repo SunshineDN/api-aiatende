@@ -1,6 +1,6 @@
 const { google } = require('googleapis');
 const AuthCalendar = require('./AuthCalendar');
-const AvailableSlots = require('../utils/AvailableSlots');
+// const AvailableSlots = require('../utils/AvailableSlots');
 // const serviceAccount = require('../config/serviceAccount.json');
 
 class CalendarUtils {
@@ -264,7 +264,7 @@ class CalendarUtils {
             };
 
             // Loop para cada dia da semana
-            const daysOfWeek = [1, 2, 3, 4, 5, 6, 0]; // Domingo é 0, Sábado é 6
+            // const daysOfWeek = [1, 2, 3, 4, 5, 6, 0]; // Domingo é 0, Sábado é 6
             const dataHoraBrasil = new Date();
             const now = new Date(dataHoraBrasil.getTime() + (dataHoraBrasil.getTimezoneOffset() * 60000));
             const daysToCheck = 31; // Por exemplo, verificar 30 dias a partir de hoje
@@ -309,29 +309,29 @@ class CalendarUtils {
               availableIntervals.forEach(interval => {
                 let weekday = '';
                 switch (dayOfWeek) {
-                  case 1:
-                    weekday = 'Segunda-feira';
-                    break;
-                  case 2:
-                    weekday = 'Terça-feira';
-                    break;
-                  case 3:
-                    weekday = 'Quarta-feira';
-                    break;
-                  case 4:
-                    weekday = 'Quinta-feira';
-                    break;
-                  case 5:
-                    weekday = 'Sexta-feira';
-                    break;
-                  case 6:
-                    weekday = 'Sábado';
-                    break;
-                  case 0:
-                    weekday = 'Domingo';
-                    break;
+                case 1:
+                  weekday = 'Segunda-feira';
+                  break;
+                case 2:
+                  weekday = 'Terça-feira';
+                  break;
+                case 3:
+                  weekday = 'Quarta-feira';
+                  break;
+                case 4:
+                  weekday = 'Quinta-feira';
+                  break;
+                case 5:
+                  weekday = 'Sexta-feira';
+                  break;
+                case 6:
+                  weekday = 'Sábado';
+                  break;
+                case 0:
+                  weekday = 'Domingo';
+                  break;
                 }
-                availableTimes.push(`${weekday} - ${interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[0]} ${interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo'}).split(', ')[1]}`);
+                availableTimes.push(`${weekday} - ${interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[0]} ${interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[1]}`);
               });
             }
 
