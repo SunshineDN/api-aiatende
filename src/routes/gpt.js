@@ -13,7 +13,7 @@ router.post('/prompt', GptController.messageToPrompt);
 
 router.post('/:assistant_id/message', GptController.messageToAssistant);
 
-router.post('/message', GptController.transcribeMessage);
+router.post('/transcribe', GptController.transcribeMessage);
 
 router.post('/delete-thread', GptController.deleteThread);
 
