@@ -130,4 +130,17 @@
 // const endDateTime = new Date(startDateTime);
 // endDateTime.setMinutes(endDateTime.getMinutes() + 30);
 // console.log(endDateTime);
+// const listMessage = ['Olá', 'Boa tarde', 'Queria agendar', 'e saber sobre implantes', '?', 'Sim'];
+// let message = '';
 
+// if (listMessage) {
+//   const sortedMessage = listMessage?.reverse();
+//   const filterMessage = sortedMessage.filter((_, index) => index < 2);
+//   console.log(sortedMessage);
+//   message = `${filterMessage.reverse().join('\n')}
+// Teste`;
+// } else {
+//   message = 'Teste';
+// }
+
+// console.log(message);
