@@ -104,9 +104,9 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
     console.log('Evento:', event);
 
     try {
-      eventData = await CalendarUtilsClass.executeRegisterEvent( CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), event);
+      eventData = await CalendarUtilsClass.executeRegisterEvent( CalendarIdValidate(), event);
     } catch {
-      eventData = await CalendarUtilsClass.executeRegisterEvent( CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), event);
+      eventData = await CalendarUtilsClass.executeRegisterEvent( CalendarIdValidate(), event);
     }
 
     console.log('Dados do Evento (eventData):', eventData);

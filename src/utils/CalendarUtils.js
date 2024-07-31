@@ -288,14 +288,11 @@ class CalendarUtils {
                   }
                   dayStart.setHours(currentHours, currentMinutes, 0, 0);
                 } else {
-                  dayStart.setHours(11, 0, 0, 0);
+                  dayStart.setHours(12, 0, 0, 0);
                 };
-                dayEnd.setHours(23, 0, 0, 0);
-              } else if (dayOfWeek === 6) { // Sábado
-                dayStart.setHours(11, 0, 0, 0);
-                dayEnd.setHours(16, 0, 0, 0);
+                dayEnd.setHours(20, 0, 0, 0);
               } else {
-                continue; // Ignorar domingos
+                continue; // Ignorar Sábado e Domingo
               }
 
               const dayEvents = events.filter(event => {

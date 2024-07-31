@@ -77,9 +77,9 @@ const ListCalendarEvent = async (payload, access_token = null) => {
       (field) => field.name === 'Datas ocupadas'
     )[0];
     try {
-      eventData = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'));
+      eventData = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate());
     } catch {
-      eventData = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'));
+      eventData = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate());
     }
   }catch(error) {
     if (error.response) {

@@ -36,11 +36,11 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
     };
 
     try {
-      const resultUpdate = await CalendarUtilsClass.executeUpdateEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), eventData);
+      const resultUpdate = await CalendarUtilsClass.executeUpdateEvent(CalendarIdValidate(), eventData);
       console.log('Fim do Updated !');
       return resultUpdate;
     }catch{
-      const resultUpdate = await CalendarUtilsClass.executeUpdateEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), eventData);
+      const resultUpdate = await CalendarUtilsClass.executeUpdateEvent(CalendarIdValidate(), eventData);
       console.log('Fim do Updated !');
       return resultUpdate;
     }

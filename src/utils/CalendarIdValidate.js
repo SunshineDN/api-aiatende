@@ -1,11 +1,7 @@
 const CalendarId = require('../config/calendarId');
 
-const CalendarIdValidate = (condition = null) => {
-  if (condition === 'Dr. Nelson Coutinho') {
-    return CalendarId.nelsoncoutinho;
-  } else {
-    return CalendarId.outros;
-  }
+const CalendarIdValidate = () => {
+  return CalendarId.nelsoncoutinho;
 };
 
 module.exports = CalendarIdValidate;
