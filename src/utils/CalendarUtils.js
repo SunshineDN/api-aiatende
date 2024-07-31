@@ -280,11 +280,17 @@ class CalendarUtils {
                 if (i === 0) {
                   let currentMinutes = currentDate.getMinutes();
                   let currentHours = currentDate.getHours();
-                  if (currentMinutes < 30) {
-                    currentMinutes = 30;
-                  } else {
+
+                  if (currentHours < 8) {
+                    currentHours = 12;
                     currentMinutes = 0;
-                    currentHours++;
+                  } else {
+                    if (currentMinutes < 30) {
+                      currentMinutes = 30;
+                    } else {
+                      currentMinutes = 0;
+                      currentHours++;
+                    }
                   }
                   dayStart.setHours(currentHours, currentMinutes, 0, 0);
                 } else {
