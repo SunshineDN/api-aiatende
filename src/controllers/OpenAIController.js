@@ -166,7 +166,7 @@ class OpenAIController {
               existThreads.threadID[indexOfAssistant],
               run.id
             );
-            while (run.status !== 'cancelled') {
+            while (run.status !== 'cancelled' || run.status !== 'expired') {
               run = await openai.beta.threads.runs.retrieve(
                 existThreads.threadID[indexOfAssistant],
                 run.id
