@@ -297,13 +297,13 @@ class CalendarUtils {
                   }
                   dayStart.setHours(currentHours, currentMinutes, 0, 0);
                 } else {
-                  if (dayOfWeek === 1 || dayOfWeek === 2) {
+                  if (dayOfWeek === 1) {
                     dayStart.setHours(12, 0, 0, 0);
                   } else {
                     dayStart.setHours(17, 0, 0, 0);
                   }
                 };
-                if (dayOfWeek === 1 || dayOfWeek === 2) {
+                if (dayOfWeek === 1) {
                   dayEnd.setHours(15, 0, 0, 0);
                 } else {
                   dayEnd.setHours(20, 0, 0, 0);
