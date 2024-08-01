@@ -31,10 +31,10 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
 
     console.log('ID do Evento:', eventId?.values[0]?.value);
     try {
-      await CalendarUtilsClass.executeRemoveEvent(CalendarIdValidate(), eventId);
+      await CalendarUtilsClass.executeRemoveEvent(CalendarIdValidate(), eventId?.values[0]?.value);
 
     } catch {
-      await CalendarUtilsClass.executeRemoveEvent(CalendarIdValidate(), eventId);
+      await CalendarUtilsClass.executeRemoveEvent(CalendarIdValidate(), eventId?.values[0]?.value);
     }
     const bodyReq = {
       'custom_fields_values': [
