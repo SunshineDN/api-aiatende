@@ -94,6 +94,8 @@ class CalendarUtils {
           console.error('Erro na autenticação:', err);
           reject(new Error('Erro na autenticação'));
         }
+        console.log('CalendarId (executeRemoveEvent):', calendarId);
+        console.log('EventId (executeRemoveEvent):', eventId);
         const calendar = google.calendar({ version: 'v3', auth: this.authorization });
         calendar.events.delete(
           {
@@ -104,9 +106,10 @@ class CalendarUtils {
             if (err) {
               console.error('Erro ao deletar evento:', err);
               reject(new Error('Erro ao deletar evento'));
+            } else {
+              console.log('Evento deletado com sucesso.');
+              resolve(result.data);
             }
-            console.log('Evento deletado com sucesso.');
-            resolve(result.data);
           });
       });
     });
@@ -332,7 +335,7 @@ class CalendarUtils {
                     weekday = 'Domingo';
                     break;
                 }
-                availableTimes.push(`${weekday} - ${interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[0]} ${interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo'}).split(', ')[1]}`);
+                availableTimes.push(`${weekday} - ${interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[0]} ${interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[1]}`);
               });
             }
 

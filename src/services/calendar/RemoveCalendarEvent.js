@@ -8,6 +8,7 @@ const GetUser = require('../kommo/GetUser');
 const CalendarUtils = require('../../utils/CalendarUtils');
 
 const RemoveCalendarEvent = async (payload, access_token = null) => {
+  console.log('Iniciando remoção de evento...');
   try {
     const CalendarUtilsClass = new CalendarUtils();
 
