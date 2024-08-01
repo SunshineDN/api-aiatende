@@ -278,7 +278,7 @@ class CalendarUtils {
               let dayStart = new Date(currentDate);
               let dayEnd = new Date(currentDate);
 
-              if (dayOfWeek >= 1 && dayOfWeek <= 5) { // Segunda a Sexta
+              if (dayOfWeek === 1 || dayOfWeek === 2 || dayOfWeek === 4) { // Segunda a Sexta
                 // Setar o horário atual para o início do dia
                 if (i === 0) {
                   let currentMinutes = currentDate.getMinutes();
@@ -297,9 +297,17 @@ class CalendarUtils {
                   }
                   dayStart.setHours(currentHours, currentMinutes, 0, 0);
                 } else {
-                  dayStart.setHours(12, 0, 0, 0);
+                  if (dayOfWeek === 1) {
+                    dayStart.setHours(12, 0, 0, 0);
+                  } else {
+                    dayStart.setHours(17, 0, 0, 0);
+                  }
                 };
-                dayEnd.setHours(20, 0, 0, 0);
+                if (dayOfWeek === 1) {
+                  dayEnd.setHours(15, 0, 0, 0);
+                } else {
+                  dayEnd.setHours(20, 0, 0, 0);
+                }
               } else {
                 continue; // Ignorar Sábado e Domingo
               }
