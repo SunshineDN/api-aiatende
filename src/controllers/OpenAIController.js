@@ -6,6 +6,7 @@ const LeadThread = require('../models/LeadThread');
 const { Op } = require('sequelize');
 const transcribeAudio = require('../services/gpt/TranscribeAudio');
 const getFileNameFromUrl = require('../utils/GetNameExtension');
+const ExecuteRunStep = require('../services/gpt/ExecuteRunStep');
 
 const openai = new OpenAI(process.env.OPENAI_API_KEY);
 
@@ -138,49 +139,55 @@ class OpenAIController {
 
       console.log('The message that will be sent to assistant:', text);
 
-      let run;
-      const exec = async (times) => {
-        let count = 1;
-        let repeat = 1;
-        while (repeat <= times) {
-          run = await openai.beta.threads.runs.create(
-            existThreads.threadID[indexOfAssistant],
-            { assistant_id: assistant }
-          );
-          while (count <= 10) {
-            run = await openai.beta.threads.runs.retrieve(
-              existThreads.threadID[indexOfAssistant],
-              run.id
-            );
-            console.log(`${repeat}# ${count}' Run status: ${run.status}`);
-            if(run.status === 'completed') {
-              return;
-            } else if (run.status !== 'completed' && repeat === times && count === 10) {
-              throw new Error(`Erro no running da menssagem do Assistant GPT: ${run?.last_error?.message}`);
-            }
-            await wait(1000);
-            count++;
-          }
-          if (run.status === 'in_progress' || run.status === 'queued') {
-            run = await openai.beta.threads.runs.cancel(
-              existThreads.threadID[indexOfAssistant],
-              run.id
-            );
-            while (run.status !== 'cancelled' || run.status !== 'expired') {
-              run = await openai.beta.threads.runs.retrieve(
-                existThreads.threadID[indexOfAssistant],
-                run.id
-              );
-              console.log('Run status for cancel:', run.status);
-              await wait(1000);
-            }
-          }
-          count = 1;
-          repeat++;
-        }
-      };
+      for (let i = 1; i <= 6; i++) {
+        await ExecuteRunStep(openai, existThreads.threadID[indexOfAssistant], assistant, i, 6);
+      }
 
-      await exec(6);
+      // let run;
+      // const exec = async (times) => {
+      //   let count = 1;
+      //   let repeat = 1;
+      //   while (repeat <= times) {
+      //     run = await openai.beta.threads.runs.create(
+      //       existThreads.threadID[indexOfAssistant],
+      //       { assistant_id: assistant }
+      //     );
+      //     while (count <= 10) {
+      //       run = await openai.beta.threads.runs.retrieve(
+      //         existThreads.threadID[indexOfAssistant],
+      //         run.id
+      //       );
+      //       console.log(`${repeat}# ${count}' Run status: ${run.status}`);
+      //       if(run.status === 'completed') {
+      //         return;
+      //       } else if (run.status !== 'completed' && repeat === times && count === 10) {
+      //         throw new Error(`Erro no running da menssagem do Assistant GPT: ${run?.last_error?.message}`);
+      //       }
+      //       await wait(1000);
+      //       count++;
+      //     }
+      //     if (run.status === 'in_progress' || run.status === 'queued') {
+      //       run = await openai.beta.threads.runs.cancel(
+      //         existThreads.threadID[indexOfAssistant],
+      //         run.id
+      //       );
+      //       while (run.status !== 'cancelled' || run.status !== 'expired') {
+      //         run = await openai.beta.threads.runs.retrieve(
+      //           existThreads.threadID[indexOfAssistant],
+      //           run.id
+      //         );
+      //         console.log('Run status for cancel:', run.status);
+      //         await wait(1000);
+      //       }
+      //     }
+      //     count = 1;
+      //     repeat++;
+      //   }
+      // };
+
+      // await exec(6);
+
+
       // await exec(1);
 
       // while (run.status !== 'completed') {
