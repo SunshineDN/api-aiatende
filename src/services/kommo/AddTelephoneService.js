@@ -8,6 +8,11 @@ const UpdateContact = require('./UpdateContact');
 
 const AddTelephoneService = async (payload, access_token) => {
   console.log('Função AddTelephoneService');
+  console.log('Payload:');
+  console.dir(payload, { depth: null });
+
+  console.log('Access Token:');
+  console.log(access_token);
   try {
     const user = await GetUser(payload, true, access_token);
     const contact_custom_fields = await GetContactCustomFields(payload, access_token);
