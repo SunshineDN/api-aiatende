@@ -4,6 +4,7 @@ const SetActualDateHour = require('../services/kommo/SetActualDateHour');
 const SplitDataFields = require('../services/kommo/SplitDataFields');
 const SplitSchedulingFields = require('../services/kommo/SplitSchedulingFields');
 const AddTelephoneService = require('../services/kommo/AddTelephoneService');
+const TokenizeTest = require('../services/kommo/TokenizeTest');
 
 class LeadController {
   async index(req, res) {
@@ -57,6 +58,16 @@ class LeadController {
       await HandlingError(req.body, access_token, `Testando tratamento de erro ${error}`);
     } catch (error) {
       console.error('Error on test:', error);
+      res.status(500).json({ error });
+    }
+  }
+
+  async testToken(req, res) {
+    try {
+      const access_token = await GetAccessToken(req.body);
+      await TokenizeTest(req.body, access_token, res);
+    } catch (error) {
+      console.error('Error on testToken:', error);
       res.status(500).json({ error });
     }
   }
