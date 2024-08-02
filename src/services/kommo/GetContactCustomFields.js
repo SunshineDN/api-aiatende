@@ -19,11 +19,12 @@ const GetContactCustomFields = async (payload, access_token = null) => {
     console.log('Campos customizados adquiridos!');
     return custom_fields;
   } catch (error) {
+    console.log(error);
     if (error.response) {
-      console.log(`Erro ao pegar campos customizados: ${error.response.data}`);
+      console.log(`Erro ao pegar campos customizados do contato: ${error.response.data}`);
       await HandlingError(payload, access_token, `Erro ao pegar campos customizados: ${error.response.data}`);
     } else {
-      console.log(`Erro ao pegar campos customizados: ${error.message}`);
+      console.log(`Erro ao pegar campos customizados do contato: ${error.message}`);
       await HandlingError(payload, access_token, `Erro ao pegar campos customizados: ${error.message}`);
     }
     throw new Error('Erro no GetContactCustomFields');
