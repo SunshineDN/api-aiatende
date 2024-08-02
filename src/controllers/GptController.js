@@ -6,6 +6,7 @@ const TextToSpeech = require('../services/gpt/TextToSpeech');
 const GetAccessToken = require('../services/kommo/GetAccessToken');
 const OpenAIController = require('../controllers/OpenAIController');
 const SendLog = require('../services/kommo/SendLog');
+const Fill_Lead_Message = require('../services/gpt/Fill_Lead_Message');
 
 class GptController {
 
