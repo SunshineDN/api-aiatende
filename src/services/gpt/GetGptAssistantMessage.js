@@ -8,7 +8,7 @@ const TextToSpeech = require('./TextToSpeech');
 
 const GetGptAssistantMessage = async (payload, assistant_id, access_token = null) => {
   console.log('Função GetGptAssistantMessage');
-  let logField, onOff;
+  let logField, onOff, answerReceived;
   try {
     if (!access_token) {
       access_token = await GetAccessToken(payload);
@@ -19,7 +19,7 @@ const GetGptAssistantMessage = async (payload, assistant_id, access_token = null
 
     const leadID = user.id;
     const prompt = user?.custom_fields_values?.filter(field => field.field_name === 'GPT | Prompt')[0];
-    const answerReceived = custom_fields.filter(field => field.name === 'GPT | Answer Received?')[0];
+    answerReceived = custom_fields.filter(field => field.name === 'GPT | Answer Received?')[0];
     const answer = custom_fields.filter(field => field.name === 'GPT | Answer')[0];
     logField = custom_fields.filter(field => field.name === 'GPT | LOG')[0];
     onOff = custom_fields.filter(field => field.name === 'GPT | On/Off')[0];
@@ -99,6 +99,14 @@ const GetGptAssistantMessage = async (payload, assistant_id, access_token = null
           'values': [
             {
               'value': `Erro ao enviar mensagem para o assistente: ${error}`
+            }
+          ]
+        },
+        {
+          'field_id': answerReceived?.id,
+          'values': [
+            {
+              'value': true
             }
           ]
         }

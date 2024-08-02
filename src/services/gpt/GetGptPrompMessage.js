@@ -7,7 +7,7 @@ const OpenAIController = require('../../controllers/OpenAIController');
 
 const GetGptPromptMessage = async (payload, access_token = null) => {
   console.log('Função GetGptPromptMessage');
-  let log;
+  let log, answerReceived;
   try {
     if (!access_token) {
       access_token = await GetAccessToken(payload);
@@ -16,7 +16,7 @@ const GetGptPromptMessage = async (payload, access_token = null) => {
     const custom_fields = await GetCustomFields(payload, access_token);
   
     const prompt = user?.custom_fields_values?.filter(field => field.field_name === 'GPT | Prompt')[0];
-    const answerReceived = custom_fields.filter(field => field.name === 'GPT | Answer Received?')[0];
+    answerReceived = custom_fields.filter(field => field.name === 'GPT | Answer Received?')[0];
     const answer = custom_fields.filter(field => field.name === 'GPT | Answer')[0];
     log = custom_fields.filter(field => field.name === 'GPT | LOG')[0];
 
@@ -76,6 +76,14 @@ const GetGptPromptMessage = async (payload, access_token = null) => {
           'values': [
             {
               'value': `Erro ao enviar mensagem de prompt: ${error}`
+            }
+          ]
+        },
+        {
+          'field_id': answerReceived?.id,
+          'values': [
+            {
+              'value': true
             }
           ]
         }
