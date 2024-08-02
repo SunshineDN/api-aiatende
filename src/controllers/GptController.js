@@ -36,13 +36,12 @@ class GptController {
   }
 
   async transcribeMessage(req, res) {
-    if (req.body?.type !== 'voice' && req.body?.type !== 'audio') {
-      console.log('Mensagem não é de áudio');
-      return res.status(400).end('Mensagem não é de áudio');
-    }
-
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = await GetAccessToken(req.body);
+      if (req.body?.type !== 'voice' && req.body?.type !== 'audio') {
+        await Fill_Lead_Message(req.body, access_token);
+        return res.status(200).json({ message: 'Mensagem preenchida com sucesso!' });
+      }
       await SpeechToText(req.body, access_token);
     } catch (error) {
       console.error('Error on transcribeMessage:', error);
