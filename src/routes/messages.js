@@ -26,4 +26,6 @@ router.post('/assistant/:assistant_id/c_continue_dados_cadastrais', Assistant.c_
 
 router.post('/assistant/:assistant_id/c_split_dados', Assistant.c_split_dados);
 
+router.post('/assistant/:assistant_id/c_verifica_dados', Assistant.c_verifica_dados);
+
 module.exports = router;
