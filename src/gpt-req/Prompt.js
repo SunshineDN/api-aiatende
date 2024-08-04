@@ -71,6 +71,8 @@ class Prompt {
   #AgendaFutura: Para leads que ainda não pretendem agendar neste momento.
   
   Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra" Exemplo: #Agendamento' `;
+      console.log('Prompt recebido!');
+      console.log('Preparando para enviar prompt...');
       await this.prompt(req, res, text);
     } catch (error) {
       console.log(`Erro ao enviar prompt: ${error.message}`);
