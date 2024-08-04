@@ -1,3 +1,4 @@
+require('dotenv').config();
 const GetAccessToken = require("../services/kommo/GetAccessToken");
 const GetAnswer = require("../services/kommo/GetAnswer");
 const GetMessageReceived = require("../services/kommo/GetMessageReceived");
@@ -14,7 +15,7 @@ class Prompt {
     let access_token;
     try {
       console.log('Enviando prompt...');
-      access_token = await GetAccessToken(req.body);
+      access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const { message } = await OpenAIController.promptMessage(text);
       await SendMessage(req.body, message, access_token);
       res.status(200).send('Prompt enviado com sucesso');
@@ -28,7 +29,7 @@ class Prompt {
   async c_intencao(req, res) {
     console.log('Recebendo requisição de prompt...');
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const answer = await GetAnswer(req.body, access_token);
       const message_received = await GetMessageReceived(req.body, access_token);
 
