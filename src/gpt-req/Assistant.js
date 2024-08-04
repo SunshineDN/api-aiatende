@@ -161,12 +161,12 @@ class Assistant {
       const message_received = await GetMessageReceived(req.body, access_token);
       const info = await GetLeadInfoForBotC(req.body, access_token);
 
-      const date = new Date();
+      const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
       const weekOptions = {
         timeZone: 'America/Recife',
         weekday: 'long'
       };
-      const weekDay = date.toLocaleDateString('pt-BR', weekOptions);
+      const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
       const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
 
       let text;
