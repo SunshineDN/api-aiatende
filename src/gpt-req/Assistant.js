@@ -2,6 +2,7 @@ require('dotenv').config();
 const OpenAIController = require('../controllers/OpenAIController');
 const GetAccessToken = require("../services/kommo/GetAccessToken");
 const GetAnswer = require("../services/kommo/GetAnswer");
+const GetLeadChannel = require('../services/kommo/GetLeadChannel');
 const GetMessageReceived = require("../services/kommo/GetMessageReceived");
 const SendLog = require("../services/kommo/SendLog");
 const SendMessage = require("../services/kommo/SendMessage");
@@ -12,6 +13,7 @@ class Assistant {
     this.assistant = this.assistant.bind(this);
     this.c_previa_dados = this.c_previa_dados.bind(this);
     this.c_dados_cadastrais = this.c_dados_cadastrais.bind(this);
+    this.c_continue_dados_cadastrais = this.c_continue_dados_cadastrais.bind(this);
   }
 
   async assistant(req, res, data) {
@@ -68,6 +70,35 @@ class Assistant {
 1. Caso a frase contenha dados, retorne apenas uma mensagem para O PRÓPRIO USUÁRIO confirmar os dados, listando eles. Os dados seriam Nome completo e o tipo do plano (ou se vai ser consulta particular).
 
 2. Caso a frase esteja vazia ou faltando algum dos dados (Nome completo e o tipo de plano), retorne apenas uma mensagem pedindo ao usuário que digite o(os) dado(s) que esteja faltando, deixando explícito quais dados são.`;
+
+      const data = {
+        leadID,
+        text,
+        assistant_id,
+      };
+
+      await this.assistant(req, res, data);
+    } catch (error) {
+      console.log(`Erro ao enviar mensagem para o assistente: ${error.message}`);
+      res.status(500).send('Erro ao enviar mensagem para o assistente');
+    }
+  }
+
+  async c_continue_dados_cadastrais(req, res) {
+    console.log('Recebendo requisição de assistente...');
+    try {
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const { lead_id: leadID } = req.body;
+      const { assistant_id } = req.params;
+      const channel = await GetLeadChannel(req.body, access_token);
+      console.log('Channel:', channel);
+      let text;
+
+      if (channel === 'REDE SOCIAL') {
+        text = `Observe os dados cadastrais fornecidos pelo usuário e veja qual dado está faltando. Os dados cadastrais são: Nome completo, tipo de plano (ou se é consulta particular) e telefone. Selecione os dados faltando e retorne uma mensagem para o usuário pedindo os dados faltante para prosseguir no cadastro.`;
+      } else {
+        text = `Observe os dados cadastrais fornecidos pelo usuário e veja qual dado está faltando. Os dados cadastrais são: Nome completo e tipo de plano (ou se é consulta particular). Selecione os dados faltando e retorne uma mensagem para o usuário pedindo os dados faltante para prosseguir no cadastro.`;
+      }
 
       const data = {
         leadID,
