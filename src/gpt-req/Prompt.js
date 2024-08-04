@@ -13,6 +13,7 @@ class Prompt {
   async prompt(req, res, text) {
     let access_token;
     try {
+      console.log('Enviando prompt...');
       access_token = await GetAccessToken(req.body);
       const { message } = await OpenAIController.promptMessage(text);
       await SendMessage(req.body, message, access_token);
@@ -25,6 +26,7 @@ class Prompt {
   }
 
   async c_intencao(req, res) {
+    console.log('Recebendo requisição de prompt...');
     try {
       const access_token = await GetAccessToken(req.body);
       const answer = await GetAnswer(req.body, access_token);

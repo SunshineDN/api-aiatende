@@ -2,6 +2,7 @@ const GetAccessToken = require("./GetAccessToken");
 const GetUser = require("./GetUser");
 
 const GetAnswer = async (payload, access_token = null) => {
+  console.log('Função GetAnswer!');
   try {
     if (!access_token) {
       access_token = await GetAccessToken(payload);
