@@ -16,4 +16,6 @@ router.post('/prompt/c_intencao', Prompt.c_intencao);
 
 router.post('/assistant/:assistant_id/c_previa_dados', Assistant.c_previa_dados);
 
+router.post('/assistant/:assistant_id/c_dados_cadastrais', Assistant.c_dados_cadastrais);
+
 module.exports = router;

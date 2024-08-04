@@ -53,6 +53,33 @@ class Assistant {
       res.status(500).send('Erro ao enviar mensagem para prompt');
     }
   }
+
+  async c_dados_cadastrais(req, res) {
+    console.log('Recebendo requisição de assistente...');
+    try {
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const message_received = await GetMessageReceived(req.body, access_token);
+      const { lead_id: leadID } = req.body;
+      const { assistant_id } = req.params;
+
+      const text = `System message: Há 2 possibilidades de retorno. Observe a frase: ' ${message_received} ' e veja em qual das opções abaixo melhor se encaixa:
+
+1. Caso a frase contenha dados, retorne apenas uma mensagem para O PRÓPRIO USUÁRIO confirmar os dados, listando eles. Os dados seriam Nome completo e o tipo do plano (ou se vai ser consulta particular).
+
+2. Caso a frase esteja vazia ou faltando algum dos dados (Nome completo e o tipo de plano), retorne apenas uma mensagem pedindo ao usuário que digite o(os) dado(s) que esteja faltando, deixando explícito quais dados são.`;
+
+      const data = {
+        leadID,
+        text,
+        assistant_id,
+      };
+
+      await this.assistant(req, res, data);
+    } catch (error) {
+      console.log(`Erro ao enviar mensagem para prompt: ${error.message}`);
+      res.status(500).send('Erro ao enviar mensagem para prompt');
+    }
+  }
 }
 
 module.exports = new Assistant();
