@@ -7,6 +7,12 @@ const SendMessage = require("../services/kommo/SendMessage");
 
 
 class Prompt {
+  constructor() {
+    this.index = this.index.bind(this);
+    this.prompt = this.prompt.bind(this);
+    this.c_intencao = this.c_intencao.bind(this);
+  }
+
   index(req, res) {
     res.send('Hello, World!');
   }
