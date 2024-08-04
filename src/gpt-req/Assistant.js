@@ -14,6 +14,7 @@ class Assistant {
     this.c_previa_dados = this.c_previa_dados.bind(this);
     this.c_dados_cadastrais = this.c_dados_cadastrais.bind(this);
     this.c_continue_dados_cadastrais = this.c_continue_dados_cadastrais.bind(this);
+    this.c_split_dados = this.c_split_dados.bind(this);
   }
 
   async assistant(req, res, data) {
@@ -34,7 +35,7 @@ class Assistant {
   }
 
   async c_previa_dados(req, res) {
-    console.log('Recebendo requisição de assistente...');
+    console.log('Recebendo requisição de assistente | Previa Dados...');
     try {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const message_received = await GetMessageReceived(req.body, access_token);
@@ -58,7 +59,7 @@ class Assistant {
   }
 
   async c_dados_cadastrais(req, res) {
-    console.log('Recebendo requisição de assistente...');
+    console.log('Recebendo requisição de assistente | Dados Cadastrais...');
     try {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const message_received = await GetMessageReceived(req.body, access_token);
@@ -85,7 +86,7 @@ class Assistant {
   }
 
   async c_continue_dados_cadastrais(req, res) {
-    console.log('Recebendo requisição de assistente...');
+    console.log('Recebendo requisição de assistente | Continue Dados Cadastrais...');
     try {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const { lead_id: leadID } = req.body;
@@ -98,6 +99,39 @@ class Assistant {
         text = `Observe os dados cadastrais fornecidos pelo usuário e veja qual dado está faltando. Os dados cadastrais são: Nome completo, tipo de plano (ou se é consulta particular) e telefone. Selecione os dados faltando e retorne uma mensagem para o usuário pedindo os dados faltante para prosseguir no cadastro.`;
       } else {
         text = `Observe os dados cadastrais fornecidos pelo usuário e veja qual dado está faltando. Os dados cadastrais são: Nome completo e tipo de plano (ou se é consulta particular). Selecione os dados faltando e retorne uma mensagem para o usuário pedindo os dados faltante para prosseguir no cadastro.`;
+      }
+
+      const data = {
+        leadID,
+        text,
+        assistant_id,
+      };
+
+      await this.assistant(req, res, data);
+    } catch (error) {
+      console.log(`Erro ao enviar mensagem para o assistente: ${error.message}`);
+      res.status(500).send('Erro ao enviar mensagem para o assistente');
+    }
+  }
+
+  async c_split_dados(req, res) {
+    console.log('Recebendo requisição de assistente | Split Dados...');
+    try {
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const { lead_id: leadID } = req.body;
+      const { assistant_id } = req.params;
+      const channel = await GetLeadChannel(req.body, access_token);
+      console.log('Channel:', channel);
+      let text;
+
+      if (channel === 'REDE SOCIAL') {
+        text = `System message: Aja como um analista de dados cadastrais experiente. Nestes dois textos abaixo, analise cuidadosamente os campos para extrair o dado de nome completo, plano de saúde (ou caso seja consulta particular) e telefone.
+
+*Utilize somente dados que esteja nos textos. Agora, avalie os dois textos juntos e extraia o dado no campo: nome completo, plano de saúde (ou caso seja consulta particular) e telefone. Separado apenas com o valor do campo, sem informar o identificador de cada campo, cada campo deve terminar com um ponto e vírgula. Se no texto não existir a informação do campo, retornar apenas o id #ausencia`;
+      } else {
+        text = `System message: Aja como um analista de dados cadastrais experiente. Nestes dois textos abaixo, analise cuidadosamente os campos para extrair o dado de nome completo e plano de saúde (ou caso seja consulta particular).
+
+*Utilize somente dados que esteja nos textos. Agora, extraia os dados: nome completo, e plano de saúde (ou caso seja consulta particular). Separado apenas com o valor do campo, sem informar o identificador de cada campo, cada campo deve terminar com um ponto e vírgula. Se no texto não existir a informação do campo, retornar apenas o id #ausencia`;
       }
 
       const data = {

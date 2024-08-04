@@ -12,6 +12,8 @@ router.get('/', (req, res) => {
   res.json({ message: 'Rota de mensagens' });
 });
 
+// BOT C
+
 router.post('/prompt/c_intencao', Prompt.c_intencao);
 
 router.post('/prompt/c_confirma_dados', Prompt.c_confirma_dados);
@@ -21,5 +23,7 @@ router.post('/assistant/:assistant_id/c_previa_dados', Assistant.c_previa_dados)
 router.post('/assistant/:assistant_id/c_dados_cadastrais', Assistant.c_dados_cadastrais);
 
 router.post('/assistant/:assistant_id/c_continue_dados_cadastrais', Assistant.c_continue_dados_cadastrais);
+
+router.post('/assistant/:assistant_id/c_split_dados', Assistant.c_split_dados);
 
 module.exports = router;
