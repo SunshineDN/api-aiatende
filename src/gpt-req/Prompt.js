@@ -12,6 +12,7 @@ class Prompt {
     this.index = this.index.bind(this);
     this.prompt = this.prompt.bind(this);
     this.c_intencao = this.c_intencao.bind(this);
+    this.c_confirma_dados = this.c_confirma_dados.bind(this);
   }
 
   index(req, res) {
@@ -78,6 +79,31 @@ class Prompt {
   #AgendaFutura: Para leads que ainda não pretendem agendar neste momento.
   
   Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra" Exemplo: #Agendamento' `;
+      console.log('Prompt recebido!');
+      console.log('Preparando para enviar prompt...');
+      await this.prompt(req, res, text);
+    } catch (error) {
+      console.log(`Erro ao enviar prompt: ${error.message}`);
+      res.status(500).send('Erro ao enviar prompt');
+    }
+  }
+
+  async c_confirma_dados(req, res) {
+    console.log('Recebendo requisição de prompt...');
+    try {
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const message_received = await GetMessageReceived(req.body, access_token);
+      const answer = await GetAnswer(req.body, access_token);
+      const text = `Analise a mensagem do sistema: ' ${answer} '.
+Baseado na resposta do usuário: ' ${message_received} ' e verifique as opções abaixo:
+
+#ConfirmouDados: Se a resposta do usuário está confirmando os dados dele descrito na mensagem do sistema;
+
+#Continuar: Se o usuário não confirma os dados dele e quer alterar, ou se ainda está fornecendo algum dado que foi pedido na mensagem do sistema;
+
+#ReiniciarConfirmação: Caso a resposta do usuário seja corrigindo algum dado cadastral que já foi armazenado no sistema, como nome completo, tipo de plano, telefone: (ex: douglas augusto, amil, 8196724310)
+
+Identifique a intenção da resposta do usuário baseada na mensagem do sistema, e retorne apenas o id das opções listadas acima, por exemplo: #Continuar`;
       console.log('Prompt recebido!');
       console.log('Preparando para enviar prompt...');
       await this.prompt(req, res, text);
