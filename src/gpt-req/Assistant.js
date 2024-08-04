@@ -11,6 +11,7 @@ class Assistant {
   constructor() {
     this.assistant = this.assistant.bind(this);
     this.c_previa_dados = this.c_previa_dados.bind(this);
+    this.c_dados_cadastrais = this.c_dados_cadastrais.bind(this);
   }
 
   async assistant(req, res, data) {
@@ -49,8 +50,8 @@ class Assistant {
 
       await this.assistant(req, res, data);
     } catch (error) {
-      console.log(`Erro ao enviar mensagem para prompt: ${error.message}`);
-      res.status(500).send('Erro ao enviar mensagem para prompt');
+      console.log(`Erro ao enviar mensagem para a assistente: ${error.message}`);
+      res.status(500).send('Erro ao enviar mensagem para a assistente');
     }
   }
 
@@ -76,8 +77,8 @@ class Assistant {
 
       await this.assistant(req, res, data);
     } catch (error) {
-      console.log(`Erro ao enviar mensagem para prompt: ${error.message}`);
-      res.status(500).send('Erro ao enviar mensagem para prompt');
+      console.log(`Erro ao enviar mensagem para o assistente: ${error.message}`);
+      res.status(500).send('Erro ao enviar mensagem para o assistente');
     }
   }
 }
