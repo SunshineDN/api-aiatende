@@ -38,7 +38,7 @@ class GptController {
 
   async transcribeMessage(req, res) {
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       if (req.body?.type !== 'voice' && req.body?.type !== 'audio') {
         await Fill_Lead_Message(req.body, access_token);
         return res.status(200).json({ message: 'Mensagem preenchida com sucesso!' });

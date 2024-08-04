@@ -41,7 +41,7 @@ class Prompt {
       const answer = await GetAnswer(req.body, access_token);
       const message_received = await GetMessageReceived(req.body, access_token);
 
-      const date = new Date();
+      const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
 
       // const weekDays = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
       // const weekOptions = {
