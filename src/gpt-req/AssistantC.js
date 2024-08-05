@@ -47,12 +47,9 @@ class AssistantC {
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
 
-      const text = `User:
-' ${message_received} '`;
-
       const data = {
         leadID,
-        text,
+        text: message_received,
         assistant_id,
       };
 
@@ -175,26 +172,41 @@ class AssistantC {
       let text;
 
       if (channel === 'REDE SOCIAL') {
-        text = `System message:'Adote a informação, dia de semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife (GMT-3).
+        text = `System message:'Adote a informação, dia de semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife e (GMT-3).
 
-O usuário está na etapa de informação dos dados cadastrais para agendamento da sua consulta inicial médica. Sempre agir de maneira humanizada, cordial e gentil. Não passar os dados estratégicos do consultório em nenhum momento nas mensagens.
-Antes de solicitar os dados dos campos 1, 2 e 3, informados na frase abaixo, verifique se estão preenchidos ou com ausência de dados, caso algum dos dados dos campos não estejam informados, ou seja, estejam em branco ou não preenchidos, solicitar os dados dos campos ausentes, segue frase: 
+Dados existentes:
 "1 - Nome Completo: ${info.nome};
-2 - Plano de saúde ou convênio médico: ${info.plano};
-3 - Telefone: ${info.telefone};"
-Importante solicitar os dados dos campos que estejam pendentes ou em branco. Plano de saúde ou convênio médico, perguntar se é particular ou qual o tipo de plano.
-continuar solicitar os dado até que estejam completamente satisfeitos.'
+2 - Plano de saúde, convênio médico ou consulta particular: ${info.plano}
+3 - Telefone: ${info.telefone}"
+
+O usuário entrou na etapa de informação do dado pessoal e informação do plano de saúde, convênio médico ou se é uma consulta particular para finalizar o agendamento da sua consulta inicial médica. Sempre agir de maneira humanizada, cordial e gentil. Não passar os dados estratégicos do consultório em nenhum momento nas mensagens.
+Antes de solicitar os dados, verifique se estão preenchidos em dados existentes, caso algum do dado do campo não esteja informado, ou seja, esteja em branco ou não preenchido, solicita o dado do campo ausente, segue frase:
+
+“Favor informar os dados para finalizar o agendamento da sua consulta inicial médica:
+1 - Nome Completo: 
+2 - Plano de saúde, convênio médico ou consulta particular:
+3 - Telefone:"
+
+Importante solicitar os dados do campo que esteja pendente ou em branco. Plano de saúde ou convênio médico, perguntar se é particular ou qual o tipo de plano.
+continuar solicitando o dado até que esteja completamente satisfeito.'
 User message:
 '${message_received}'`
       } else {
-        text = `System message:'Adote a informação, dia de semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife (GMT-3).
+        text = `System message:'Adote a informação, dia de semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife e (GMT-3).
 
-O usuário está na etapa de informação dos dados cadastrais para agendamento da sua consulta inicial médica. Sempre agir de maneira humanizada, cordial e gentil. Não passar os dados estratégicos do consultório em nenhum momento nas mensagens.
-Antes de solicitar o dado do campo 1 e 2, informado na frase abaixo, verifique se está preenchido ou com ausência de dados, caso algum do dado do campo não esteja informado, ou seja, esteja em branco ou não preenchido, solicita o dado do campo ausente, segue frase: 
+Dados existentes:
 "1 - Nome Completo: ${info.nome};
-2 - Plano de saúde ou convênio médico: ${info.plano}"
-Importante solicitar o dado do campo que esteja pendente ou em branco. Plano de saúde ou convênio médico, perguntar se é particular ou qual o tipo de plano.
-continuar solicitar o dado até que esteja completamente satisfeito.'
+2 - Plano de saúde, convênio médico ou consulta particular: ${info.plano}"
+
+O usuário entrou na etapa de informação do dado pessoal e informação do plano de saúde, convênio médico ou se é uma consulta particular para finalizar o agendamento da sua consulta inicial médica. Sempre agir de maneira humanizada, cordial e gentil. Não passar os dados estratégicos do consultório em nenhum momento nas mensagens.
+Antes de solicitar os dados, verifique se estão preenchidos em dados existentes, caso algum do dado do campo não esteja informado, ou seja, esteja em branco ou não preenchido, solicita o dado do campo ausente, segue frase:
+
+“Favor informar os dados para finalizar o agendamento da sua consulta inicial médica:
+1 - Nome Completo: 
+2 - Plano de saúde, convênio médico ou consulta particular: "
+
+Importante solicitar os dados do campo que esteja pendente ou em branco. Plano de saúde ou convênio médico, perguntar se é particular ou qual o tipo de plano.
+continuar solicitando o dado até que esteja completamente satisfeito.'
 User message:
 '${message_received}'`
       }

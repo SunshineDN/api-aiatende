@@ -80,7 +80,7 @@ Tarde: 14h00 às 17h00
 
 Verifique as datas disponíveis da agenda a seguir e siga os passos logo em seguida:
 
-Agenda com datas disponíveis:
+*Agenda Disponível*:
 
 [
 ${dates}

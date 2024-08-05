@@ -78,7 +78,7 @@ class PromptC {
   
   #AgendaFutura: Para usuário que ainda não pretendem agendar neste momento.
   
-  Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra" Exemplo: #Agendamento' `;
+  Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra" Exemplo: #Agendamento'`;
       console.log('Prompt recebido!');
       console.log('Preparando para enviar prompt...');
       await this.prompt(req, res, text);

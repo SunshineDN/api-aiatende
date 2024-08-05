@@ -27,6 +27,7 @@ const HandlingError = async (payload, access_token = null, error) => {
     console.log('Erro setado no LOG com sucesso!');
     return;
   } catch (e) {
+    console.log(e);
     if (e.response) {
       console.log('Erro ao tratar error com o handler:', e.response.data);
     } else {
