@@ -9,7 +9,7 @@ const SendLog = require("../services/kommo/SendLog");
 const SendMessage = require("../services/kommo/SendMessage");
 
 
-class Assistant {
+class AssistantC {
   constructor() {
     this.assistant = this.assistant.bind(this);
     this.c_previa_dados = this.c_previa_dados.bind(this);
@@ -35,6 +35,8 @@ class Assistant {
       res.status(500).send('Erro ao enviar mensagem para o assistente');
     }
   }
+
+  // BOT C
 
   async c_previa_dados(req, res) {
     console.log('Recebendo requisição de assistente | Previa Dados...');
@@ -208,6 +210,8 @@ User:
       res.status(500).send('Erro ao enviar mensagem para o assistente');
     }
   }
+
+  // BOT D
 }
 
-module.exports = new Assistant();
+module.exports = new AssistantC();

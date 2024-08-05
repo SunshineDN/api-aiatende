@@ -7,7 +7,7 @@ const SendLog = require("../services/kommo/SendLog");
 const SendMessage = require("../services/kommo/SendMessage");
 
 
-class Prompt {
+class PromptC {
   constructor() {
     this.index = this.index.bind(this);
     this.prompt = this.prompt.bind(this);
@@ -33,6 +33,8 @@ class Prompt {
       res.status(500).send('Erro ao enviar prompt');
     }
   }
+
+  // BOT C
 
   async c_intencao(req, res) {
     console.log('Recebendo requisição de prompt...');
@@ -112,6 +114,8 @@ Identifique a intenção da resposta do usuário baseada na mensagem do sistema,
       res.status(500).send('Erro ao enviar prompt');
     }
   }
+
+  // BOT D
 }
 
-module.exports = new Prompt();
+module.exports = new PromptC();
