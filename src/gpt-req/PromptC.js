@@ -98,23 +98,22 @@ class PromptC {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const message_received = await GetMessageReceived(req.body, access_token);
       const answer = await GetAnswer(req.body, access_token);
-      const text = `Analise a mensagem do sistema: '${answer}'.
-Baseado na resposta do usuário: '${message_received}' e verifique as opções abaixo:
+      const text = `Analise a pergunta do consultório: '${answer}' e a resposta do usuário: '${message_received}' e verifique as opções abaixo:
 
-#ConfirmouDados: Se a resposta do usuário está confirmando os dados dele descrito na mensagem do sistema, exemplo:
-Mensagem do sistema: 'Augencio, para confirmar, temos os seguintes dados:
+#ConfirmouDados: Se a resposta do usuário está confirmando os dados dele descrito na pergunta do consultório, exemplo:
+Pergunta do consultório: 'Augencio, para confirmar, temos os seguintes dados:
 - Nome completo: Augencio Leite
 - Plano: Consulta particular
-Por favor, confirme se está tudo correto!';
-Resposta do usuário: 'Sim';
+Por favor, confirme se está tudo correto!'
+Resposta do usuário: 'Sim'
 
-#Continuar: Se o usuário não confirma os dados dele e quer alterar, ou se ainda está fornecendo algum dado que foi pedido na mensagem do sistema, exemplo:
-Mensagem do sistema: 'Augencio, só está faltando a informação sobre o tipo de plano. Você pode me informar se será um plano de saúde ou se a consulta será particular?'
+#Continuar: Se o usuário não confirma os dados dele e quer alterar, ou se ainda está fornecendo algum dado que foi pedido na pergunta do consultório, exemplo:
+Pergunta do consultório: 'Augencio, só está faltando a informação sobre o tipo de plano. Você pode me informar se será um plano de saúde ou se a consulta será particular?'
 Resposta do usuário: 'Consulta particular';
 
 #ReiniciarConfirmação: Caso a resposta do usuário seja corrigindo algum dado cadastral que já foi armazenado no sistema, como nome completo, tipo de plano, telefone: (ex: douglas augusto, amil, 8196724310)
 
-Identifique a intenção da resposta do usuário baseada na mensagem do sistema, e retorne apenas o id das opções listadas acima, por exemplo: #Continuar`;
+Identifique a intenção da resposta do usuário baseada na Pergunta do consultório, e retorne apenas o id das opções listadas acima, por exemplo: #Continuar`;
       console.log('Prompt recebido!');
       console.log('Preparando para enviar prompt...');
       await this.prompt(req, res, text);
