@@ -14,6 +14,7 @@ const CalendarUtils = require('../utils/CalendarUtils');
 class AssistantD {
   constructor() {
     this.assistant = this.assistant.bind(this);
+    this.d_disponibilidade = this.d_disponibilidade.bind(this);
   }
 
   async assistant(req, res, data) {
