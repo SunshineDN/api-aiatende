@@ -105,7 +105,7 @@ Pergunta do consultório: 'Augencio, para confirmar, temos os seguintes dados:
 - Nome completo: Augencio Leite
 - Plano: Consulta particular
 Por favor, confirme se está tudo correto!'
-Resposta do usuário: 'Sim'
+Resposta do usuário: '(sim, está tudo correto, ok)'
 
 #Continuar: Se o usuário ainda está fornecendo algum dado que foi pedido na pergunta do consultório ou não confirma os dados dele e quer alterar, exemplo:
 Pergunta do consultório: 'Augencio, só está faltando a informação sobre o tipo de plano. Você pode me informar se será um plano de saúde ou se a consulta será particular?'
