@@ -109,7 +109,7 @@ Resposta do usuário: 'Sim'
 
 #Continuar: Se o usuário não confirma os dados dele e quer alterar, ou se ainda está fornecendo algum dado que foi pedido na pergunta do consultório, exemplo:
 Pergunta do consultório: 'Augencio, só está faltando a informação sobre o tipo de plano. Você pode me informar se será um plano de saúde ou se a consulta será particular?'
-Resposta do usuário: 'Consulta particular';
+Resposta do usuário: '(consulta particular, amil, unimed, plano sulamerica)'
 
 #ReiniciarConfirmação: Caso a resposta do usuário seja corrigindo algum dado cadastral que já foi armazenado no sistema, como nome completo, tipo de plano, telefone: (ex: douglas augusto, amil, 8196724310)
 
