@@ -200,7 +200,7 @@ Caso precise, o nome do consultório é: Consultório Dr Nelson Bechara Coutinho
       const scheduleDate = user?.custom_fields_values?.filter(field => field.field_name === 'Event Start')[0];
       const scheduleDateValue = scheduleDate?.values[0]?.value;
 
-      const text = `Gere uma mensagem para o usuário, pedindo para ele confirmar a data de agendamento: ${scheduleDateValue}. Além da data exata, diga quanto tempo falta para o agendamento, exemplo: 1 dia, 3 horas, 1 hora.`;
+      const text = `Gere uma mensagem para o usuário, lembrando a ele a data de agendamento: ${scheduleDateValue}. Além da data exata, diga quanto tempo falta para o agendamento, exemplo: 1 dia, 3 horas, 1 hora.`;
 
       const data = {
         leadID,
