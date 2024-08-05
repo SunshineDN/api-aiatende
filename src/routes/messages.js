@@ -36,4 +36,6 @@ router.post('/prompt/d_intencao', PromptD.d_intencao);
 
 router.post('/assistant/:assistant_id/d_disponibilidade', AssistantD.d_disponibilidade);
 
+router.post('/assistant/:assistant_id/d_previa_datas', AssistantD.d_previa_datas);
+
 module.exports = router;

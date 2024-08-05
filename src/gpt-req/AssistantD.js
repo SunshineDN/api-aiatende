@@ -15,6 +15,7 @@ class AssistantD {
   constructor() {
     this.assistant = this.assistant.bind(this);
     this.d_disponibilidade = this.d_disponibilidade.bind(this);
+    this.d_previa_datas = this.d_previa_datas.bind(this);
   }
 
   async assistant(req, res, data) {
@@ -112,6 +113,27 @@ ${messageReceived}`;
     } catch (error) {
       console.log(`Erro ao verificar disponibilidade: ${error.message}`);
       res.status(500).send('Erro ao verificar disponibilidade');
+    }
+  }
+
+  async d_previa_datas(req, res) {
+    console.log('Recebendo requisição de assistente | Previa Dados...');
+    try {
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const message_received = await GetMessageReceived(req.body, access_token);
+      const { lead_id: leadID } = req.body;
+      const { assistant_id } = req.params;
+
+      const data = {
+        leadID,
+        text: message_received,
+        assistant_id,
+      };
+
+      await this.assistant(req, res, data);
+    } catch (error) {
+      console.log(`Erro ao enviar mensagem para a assistente: ${error.message}`);
+      res.status(500).send('Erro ao enviar mensagem para a assistente');
     }
   }
 }
