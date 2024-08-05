@@ -58,29 +58,25 @@ class PromptC {
       const text = `System message:'Aja como um especialista em análise de dados para clínicas odontológicas. 
   Considere que você esteja analisando a intenção de uma resposta digitada por um usuário em um chatbot. A Data e Hora atual são: ${date}. Analise a mensagem do sistema: '${answer}' e veja em quais das situações abaixo encaixa a intenção desta frase digitada: '${message_received}'.
   
-  #Saudacao: Para leads Realizando a Saudação (ex: Oi, Olá, Bom dia, Boa noite, Tudo bem? etc).
+  #Saudacao: Para usuário Realizando a Saudação (ex: Oi, Olá, Bom dia, Boa noite, Tudo bem? etc).
   
-  #cadastro:Para leads que respondem informam dados pessoais, como: nome completo, plano de saúde (ou caso seja consulta particular), e/ou telefone (ex: augencio leite ferreira neto, amil, 8191929779). Consultas particulares se encaixam nessa opção.
+  #cadastro: Para usuário que respondem informam dados pessoais, como: nome completo, plano de saúde ou convênio médico (ou caso seja consulta particular), e/ou telefone (ex: augencio leite ferreira neto, amil, 8191929779). Consultas particulares se encaixam nessa opção.
   
-  #tratamento: Para leads buscando informações dos tipos de tratamentos odontológicos;
+  #tratamento: Para usuário buscando informações dos tipos de tratamentos médicos, cirurgias, trombose, varizes, vasos sanguíneos, artérias, edemas, outras doenças vasculares;
   
-  #Informacao: Para leads buscando informações sobre a clínica.
+  #Informacao: Para usuário buscando informações sobre o consultório médico, informações sobre Dr.Nelson, Curriculum Dr.Nelson, qual a especialidade médica.
   
-  #valores: Para leads buscando valores dos serviços ou consulta inicial.
+  #valores: Para usuário buscando valores dos serviços ou consulta inicial.
   
-  #Agendamento: Para leads com intenção clara de marcar uma consulta inicial. Consultas particulares não se encaixam nessa opção.
+  #Agendamento: Para usuário com intenção clara de marcar uma consulta inicial. Consultas particulares não se encaixam nessa opção. (exemplo: agendar, marcar, consultar).
   
-  #Profissional: Para leads interessados em emprego ou apresentação de produtos ou serviços.
+  #Profissional: Para usuário interessados em emprego ou apresentação de produtos ou serviços.
   
-  #Perdido: Quando houver um pedido para desistência da conversa.
-  
-  #ClienteAntigo: Para leads que se tornaram Cliente e pagar o tratamento proposto.
-  
-  #FeedbackReclamacao: Para leads que desejam deixar feedback ou reclamação.
+  #ClienteAntigo: Para usuário que se tornaram Cliente e pagar o tratamento proposto.
   
   #Geral: Para os demais assuntos. 
   
-  #AgendaFutura: Para leads que ainda não pretendem agendar neste momento.
+  #AgendaFutura: Para usuário que ainda não pretendem agendar neste momento.
   
   Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra" Exemplo: #Agendamento' `;
       console.log('Prompt recebido!');
