@@ -34,8 +34,12 @@ router.post('/assistant/:assistant_id/c_verifica_dados', AssistantC.c_verifica_d
 
 router.post('/prompt/d_intencao', PromptD.d_intencao);
 
+router.post('/prompt/d_verificar_confirmacao', PromptD.d_verificar_confirmacao);
+
 router.post('/assistant/:assistant_id/d_disponibilidade', AssistantD.d_disponibilidade);
 
 router.post('/assistant/:assistant_id/d_previa_datas', AssistantD.d_previa_datas);
+
+router.post('/assistant/:assistant_id/d_verificar_datas', AssistantD.d_verificar_datas);
 
 module.exports = router;

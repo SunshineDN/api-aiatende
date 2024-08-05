@@ -16,6 +16,7 @@ class AssistantD {
     this.assistant = this.assistant.bind(this);
     this.d_disponibilidade = this.d_disponibilidade.bind(this);
     this.d_previa_datas = this.d_previa_datas.bind(this);
+    this.d_verificar_datas = this.d_verificar_datas.bind(this);
   }
 
   async assistant(req, res, data) {
@@ -127,6 +128,31 @@ ${messageReceived}`;
       const data = {
         leadID,
         text: message_received,
+        assistant_id,
+      };
+
+      await this.assistant(req, res, data);
+    } catch (error) {
+      console.log(`Erro ao enviar mensagem para a assistente: ${error.message}`);
+      res.status(500).send('Erro ao enviar mensagem para a assistente');
+    }
+  }
+
+  async d_verificar_datas(req, res) {
+    console.log('Recebendo requisição de assistente | Verificar Datas...');
+    try {
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const message_received = await GetMessageReceived(req.body, access_token);
+      const { lead_id: leadID } = req.body;
+      const { assistant_id } = req.params;
+
+      const text = `System message: Se o usuário escolheu alguma data ou horário, retornar uma mensagem avisando que iremos agendá-lo na data escolhida após coletar os dados dele, que serão pedidos em alguns segundos.
+Caso contrário, apenas trate a mensagem do usuário ignorando as instruções anterior.
+User message: '${message_received}'`;
+
+      const data = {
+        leadID,
+        text,
         assistant_id,
       };
 
