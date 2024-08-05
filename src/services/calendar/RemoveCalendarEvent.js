@@ -22,7 +22,7 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
     const eventSummary = custom_fields?.filter(field => field.name === 'Event Summary')[0];
     const eventStart = custom_fields?.filter(field => field.name === 'Event Start')[0];
     const eventFilled = custom_fields?.filter(field => field.name === 'Datas ocupadas')[0];
-    const eventAvaiable = custom_fields?.filter(field => field.name === 'Datas disponíveis')[0];
+    const eventAvaiable = custom_fields?.filter(field => field.name === 'Data escolhida')[0];
     const nameDoctor = user?.custom_fields_values?.filter(
       (field) => field.field_name === 'Dentista' || field.field_name === 'Médico'
     )[0];
