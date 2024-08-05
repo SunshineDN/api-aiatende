@@ -24,7 +24,9 @@ class PromptC {
     try {
       console.log('Enviando prompt...');
       access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      console.log('Mensagem enviada para o prompt:', text);
       const { message } = await OpenAIController.promptMessage(text);
+      console.log('Resposta recebida do prompt:', message);
       await SendMessage(req.body, message, access_token);
       res.status(200).send({ message: 'Prompt enviado com sucesso', response: message });
     } catch (error) {
@@ -96,12 +98,19 @@ class PromptC {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const message_received = await GetMessageReceived(req.body, access_token);
       const answer = await GetAnswer(req.body, access_token);
-      const text = `Analise a mensagem do sistema: ' ${answer} '.
-Baseado na resposta do usuário: ' ${message_received} ' e verifique as opções abaixo:
+      const text = `Analise a mensagem do sistema: '${answer}'.
+Baseado na resposta do usuário: '${message_received}' e verifique as opções abaixo:
 
-#ConfirmouDados: Se a resposta do usuário está confirmando os dados dele descrito na mensagem do sistema;
+#ConfirmouDados: Se a resposta do usuário está confirmando os dados dele descrito na mensagem do sistema, exemplo:
+Mensagem do sistema: 'Augencio, para confirmar, temos os seguintes dados:
+- Nome completo: Augencio Leite
+- Plano: Consulta particular
+Por favor, confirme se está tudo correto!';
+Resposta do usuário: 'Sim';
 
-#Continuar: Se o usuário não confirma os dados dele e quer alterar, ou se ainda está fornecendo algum dado que foi pedido na mensagem do sistema;
+#Continuar: Se o usuário não confirma os dados dele e quer alterar, ou se ainda está fornecendo algum dado que foi pedido na mensagem do sistema, exemplo:
+Mensagem do sistema: 'Augencio, só está faltando a informação sobre o tipo de plano. Você pode me informar se será um plano de saúde ou se a consulta será particular?'
+Resposta do usuário: 'Consulta particular';
 
 #ReiniciarConfirmação: Caso a resposta do usuário seja corrigindo algum dado cadastral que já foi armazenado no sistema, como nome completo, tipo de plano, telefone: (ex: douglas augusto, amil, 8196724310)
 

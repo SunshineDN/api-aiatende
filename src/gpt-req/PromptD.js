@@ -27,7 +27,9 @@ class PromptD {
       console.log('Enviando prompt...');
       access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const { message } = await OpenAIController.promptMessage(text);
+      console.log('Mensagem enviada para o prompt:', text);
       await SendMessage(req.body, message, access_token);
+      console.log('Resposta recebida do prompt:', message);
       res.status(200).send({ message: 'Prompt enviado com sucesso', response: message });
     } catch (error) {
       console.log(`Erro ao enviar prompt: ${error.message}`);

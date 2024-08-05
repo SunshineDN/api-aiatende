@@ -40,8 +40,8 @@ class GptController {
     try {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       if (req.body?.type !== 'voice' && req.body?.type !== 'audio') {
-        await Fill_Lead_Message(req.body, access_token);
-        return res.status(200).json({ message: 'Mensagem preenchida com sucesso!' });
+        // await Fill_Lead_Message(req.body, access_token);
+        return res.status(200).json({ message: 'Mensagem é de texto' });
       }
       await SpeechToText(req.body, access_token);
     } catch (error) {

@@ -29,8 +29,9 @@ class AssistantD {
       console.log('Enviando para o assistente GPT...');
       access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
 
+      console.log('Mensagem enviada para o assistente:', data.text);
       const { message } = await OpenAIController.generateMessage(data);
-
+      console.log('Resposta recebida do assistente:', message);
       await SendMessage(req.body, message, access_token);
       res.status(200).send({ message: 'Mensagem enviada com sucesso para o assistente', response: message });
     } catch (error) {
