@@ -98,16 +98,16 @@ class PromptC {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const message_received = await GetMessageReceived(req.body, access_token);
       const answer = await GetAnswer(req.body, access_token);
-      const text = `Analise a pergunta do consultório: '${answer}' e a resposta do usuário: '${message_received}' e verifique as opções abaixo:
+      const text = `Analise a pergunta do consultório: '${answer}' e a resposta do usuário: '${message_received}' e verifique as intenções abaixo qual melhor se encaixa:
 
-#ConfirmouDados: Se a resposta do usuário está confirmando os dados dele descrito na pergunta do consultório, exemplo:
+#ConfirmouDados: APENAS se a resposta do usuário está confirmando os dados dele descrito na pergunta do consultório, exemplo:
 Pergunta do consultório: 'Augencio, para confirmar, temos os seguintes dados:
 - Nome completo: Augencio Leite
 - Plano: Consulta particular
 Por favor, confirme se está tudo correto!'
 Resposta do usuário: 'Sim'
 
-#Continuar: Se o usuário não confirma os dados dele e quer alterar, ou se ainda está fornecendo algum dado que foi pedido na pergunta do consultório, exemplo:
+#Continuar: Se o usuário ainda está fornecendo algum dado que foi pedido na pergunta do consultório ou não confirma os dados dele e quer alterar, exemplo:
 Pergunta do consultório: 'Augencio, só está faltando a informação sobre o tipo de plano. Você pode me informar se será um plano de saúde ou se a consulta será particular?'
 Resposta do usuário: '(consulta particular, amil, unimed, plano sulamerica)'
 
