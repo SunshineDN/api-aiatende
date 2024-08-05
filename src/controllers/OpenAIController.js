@@ -180,7 +180,7 @@ class OpenAIController {
             existThreads.threadID[indexOfAssistant],
             run.id
           );
-          while (run.status !== 'cancelled' || run.status !== 'expired' || run.status !== 'failed') {
+          while (run.status !== 'cancelled' && run.status !== 'expired' && run.status !== 'failed') {
             run = await openai.beta.threads.runs.retrieve(
               existThreads.threadID[indexOfAssistant],
               run.id
