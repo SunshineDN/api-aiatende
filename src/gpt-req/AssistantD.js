@@ -26,7 +26,7 @@ class AssistantD {
       const { message } = await OpenAIController.generateMessage(data);
 
       await SendMessage(req.body, message, access_token);
-      res.status(200).send('Mensagem enviada para o assistente com sucesso');
+      res.status(200).send('Mensagem enviada para o assistente com sucesso, resposta:', message);
     } catch (error) {
       console.log(`Erro ao enviar mensagem para o assistente: ${error.message}`);
       await SendLog(req.body, `Erro ao enviar mensagem para o assistente: ${error.message}`, access_token);
@@ -109,7 +109,6 @@ ${messageReceived}`;
       }
 
       await this.assistant(req, res, data);
-      res.status(200).send('Disponibilidade de horário enviada com sucesso');
     } catch (error) {
       console.log(`Erro ao verificar disponibilidade: ${error.message}`);
       res.status(500).send('Erro ao verificar disponibilidade');

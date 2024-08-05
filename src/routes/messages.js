@@ -32,6 +32,8 @@ router.post('/assistant/:assistant_id/c_verifica_dados', AssistantC.c_verifica_d
 
 // BOT D
 
+router.post('/prompt/d_intencao', PromptD.d_intencao);
+
 router.post('/assistant/:assistant_id/d_disponibilidade', AssistantD.d_disponibilidade);
 
 module.exports = router;
