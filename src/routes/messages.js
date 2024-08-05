@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const decodeKommoURI = require('../middlewares/decodeKommoURI');
 const bodyParser = require('body-parser');
+const GlobalAssistant = require('../gpt-req/GlobalAssistant');
 const PromptC = require('../gpt-req/PromptC');
 const AssistantC = require('../gpt-req/AssistantC');
 const PromptD = require('../gpt-req/PromptD');
@@ -13,6 +14,8 @@ router.use(decodeKommoURI);
 router.get('/', (req, res) => {
   res.json({ message: 'Rota de mensagens' });
 });
+
+router.post('/assistant/:assistant_id/only_assistant', GlobalAssistant.only_assistant);
 
 // BOT C
 

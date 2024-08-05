@@ -1,0 +1,57 @@
+require('dotenv').config();
+const OpenAIController = require('../controllers/OpenAIController');
+const GetAccessToken = require("../services/kommo/GetAccessToken");
+const GetAnswer = require("../services/kommo/GetAnswer");
+const GetLeadChannel = require('../services/kommo/GetLeadChannel');
+const GetLeadInfoForBotC = require('../services/kommo/GetLeadInfoForBotC');
+const GetMessageReceived = require("../services/kommo/GetMessageReceived");
+const SendLog = require("../services/kommo/SendLog");
+const SendMessage = require("../services/kommo/SendMessage");
+
+
+class GlobalAssistant {
+  constructor() {
+    this.assistant = this.assistant.bind(this);
+    this.only_assistant = this.only_assistant.bind(this);
+  }
+
+  async assistant(req, res, data) {
+    let access_token;
+    try {
+      console.log('Enviando para o assistente GPT...');
+      access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+
+      const { message } = await OpenAIController.generateMessage(data);
+
+      await SendMessage(req.body, message, access_token);
+      res.status(200).send({ message: 'Mensagem enviada com sucesso para o assistente', response: message });
+    } catch (error) {
+      console.log(`Erro ao enviar mensagem para o assistente: ${error.message}`);
+      await SendLog(req.body, `Erro ao enviar mensagem para o assistente: ${error.message}`, access_token);
+      res.status(500).send('Erro ao enviar mensagem para o assistente');
+    }
+  }
+
+  async only_assistant(req, res) {
+    console.log('Recebendo requisição de assistente | Previa Dados...');
+    try {
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const message_received = await GetMessageReceived(req.body, access_token);
+      const { lead_id: leadID } = req.body;
+      const { assistant_id } = req.params;
+
+      const data = {
+        leadID,
+        text: message_received,
+        assistant_id,
+      };
+
+      await this.assistant(req, res, data);
+    } catch (error) {
+      console.log(`Erro ao enviar mensagem para a assistente: ${error.message}`);
+      res.status(500).send('Erro ao enviar mensagem para a assistente');
+    }
+  }
+}
+
+module.exports = new GlobalAssistant();
