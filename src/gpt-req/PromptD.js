@@ -13,6 +13,7 @@ class PromptD {
     this.prompt = this.prompt.bind(this);
     this.d_intencao = this.d_intencao.bind(this);
     this.d_verificar_confirmacao = this.d_verificar_confirmacao.bind(this);
+    this.d_confirmar_data = this.d_confirmar_data.bind(this);
   }
 
   index(req, res) {
@@ -122,6 +123,37 @@ Por gentileza, informe-nos quais essas opções funcionam melhor para você.'
 #demais: Se a frase digitada pelo consultório não se enquadrar como uma consulta agendada ou aberta, nem opções de agendamento.  
 
 Responda apenas com o ID correspondente da opção, que segue este padrão: "#palavra:" Exemplo: #IndefiniteDate`;
+      this.prompt(req, res, text);
+    } catch (error) {
+      console.log(`Erro ao enviar mensagem para o assistente: ${error.message}`);
+      res.status(500).send('Erro ao enviar mensagem para o assistente');
+    }
+  }
+
+  async d_confirmar_data(req, res) {
+    console.log('Confirmando data | Confirmação de datas...');
+    try {
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+
+      const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
+      const weekOptions = {
+        timeZone: 'America/Recife',
+        weekday: 'long'
+      };
+      const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
+      const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
+
+      const answer = await GetAnswer(req.body, access_token);
+
+      const text = `Dia da semana, data e hora atual: '${weekDayFormatted}, ${date}'. Na resposta abaixo se basear na data atual.
+Considere a resposta a seguir:
+
+[
+ ${answer}
+]
+
+Retorne apenas o dia agendado e as horas formatadas no padrão brasileiro, por exemplo: 10/09/2024 10:30
+Não formate as linhas da resposta solicitada.`;
       this.prompt(req, res, text);
     } catch (error) {
       console.log(`Erro ao enviar mensagem para o assistente: ${error.message}`);

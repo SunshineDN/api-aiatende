@@ -183,8 +183,8 @@ Antes de solicitar os dados dos campos 1 e 2, informados na frase abaixo, verifi
 3 - Telefone: ${info.telefone};"
 Importante solicitar os dados dos campos que estejam pendentes ou em branco. Para plano, perguntar se é particular ou qual o tipo de plano.
 continuar solicitar os dado até que estejam completamente satisfeitos.'
-User:
-' ${message_received} '`
+User message:
+'${message_received}'`
       } else {
         text = `System message:'Adote a informação, dia de semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife (GMT-3).
 
@@ -194,8 +194,8 @@ Antes de solicitar o dado do campo 1 e 2, informado na frase abaixo, verifique s
 2 - Plano: ${info.plano}"
 Importante solicitar o dado do campo que esteja pendente ou em branco. Para plano, perguntar se é particular ou qual o tipo de plano.
 continuar solicitar o dado até que esteja completamente satisfeito.'
-User:
-' ${message_received} '`
+User message:
+'${message_received}'`
       }
 
       const data = {

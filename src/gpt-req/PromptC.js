@@ -54,7 +54,7 @@ class PromptC {
       // const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
 
       const text = `System message:'Aja como um especialista em análise de dados para clínicas odontológicas. 
-  Considere que você esteja analisando a intenção de uma resposta digitada por um usuário em um chatbot. A Data e Hora atual são: ${date}. Analise a mensagem do sistema: ' ${answer} ' e veja em quais das situações abaixo encaixa a intenção desta frase digitada:' ${message_received} '.
+  Considere que você esteja analisando a intenção de uma resposta digitada por um usuário em um chatbot. A Data e Hora atual são: ${date}. Analise a mensagem do sistema: '${answer}' e veja em quais das situações abaixo encaixa a intenção desta frase digitada: '${message_received}'.
   
   #Saudacao: Para leads Realizando a Saudação (ex: Oi, Olá, Bom dia, Boa noite, Tudo bem? etc).
   
@@ -114,8 +114,6 @@ Identifique a intenção da resposta do usuário baseada na mensagem do sistema,
       res.status(500).send('Erro ao enviar prompt');
     }
   }
-
-  // BOT D
 }
 
 module.exports = new PromptC();

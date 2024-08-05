@@ -17,6 +17,7 @@ class AssistantD {
     this.d_disponibilidade = this.d_disponibilidade.bind(this);
     this.d_previa_datas = this.d_previa_datas.bind(this);
     this.d_verificar_datas = this.d_verificar_datas.bind(this);
+    this.d_confirmacao = this.d_confirmacao.bind(this);
   }
 
   async assistant(req, res, data) {
@@ -149,6 +150,30 @@ ${messageReceived}`;
       const text = `System message: *SE BASEANDO NOS INTERVALOS DISPONÍVEIS PASSADOS ANTERIORMENTE, SIGA AS PRÓXIMAS INSTRUÇÕES*  Se o usuário escolheu alguma data ou horário, retornar uma mensagem avisando que iremos agendá-lo na data escolhida após coletar alguns dados dele que serão pedidos nas próximas mensagens. Não colete dados do usuário nesta mensagem.
 Caso contrário, apenas trate a mensagem do usuário ignorando as instruções anterior.
 User message: '${message_received}'`;
+
+      const data = {
+        leadID,
+        text,
+        assistant_id,
+      };
+
+      await this.assistant(req, res, data);
+    } catch (error) {
+      console.log(`Erro ao enviar mensagem para a assistente: ${error.message}`);
+      res.status(500).send('Erro ao enviar mensagem para a assistente');
+    }
+  }
+
+  async d_confirmacao(req, res) {
+    console.log('Recebendo requisição de assistente | Confirmar Dados...');
+    try {
+      const { lead_id: leadID } = req.body;
+      const { assistant_id } = req.params;
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const answer = await GetAnswer(req.body, access_token);
+
+      const text = `Mensagem do sistema: Retorne uma mensagem para o cliente com sucesso de confirmação de agendamento, e a data agendada a seguir: ${answer}. Utilize como referência a agenda e o formato brasileiro no padrão a seguir: (Segunda-feira) 08 de abril de 2024 às 10 horas e 30 minutos.
+Caso precise, o nome do consultório é: Consultório Dr Nelson Bechara Coutinho`;
 
       const data = {
         leadID,
