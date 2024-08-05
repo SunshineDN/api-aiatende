@@ -101,9 +101,9 @@ class AssistantC {
       let text;
 
       if (channel === 'REDE SOCIAL') {
-        text = `Observe os dados cadastrais fornecidos pelo usuário e veja qual dado está faltando. Os dados cadastrais são: Nome completo, tipo de plano (ou se é consulta particular) e telefone. Selecione os dados faltando e retorne uma mensagem para o usuário pedindo os dados faltante para prosseguir no cadastro.`;
+        text = `Observe os dados cadastrais fornecidos pelo usuário e veja qual dado está faltando. Os dados cadastrais são: Nome completo, tipo de plano (ou se é consulta particular) e telefone. Selecione os dados faltando e retorne uma mensagem para o usuário pedindo os dados faltante para prosseguir no cadastro. Caso tenha todos os dados, retorne uma mensagem para o usuário perguntando se os dados estão corretos.`;
       } else {
-        text = `Observe os dados cadastrais fornecidos pelo usuário e veja qual dado está faltando. Os dados cadastrais são: Nome completo e tipo de plano (ou se é consulta particular). Selecione os dados faltando e retorne uma mensagem para o usuário pedindo os dados faltante para prosseguir no cadastro.`;
+        text = `Observe os dados cadastrais fornecidos pelo usuário e veja qual dado está faltando. Os dados cadastrais são: Nome completo e tipo de plano (ou se é consulta particular). Selecione os dados faltando e retorne uma mensagem para o usuário pedindo os dados faltante para prosseguir no cadastro. Caso tenha todos os dados, retorne uma mensagem para o usuário perguntando se os dados estão corretos.`;
       }
 
       const data = {
