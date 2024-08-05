@@ -146,7 +146,7 @@ ${messageReceived}`;
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
 
-      const text = `System message: *SE BASEANDO NOS INTERVALOS DISPONÍVEIS PASSADOS ANTERIORMENTE, SIGA AS PRÓXIMAS INSTRUÇÕES*  Se o usuário escolheu alguma data ou horário, retornar uma mensagem avisando que iremos agendá-lo na data escolhida após coletar alguns dados dele que serão pedidos em alguns instantes.
+      const text = `System message: *SE BASEANDO NOS INTERVALOS DISPONÍVEIS PASSADOS ANTERIORMENTE, SIGA AS PRÓXIMAS INSTRUÇÕES*  Se o usuário escolheu alguma data ou horário, retornar uma mensagem avisando que iremos agendá-lo na data escolhida após coletar alguns dados dele que serão pedidos nas próximas mensagens. Não colete dados do usuário nesta mensagem.
 Caso contrário, apenas trate a mensagem do usuário ignorando as instruções anterior.
 User message: '${message_received}'`;
 
