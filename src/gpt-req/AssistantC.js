@@ -94,13 +94,16 @@ class AssistantC {
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
       const channel = await GetLeadChannel(req.body, access_token);
+      const message_received = await GetMessageReceived(req.body, access_token);
       console.log('Channel:', channel);
       let text;
 
       if (channel === 'REDE SOCIAL') {
         text = `Observe os dados cadastrais fornecidos pelo usuário e veja se está faltando algum dado. Os dados cadastrais são: Nome completo, tipo do plano de saúde ou convênio médico (ou se é consulta particular) e telefone. Selecione os dados faltando e retorne uma mensagem para o usuário pedindo os dados faltante para prosseguir no cadastro. Caso tenha todos os dados, retorne uma mensagem para o usuário perguntando se os dados estão corretos.`;
       } else {
-        text = `Observe os dados cadastrais fornecidos pelo usuário e veja se está faltando algum dado. Os dados cadastrais são: Nome completo e tipo do plano de saúde ou convênio médico (ou se é consulta particular). Selecione os dados faltando e retorne uma mensagem para o usuário pedindo os dados faltante para prosseguir no cadastro. Caso tenha todos os dados, retorne uma mensagem para o usuário perguntando se os dados estão corretos.`;
+        text = `Os dados cadastrais são: Nome completo e tipo do plano de saúde ou convênio médico (ou se é consulta particular). 
+Observe os dados cadastrais fornecidos pelo usuário '${message_received}' e avalie se está faltando algum dos dados cadastrais. Informe ao usuário o dado faltante e retornando uma mensagem pedindo o dado faltante para prosseguir no cadastro. Caso tenha todos os dados cadastrais, retorne uma mensagem para o usuário perguntando se os dados estão corretos.
+`;
       }
 
       const data = {
