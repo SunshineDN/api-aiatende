@@ -103,13 +103,13 @@ Pergunta do consultório: 'Augencio, para confirmar, temos os seguintes dados:
 Por favor, confirme se está tudo correto!'
 Resposta do usuário: '(sim, está tudo correto, ok)'
 
-#Continuar: Se o usuário ainda está fornecendo algum dado que foi pedido na pergunta do consultório ou não confirma os dados dele e quer alterar, exemplo:
+#Continuar: Se o usuário ainda está fornecendo algum dado que foi pedido na pergunta do consultório ou não confirmar os dados dele e quer alterar, exemplo:
 Pergunta do consultório: 'Augencio, só está faltando a informação sobre o tipo de plano. Você pode me informar se será um plano de saúde ou se a consulta será particular?'
 Resposta do usuário: '(consulta particular, amil, unimed, plano sulamerica)'
 
-#ReiniciarConfirmação: Caso a resposta do usuário seja corrigindo algum dado cadastral que já foi armazenado no sistema, como nome completo, tipo de plano, telefone: (ex: douglas augusto, amil, 8196724310)
+#ReiniciarConfirmação: Caso a resposta do usuário seja corrigindo algum dado cadastral que já foi armazenado no sistema, como nome completo, tipo de plano de saúde ou convênio médico, telefone: (ex: douglas augusto, amil, 8196724310)
 
-Identifique a intenção da resposta do usuário baseada na Pergunta do consultório, e retorne apenas o id das opções listadas acima, por exemplo: #Continuar`;
+Identifique a intenção da resposta do usuário baseada na pergunta do consultório, e retorne apenas o id das opções listadas acima, por exemplo: #Continuar`;
       console.log('Prompt recebido!');
       console.log('Preparando para enviar prompt...');
       await this.prompt(req, res, text);

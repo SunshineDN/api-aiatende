@@ -68,11 +68,11 @@ class AssistantC {
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
 
-      const text = `System message: Há 2 possibilidades de retorno. Observe a frase: ' ${message_received} ' e veja em qual das opções abaixo melhor se encaixa:
+      const text = `System message: Há 2 possibilidades de retorno. Observe a frase: '${message_received}' e veja em qual das opções abaixo melhor se encaixa:
 
-1. Caso a frase contenha dados, retorne apenas uma mensagem para O PRÓPRIO USUÁRIO confirmar os dados, listando eles. Os dados seriam Nome completo e o tipo do plano de saúde ou convênio médico (ou se vai ser consulta particular).
+1. Caso a frase contenha dados, retorne apenas uma mensagem para O PRÓPRIO USUÁRIO confirmar os dados, listando eles. Os dados seriam o nome completo e o tipo do plano de saúde ou convênio médico (ou se vai ser consulta particular).
 
-2. Caso a frase esteja vazia ou faltando algum dos dados (Nome completo e o tipo de plano de saúde ou convênio médico), retorne apenas uma mensagem pedindo ao usuário que digite o(os) dado(s) que esteja faltando, deixando explícito quais dados são.`;
+2. Caso a frase esteja vazia ou faltando algum dos dados (nome completo ou o tipo do plano de saúde, convênio médico ou se vai ser consulta particular), retorne apenas uma mensagem pedindo ao usuário que digite o(os) dado(s) que esteja faltando, deixando explícito qual foi o dado considerado e qual é o dado ainda faltante.`;
 
       const data = {
         leadID,
