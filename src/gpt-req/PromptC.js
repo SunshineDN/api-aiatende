@@ -103,9 +103,17 @@ Pergunta do consultório: 'Augencio, para confirmar, temos os seguintes dados:
 Por favor, confirme se está tudo correto!'
 Resposta do usuário: '(sim, está tudo correto, ok)'
 
-#Continuar: Se o usuário ainda está fornecendo algum dado que foi pedido na pergunta do consultório ou não confirmar os dados dele e quer alterar, exemplo:
+#Continuar: Se o usuário ainda está fornecendo dados que foi pedido na pergunta do consultório ou não confirmar os dados dele e quer alterar, exemplos:”
 Pergunta do consultório: 'Augencio, só está faltando a informação sobre o tipo de plano. Você pode me informar se será um plano de saúde ou se a consulta será particular?'
 Resposta do usuário: '(consulta particular, amil, unimed, plano sulamerica)'
+Pergunta do consultório:'
+Para prosseguir com o agendamento, preciso que você informe:
+ 
+1 - Nome Completo:
+2 - Confirme se será a consulta particular ou qual o seu plano de saúde.
+ 
+Assim poderei completar seu cadastro e agendar sua consulta'
+Resposta do usuário:' Juliana Leite, Amil  '
 
 #ReiniciarConfirmação: Caso a resposta do usuário seja corrigindo algum dado cadastral que já foi armazenado no sistema, como nome completo, tipo de plano de saúde ou convênio médico, telefone: (ex: douglas augusto, amil, 8196724310)
 
