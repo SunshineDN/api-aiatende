@@ -30,7 +30,13 @@ const UpdateLead = async (payload, data, access_token = null) => {
       }
     };
 
-    await axios.patch(`${domain}/api/v4/leads/${lead_id}`, data, options);
+    try {
+      console.log('Tentando atualizar lead');
+      await axios.patch(`${domain}/api/v4/leads/${lead_id}`, data, options);
+    } catch {
+      console.log('Erro ao atualizar lead, tentando novamente');
+      await axios.patch(`${domain}/api/v4/leads/${lead_id}`, data, options);
+    }
     console.log('Lead atualizado com sucesso!');
     return;
   } catch (error) {

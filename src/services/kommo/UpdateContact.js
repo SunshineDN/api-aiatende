@@ -26,7 +26,13 @@ const UpdateContact = async (payload, contact_id, data, access_token = null) => 
       }
     };
 
-    await axios.patch(`${domain}/api/v4/contacts/${contact_id}`, data, options);
+    try {
+      console.log('Tentando atualizar contato do lead');
+      await axios.patch(`${domain}/api/v4/contacts/${contact_id}`, data, options);
+    } catch {
+      console.log('Erro ao atualizar contato do lead, tentando novamente');
+      await axios.patch(`${domain}/api/v4/contacts/${contact_id}`, data, options);
+    }
     console.log('Contato do Lead atualizado com sucesso!');
     return;
   } catch (error) {

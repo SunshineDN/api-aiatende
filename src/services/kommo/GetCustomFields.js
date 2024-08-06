@@ -7,14 +7,25 @@ const GetCustomFields = async (payload, access_token = null) => {
 
   const { account: { account_domain: domain } } = payload;
   try {
+    let custom_fields;
     if (!access_token) {
       access_token = await GetAccessToken(payload);
     }
-    const { data: { _embedded: { custom_fields } } } = await axios.get(`${domain}/api/v4/leads/custom_fields`, {
-      headers: {
-        Authorization: `Bearer ${access_token}`
-      }
-    });
+    try {
+      console.log('Tentando pegar campos customizados');
+      ({ data: { _embedded: { custom_fields } } } = await axios.get(`${domain}/api/v4/leads/custom_fields`, {
+        headers: {
+          Authorization: `Bearer ${access_token}`
+        }
+      }));
+    } catch {
+      console.log('Erro ao pegar campos customizados, tentando novamente');
+      ({ data: { _embedded: { custom_fields } } } = await axios.get(`${domain}/api/v4/leads/custom_fields`, {
+        headers: {
+          Authorization: `Bearer ${access_token}`
+        }
+      }));
+    }
 
     console.log('Campos customizados adquiridos!');
     return custom_fields;
