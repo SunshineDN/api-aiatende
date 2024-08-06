@@ -10,29 +10,58 @@ const GetUser = async (payload, with_contact = false, access_token = null) => {
   console.log('ID do Lead:', lead_id);
 
   try {
+    let responseData;
     if (!access_token) {
       access_token = await GetAccessToken(payload);
     }
 
-    const { data: responseData } = await axios.get(`${domain}/api/v4/leads/${lead_id}?with=contacts`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Referer': `${domain}/api/v4/leads/${lead_id}?with=contacts`,
-        // 'Cookie': 'session_id=' + sessionID + ';',
-        'Authorization': `Bearer ${access_token}`,
-      }
-    });
-
-    if (with_contact) {
-      const userContact = responseData._embedded.contacts[0].id;
-      const { data: completeUser } = await axios.get(`${domain}/api/v4/contacts/${userContact}`, {
+    try {
+      console.log('Tentando pegar usuário');
+      ({ data: responseData }) = await axios.get(`${domain}/api/v4/leads/${lead_id}?with=contacts`, {
         headers: {
           'Content-Type': 'application/json',
-          'Referer': `${domain}/api/v4/contacts/${userContact}`,
+          'Referer': `${domain}/api/v4/leads/${lead_id}?with=contacts`,
           // 'Cookie': 'session_id=' + sessionID + ';',
           'Authorization': `Bearer ${access_token}`,
         }
       });
+    } catch {
+      console.log('Erro ao pegar usuário, tentando novamente');
+      ({ data: responseData }) = await axios.get(`${domain}/api/v4/leads/${lead_id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Referer': `${domain}/api/v4/leads/${lead_id}`,
+          // 'Cookie': 'session_id=' + sessionID + ';',
+          'Authorization': `Bearer ${access_token}`,
+        }
+      });
+    }
+
+    if (with_contact) {
+      let completeUser
+      const userContact = responseData._embedded.contacts[0].id;
+      
+      try {
+        console.log('Tentando pegar contato');
+        ({ data: completeUser }) = await axios.get(`${domain}/api/v4/contacts/${userContact}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Referer': `${domain}/api/v4/contacts/${userContact}`,
+            // 'Cookie': 'session_id=' + sessionID + ';',
+            'Authorization': `Bearer ${access_token}`,
+          }
+        });
+      } catch {
+        console.log('Erro ao pegar contato, tentando novamente');
+        ({ data: completeUser }) = await axios.get(`${domain}/api/v4/contacts/${userContact}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Referer': `${domain}/api/v4/contacts/${userContact}`,
+            // 'Cookie': 'session_id=' + sessionID + ';',
+            'Authorization': `Bearer ${access_token}`,
+          }
+        });
+      }
 
       responseData.contact = completeUser;
     }
