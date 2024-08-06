@@ -63,7 +63,7 @@ class AssistantD {
       const dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate());
 
       const text = `System message:
-Etapa do agendamento, nesta etapa sempre enviar ao usuário as melhores opções de datas para o agendamento, conforme critérios definidos na mensagem do sistema abaixo. Sempre ágil de maneira humanizada, cordial e gentil. 
+Etapa do agendamento, nesta etapa sempre enviar ao usuário as melhores opções de datas para o agendamento, conforme critérios definidos abaixo. Sempre ágil de maneira humanizada, cordial e gentil. 
 Dia da semana, Data e Horário atual são
 ${weekDayFormatted}, ${date} GMT-3;
 
