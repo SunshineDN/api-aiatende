@@ -16,8 +16,6 @@ class AssistantD {
     this.d_previa_datas = this.d_previa_datas.bind(this);
     this.d_verificar_datas = this.d_verificar_datas.bind(this);
     this.d_confirmacao = this.d_confirmacao.bind(this);
-    this.d_confirmacao_vinda = this.d_confirmacao_vinda.bind(this);
-    this.d_reagendamento = this.d_reagendamento.bind(this);
   }
 
   async assistant(req, res, data) {
