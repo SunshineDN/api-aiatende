@@ -7,6 +7,8 @@ const PromptC = require('../gpt-req/PromptC');
 const AssistantC = require('../gpt-req/AssistantC');
 const PromptD = require('../gpt-req/PromptD');
 const AssistantD = require('../gpt-req/AssistantD');
+const PromptE = require('../gpt-req/PromptE');
+const AssistantE = require('../gpt-req/AssistantE');
 
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
@@ -41,8 +43,6 @@ router.post('/prompt/d_verificar_confirmacao', PromptD.d_verificar_confirmacao);
 
 router.post('/prompt/d_confirmar_data', PromptD.d_confirmar_data);
 
-router.post('/prompt/d_identificar_confirmacao', PromptD.d_identificar_confirmacao);
-
 router.post('/assistant/:assistant_id/d_disponibilidade', AssistantD.d_disponibilidade);
 
 router.post('/assistant/:assistant_id/d_previa_datas', AssistantD.d_previa_datas);
@@ -51,8 +51,16 @@ router.post('/assistant/:assistant_id/d_verificar_datas', AssistantD.d_verificar
 
 router.post('/assistant/:assistant_id/d_confirmacao', AssistantD.d_confirmacao);
 
-router.post('/assistant/:assistant_id/d_confirmacao_vinda', AssistantD.d_confirmacao_vinda);
+// BOT E
 
-router.post('/assistant/:assistant_id/d_reagendamento', AssistantD.d_reagendamento);
+router.post('/prompt/e_identificar_confirmacao', PromptE.identificar_confirmacao);
+
+router.post('/prompt/e_intencao_faltosos', PromptE.faltosos);
+
+router.post('/assistant/:assistant_id/e_confirmacao_vinda', AssistantE.confirmacao_vinda);
+
+router.post('/assistant/:assistant_id/e_reagendamento', AssistantE.reagendamento);
+
+router.post('/assistant/:assistant_id/e_faltosos', AssistantE.faltosos);
 
 module.exports = router;

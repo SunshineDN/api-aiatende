@@ -1,12 +1,11 @@
 require('dotenv').config();
 const OpenAIController = require('../controllers/OpenAIController');
-const GetAccessToken = require("../services/kommo/GetAccessToken");
-const GetAnswer = require("../services/kommo/GetAnswer");
+const GetAccessToken = require('../services/kommo/GetAccessToken');
 const GetLeadChannel = require('../services/kommo/GetLeadChannel');
 const GetLeadInfoForBotC = require('../services/kommo/GetLeadInfoForBotC');
-const GetMessageReceived = require("../services/kommo/GetMessageReceived");
-const SendLog = require("../services/kommo/SendLog");
-const SendMessage = require("../services/kommo/SendMessage");
+const GetMessageReceived = require('../services/kommo/GetMessageReceived');
+const SendLog = require('../services/kommo/SendLog');
+const SendMessage = require('../services/kommo/SendMessage');
 
 
 class AssistantC {
@@ -99,7 +98,7 @@ class AssistantC {
       let text;
 
       if (channel === 'REDE SOCIAL') {
-        text = `Observe os dados cadastrais fornecidos pelo usuário e veja se está faltando algum dado. Os dados cadastrais são: Nome completo, tipo do plano de saúde ou convênio médico (ou se é consulta particular) e telefone. Selecione os dados faltando e retorne uma mensagem para o usuário pedindo os dados faltante para prosseguir no cadastro. Caso tenha todos os dados, retorne uma mensagem para o usuário perguntando se os dados estão corretos.`;
+        text = 'Observe os dados cadastrais fornecidos pelo usuário e veja se está faltando algum dado. Os dados cadastrais são: Nome completo, tipo do plano de saúde ou convênio médico (ou se é consulta particular) e telefone. Selecione os dados faltando e retorne uma mensagem para o usuário pedindo os dados faltante para prosseguir no cadastro. Caso tenha todos os dados, retorne uma mensagem para o usuário perguntando se os dados estão corretos.';
       } else {
         text = `Os dados cadastrais são: Nome completo e tipo do plano de saúde ou convênio médico (ou se é consulta particular). 
 Observe os dados cadastrais fornecidos pelo usuário '${message_received}' e avalie se está faltando algum dos dados cadastrais. Informe ao usuário o dado faltante e retornando uma mensagem pedindo o dado faltante para prosseguir no cadastro. Caso tenha todos os dados cadastrais, retorne uma mensagem para o usuário perguntando se os dados estão corretos.
@@ -193,7 +192,7 @@ Antes de solicitar os dados, verifique se estão preenchidos em dados existentes
 Importante solicitar os dados do campo que esteja pendente ou em branco. Plano de saúde ou convênio médico, perguntar se é particular ou qual o tipo de plano.
 continuar solicitando o dado até que esteja completamente satisfeito.'
 User message:
-'${message_received}'`
+'${message_received}'`;
       } else {
         text = `System message:'Adote a informação, dia de semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife e (GMT-3).
 
@@ -211,7 +210,7 @@ Antes de solicitar os dados, verifique se estão preenchidos em dados existentes
 Importante solicitar os dados do campo que esteja pendente ou em branco. Plano de saúde ou convênio médico, perguntar se é particular ou qual o tipo de plano.
 continuar solicitando o dado até que esteja completamente satisfeito.'
 User message:
-'${message_received}'`
+'${message_received}'`;
       }
 
       const data = {

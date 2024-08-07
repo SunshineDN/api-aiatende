@@ -1,13 +1,10 @@
 require('dotenv').config();
 const OpenAIController = require('../controllers/OpenAIController');
-const GetAccessToken = require("../services/kommo/GetAccessToken");
-const GetAnswer = require("../services/kommo/GetAnswer");
-const GetLeadChannel = require('../services/kommo/GetLeadChannel');
-const GetLeadInfoForBotC = require('../services/kommo/GetLeadInfoForBotC');
-const GetMessageReceived = require("../services/kommo/GetMessageReceived");
-const GetUser = require('../services/kommo/GetUser');
-const SendLog = require("../services/kommo/SendLog");
-const SendMessage = require("../services/kommo/SendMessage");
+const GetAccessToken = require('../services/kommo/GetAccessToken');
+const GetAnswer = require('../services/kommo/GetAnswer');
+const GetMessageReceived = require('../services/kommo/GetMessageReceived');
+const SendLog = require('../services/kommo/SendLog');
+const SendMessage = require('../services/kommo/SendMessage');
 const CalendarIdValidate = require('../utils/CalendarIdValidate');
 const CalendarUtils = require('../utils/CalendarUtils');
 
@@ -111,7 +108,7 @@ ${messageReceived}`;
         leadID,
         text,
         assistant_id
-      }
+      };
 
       await this.assistant(req, res, data);
     } catch (error) {
@@ -187,55 +184,6 @@ Caso precise, o nome do consultório é: Consultório Dr Nelson Bechara Coutinho
     } catch (error) {
       console.log(`Erro ao enviar mensagem para a assistente: ${error.message}`);
       res.status(500).send('Erro ao enviar mensagem para a assistente');
-    }
-  }
-
-  async d_confirmacao_vinda(req, res) {
-    console.log('Recebendo requisição de assistente | Confirmar Vinda...');
-    try {
-      const { lead_id: leadID } = req.body;
-      const { assistant_id } = req.params;
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
-      const user = await GetUser(req.body, false, access_token);
-      const scheduleDate = user?.custom_fields_values?.filter(field => field.field_name === 'Event Start')[0];
-      const scheduleDateValue = scheduleDate?.values[0]?.value;
-
-      const text = `Gere uma mensagem para o usuário, lembrando a ele a data de agendamento: ${scheduleDateValue}. Além da data exata, diga quanto tempo falta para o agendamento, exemplo: 1 dia, 3 horas, 1 hora.`;
-
-      const data = {
-        leadID,
-        text,
-        assistant_id,
-      };
-
-      await this.assistant(req, res, data);
-    } catch (error) {
-      console.log(`Erro ao enviar mensagem para a assistente: ${error.message}`);
-      res.status(500).send('Erro ao enviar mensagem para o assistente');
-    }
-  }
-
-  async d_reagendamento(req, res) {
-    console.log('Recebendo requisição de assistente | Reagendamento...');
-    try {
-      const { lead_id: leadID } = req.body;
-      const { assistant_id } = req.params;
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
-      const message_received = await GetMessageReceived(req.body, access_token);
-
-      const text = `System message: O usuário deseja reagendar. Retorne uma mensagem que iremos continuar com o reagendamento dele e fornecer as datas em breve.
-User message: '${message_received}'`;
-
-      const data = {
-        leadID,
-        text,
-        assistant_id,
-      };
-
-      await this.assistant(req, res, data);
-    } catch (error) {
-      console.log(`Erro ao enviar mensagem para a assistente: ${error.message}`);
-      res.status(500).send('Erro ao enviar mensagem para o assistente');
     }
   }
 }

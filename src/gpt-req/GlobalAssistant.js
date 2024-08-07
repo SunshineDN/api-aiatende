@@ -1,12 +1,9 @@
 require('dotenv').config();
 const OpenAIController = require('../controllers/OpenAIController');
-const GetAccessToken = require("../services/kommo/GetAccessToken");
-const GetAnswer = require("../services/kommo/GetAnswer");
-const GetLeadChannel = require('../services/kommo/GetLeadChannel');
-const GetLeadInfoForBotC = require('../services/kommo/GetLeadInfoForBotC');
-const GetMessageReceived = require("../services/kommo/GetMessageReceived");
-const SendLog = require("../services/kommo/SendLog");
-const SendMessage = require("../services/kommo/SendMessage");
+const GetAccessToken = require('../services/kommo/GetAccessToken');
+const GetMessageReceived = require('../services/kommo/GetMessageReceived');
+const SendLog = require('../services/kommo/SendLog');
+const SendMessage = require('../services/kommo/SendMessage');
 
 
 class GlobalAssistant {

@@ -1,10 +1,10 @@
 require('dotenv').config();
 const OpenAIController = require('../controllers/OpenAIController');
-const GetAccessToken = require("../services/kommo/GetAccessToken");
-const GetAnswer = require("../services/kommo/GetAnswer");
-const GetMessageReceived = require("../services/kommo/GetMessageReceived");
-const SendLog = require("../services/kommo/SendLog");
-const SendMessage = require("../services/kommo/SendMessage");
+const GetAccessToken = require('../services/kommo/GetAccessToken');
+const GetAnswer = require('../services/kommo/GetAnswer');
+const GetMessageReceived = require('../services/kommo/GetMessageReceived');
+const SendLog = require('../services/kommo/SendLog');
+const SendMessage = require('../services/kommo/SendMessage');
 
 
 class PromptD {
@@ -157,32 +157,6 @@ Considere a resposta a seguir:
 
 Retorne apenas o dia agendado e as horas formatadas no padrão brasileiro, por exemplo: 10/09/2024 10:30
 Não formate as linhas da resposta solicitada.`;
-      this.prompt(req, res, text);
-    } catch (error) {
-      console.log(`Erro ao enviar mensagem para o assistente: ${error.message}`);
-      res.status(500).send('Erro ao enviar mensagem para o assistente');
-    }
-  }
-
-  async d_identificar_confirmacao(req, res) {
-    console.log('Identificando confirmação | Identificação de confirmação...');
-    try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
-      const answer = await GetAnswer(req.body, access_token);
-      const messageReceived = await GetMessageReceived(req.body, access_token);
-
-      const text = `Considere que você esteja analisando a intenção de uma frase digitada por um usuário em um chatbot.
-Analise a mensagem: '${answer}' e veja em quais das situações abaixo encaixa a intenção para a resposta: '${messageReceived}'.
-#Confirmação: A resposta tem intenção de confirmar ou continuar com o agendamento.
-
-#Reagendar: Caso a resposta tenha a intenção de marcar a consulta ou data agendada para outra data.
-
-#Desmarcar: Caso a resposta tenha intenção de desmarcar a consulta.
-
-#Geral: Não condiz com os demais cenários.
-
-Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra:" Exemplo: #Atendente `;
-
       this.prompt(req, res, text);
     } catch (error) {
       console.log(`Erro ao enviar mensagem para o assistente: ${error.message}`);
