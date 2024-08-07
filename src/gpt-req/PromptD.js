@@ -14,7 +14,6 @@ class PromptD {
     this.d_intencao = this.d_intencao.bind(this);
     this.d_verificar_confirmacao = this.d_verificar_confirmacao.bind(this);
     this.d_confirmar_data = this.d_confirmar_data.bind(this);
-    this.d_identificar_confirmacao = this.d_identificar_confirmacao.bind(this);
   }
 
   index(req, res) {
