@@ -11,8 +11,8 @@ class AssistantE {
   constructor() {
     this.assistant = this.assistant.bind(this);
     this.faltosos = this.faltosos.bind(this);
-    this.d_confirmacao_vinda = this.d_confirmacao_vinda.bind(this);
-    this.d_reagendamento = this.d_reagendamento.bind(this);
+    this.confirmacao_vinda = this.confirmacao_vinda.bind(this);
+    this.reagendamento = this.reagendamento.bind(this);
   }
 
   async assistant(req, res, data) {
