@@ -16,6 +16,8 @@ class AssistantC {
     this.c_continue_dados_cadastrais = this.c_continue_dados_cadastrais.bind(this);
     this.c_split_dados = this.c_split_dados.bind(this);
     this.c_verifica_dados = this.c_verifica_dados.bind(this);
+    this.c_listar_especialidades = this.c_listar_especialidades.bind(this);
+    this.c_verificar_especialista = this.c_verificar_especialista.bind(this);
   }
 
   async assistant(req, res, data) {
@@ -212,6 +214,71 @@ continuar solicitando o dado até que esteja completamente satisfeito.'
 User message:
 '${message_received}'`;
       }
+
+      const data = {
+        leadID,
+        text,
+        assistant_id,
+      };
+
+      await this.assistant(req, res, data);
+    } catch (error) {
+      console.log(`Erro ao enviar mensagem para o assistente: ${error.message}`);
+      res.status(500).send('Erro ao enviar mensagem para o assistente');
+    }
+  }
+
+  async c_listar_especialidades(req, res) {
+    console.log('Recebendo requisição de assistente | Listar Especialidades...');
+    try {
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const message_received = await GetMessageReceived(req.body, access_token);
+      const { lead_id: leadID } = req.body;
+      const { assistant_id } = req.params;
+
+      const text = `System message: 'Agora estamos na etapa de solicitar a especialista para a consulta. Temos os dados do usuário e o último passo antes do agendamento final é saber qual especialidade ele vai querer. Temos 3 opções para listar e o usuário escolher, segue as opções:
+
+“ 1. *Dra. Juliana Leite | Reabilitadora Oral* 
+
+2. *Dentista Especialista da equipe* (sem custo)
+
+3. *Odontopediatra | Kids (Crianças até 12 anos)* ”
+
+Retorne uma mensagem para o usuário escolher uma das 3 opções listadas acima.'
+
+User message: '${message_received}'`;
+
+      const data = {
+        leadID,
+        text,
+        assistant_id,
+      };
+
+      await this.assistant(req, res, data);
+    } catch (error) {
+      console.log(`Erro ao enviar mensagem para o assistente: ${error.message}`);
+      res.status(500).send('Erro ao enviar mensagem para o assistente');
+    }
+  }
+
+  async c_verificar_especialista(req, res) {
+    console.log('Recebendo requisição de assistente | Verificar Especialista...');
+    try {
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const { lead_id: leadID } = req.body;
+      const { assistant_id } = req.params;
+      const channel = await GetLeadChannel(req.body, access_token);
+      console.log('Channel:', channel);
+
+      const message_received = await GetMessageReceived(req.body, access_token);
+
+      const text = `System message: 'Analise a escolha da especialista para a consulta que o usuário fez e retorne uma mensagem listando a opção e perguntando se ele confirma a escolha. Caso contrário, peça novamente para o usuário escolher uma das 3 opções listadas abaixo:
+
+“ 1. *Dra. Juliana Leite | Reabilitadora Oral* 
+
+2. *Dentista Especialista da equipe* (sem custo)
+
+3. *Odontopediatra | Kids (Crianças até 12 anos)* ” '`;
 
       const data = {
         leadID,
