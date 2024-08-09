@@ -278,7 +278,9 @@ User message: '${message_received}'`;
 
 2. *Dentista Especialista da equipe* (sem custo)
 
-3. *Odontopediatra | Kids (Crianças até 12 anos)* ” '`;
+3. *Odontopediatra | Kids (Crianças até 12 anos)* ” '
+
+User message: '${message_received}'`;
 
       const data = {
         leadID,
