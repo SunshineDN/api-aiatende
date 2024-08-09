@@ -41,7 +41,7 @@ router.post('/assistant/:assistant_id/c_verifica_dados', AssistantC.c_verifica_d
 
 router.post('/assistant/:assistant_id/c_listar_especialidades', AssistantC.c_listar_especialidades);
 
-router.post('/assistant/:assistant_id/c_verificar_especialis', AssistantC.c_verificar_especialista);
+router.post('/assistant/:assistant_id/c_verificar_especialista', AssistantC.c_verificar_especialista);
 
 // BOT D
 
