@@ -165,17 +165,17 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
       const answer = await GetAnswer(req.body, access_token);
       const message_received = await GetMessageReceived(req.body, access_token);
 
-      const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
+      const text = `Analise a mensagem da clínica: '${answer}' e a resposta do usuário: '${message_received}' e verifique nas opções abaixo, qual mais se encaixa na intenção da frase.
 
-      const text = `Analise a frase: ‘${answer}’ e verifique nas opções abaixo, qual mais se encaixa na intenção da frase.
+#Juliana: Caso a resposta do usuário seja CONFIRMANDO a Dra. Juliana Leite ou Reabilitadora Oral.
 
-#Juliana: Caso a frase seja sobre a Dra. Juliana Leite ou Reabilitadora Oral
+#Isento: Se a resposta do usuário for CONFIRMANDO Dentistas Especialista da equipe (sem custo).
 
-#Isento: Se a frase fala sobre Dentistas Especialista da equipe (sem custo)
+#Odontopediatria: Se a resposta do usuário CONFIRMA odontopediatria, kids (Crianças até 12 anos).
 
-#Odontopediatria: Se a frase falando sobre odontopediatria, kids (Crianças até 12 anos)
+#Geral: Nenhum dos cenários anteriores.
 
-Retorne apenas o ID da opção após o #, por exemplo: #Isento;`
+Retorne apenas o ID da opção após o #, por exemplo: #Isento`
 
       console.log('Prompt recebido!');
       console.log('Preparando para enviar prompt...');
