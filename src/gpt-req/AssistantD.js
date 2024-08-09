@@ -58,17 +58,15 @@ class AssistantD {
       const dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate());
 
       const text = `System message:
-Etapa do agendamento, nesta etapa sempre enviar ao usuário as melhores opções de datas para o agendamento, conforme critérios definidos abaixo. Sempre ágil de maneira humanizada, cordial e gentil. 
+Etapa do pré-agendamento, nesta etapa sempre enviar ao usuário as melhores opções de datas para o pré-agendamento, conforme critérios definidos abaixo. Sempre ágil de maneira humanizada, cordial e gentil. 
 Dia da semana, Data e Horário atual são
 ${weekDayFormatted}, ${date} GMT-3;
 
-Endereço do Consultório: Av. Eng. Domingos Ferreira, 636.
-Recife, Boa Viagem. Ed. Clinical Center Karla Patrícia, 1º andar, sala 109.
+Endereço da Clínica: Av. Bernardo Vieira de Melo, 2418, Piedade - PE. Próximo ao Banco Bradesco.
 
-Horário de atendimento do Dr. Nelson Bechara Coutinho: 
-Segundas-feira: 9h00 às 12h00
-Terças-feira: 14h00 às 17h00
-Quintas-feira: 14h00 às 17h00
+Horário de atendimento da Clínica Dental Santé: 
+Segunda à Sexta: 08h00 às 20h00
+Sábado: 08h00 às 13h00
 
 Verifique as datas disponíveis da agenda a seguir e siga os passos logo em seguida:
 
@@ -79,28 +77,27 @@ ${dates}
 ]
 
 1 - Tomar conhecimento da *Agenda Disponível*, não divulgar, pois são dados sigilosos;
-2 - Tomar conhecimento do horário de funcionamento do Consultório;
+2 - Tomar conhecimento do horário de funcionamento da Clínica;
 3 - Tomar conhecimento do dia da semana, data e horário atual: ${weekDayFormatted}, ${date};
 4 - Quaisquer data disponível deverá ser após a data e horário atual;
-5 - Nunca concluir um agendamento sem data e horário determinado;
+5 - Nunca concluir o pré-agendamento sem data e horário determinado;
 6 - Restringir apenas duas opções de datas e horários para demonstração de escassez, e apresentar horários entre 12 horas e 72 horas da data e horário atual, mas sempre oferecer um horário ao usuário;
 7 - Quando o usuário solicitar uma data e horário vamos verificar a disponibilidade na *Agenda Disponível* e atender a solicitação, conforme modelo de mensagem abaixo.
 Adotar dados reais, no padrão brasileiro e o formato a seguir para listar as 2 datas e horários distintos sugeridos a melhor data e horário de acordo com os critérios, seguindo o exemplo:
-'Apresento as seguintes opções de agendamento:
+'Apresento as seguintes opções para o pré-agendamento:
 
 - Terça-feira, 30 de julho de 2024, às 14h00
 - Quinta-feira, 01 de agosto de 2024, às 16h00
 
 Você gostaria de reservar a sua consulta para alguns desses horários?'
 
-8 - Sempre oferecer novas datas até que ele aceite alguma das opções disponíveis,  agendando a consulta e informando nosso endereço.
+8 - Sempre oferecer novas datas até que ele aceite alguma das opções disponíveis
  
-9 - Se o usuário sugerir outra data e horário da opção apresentada, analise se estão disponíveis, se estiver já agende, se não apresente mais duas opções de horários mais próximos do horário e da data solicitada. Importante se basear nos argumentos anteriores.
+9 - Se o usuário sugerir outra data e horário das opções apresentadas, analise se estão disponíveis, se estiver já faça o pré-agendamento, se não apresente mais duas opções de horários mais próximos do horário e da data solicitada. Importante se basear nos argumentos anteriores.
 
-Quando o usuário escolher alguma das informações apresentadas, agende a consulta e informe nosso endereço. 
+Quando o usuário escolher alguma das informações apresentadas, faça o pré-agendamento da consulta e informe que apenas no final do agendamento que será confirmada a disponibilidade da agenda, após ele fornecer os dados que serão solicitados nas próximas mensagens. 
 
-User message:
-${messageReceived}`;
+User message: ${messageReceived}`;
 
       const data = {
         leadID,
@@ -144,8 +141,9 @@ ${messageReceived}`;
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
 
-      const text = `System message: *SE BASEANDO NOS INTERVALOS DISPONÍVEIS PASSADOS ANTERIORMENTE, SIGA AS PRÓXIMAS INSTRUÇÕES*  Se o usuário escolheu alguma data ou horário, retornar uma mensagem avisando que iremos agendá-lo na data escolhida após coletar alguns dados dele que serão pedidos nas próximas mensagens. Não colete dados do usuário nesta mensagem.
-Caso contrário, apenas trate a mensagem do usuário ignorando as instruções anterior.
+      const text = `System message: *SE BASEANDO NOS INTERVALOS DISPONÍVEIS PASSADOS ANTERIORMENTE, SIGA AS PRÓXIMAS INSTRUÇÕES*  Se o usuário escolheu alguma data ou horário, retornar uma mensagem avisando que iremos analisar a data escolhida após coletar alguns dados dele que serão solicitados nas próximas mensagens. Não colete dados do usuário ou agende nesta mensagem.
+Caso contrário, apenas trate a mensagem do usuário ignorando as instruções anteriores.
+
 User message: '${message_received}'`;
 
       const data = {
@@ -170,7 +168,7 @@ User message: '${message_received}'`;
       const answer = await GetAnswer(req.body, access_token);
 
       const text = `Mensagem do sistema: Retorne uma mensagem para o cliente com sucesso de confirmação de agendamento, e a data agendada a seguir: ${answer}. Utilize como referência a agenda e o formato brasileiro no padrão a seguir: (Segunda-feira) 08 de abril de 2024 às 10 horas e 30 minutos.
-Caso precise, o nome do consultório é: Consultório Dr Nelson Bechara Coutinho`;
+Caso precise, o nome da clínica é: Clínica Dental Santé`;
 
       const data = {
         leadID,

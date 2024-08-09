@@ -71,9 +71,9 @@ class AssistantC {
 
       const text = `System message: Há 2 possibilidades de retorno. Observe a frase: '${message_received}' e veja em qual das opções abaixo melhor se encaixa:
 
-1. Caso a frase contenha dados, retorne apenas uma mensagem para O PRÓPRIO USUÁRIO confirmar os dados, listando eles. Os dados seriam o nome completo e o tipo do plano de saúde ou convênio médico (ou se vai ser consulta particular).
+1. Caso a frase contenha dados, retorne apenas uma mensagem para O PRÓPRIO USUÁRIO confirmar os dados, listando eles. Os dados seriam o nome completo, data de nascimento, bairro e telefone(se houver dito antes, caso contrário, ignore).
 
-2. Caso a frase esteja vazia ou faltando algum dos dados (nome completo ou o tipo do plano de saúde, convênio médico ou se vai ser consulta particular), retorne apenas uma mensagem pedindo ao usuário que digite o(os) dado(s) que esteja faltando, deixando explícito qual foi o dado considerado e qual é o dado ainda faltante.`;
+2. Caso a frase esteja vazia ou faltando algum dos dados (nome completo, data de nascimento, bairro), retorne apenas uma mensagem pedindo ao usuário que digite o(os) dado(s) que esteja faltando, deixando explícito qual foi o dado considerado e qual é o dado ainda faltante.`;
 
       const data = {
         leadID,
@@ -100,11 +100,11 @@ class AssistantC {
       let text;
 
       if (channel === 'REDE SOCIAL') {
-        text = 'Observe os dados cadastrais fornecidos pelo usuário e veja se está faltando algum dado. Os dados cadastrais são: Nome completo, tipo do plano de saúde ou convênio médico (ou se é consulta particular) e telefone. Selecione os dados faltando e retorne uma mensagem para o usuário pedindo os dados faltante para prosseguir no cadastro. Caso tenha todos os dados, retorne uma mensagem para o usuário perguntando se os dados estão corretos.';
+        text = `Os dados cadastrais são: Nome completo, data de nascimento, bairro e telefone. 
+Observe os dados cadastrais fornecidos pelo usuário '${message_received}' e avalie se está faltando algum dos dados cadastrais. Informe ao usuário o dado faltante e retornando uma mensagem pedindo o dado faltante para prosseguir no cadastro. Caso tenha todos os dados cadastrais, retorne uma mensagem para o usuário perguntando se os dados estão corretos.`;
       } else {
-        text = `Os dados cadastrais são: Nome completo e tipo do plano de saúde ou convênio médico (ou se é consulta particular). 
-Observe os dados cadastrais fornecidos pelo usuário '${message_received}' e avalie se está faltando algum dos dados cadastrais. Informe ao usuário o dado faltante e retornando uma mensagem pedindo o dado faltante para prosseguir no cadastro. Caso tenha todos os dados cadastrais, retorne uma mensagem para o usuário perguntando se os dados estão corretos.
-`;
+        text = `Os dados cadastrais são: Nome completo, data de nascimento e bairro. 
+Observe os dados cadastrais fornecidos pelo usuário '${message_received}' e avalie se está faltando algum dos dados cadastrais. Informe ao usuário o dado faltante e retornando uma mensagem pedindo o dado faltante para prosseguir no cadastro. Caso tenha todos os dados cadastrais, retorne uma mensagem para o usuário perguntando se os dados estão corretos.`;
       }
 
       const data = {
@@ -131,13 +131,13 @@ Observe os dados cadastrais fornecidos pelo usuário '${message_received}' e ava
       let text;
 
       if (channel === 'REDE SOCIAL') {
-        text = `System message: Aja como um analista de dados cadastrais experiente. Nestes dois textos abaixo, analise cuidadosamente os campos para extrair o dado de nome completo, plano de saúde ou convênio médico (ou caso seja consulta particular) e telefone.
+        text = `System message: Aja como um analista de dados cadastrais experiente. Nestes dois textos abaixo, analise cuidadosamente os campos para extrair o dado de nome completo, data de nascimento, bairro e telefone.
 
-*Utilize somente dados que esteja nos textos. Agora, avalie os dois textos juntos e extraia o dado no campo: nome completo, plano de saúde ou convênio médico (ou caso seja consulta particular) e telefone. Separado apenas com o valor do campo, sem informar o identificador de cada campo, cada campo deve terminar com um ponto e vírgula. Se no texto não existir a informação do campo, retornar apenas o id #ausencia`;
+*Utilize somente dados que estejam nos textos. Agora, extraia os dados: nome completo, data de nascimento e bairro. Separado apenas com o valor do campo, sem informar o identificador de cada campo, cada campo deve terminar com um ponto e vírgula. Se no texto não existir a informação do campo, retornar apenas o id #ausencia`;
       } else {
-        text = `System message: Aja como um analista de dados cadastrais experiente. Nestes dois textos abaixo, analise cuidadosamente os campos para extrair o dado de nome completo e plano de saúde ou convênio médico (ou caso seja consulta particular).
+        text = `System message: Aja como um analista de dados cadastrais experiente. Nestes dois textos abaixo, analise cuidadosamente os campos para extrair o dado de nome completo, data de nascimento e bairro.
 
-*Utilize somente dados que esteja nos textos. Agora, extraia os dados: nome completo, e plano de saúde ou convênio médico (ou caso seja consulta particular). Separado apenas com o valor do campo, sem informar o identificador de cada campo, cada campo deve terminar com um ponto e vírgula. Se no texto não existir a informação do campo, retornar apenas o id #ausencia`;
+*Utilize somente dados que estejam nos textos. Agora, extraia os dados: nome completo, data de nascimento e bairro. Separado apenas com o valor do campo, sem informar o identificador de cada campo, cada campo deve terminar com um ponto e vírgula. Se no texto não existir a informação do campo, retornar apenas o id #ausencia`;
       }
 
       const data = {
@@ -180,16 +180,18 @@ Observe os dados cadastrais fornecidos pelo usuário '${message_received}' e ava
 
 Dados existentes:
 "1 - Nome Completo: ${info.nome};
-2 - Plano de saúde, convênio médico ou consulta particular: ${info.plano}
-3 - Telefone: ${info.telefone}"
+2 - Data de nascimento: ${info.nascimento}
+3 - Bairro: ${info.bairro}
+4 - Telefone: ${info.telefone}"
 
 O usuário entrou na etapa de informação do dado pessoal e informação do plano de saúde, convênio médico ou se é uma consulta particular para finalizar o agendamento da sua consulta inicial médica. Sempre agir de maneira humanizada, cordial e gentil. Não passar os dados estratégicos do consultório em nenhum momento nas mensagens.
 Antes de solicitar os dados, verifique se estão preenchidos em dados existentes, caso algum do dado do campo não esteja informado, ou seja, esteja em branco ou não preenchido, solicita o dado do campo ausente, segue frase:
 
 “Favor informar os dados para finalizar o agendamento da sua consulta inicial médica:
 1 - Nome Completo: 
-2 - Plano de saúde, convênio médico ou consulta particular:
-3 - Telefone:"
+2 - Data de nascimento:
+3 - Bairro: 
+4 - Telefone: "
 
 Importante solicitar os dados do campo que esteja pendente ou em branco. Plano de saúde ou convênio médico, perguntar se é particular ou qual o tipo de plano.
 continuar solicitando o dado até que esteja completamente satisfeito.'
@@ -200,19 +202,20 @@ User message:
 
 Dados existentes:
 "1 - Nome Completo: ${info.nome};
-2 - Plano de saúde, convênio médico ou consulta particular: ${info.plano}"
+2 - Data de nascimento: ${info.nascimento}
+3 - Bairro: ${info.bairro}"
 
-O usuário entrou na etapa de informação do dado pessoal e informação do plano de saúde, convênio médico ou se é uma consulta particular para finalizar o agendamento da sua consulta inicial médica. Sempre agir de maneira humanizada, cordial e gentil. Não passar os dados estratégicos do consultório em nenhum momento nas mensagens.
+O usuário entrou na etapa de informação dos dados pessoais para finalizar o agendamento da sua consulta inicial odontológica. Sempre agir de maneira humanizada, cordial e gentil. Não passar os dados estratégicos da clínica em nenhum momento nas mensagens.
 Antes de solicitar os dados, verifique se estão preenchidos em dados existentes, caso algum do dado do campo não esteja informado, ou seja, esteja em branco ou não preenchido, solicita o dado do campo ausente, segue frase:
 
 “Favor informar os dados para finalizar o agendamento da sua consulta inicial médica:
 1 - Nome Completo: 
-2 - Plano de saúde, convênio médico ou consulta particular: "
+2 - Data de nascimento: 
+3 - Bairro: "
 
-Importante solicitar os dados do campo que esteja pendente ou em branco. Plano de saúde ou convênio médico, perguntar se é particular ou qual o tipo de plano.
-continuar solicitando o dado até que esteja completamente satisfeito.'
-User message:
-'${message_received}'`;
+Importante solicitar os dados do campo que esteja pendente ou em branco. Continuar solicitando o dado até que esteja completamente satisfeito.'
+
+User message: '${message_received}'`;
       }
 
       const data = {

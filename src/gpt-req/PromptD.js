@@ -44,17 +44,18 @@ class PromptD {
     try {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const answer = await GetAnswer(req.body, access_token);
-      const messageReceived = await GetMessageReceived(req.body, access_token);
+      const message_received = await GetMessageReceived(req.body, access_token);
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
 
-      const text = `Aja como um especialista em análise de dados para consultórios médicos. 
-Considere que você esteja analisando a intenção de resposta digitada por um usuário em um chatbot. A Data e Hora atual são: ${date}. Analise a mensagem do consultório: '${answer}' e veja em quais das situações abaixo encaixa a intenção da resposta digitada pelo usuário: '${messageReceived}'.
+      const text = `Aja como um especialista em análise de dados para clínicas odontológicas. 
+Considere que você esteja analisando a intenção de resposta digitada por um usuário em um chatbot. A data e hora atual são: ${date}. Analise a mensagem da clínica: '${answer}' e veja em quais das situações abaixo encaixa a intenção da resposta digitada pelo usuário: '${message_received}'.
+
 #Saudacao: Para leads Realizando a Saudação (ex: Oi, Olá, Bom dia, Boa noite, Tudo bem? etc).
 
 #continuar: Para leads que estão escolhendo uma opções de data e horários de agendamento.
 (ex: pode ser, ok, 16, 16h, 19/01, 16h a tarde, manhã, tarde, noite, 16/12/24, outras opções de horário e etc).
 
-#cadastro: Para leads que responderam seus dados cadastrais: nome completo, data de nascimento, bairro ou e-mail (nelson coutinho, 16/12/77, Piedade, drnelsoncoutinho@hotmail.com, etc).
+#cadastro: Para leads que responderam seus dados cadastrais: nome completo, data de nascimento, bairro ou e-mail (augencio leite, 16/12/77, Candeias, augencio@hotmail.com, etc).
 
 #tratamento: Para leads buscando informações dos tipos de tratamentos odontológicos;
 
@@ -67,6 +68,7 @@ Considere que você esteja analisando a intenção de resposta digitada por um u
 #Profissional: Para leads interessados em emprego ou apresentação de produtos ou serviços.
 
 #Perdido: Quando houver um pedido para desistência da conversa.
+
 #ClienteAntigo: Para leads que se tornaram Cliente, pois já realizaram a consulta inicial e querem agendar ou pagar o tratamento.
 
 #FeedbackReclamacao: Para leads que desejam deixar feedback ou reclamação.
@@ -120,7 +122,7 @@ As opções disponíveis para o reagendamento são:
 - Quinta-feira, 20 de junho de 2024, às 15:00
 Por gentileza, informe-nos quais essas opções funcionam melhor para você.'
 
-#ConfirmDate: Se na frase digitada pelo consultório afirmou que a consulta está agendada ou confirmada, conforme exemplo: 'Perfeito! Sua consulta está agendada para terça-feira, 11/06/2024, às 16h no Consultório Dr. Nelson Bechara Coutinho, Av. Eng. Domingos Ferreira, 636, Ed Clinical Center Karla Patrícia. 1o andar, sala 109. Estamos ansiosos para recebê-lo'
+#ConfirmDate: Se na frase digitada pelo consultório afirmou que a consulta está agendada ou confirmada, conforme exemplo: 'Perfeito! Sua consulta está agendada para terça-feira, 11/06/2024, às 16h na Clínica Dental Santé, Av. Bernardo Vieira de Melo, 2418, Piedade - PE. Estamos ansiosos para recebê-lo'
 
 #demais: Se a frase digitada pelo consultório não se enquadrar como uma consulta agendada ou aberta, nem opções de agendamento.  
 
