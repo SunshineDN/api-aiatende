@@ -13,6 +13,8 @@ class PromptC {
     this.prompt = this.prompt.bind(this);
     this.c_intencao = this.c_intencao.bind(this);
     this.c_confirma_dados = this.c_confirma_dados.bind(this);
+    this.c_intencao_especialista = this.c_intencao_especialista.bind(this);
+    this.c_identificar_especialista = this.c_identificar_especialista.bind(this);
   }
 
   index(req, res) {
@@ -117,6 +119,64 @@ Resposta do usuário: 'Juliana Leite, Amil'"
 #ReiniciarConfirmação: Caso a resposta do usuário seja corrigindo algum dado cadastral que já foi armazenado no sistema, como nome completo, tipo de plano de saúde ou convênio médico, telefone: (ex: douglas augusto, amil, 8196724310)
 
 Identifique a intenção da resposta do usuário baseada na pergunta do consultório, e retorne apenas o id das opções listadas acima, por exemplo: #Continuar`;
+      console.log('Prompt recebido!');
+      console.log('Preparando para enviar prompt...');
+      await this.prompt(req, res, text);
+    } catch (error) {
+      console.log(`Erro ao enviar prompt: ${error.message}`);
+      res.status(500).send('Erro ao enviar prompt');
+    }
+  }
+
+  async c_intencao_especialista(req, res) {
+    console.log('Recebendo requisição de prompt...');
+    try {
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const answer = await GetAnswer(req.body, access_token);
+      const message_received = await GetMessageReceived(req.body, access_token);
+
+      const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
+
+      const text = `System message: ' Considere que você esteja analisando a intenção de uma resposta digitada por um usuário em um chatbot. A data e hora atual são: ${date}. Analise a mensagem da clínica: '${answer}' e veja em quais das situações abaixo encaixa a intenção desta frase digitada: '${message_received}'. ’
+  
+#Confirmou: Caso a resposta do usuário esteja CONFIRMANDO a mensagem da clínica.
+
+#Novamente: Caso o usuário esteja querendo trocar a opção atual ou escolher outra.
+
+#Parar: Se o usuário estiver com intenção de parar ou descontinuar o chat.
+  
+#Geral: Para os demais assuntos. 
+  
+Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra" Exemplo: #Agendamento'.`
+
+      console.log('Prompt recebido!');
+      console.log('Preparando para enviar prompt...');
+      await this.prompt(req, res, text);
+    } catch (error) {
+      console.log(`Erro ao enviar prompt: ${error.message}`);
+      res.status(500).send('Erro ao enviar prompt');
+    }
+  }
+
+  async c_identificar_especialista(req, res) {
+    console.log('Recebendo requisição de prompt...');
+    try {
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const answer = await GetAnswer(req.body, access_token);
+      const message_received = await GetMessageReceived(req.body, access_token);
+
+      const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
+
+      const text = `Analise a frase: ‘${answer}’ e verifique nas opções abaixo, qual mais se encaixa na intenção da frase.
+
+#Juliana: Caso a frase seja sobre a Dra. Juliana Leite ou Reabilitadora Oral
+
+#Isento: Se a frase fala sobre Dentistas Especialista da equipe (sem custo)
+
+#Odontopediatria: Se a frase falando sobre odontopediatria, kids (Crianças até 12 anos)
+
+Retorne apenas o ID da opção após o #, por exemplo: #Isento;`
+
       console.log('Prompt recebido!');
       console.log('Preparando para enviar prompt...');
       await this.prompt(req, res, text);

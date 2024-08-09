@@ -25,6 +25,10 @@ router.post('/prompt/c_intencao', PromptC.c_intencao);
 
 router.post('/prompt/c_confirma_dados', PromptC.c_confirma_dados);
 
+router.post('/prompt/c_intencao_especialista', PromptC.c_intencao_especialista);
+
+router.post('/prompt/c_identificar_especialista', PromptC.c_identificar_especialista);
+
 router.post('/assistant/:assistant_id/c_previa_dados', AssistantC.c_previa_dados);
 
 router.post('/assistant/:assistant_id/c_dados_cadastrais', AssistantC.c_dados_cadastrais);
@@ -34,6 +38,10 @@ router.post('/assistant/:assistant_id/c_continue_dados_cadastrais', AssistantC.c
 router.post('/assistant/:assistant_id/c_split_dados', AssistantC.c_split_dados);
 
 router.post('/assistant/:assistant_id/c_verifica_dados', AssistantC.c_verifica_dados);
+
+router.post('/assistant/:assistant_id/c_listar_especialidades', AssistantC.c_listar_especialidades);
+
+router.post('/assistant/:assistant_id/c_verificar_especialis', AssistantC.c_verificar_especialista);
 
 // BOT D
 
