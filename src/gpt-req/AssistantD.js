@@ -3,6 +3,7 @@ const OpenAIController = require('../controllers/OpenAIController');
 const GetAccessToken = require('../services/kommo/GetAccessToken');
 const GetAnswer = require('../services/kommo/GetAnswer');
 const GetMessageReceived = require('../services/kommo/GetMessageReceived');
+const GetUser = require('../services/kommo/GetUser');
 const SendLog = require('../services/kommo/SendLog');
 const SendMessage = require('../services/kommo/SendMessage');
 const CalendarIdValidate = require('../utils/CalendarIdValidate');
@@ -45,7 +46,7 @@ class AssistantD {
       const { assistant_id } = req.params;
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const messageReceived = await GetMessageReceived(req.body, access_token);
-      const user = await GetUser(req.body, false, access_token);
+      const user = await GetUserer(req.body, false, access_token);
       const CalendarUtilsClass = new CalendarUtils(req.body.account.id);
 
       
