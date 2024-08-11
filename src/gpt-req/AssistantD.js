@@ -44,9 +44,11 @@ class AssistantD {
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
-      const CalendarUtilsClass = new CalendarUtils();
       const messageReceived = await GetMessageReceived(req.body, access_token);
+      const user = await GetUser(req.body, false, access_token);
+      const CalendarUtilsClass = new CalendarUtils(req.body.account.id);
 
+      
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
       const weekOptions = {
         timeZone: 'America/Recife',
@@ -54,8 +56,17 @@ class AssistantD {
       };
       const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
       const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
+      
+      const nameDoctor = user.custom_fields_values.filter(
+        (field) => field.field_name === 'Dentista'
+      )[0];
+      let dates;
 
-      const dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate());
+      try {
+        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor.values[0].value || 'Não encontrado', req.body.account.id));
+      } catch {
+        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor.values[0].value || 'Não encontrado', req.body.account.id));
+      }
 
       const text = `System message:
 Etapa do pré-agendamento, nesta etapa sempre enviar ao usuário as melhores opções de datas para o pré-agendamento, conforme critérios definidos abaixo. Sempre ágil de maneira humanizada, cordial e gentil. 
