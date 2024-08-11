@@ -58,15 +58,15 @@ class AssistantD {
       const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
       const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
       
-      const nameDoctor = user.custom_fields_values.filter(
+      const nameDoctor = user?.custom_fields_values?.filter(
         (field) => field.field_name === 'Dentista'
       )[0];
       let dates;
 
       try {
-        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor.values[0].value || 'Não encontrado', req.body.account.id));
+        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado', req.body.account.id));
       } catch {
-        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor.values[0].value || 'Não encontrado', req.body.account.id));
+        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado', req.body.account.id));
       }
 
       const text = `System message:
