@@ -46,7 +46,7 @@ class AssistantD {
       const { assistant_id } = req.params;
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const messageReceived = await GetMessageReceived(req.body, access_token);
-      const user = await GetUserer(req.body, false, access_token);
+      const user = await GetUser(req.body, false, access_token);
       const CalendarUtilsClass = new CalendarUtils(req.body.account.id);
 
       
