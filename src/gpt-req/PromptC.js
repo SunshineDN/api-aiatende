@@ -162,6 +162,8 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
 
       const text = `Analise a mensagem da clínica: '${answer}' e a resposta do usuário: '${message_received}' e verifique nas opções abaixo, qual mais se encaixa na intenção da frase.
 
+#OutraEspecialidade: Caso a resposta do usuário seja CONFIRMANDO outra especialidade que não seja a enviada pela clínica.
+
 #Juliana: Caso a resposta do usuário seja CONFIRMANDO a Dra. Juliana Leite ou Reabilitadora Oral.
 
 #Isento: Se a resposta do usuário for CONFIRMANDO Dentistas Especialista da equipe (sem custo).
