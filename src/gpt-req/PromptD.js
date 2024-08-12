@@ -3,8 +3,11 @@ const OpenAIController = require('../controllers/OpenAIController');
 const GetAccessToken = require('../services/kommo/GetAccessToken');
 const GetAnswer = require('../services/kommo/GetAnswer');
 const GetMessageReceived = require('../services/kommo/GetMessageReceived');
+const GetUser = require('../services/kommo/GetUser');
 const SendLog = require('../services/kommo/SendLog');
 const SendMessage = require('../services/kommo/SendMessage');
+const CalendarIdValidate = require('../utils/CalendarIdValidate');
+const CalendarUtils = require('../utils/CalendarUtils');
 
 
 class PromptD {
@@ -14,6 +17,7 @@ class PromptD {
     this.d_intencao = this.d_intencao.bind(this);
     this.d_verificar_confirmacao = this.d_verificar_confirmacao.bind(this);
     this.d_confirmar_data = this.d_confirmar_data.bind(this);
+    this.d_verificar_agenda_especialista = this.d_verificar_agenda_especialista.bind(this);
   }
 
   index(req, res) {
@@ -154,6 +158,54 @@ Considere a resposta a seguir:
 Retorne apenas o dia agendado e as horas formatadas no padrão brasileiro, por exemplo: 10/09/2024 10:30
 Não formate as linhas da resposta solicitada.`;
       this.prompt(req, res, text);
+    } catch (error) {
+      console.log(`Erro ao enviar mensagem para o assistente: ${error.message}`);
+      res.status(500).send('Erro ao enviar mensagem para o assistente');
+    }
+  }
+
+  async d_verificar_agenda_especialista(req, res) {
+    console.log('Verificando agenda do especialista | Agenda do especialista...');
+    try {
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const CalendarUtilsClass = new CalendarUtils(req.body.account.id);
+      const actual_date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
+      const weekOptions = {
+        timeZone: 'America/Recife',
+        weekday: 'long'
+      };
+      const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
+      const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
+
+      const user = await GetUser(req.body, false, access_token);
+
+      const choice_date = user?.custom_fields_values?.filter(
+        (field) => field.field_name === 'Data escolhida'
+      )[0];
+
+      const nameDoctor = user?.custom_fields_values?.filter(
+        (field) => field.field_name === 'Dentista'
+      )[0];
+
+      let dates;
+      try {
+        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado', req.body.account.id));
+      } catch {
+        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado', req.body.account.id));
+      }
+
+      const text = `A data atual é: ${weekDayFormatted}, ${actual_date}. Observe a frase a seguir: ‘${choice_date}’. Capture a data contida na frase e identifique se ela existe como opção na *Agenda Disponível* a seguir:
+
+*Agenda Disponível*:
+
+[
+${dates}
+]
+
+Caso a data contida na frase exista na *Agenda Disponível*, retorne apenas o ID: #Existe, caso o contrário, retorne apenas o ID: #NãoExiste.
+`;
+
+      await this.prompt(req, res, text);
     } catch (error) {
       console.log(`Erro ao enviar mensagem para o assistente: ${error.message}`);
       res.status(500).send('Erro ao enviar mensagem para o assistente');

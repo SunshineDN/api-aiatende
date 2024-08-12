@@ -9,6 +9,7 @@ const PromptD = require('../gpt-req/PromptD');
 const AssistantD = require('../gpt-req/AssistantD');
 const PromptE = require('../gpt-req/PromptE');
 const AssistantE = require('../gpt-req/AssistantE');
+const Agendamento = require('../gpt-req/Agendamento');
 
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
@@ -19,7 +20,7 @@ router.get('/', (req, res) => {
 
 router.post('/assistant/:assistant_id/only_assistant', GlobalAssistant.only_assistant);
 
-// BOT C
+// BOT C: DADOS
 
 router.post('/prompt/c_intencao', PromptC.c_intencao);
 
@@ -43,13 +44,15 @@ router.post('/assistant/:assistant_id/c_listar_especialidades', AssistantC.c_lis
 
 router.post('/assistant/:assistant_id/c_verificar_especialista', AssistantC.c_verificar_especialista);
 
-// BOT D
+// BOT PRÉ-AGENDAMENTO
 
 router.post('/prompt/d_intencao', PromptD.d_intencao);
 
 router.post('/prompt/d_verificar_confirmacao', PromptD.d_verificar_confirmacao);
 
 router.post('/prompt/d_confirmar_data', PromptD.d_confirmar_data);
+
+router.post('/prompt/d_verificar_agenda_especialista', PromptD.d_verificar_agenda_especialista);
 
 router.post('/assistant/:assistant_id/d_disponibilidade', AssistantD.d_disponibilidade);
 
@@ -70,5 +73,15 @@ router.post('/assistant/:assistant_id/e_confirmacao_vinda', AssistantE.confirmac
 router.post('/assistant/:assistant_id/e_reagendamento', AssistantE.reagendamento);
 
 router.post('/assistant/:assistant_id/e_faltosos', AssistantE.faltosos);
+
+// BOT AGENDAMENTO
+
+router.post('/assistant/:assistant_id/agendamento/disponibilidade', Agendamento.assistant_disponibilidade_horario);
+
+router.post('/prompt/agendamento/intencao', Agendamento.prompt_intencao);
+
+router.post('/assistant/:assistant_id/agendamento/verificar_datas', Agendamento.assistant_verificar_datas);
+
+router.post('/prompt/agendamento/verificar_confirmacao', Agendamento.prompt_verificar_confirmacao);
 
 module.exports = router;

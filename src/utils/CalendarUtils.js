@@ -336,7 +336,7 @@ class CalendarUtils {
             }
 
             if (availableTimes.length) {
-              let string = 'Intervalos disponíveis:\n';
+              let string = '';
               availableTimes.forEach(interval => {
                 string += `${interval}\n`;
               });
