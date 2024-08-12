@@ -174,13 +174,13 @@ Não formate as linhas da resposta solicitada.`;
     try {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const CalendarUtilsClass = new CalendarUtils(req.body.account.id);
-      const actual_date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
-      const weekOptions = {
-        timeZone: 'America/Recife',
-        weekday: 'long'
-      };
-      const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
-      const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
+      // const actual_date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
+      // const weekOptions = {
+      //   timeZone: 'America/Recife',
+      //   weekday: 'long'
+      // };
+      // const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
+      // const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
 
       const user = await GetUser(req.body, false, access_token);
 
@@ -199,7 +199,7 @@ Não formate as linhas da resposta solicitada.`;
         dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado', req.body.account.id));
       }
 
-      const text = `A data atual é: ${weekDayFormatted}, ${actual_date}. Observe a frase a seguir: '${choice_date?.values[0]?.value}'. Capture a data contida na frase e identifique se ela existe como opção na *Agenda Disponível* a seguir:
+      const text = `Observe a frase a seguir: '${choice_date?.values[0]?.value}'. Capture a data contida na frase e identifique se ela existe como opção na *Agenda Disponível* a seguir:
 
 *Agenda Disponível*:
 
