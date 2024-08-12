@@ -1,10 +1,10 @@
 require('dotenv').config();
 const OpenAIController = require('../controllers/OpenAIController');
-const GetAccessToken = require("../services/kommo/GetAccessToken");
-const GetAnswer = require("../services/kommo/GetAnswer");
-const GetMessageReceived = require("../services/kommo/GetMessageReceived");
-const SendLog = require("../services/kommo/SendLog");
-const SendMessage = require("../services/kommo/SendMessage");
+const GetAccessToken = require('../services/kommo/GetAccessToken');
+const GetAnswer = require('../services/kommo/GetAnswer');
+const GetMessageReceived = require('../services/kommo/GetMessageReceived');
+const SendLog = require('../services/kommo/SendLog');
+const SendMessage = require('../services/kommo/SendMessage');
 
 
 class PromptC {
@@ -142,7 +142,7 @@ Identifique a intenção da resposta do usuário baseada na pergunta da clínica
   
 #Geral: Para os demais assuntos. 
   
-Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra" Exemplo: #Agendamento'.`
+Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra" Exemplo: #Agendamento'.`;
 
       console.log('Prompt recebido!');
       console.log('Preparando para enviar prompt...');
@@ -170,7 +170,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
 
 #Geral: Nenhum dos cenários anteriores.
 
-Retorne apenas o ID da opção após o #, por exemplo: #Isento`
+Retorne apenas o ID da opção após o #, por exemplo: #Isento`;
 
       console.log('Prompt recebido!');
       console.log('Preparando para enviar prompt...');
