@@ -199,7 +199,7 @@ Não formate as linhas da resposta solicitada.`;
         dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado', req.body.account.id));
       }
 
-      const text = `A data atual é: ${weekDayFormatted}, ${actual_date}. Observe a frase a seguir: ‘${choice_date}’. Capture a data contida na frase e identifique se ela existe como opção na *Agenda Disponível* a seguir:
+      const text = `A data atual é: ${weekDayFormatted}, ${actual_date}. Observe a frase a seguir: '${choice_date?.values[0]?.value}'. Capture a data contida na frase e identifique se ela existe como opção na *Agenda Disponível* a seguir:
 
 *Agenda Disponível*:
 
