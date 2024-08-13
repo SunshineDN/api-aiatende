@@ -91,7 +91,7 @@ User message:
       const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
       const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
 
-      const text = `System message: Envie uma mensagem para que o usuário confirme sobre a data de agendamento: '${scheduleDateValue}'. Se baseie no dia atual: '${weekDayFormatted}, ${date}' e retorne quanto tempo falta para a consulta do usuário (12 horas, amanhã, hoje). Pode utilizar emojis para embelezar a mensagem e deixá-la mais atrativa`;
+      const text = `System message: Envie uma mensagem para que o usuário confirme sobre a data de agendamento: '${scheduleDateValue}'. Se baseie no dia atual: '${weekDayFormatted}, ${date}' e retorne quanto tempo falta em dia(s) e hora(s) para a consulta do usuário (12 horas, amanhã, hoje).`;
 
       const data = {
         leadID,
