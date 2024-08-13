@@ -98,32 +98,32 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
       const answer = await GetAnswer(req.body, access_token);
       const message_received = await GetMessageReceived(req.body, access_token);
 
-      const text = `Seja como especialista em agendamento de consultas. Considere que você está analisando a intenção de uma pergunta da clínica: '${answer}' verifique também a resposta do USUÁRIO: '${message_received}' e veja em quais das intenções abaixo a resposta do usuário melhor se encaixa.
+      const text = `Aja como especialista em agendamento de consultas. Considere que você está analisando a intenção de uma pergunta da clínica: '${answer}' verifique também a resposta do USUÁRIO: '${message_received}' e veja em qual das intenções abaixo a resposta do usuário melhor se encaixa.
 
 #IndefiniteDate: Se na frase digitada pela clínica estiver como opções de pré-agendamento, sugestões de datas de pré-agendamento ou informando preferências de datas de pré-agendamento, conforme exemplos: 
-' 1- Com base na disponibilidade e no horário de funcionamento do consultório, as opções de pré-agendamento para o dia 15 de junho de 2024, no período da tarde, são as seguintes:
+' 1- Com base na disponibilidade e no horário de funcionamento da clínica, as opções de pré-agendamento para o dia 15 de junho de 2024, no período da tarde, são as seguintes:
 - Terça-feira, 15 de junho de 2024, às 16:00
- Esses dados e horários estão disponíveis para a sua consulta inicial. Gostaria de reservar para esse horário? 
+ Esse data e horário está disponível para a sua consulta inicial. Gostaria de reservar para esse horário? 
 
 2- Gostaria de oferecer as seguintes opções de pré-agendamento: - Segunda-feira (06/10/2024) às 14h00, ou - Terça-feira (06/11/2024) às 10h00;
- as opções disponíveis para pré-agendamento são:
+
+3- As opções disponíveis para pré-agendamento são:
 - Quinta-feira (13/06/2024) às 14h00
-- Sexta-feira (14/06/2024) às 16h00
+- Sexta-feira (14/06/2024) às 16h00;
  
-3- Posso reservar a sua consulta para um desses horários?;
-tenho disponibilidade nos seguintes horários à tarde:
+4- Posso reservar a sua consulta para um desses horários:
 - Terça-feira, 11 de junho de 2024, às 14:00
 - Terça-feira, 11 de junho de 2024, às 16:00
-Qual dessas fica melhor para você?;
+Qual dessas fica melhor para você?
 
- 4- Os dados disponíveis para pré-agendamento são:
+ 5- Os dados disponíveis para pré-agendamento são:
 - Quinta-feira (13/06/2024) às 08h00
 - Quinta-feira (13/06/2024) às 09h00.
- Por favor, confirme se uma dessas opções é adequada para você, e em seguida, providenciaremos o agendamento.
+ Por favor, confirme se uma dessas opções é adequada para você, e em seguida, providenciaremos o agendamento.'
 
 #ConfirmDate: Se o usuário confirma a mensagem da clínica, ou escolhe um horário para o pré-agendamento.
 
-#demais: Se a frase digitada pelo consultório não se enquadrar como uma consulta pré-agendada ou aberta, nem opções de pré-agendamento, ou se o usuário quer continuar escolhendo as datas.
+#demais: Se o usuário quer continuar escolhendo outro horário e data diferente do apresentado.
 
 Responda apenas com o ID correspondente da opção, que segue este padrão: "#palavra:" Exemplo: #IndefiniteDate`;
       this.prompt(req, res, text);
@@ -199,7 +199,7 @@ Não formate as linhas da resposta solicitada.`;
         dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado', req.body.account.id));
       }
 
-      const text = `Observe a frase a seguir: '${choice_date?.values[0]?.value}'. Capture a data contida na frase e identifique se ela existe como opção na *Agenda Disponível* a seguir:
+      const text = `Observe a frase a seguir: '${choice_date?.values[0]?.value}'. Capture a data e horário contida na frase e identifique se ela existe como opção na *Agenda Disponível* a seguir:
 
 *Agenda Disponível*:
 
@@ -207,8 +207,7 @@ Não formate as linhas da resposta solicitada.`;
 ${dates}
 ]
 
-Caso a data contida na frase exista na *Agenda Disponível*, retorne apenas o ID: #Existe, caso o contrário, retorne apenas o ID: #NãoExiste.
-`;
+Caso a data e horário contida na frase exista na *Agenda Disponível*, retorne apenas o ID: #Existe, caso o contrário, retorne apenas o ID: #NãoExiste.`;
 
       await this.prompt(req, res, text);
     } catch (error) {
