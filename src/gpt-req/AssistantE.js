@@ -83,7 +83,15 @@ User message:
       const scheduleDate = user?.custom_fields_values?.filter(field => field.field_name === 'Event Start')[0];
       const scheduleDateValue = scheduleDate?.values[0]?.value;
 
-      const text = `Gere uma mensagem para o usuário, lembrando a ele a data de agendamento: ${scheduleDateValue}. Além da data exata, diga quanto tempo falta para o agendamento, exemplo: 1 dia, 3 horas, 1 hora.`;
+      const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
+      const weekOptions = {
+        timeZone: 'America/Recife',
+        weekday: 'long'
+      };
+      const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
+      const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
+
+      const text = `System message: Envie uma mensagem para que o usuário confirme sobre a data de agendamento: '${scheduleDateValue}'. Se baseie no dia atual: '${weekDayFormatted}, ${date}' e retorne quanto tempo falta para a consulta do usuário (12 horas, amanhã, hoje). Pode utilizar emojis para embelezar a mensagem e deixá-la mais atrativa`;
 
       const data = {
         leadID,
