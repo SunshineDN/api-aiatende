@@ -49,7 +49,7 @@ class CalendarUtils {
                 }
                 string += `Duração: ${duration} minutos\n\n`;
               });
-              console.log(string);
+              // console.log(string);
               resolve(string);
             } else {
               reject(new Error('Eventos não encontrados.'));
