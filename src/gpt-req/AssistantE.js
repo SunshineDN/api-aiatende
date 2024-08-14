@@ -94,7 +94,7 @@ User message:
 
       const { diferencaDias, diferencaHoras } = DifDates(scheduleDateValue);
 
-      const text = `System message: Envie uma mensagem para que o usuário confirme sobre a data de agendamento: '${scheduleDateValue}'. Adicione também que faltam ${diferencaDias} dia(s) e ${diferencaHoras} hora(s) para a consulta.`;
+      const text = `System message: Envie uma mensagem para o usuário avisando sobre a data de agendamento: '${scheduleDateValue}'. Adicione também que faltam ${diferencaDias} dia(s) e ${diferencaHoras} hora(s) para a consulta.`;
 
       const data = {
         leadID,
