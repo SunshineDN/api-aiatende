@@ -85,7 +85,7 @@ class OpenAIController {
 
     const { decode } = require('base-64');
 
-    console.log('Texto recebido do usuário:'.magenta.bold, text);
+    // console.log('Texto recebido do usuário:'.magenta.bold, text);
 
     const assistant = decode(assistant_id);
 
@@ -135,8 +135,6 @@ class OpenAIController {
       //   existThreads.threadID[indexOfAssistant],
       //   { assistant_id: assistant }
       // );
-
-      console.log('The message that will be sent to assistant:', text);
 
       let run;
       const exec = async (times) => {
@@ -203,9 +201,6 @@ class OpenAIController {
       const messages_response = await openai.beta.threads.messages.list(
         existThreads.threadID[indexOfAssistant]
       );
-
-      console.log('Messages response'.magenta.bold);
-      console.dir(messages_response?.data[0], { depth: null });
 
       return { message: messages_response?.data[0]?.content[0]?.text?.value };
     } catch (error) {

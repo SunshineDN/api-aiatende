@@ -7,7 +7,7 @@ const UpdateLead = require('./UpdateLead');
 const SplitDataFields = async (payload, access_token = null) => {
   // REQUISICAO PARA O KOMMO
   try {
-    console.log('Função SplitDataFields');
+    // console.log('Função SplitDataFields');
     if (!access_token) {
       access_token = await GetAccessToken(payload);
     }
@@ -45,7 +45,7 @@ const SplitDataFields = async (payload, access_token = null) => {
     });
     const all_data_filled = custom_fields.filter(field => field.name === 'All Data Filled')[0];
     if (custom_fields_values.length - 1 === data_field_split.length) {
-      console.log('Todos os campos do pai existem no array de custom_fields');
+      // console.log('Todos os campos do pai existem no array de custom_fields');
       custom_fields_values.push({
         'field_id': all_data_filled?.id,
         'values': [
@@ -55,7 +55,7 @@ const SplitDataFields = async (payload, access_token = null) => {
         ]
       });
     } else {
-      console.log('Alguns campos do pai não existem no array de custom_fields');
+      // console.log('Alguns campos do pai não existem no array de custom_fields');
       custom_fields_values.push({
         'field_id': all_data_filled?.id,
         'values': [
@@ -65,23 +65,23 @@ const SplitDataFields = async (payload, access_token = null) => {
         ]
       });
     }
-    // const sonField1 = custom_fields.filter(field => field.name === 'Nome Completo')[0];
-    // const sonField2 = custom_fields.filter(field => field.name === 'Data Nascimento (Texto)')[0];
-    // const sonField3 = custom_fields.filter(field => field.name === 'Bairro')[0];
-    console.log('Campo Pai:', dataFieldValues);
-    // const [son1, son2, son3] = dataFieldValues.split(';');
-    // console.log('Filho 1:', son1);
-    // console.log('Filho 2:', son2);
-    // console.log('Filho 3:', son3);
-    console.log('Requisição para o Kommo');
-    console.log('ID do Lead:', payload.lead_id);
-    console.log('Campo Pai:', dataField);
-    // console.log('Campo Filho 1:', sonField1);
-    // console.log('Campo Filho 2:', sonField2);
-    // console.log('Campo Filho 3:', sonField3);
-    // console.log('ID do Campo Filho 1:', sonField1?.id);
-    // console.log('ID do Campo Filho 2:', sonField2?.id);
-    // console.log('ID do Campo Filho 3:', sonField3?.id);
+      // const sonField1 = custom_fields.filter(field => field.name === 'Nome Completo')[0];
+      // const sonField2 = custom_fields.filter(field => field.name === 'Data Nascimento (Texto)')[0];
+      // const sonField3 = custom_fields.filter(field => field.name === 'Bairro')[0];
+    // console.log('Campo Pai:', dataFieldValues);
+      // const [son1, son2, son3] = dataFieldValues.split(';');
+      // console.log('Filho 1:', son1);
+      // console.log('Filho 2:', son2);
+      // console.log('Filho 3:', son3);
+    // console.log('Requisição para o Kommo');
+    // console.log('ID do Lead:', payload.lead_id);
+    // console.log('Campo Pai:', dataField);
+      // console.log('Campo Filho 1:', sonField1);
+      // console.log('Campo Filho 2:', sonField2);
+      // console.log('Campo Filho 3:', sonField3);
+      // console.log('ID do Campo Filho 1:', sonField1?.id);
+      // console.log('ID do Campo Filho 2:', sonField2?.id);
+      // console.log('ID do Campo Filho 3:', sonField3?.id);
     const bodyReq = {
       'custom_fields_values': custom_fields_values
     };
@@ -105,7 +105,7 @@ const SplitDataFields = async (payload, access_token = null) => {
     //   });
     // }
     await UpdateLead(payload, bodyReq, access_token);
-    console.log('Split Data Fields finalizado com sucesso!');
+    // console.log('Split Data Fields finalizado com sucesso!');
     return;
   } catch (error) {
     if (error.response) {

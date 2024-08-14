@@ -3,7 +3,7 @@ const GetAccessToken = require('./GetAccessToken');
 const HandlingError = require('./HandlingError');
 
 const UpdateLead = async (payload, data, access_token = null) => {
-  console.log('Função UpdateLead');
+  // console.log('Função UpdateLead');
   // console.log('Payload:', payload);
   // Example = {
   //   lead_id: '21627448',
@@ -31,7 +31,7 @@ const UpdateLead = async (payload, data, access_token = null) => {
     };
 
     await axios.patch(`${domain}/api/v4/leads/${lead_id}`, data, options);
-    console.log('Lead atualizado com sucesso!');
+    // console.log('Lead atualizado com sucesso!');
     return;
   } catch (error) {
     if (error.response) {

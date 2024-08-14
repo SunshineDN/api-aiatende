@@ -3,11 +3,9 @@ const GetAccessToken = require('./GetAccessToken');
 const HandlingError = require('./HandlingError');
 
 const GetUser = async (payload, with_contact = false, access_token = null) => {
-  console.log('Função GetUser');
-  // let { id: leadID } = decodePayload(body);
+  // console.log('Função GetUser');
   const { lead_id, account: { account_domain: domain } } = payload;
-  // let leadID = decoded.status.id;
-  console.log('ID do Lead:', lead_id);
+  // console.log('ID do Lead:', lead_id);
 
   try {
     let responseData;
@@ -16,7 +14,7 @@ const GetUser = async (payload, with_contact = false, access_token = null) => {
     }
 
     try {
-      console.log('Tentando pegar usuário');
+      // console.log('Tentando pegar usuário');
       ({ data: responseData } = await axios.get(`${domain}/api/v4/leads/${lead_id}?with=contacts`, {
         headers: {
           'Content-Type': 'application/json',
@@ -42,7 +40,7 @@ const GetUser = async (payload, with_contact = false, access_token = null) => {
       const userContact = responseData._embedded.contacts[0].id;
       
       try {
-        console.log('Tentando pegar contato');
+        // console.log('Tentando pegar contato');
         ({ data: completeUser } = await axios.get(`${domain}/api/v4/contacts/${userContact}`, {
           headers: {
             'Content-Type': 'application/json',
@@ -67,7 +65,7 @@ const GetUser = async (payload, with_contact = false, access_token = null) => {
     }
     // console.log('Usuário:');
     // console.dir(responseData, { depth: null });
-    console.log('Usuário obtido com sucesso');
+    // console.log('Usuário obtido com sucesso');
     return responseData;
   } catch (error) {
     console.log(error);
