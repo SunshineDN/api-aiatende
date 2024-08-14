@@ -2,18 +2,18 @@ const axios = require('axios');
 const HandlingError = require('./HandlingError');
 
 const UpdateContact = async (payload, contact_id, data, access_token = null) => {
-  console.log('Função UpdateContact');
-  // console.log('Payload:', payload);
-  // Example = {
-  //   lead_id: '21627448',
-  //   status_id: '69491503',
-  //   pipeline_id: '8887659',
-  //   account: {
-  //     id: 31205035,
-  //     subdomain: 'kommoatende',
-  //     account_domain: 'https://kommoatende.kommo.com'
-  //   }
-  // }
+  // console.log('Função UpdateContact');
+    // console.log('Payload:', payload);
+    // Example = {
+    //   lead_id: '21627448',
+    //   status_id: '69491503',
+    //   pipeline_id: '8887659',
+    //   account: {
+    //     id: 31205035,
+    //     subdomain: 'kommoatende',
+    //     account_domain: 'https://kommoatende.kommo.com'
+    //   }
+    // }
   const { account: { subdomain } } = payload;
   const domain = `https://${subdomain}.kommo.com`;
   try {
@@ -27,7 +27,7 @@ const UpdateContact = async (payload, contact_id, data, access_token = null) => 
     };
 
     await axios.patch(`${domain}/api/v4/contacts/${contact_id}`, data, options);
-    console.log('Contato do Lead atualizado com sucesso!');
+    // console.log('Contato do Lead atualizado com sucesso!');
     return;
   } catch (error) {
     if (error.response) {

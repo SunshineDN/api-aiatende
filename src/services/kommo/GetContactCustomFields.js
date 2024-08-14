@@ -3,7 +3,7 @@ const GetAccessToken = require('./GetAccessToken');
 const HandlingError = require('./HandlingError');
 
 const GetContactCustomFields = async (payload, access_token = null) => {
-  console.log('Função GetContactCustomFields!');
+  // console.log('Função GetContactCustomFields!');
 
   const { account: { account_domain: domain } } = payload;
   try {
@@ -13,7 +13,7 @@ const GetContactCustomFields = async (payload, access_token = null) => {
     }
     
     try {
-      console.log('Tentando pegar campos customizados do contato');
+      // console.log('Tentando pegar campos customizados do contato');
       ({ data: { _embedded: { custom_fields } } } = await axios.get(`${domain}/api/v4/contacts/custom_fields`, {
         headers: {
           Authorization: `Bearer ${access_token}`
@@ -28,7 +28,7 @@ const GetContactCustomFields = async (payload, access_token = null) => {
       }));
     }
 
-    console.log('Campos customizados adquiridos!');
+    // console.log('Campos customizados adquiridos!');
     return custom_fields;
   } catch (error) {
     console.log(error);

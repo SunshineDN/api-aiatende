@@ -36,11 +36,11 @@ const AddTelephoneService = async (payload, access_token) => {
         }
       ]
     };
-    console.log('Requisição para adicionar telefone no contato ' + contact_id + ':');
-    console.dir(reqBody, { depth: null });
+    // console.log('Requisição para adicionar telefone no contato ' + contact_id + ':');
+    // console.dir(reqBody, { depth: null });
 
     await UpdateContact(payload, contact_id, reqBody, access_token);
-    console.log('Telefone adicionado com sucesso!');
+    // console.log('Telefone adicionado com sucesso!');
     return;
   } catch (error) {
     if (error.response) {

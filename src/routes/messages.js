@@ -10,6 +10,8 @@ const AssistantD = require('../gpt-req/AssistantD');
 const PromptE = require('../gpt-req/PromptE');
 const AssistantE = require('../gpt-req/AssistantE');
 const Agendamento = require('../gpt-req/Agendamento');
+const Recepcao = require('../gpt-req/Recepcao');
+const Aquecimento = require('../gpt-req/Aquecimento');
 
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
@@ -83,5 +85,21 @@ router.post('/prompt/agendamento/intencao', Agendamento.prompt_intencao);
 router.post('/assistant/:assistant_id/agendamento/verificar_datas', Agendamento.assistant_verificar_datas);
 
 router.post('/prompt/agendamento/verificar_confirmacao', Agendamento.prompt_verificar_confirmacao);
+
+// BOT RECEPÇÃO
+
+router.post('/prompt/recepcao/intencao', Recepcao.intencao);
+
+router.post('/assistant/:assistant_id/recepcao/indefinido', Recepcao.indefinido);
+
+router.post('/assistant/:assistant_id/recepcao/nao_qualificado', Recepcao.nao_qualificado);
+
+// BOT AQUECIMENTO
+
+router.post('/assistant/:assistant_id/aquecimento/lead', Aquecimento.aquecimento);
+
+router.post('/prompt/aquecimento/intencao', Aquecimento.intencao);
+
+router.post('/assistant/:assistant_id/aquecimento/nao_qualificado', Aquecimento.nao_qualificado);
 
 module.exports = router;
