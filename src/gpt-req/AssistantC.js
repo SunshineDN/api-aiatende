@@ -99,7 +99,7 @@ class AssistantC {
       console.log('Channel:', channel);
       let text;
 
-      if (channel === 'REDE SOCIAL') {
+      if (channel === '03 - REDE SOCIAL') {
         text = `Os dados cadastrais são: Nome completo, data de nascimento, bairro e telefone. 
 Observe os dados cadastrais fornecidos pelo usuário '${message_received}' e avalie se está faltando algum dos dados cadastrais. Informe ao usuário o dado faltante e retornando uma mensagem pedindo o dado faltante para prosseguir no cadastro. Caso tenha todos os dados cadastrais, retorne uma mensagem para o usuário perguntando se os dados estão corretos.`;
       } else {
@@ -130,7 +130,7 @@ Observe os dados cadastrais fornecidos pelo usuário '${message_received}' e ava
       console.log('Channel:', channel);
       let text;
 
-      if (channel === 'REDE SOCIAL') {
+      if (channel === '03 - REDE SOCIAL') {
         text = `System message: Aja como um analista de dados cadastrais experiente. Nestes dois textos abaixo, analise cuidadosamente os campos para extrair o dado de nome completo, data de nascimento, bairro e telefone.
 
 *Utilize somente dados que estejam nos textos. Agora, extraia os dados: nome completo, data de nascimento e bairro. Separado apenas com o valor do campo, sem informar o identificador de cada campo, cada campo deve terminar com um ponto e vírgula. Se no texto não existir a informação do campo, retornar apenas o id #ausencia`;
@@ -175,7 +175,7 @@ Observe os dados cadastrais fornecidos pelo usuário '${message_received}' e ava
 
       let text;
 
-      if (channel === 'REDE SOCIAL') {
+      if (channel === '03 - REDE SOCIAL') {
         text = `System message:'Adote a informação, dia de semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife e (GMT-3).
 
 Dados existentes:
