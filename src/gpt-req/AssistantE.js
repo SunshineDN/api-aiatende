@@ -83,15 +83,18 @@ User message:
       const scheduleDate = user?.custom_fields_values?.filter(field => field.field_name === 'Event Start')[0];
       const scheduleDateValue = scheduleDate?.values[0]?.value;
 
-      const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
-      const weekOptions = {
-        timeZone: 'America/Recife',
-        weekday: 'long'
-      };
-      const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
-      const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
+      // const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
+      // const weekOptions = {
+      //   timeZone: 'America/Recife',
+      //   weekday: 'long'
+      // };
+      // const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
+      // const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
+      const DifDates = require('../utils/DifDates');
 
-      const text = `System message: Envie uma mensagem para que o usuário confirme sobre a data de agendamento: '${scheduleDateValue}'. Se baseie no dia atual: '${weekDayFormatted}, ${date}' e retorne quanto tempo falta em dia(s) e hora(s) para a consulta do usuário (12 horas, amanhã, hoje).`;
+      const { diferencaDias, diferencaHoras } = DifDates(scheduleDateValue);
+
+      const text = `System message: Envie uma mensagem para que o usuário confirme sobre a data de agendamento: '${scheduleDateValue}'. Adicione também que faltam ${diferencaDias} dia(s) e ${diferencaHoras} hora(s) para a consulta.`;
 
       const data = {
         leadID,
