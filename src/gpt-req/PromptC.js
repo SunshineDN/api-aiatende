@@ -132,16 +132,16 @@ Identifique a intenção da resposta do usuário baseada na pergunta da clínica
 
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
 
-      const text = `System message: ' Considere que você esteja analisando a intenção de uma resposta digitada por um usuário em um chatbot. A data e hora atual são: ${date}. Analise a mensagem da clínica: '${answer}' e veja em quais das situações abaixo encaixa a intenção desta frase digitada: '${message_received}'. ’
-  
+      const text = `System message: 'Considere que você esteja analisando a intenção de uma resposta digitada por um usuário em um chatbot. A data e hora atual são: ${date}. Analise a mensagem da clínica: '${answer}' e veja em quais das situações abaixo encaixa a intenção desta frase digitada: '${message_received}'.'
+
 #Confirmou: Caso a resposta do usuário esteja CONFIRMANDO a mensagem da clínica.
 
 #Novamente: Caso o usuário esteja querendo trocar a opção atual ou escolher outra.
 
 #Parar: Se o usuário estiver com intenção de parar ou descontinuar o chat.
-  
+
 #Geral: Para os demais assuntos. 
-  
+
 Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra" Exemplo: #Agendamento'.`;
 
       console.log('Prompt recebido!');
