@@ -210,13 +210,13 @@ User message: '${message_received}'`;
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
 
-      const text = `System message: 'Agora estamos na etapa de solicitar a especialista para a consulta. Temos os dados do usuário e o último passo antes do agendamento final é saber qual especialidade ele vai querer. Temos 3 opções para listar e o usuário escolher, segue as opções:
+      const text = `System message: 'Agora estamos na etapa de solicitar a especialista para a *CONSULTA INICIAL*. Temos os dados do usuário e o último passo antes do agendamento final é saber qual especialidade ele vai querer. Temos 3 opções para listar e o usuário escolher para sua *CONSULTA INICIAL*, segue as opções:
 
-“ 1. *Dra. Juliana Leite | Reabilitadora Oral* 
+“ 1 - *Dentista | Sem Custo*
 
-2. *Dentista Especialista da equipe* (sem custo)
+2 - *Dra. Juliana Leite | R$ 150,00*
 
-3. *Odontopediatra | Kids (Crianças até 12 anos)* ”
+3 - *Odontopediatra | R$ 100,00 (Crianças até 12 anos)* ”
 
 Retorne uma mensagem para o usuário escolher uma das 3 opções listadas acima.'
 
@@ -246,13 +246,13 @@ User message: '${message_received}'`;
 
       const message_received = await GetMessageReceived(req.body, access_token);
 
-      const text = `System message: 'Analise a escolha da especialista para a consulta que o usuário fez e retorne uma mensagem listando a opção e perguntando se ele confirma a escolha. Caso contrário, peça novamente para o usuário escolher uma das 3 opções listadas abaixo:
+      const text = `System message: 'Analise a escolha da especialista para a *CONSULTA INICIAL* que o usuário fez e retorne uma mensagem listando a opção e perguntando se ele confirma a escolha. Caso contrário, peça novamente para o usuário escolher uma das 3 opções listadas abaixo:
 
-“ 1. *Dra. Juliana Leite | Reabilitadora Oral* 
+“ 1 - *Dentista | Sem Custo*
 
-2. *Dentista Especialista da equipe* (sem custo)
+2 - *Dra. Juliana Leite | R$ 150,00*
 
-3. *Odontopediatra | Kids (Crianças até 12 anos)* ” '
+3 - *Odontopediatra | R$ 100,00 (Crianças até 12 anos)* ” '
 
 User message: '${message_received}'`;
 
