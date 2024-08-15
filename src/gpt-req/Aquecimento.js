@@ -51,7 +51,7 @@ class Aquecimento {
   }
 
   async aquecimento(req, res) {
-    console.log('Assistant | BOT - Recepção | Aquecimento do Lead...');
+    console.log('Assistant | BOT - Aquecimento | Aquecimento do Lead...');
     try {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const { lead_id: leadID } = req.body;
@@ -88,7 +88,7 @@ User message: '${message_received}'`;
   }
 
   async intencao(req, res) {
-    console.log('Prompt | BOT - Recepção | Intenção...');
+    console.log('Prompt | BOT - Aquecimento | Intenção...');
     try {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
 
@@ -130,7 +130,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
   }
 
   async nao_qualificado(req, res) {
-    console.log('Assistant | BOT - Recepção | Não Qualificado...');
+    console.log('Assistant | BOT - Aquecimento | Não Qualificado...');
     try {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const message_received = await GetMessageReceived(req.body, access_token);
