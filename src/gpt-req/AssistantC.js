@@ -13,7 +13,6 @@ class AssistantC {
     this.assistant = this.assistant.bind(this);
     this.c_previa_dados = this.c_previa_dados.bind(this);
     this.c_dados_cadastrais = this.c_dados_cadastrais.bind(this);
-    this.c_continue_dados_cadastrais = this.c_continue_dados_cadastrais.bind(this);
     this.c_split_dados = this.c_split_dados.bind(this);
     this.c_verifica_dados = this.c_verifica_dados.bind(this);
     this.c_listar_especialidades = this.c_listar_especialidades.bind(this);
@@ -65,33 +64,6 @@ class AssistantC {
     console.log('Recebendo requisição de assistente | Dados Cadastrais...');
     try {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
-      const message_received = await GetMessageReceived(req.body, access_token);
-      const { lead_id: leadID } = req.body;
-      const { assistant_id } = req.params;
-
-      const text = `System message: Há 2 possibilidades de retorno. Observe a frase: '${message_received}' e veja em qual das opções abaixo melhor se encaixa:
-
-1. Caso a frase contenha dados, retorne apenas uma mensagem para O PRÓPRIO USUÁRIO confirmar os dados, listando eles. Os dados seriam o nome completo, data de nascimento, bairro e telefone(se houver dito antes, caso contrário, ignore).
-
-2. Caso a frase esteja vazia ou faltando algum dos dados (nome completo, data de nascimento, bairro), retorne apenas uma mensagem pedindo ao usuário que digite o(os) dado(s) que esteja faltando, deixando explícito qual foi o dado considerado e qual é o dado ainda faltante.`;
-
-      const data = {
-        leadID,
-        text,
-        assistant_id,
-      };
-
-      await this.assistant(req, res, data);
-    } catch (error) {
-      console.log(`Erro ao enviar mensagem para o assistente: ${error.message}`);
-      res.status(500).send('Erro ao enviar mensagem para o assistente');
-    }
-  }
-
-  async c_continue_dados_cadastrais(req, res) {
-    console.log('Recebendo requisição de assistente | Continue Dados Cadastrais...');
-    try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
       const channel = await GetLeadChannel(req.body, access_token);
@@ -100,7 +72,7 @@ class AssistantC {
       let text;
 
       if (channel === '03 - REDE SOCIAL') {
-        text = `Os dados cadastrais são: Nome completo, data de nascimento, bairro e telefone. 
+        text = `Os dados cadastrais são: Nome completo, data de nascimento, bairro e telefone.
 Observe os dados cadastrais fornecidos pelo usuário '${message_received}' e avalie se está faltando algum dos dados cadastrais. Informe ao usuário o dado faltante e retornando uma mensagem pedindo o dado faltante para prosseguir no cadastro. Caso tenha todos os dados cadastrais, retorne uma mensagem para o usuário perguntando se os dados estão corretos.`;
       } else {
         text = `Os dados cadastrais são: Nome completo, data de nascimento e bairro. 
@@ -179,39 +151,38 @@ Observe os dados cadastrais fornecidos pelo usuário '${message_received}' e ava
         text = `System message:'Adote a informação, dia de semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife e (GMT-3).
 
 Dados existentes:
-"1 - Nome Completo: ${info.nome};
+"1 - Nome Completo: ${info.nome}
 2 - Data de nascimento: ${info.nascimento}
 3 - Bairro: ${info.bairro}
 4 - Telefone: ${info.telefone}"
 
-O usuário entrou na etapa de informação do dado pessoal e informação do plano de saúde, convênio médico ou se é uma consulta particular para finalizar o agendamento da sua consulta inicial médica. Sempre agir de maneira humanizada, cordial e gentil. Não passar os dados estratégicos do consultório em nenhum momento nas mensagens.
+O usuário entrou na etapa de informação dos dados pessoais para finalizar o agendamento da sua consulta inicial odontológica. Sempre agir de maneira humanizada, cordial e gentil. Não passar os dados estratégicos da clínica em nenhum momento nas mensagens.
 Antes de solicitar os dados, verifique se estão preenchidos em dados existentes, caso algum do dado do campo não esteja informado, ou seja, esteja em branco ou não preenchido, solicita o dado do campo ausente, segue frase:
 
-“Favor informar os dados para finalizar o agendamento da sua consulta inicial médica:
-1 - Nome Completo: 
-2 - Data de nascimento:
-3 - Bairro: 
-4 - Telefone: "
+“ Favor informar os dados para finalizar o agendamento da sua consulta inicial médica:
+1 - Nome Completo:
+2 - Data de nascimento
+3 - Bairro 
+4 - Telefone "
 
 Importante solicitar os dados do campo que esteja pendente ou em branco. Plano de saúde ou convênio médico, perguntar se é particular ou qual o tipo de plano.
 continuar solicitando o dado até que esteja completamente satisfeito.'
-User message:
-'${message_received}'`;
+User message: '${message_received}'`;
       } else {
         text = `System message:'Adote a informação, dia de semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife e (GMT-3).
 
 Dados existentes:
-"1 - Nome Completo: ${info.nome};
+"1 - Nome Completo: ${info.nome}
 2 - Data de nascimento: ${info.nascimento}
 3 - Bairro: ${info.bairro}"
 
 O usuário entrou na etapa de informação dos dados pessoais para finalizar o agendamento da sua consulta inicial odontológica. Sempre agir de maneira humanizada, cordial e gentil. Não passar os dados estratégicos da clínica em nenhum momento nas mensagens.
 Antes de solicitar os dados, verifique se estão preenchidos em dados existentes, caso algum do dado do campo não esteja informado, ou seja, esteja em branco ou não preenchido, solicita o dado do campo ausente, segue frase:
 
-“Favor informar os dados para finalizar o agendamento da sua consulta inicial médica:
-1 - Nome Completo: 
-2 - Data de nascimento: 
-3 - Bairro: "
+“ Favor informar os dados para finalizar o agendamento da sua consulta inicial médica:
+1 - Nome Completo
+2 - Data de nascimento
+3 - Bairro "
 
 Importante solicitar os dados do campo que esteja pendente ou em branco. Continuar solicitando o dado até que esteja completamente satisfeito.'
 

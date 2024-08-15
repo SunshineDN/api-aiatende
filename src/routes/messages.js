@@ -36,8 +36,6 @@ router.post('/assistant/:assistant_id/c_previa_dados', AssistantC.c_previa_dados
 
 router.post('/assistant/:assistant_id/c_dados_cadastrais', AssistantC.c_dados_cadastrais);
 
-router.post('/assistant/:assistant_id/c_continue_dados_cadastrais', AssistantC.c_continue_dados_cadastrais);
-
 router.post('/assistant/:assistant_id/c_split_dados', AssistantC.c_split_dados);
 
 router.post('/assistant/:assistant_id/c_verifica_dados', AssistantC.c_verifica_dados);
