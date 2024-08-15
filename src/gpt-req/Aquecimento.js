@@ -6,7 +6,7 @@ const GetMessageReceived = require('../services/kommo/GetMessageReceived');
 const SendLog = require('../services/kommo/SendLog');
 const SendMessage = require('../services/kommo/SendMessage');
 
-class Recepcao {
+class Aquecimento {
   constructor() {
     this.assistant = this.assistant.bind(this);
     this.prompt = this.prompt.bind(this);
@@ -195,4 +195,4 @@ Inicie a conversa perguntando o seu nome para demonstrar proximidade, e na sequ√
   }
 }
 
-module.exports = new Recepcao();
+module.exports = new Aquecimento();
