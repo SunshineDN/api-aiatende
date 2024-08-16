@@ -66,15 +66,17 @@ class Recepcao {
       const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
       const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
 
-      const text = `Considere que você esteja analisando a intenção de uma frase digitada por um usuário em um chatbot. Dia de Semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife (GMT-3). Analise a mensagem do consultório (se houver): '${answer}' e veja em quais das situações abaixo se encaixa a intenção da mensagem do usuário: '${message_received}'.
+      const text = `Dia de Semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife (GMT-3). 
+
+Considere que você esteja analisando a intenção de uma frase digitada por um usuário em um chatbot. Analise a mensagem do consultório (se houver): '${answer}' e veja em quais das situações abaixo se encaixa a intenção da mensagem do usuário: '${message_received}'.
 
 #Saudacao: Para usuário realizando a Saudação (ex: Oi, Olá, Bom dia, Boa noite, Tudo bem? etc).
 
-#Informacao: Para usuário buscando informações, informando sintomas, pedindo tratamento médico, informações do médico, consultórios ou valores dos serviços.
+#Informacao: Para usuário buscando informações, informando sintomas, pedindo por tratamento médico, informações sobre o médico, consultórios ou valores dos serviços, valor da consulta, informações sobre plano de saúde ou convênio médico.
 
-#Agendamento: Para usuário com intenção clara de marcar uma consulta inicial.
+#Agendamento: Para usuário com intenção clara de marcar ou agendar uma consulta inicial.
 
-#Profissional: Para usuário interessados em emprego ou apresentação de produtos ou serviços.
+#Profissional: Para usuários interessados em emprego, representante comercial, apresentação de produtos, apresentação de serviços, apresentação de remedios ou  medicamentos.
 
 #Geral: Para os demais assuntos.
 
@@ -146,26 +148,23 @@ Avaliar a intenção do usuário e seguir
 
 1) Se a intenção da mensagem do usuário for vender ou oferecer produto ou serviços médicos ou de marketing, então conduza com a seguinte resposta, exemplo:
 'Muito obrigado pelo seu interesse! 
-Segue nosso e-mail: *contato@nelsoncoutinho.com.br* 
-Estamos direcionando o seu atendimento ao nosso setor administrativo e financeiro. 
-Em breve, te responderão!'  
+Segue nosso e-mail: *contato@nelsoncoutinho.com.br* e contato telefônico: (81) 3325-4955.
+Pedimos para nos enviar um e-mail ou no ligar para agendamento com nosso time administrativo '
 
-2) Se a intenção da mensagem do usuário for de se candidatar alguma vaga disponível no consultório, então conduza com a seguinte resposta, exemplo:
+2) Se a intenção da mensagem do usuário for de se candidatar alguma vaga disponível no consultório ou enviar o curriculum, então conduza com a seguinte resposta, exemplo:
 'Muito obrigado pelo seu interesse! 
 Segue nosso e-mail: *selecao@nelsoncoutinho.com.br*
-Estamos direcionando o seu atendimento ao setor de Gestão de Pessoas.
-
-Em breve, te responderão!'
+Seus dados será direcionado ao time de Gestão de Pessoas.'
 
 3) Se a intenção da mensagem do usuário demonstrar que tenha procurado por engano com nada relacionado a medicina, então conduza com a seguinte resposta, exemplo:
-'Somos o Consultório de *Dr. Nelson Bechara Coutinho*, estamos sempre à disposição para Realizar o seu tratamento médico. 
-Quando quiser estamos de portas aberta.'
+'Somos o Consultório de *Dr. Nelson Bechara Coutinho*, estamos sempre à disposição para realizar o seu tratamento médico. 
+Quando quiser, estamos de portas abertas pra melhor recebê-lo.'
 
 4) Se a intenção da mensagem do usuário for para deixar algum feedback positivo ou negativo sobre o Consultório Dr. Nelson Bechara Coutinho, então conduza com a seguinte resposta, exemplo:
 'Agradecemos pelo seu Feedback. 
-Suas Sugestões, Elogios ou Reclamações são informadas diretamente à nossa Diretoria. '
+Suas Sugestões, Elogios ou Reclamações serão informadas diretamente à nossa Diretoria.'
 
-5) Senão for nada acima relacionado, então:  
+5) Se não for nada acima relacionado, então aja da seguinte fotma:  
 'Receba como usuário novo. 
 Inicie a conversa perguntando o seu nome para demonstrar proximidade, e na sequência entender os seus interesses e as suas dúvidas médicas. Mostrar que o Consultório Dr. Nelson Bechara Coutinho é o local certo para resolver suas questões de saúde.'"`;
 

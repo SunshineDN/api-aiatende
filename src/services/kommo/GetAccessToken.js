@@ -2,13 +2,13 @@ require('dotenv').config();
 const axios = require('axios');
 
 const GetAccessToken = async (payload) => {
-  console.log('Fução GetAccessToken');
+  // console.log('Fução GetAccessToken');
   const { account: { id: account_id, subdomain } } = payload;
   try {
     const { data: { access_token } } = await axios.post('http://token-api_backend-token_1:3001/auth/access_token', {
       account_id
     });
-    console.log('Token existente recebido');
+    // console.log('Token existente recebido');
     return access_token;
   } catch {
     try {
@@ -26,7 +26,7 @@ const GetAccessToken = async (payload) => {
       } else {
         ({ data: { access_token } } = await axios.post('http://aiatende.com:3001/auth/access_token', req));
       }
-      console.log('Token novo criado e recebido');
+      // console.log('Token novo criado e recebido');
       return access_token;
     } catch (error) {
       if (error.response) {

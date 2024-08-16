@@ -45,7 +45,7 @@ const SetActualDateHour = async (payload, access_token = null) => {
       ]
     };
     await UpdateLead(payload, kommoData, access_token);
-    console.log('Sucesso ao setar data, hora e dia da semana');
+    // console.log('Sucesso ao setar data, hora e dia da semana');
   } catch (error) {
     if (error.response) {
       console.log(`Erro ao setar data, hora e dia da semana: ${error.response.data}`);

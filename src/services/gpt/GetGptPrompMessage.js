@@ -6,7 +6,7 @@ const GetUser = require('../kommo/GetUser');
 const OpenAIController = require('../../controllers/OpenAIController');
 
 const GetGptPromptMessage = async (payload, access_token = null) => {
-  console.log('Função GetGptPromptMessage');
+  // console.log('Função GetGptPromptMessage');
   let log, answerReceived;
   try {
     if (!access_token) {
@@ -57,7 +57,7 @@ const GetGptPromptMessage = async (payload, access_token = null) => {
       ]
     };
     await UpdateLead(payload, reqBody, access_token);
-    console.log('Lead atualizado com mensagem do prompt');
+    // console.log('Lead atualizado com mensagem do prompt');
     return;
   } catch (e) {
     let error;

@@ -86,7 +86,7 @@ class OpenAIController {
 
     const { decode } = require('base-64');
 
-    console.log('Texto recebido do usuário:'.magenta.bold, text);
+    // console.log('Texto recebido do usuário:'.magenta.bold, text);
 
     const assistant = decode(assistant_id);
 
@@ -137,7 +137,7 @@ class OpenAIController {
       //   { assistant_id: assistant }
       // );
 
-      console.log('The message that will be sent to assistant:', text);
+      // console.log('The message that will be sent to assistant:', text);
 
       // for (let i = 1; i <= 6; i++) {
       //   await ExecuteRunStep(openai, existThreads.threadID[indexOfAssistant], assistant, i, 6);

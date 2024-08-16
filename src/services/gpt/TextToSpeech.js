@@ -7,7 +7,7 @@ const OpenAIController = require('../../controllers/OpenAIController');
 const HandlingError = require('../kommo/HandlingError');
 
 const TextToSpeech = async (payload, access_token = null) => {
-  console.log('Função TextToSpeech');
+  // console.log('Função TextToSpeech');
   try {
     if (!access_token) {
       access_token = await GetAccessToken(payload);
@@ -29,7 +29,7 @@ const TextToSpeech = async (payload, access_token = null) => {
     //   phone: phone
     // };
   
-    console.log('Enviando áudio para o telefone:', phone);
+    // console.log('Enviando áudio para o telefone:', phone);
 
     // const response = await axios.post(URL, data);
     await OpenAIController.textToAudio(gptAnswer?.values[0]?.value, phone);
@@ -56,7 +56,7 @@ const TextToSpeech = async (payload, access_token = null) => {
       ]
     };
     await UpdateLead(payload, kommoData, access_token);
-    console.log('Audio enviado para o lead atualizado com sucesso!');
+    // console.log('Audio enviado para o lead atualizado com sucesso!');
     return;
   } catch (error) {
     if (error.response) {

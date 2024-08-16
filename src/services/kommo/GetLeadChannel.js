@@ -2,7 +2,7 @@ const GetAccessToken = require("./GetAccessToken");
 const GetUser = require("./GetUser");
 
 const GetLeadChannel = async (payload, access_token = null) => {
-  console.log('Função GetLeadChannel!');
+  // console.log('Função GetLeadChannel!');
   try {
     if (!access_token) {
       access_token = await GetAccessToken(payload);

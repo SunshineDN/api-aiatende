@@ -3,7 +3,7 @@ const GetCustomFields = require('./GetCustomFields');
 const UpdateLead = require('./UpdateLead');
 
 const HandlingError = async (payload, access_token = null, error) => {
-  console.log('Função HandlingError');
+  // console.log('Função HandlingError');
   try {
     if (!access_token) {
       access_token = await GetAccessToken(payload);
@@ -24,7 +24,7 @@ const HandlingError = async (payload, access_token = null, error) => {
       ]
     };
     await UpdateLead(payload, data, access_token);
-    console.log('Erro setado no LOG com sucesso!');
+    // console.log('Erro setado no LOG com sucesso!');
     return;
   } catch (e) {
     console.log(e);

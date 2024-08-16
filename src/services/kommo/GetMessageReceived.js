@@ -2,7 +2,7 @@ const GetAccessToken = require("./GetAccessToken");
 const GetUser = require("./GetUser");
 
 const GetMessageReceived = async (payload, access_token = null) => {
-  console.log('Função GetMessageReceived!');
+  // console.log('Função GetMessageReceived!');
   try {
     if (!access_token) {
       access_token = await GetAccessToken(payload);

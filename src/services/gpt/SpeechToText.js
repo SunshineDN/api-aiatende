@@ -7,7 +7,7 @@ const OpenAIController = require('../../controllers/OpenAIController');
 const HandlingError = require('../kommo/HandlingError');
 
 const SpeechToText = async (payload, access_token = null) => {
-  console.log('Função SpeechToText');
+  // console.log('Função SpeechToText');
   try {
     if (!access_token) {
       access_token = await GetAccessToken(payload);
@@ -82,7 +82,7 @@ const SpeechToText = async (payload, access_token = null) => {
       };
     }
     await UpdateLead(payload, kommoData, access_token);
-    console.log('Lead atualizado com mensagem transcrita');
+    // console.log('Lead atualizado com mensagem transcrita');
     return;
   } catch (error) {
     if (error.response) {

@@ -7,7 +7,7 @@ const UpdateContact = require('./UpdateContact');
 
 
 const AddTelephoneService = async (payload, access_token) => {
-  console.log('Função AddTelephoneService');
+  // console.log('Função AddTelephoneService');
   try {
     const user = await GetUser(payload, true, access_token);
     const contact_custom_fields = await GetContactCustomFields(payload, access_token);
@@ -37,8 +37,8 @@ const AddTelephoneService = async (payload, access_token) => {
         }
       ]
     };
-    console.log('Requisição para adicionar telefone no contato ' + contact_id + ':');
-    console.dir(reqBody, { depth: null });
+    // console.log('Requisição para adicionar telefone no contato ' + contact_id + ':');
+    // console.dir(reqBody, { depth: null });
 
     await UpdateContact(payload, contact_id, reqBody, access_token);
     console.log('Telefone adicionado com sucesso!');

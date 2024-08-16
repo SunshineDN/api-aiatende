@@ -7,7 +7,7 @@ const OpenAIController = require('../../controllers/OpenAIController');
 const TextToSpeech = require('./TextToSpeech');
 
 const GetGptAssistantMessage = async (payload, assistant_id, access_token = null) => {
-  console.log('Função GetGptAssistantMessage');
+  // console.log('Função GetGptAssistantMessage');
   let logField, onOff, answerReceived;
   try {
     if (!access_token) {
@@ -39,7 +39,7 @@ const GetGptAssistantMessage = async (payload, assistant_id, access_token = null
 
     const { message } = await OpenAIController.generateMessage(data);
 
-    console.log('Mensagem do assistente:', message);
+    // console.log('Mensagem do assistente:', message);
     const reqBody = {
       'custom_fields_values': [
         {
@@ -82,7 +82,7 @@ const GetGptAssistantMessage = async (payload, assistant_id, access_token = null
     if (sent_audio?.values[0].value === true) {
       await TextToSpeech(payload, access_token);
     }
-    console.log('Mensagem da assistente armazenada com sucesso!');
+    // console.log('Mensagem da assistente armazenada com sucesso!');
   } catch (e) {
     let error;
     if (e.response) {

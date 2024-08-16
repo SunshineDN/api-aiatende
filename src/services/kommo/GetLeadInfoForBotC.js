@@ -2,7 +2,7 @@ const GetAccessToken = require("./GetAccessToken");
 const GetUser = require("./GetUser");
 
 const GetLeadInfoForBotC = async (payload, access_token = null) => {
-  console.log('Função GetLeadInfoForBotC!');
+  // console.log('Função GetLeadInfoForBotC!');
   try {
     if (!access_token) {
       access_token = await GetAccessToken(payload);

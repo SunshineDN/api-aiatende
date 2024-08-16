@@ -4,7 +4,7 @@ const GetUser = require('../kommo/GetUser');
 const UpdateLead = require('../kommo/UpdateLead');
 
 const Fill_Lead_Message = async (payload, access_token = null) => {
-  console.log('Função Fill_Lead_Message');
+  // console.log('Função Fill_Lead_Message');
   let lastMessages, message, log;
   try {
     if (!access_token) {
@@ -43,7 +43,7 @@ ${payload.text_audio.replace(/\+/g, ' ')}`;
 
     await UpdateLead(payload, data, access_token);
 
-    console.log('Preenchido mensagem do lead:', message);
+    console.log('Preenchido mensagens do lead:', message);
   } catch (e) {
     let error;
     if (e.response) {

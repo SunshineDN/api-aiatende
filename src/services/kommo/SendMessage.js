@@ -2,7 +2,7 @@ const GetCustomFields = require("./GetCustomFields");
 const UpdateLead = require("./UpdateLead");
 
 const SendMessage = async (body, message, access_token) => {
-  console.log('Função SendMessage!');
+  // console.log('Função SendMessage!');
   try {
     const custom_fields = await GetCustomFields(body, access_token);
     const answer = custom_fields?.filter(field => field.name === 'GPT | Answer')[0];
