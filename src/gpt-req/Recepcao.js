@@ -146,7 +146,7 @@ Mensagem do usuário: '${message_received}.'
 
 Avaliar a intenção do usuário e seguir 
 
-1) Se a intenção da mensagem do usuário for vender ou oferecer produto ou serviços médicos ou de marketing, então conduza com a seguinte resposta, exemplo:
+1) Se a intenção da mensagem do usuário for vender ou oferecer produto, serviços médicos, representante comercial ou de marketing, então conduza com a seguinte resposta, exemplo:
 'Muito obrigado pelo seu interesse! 
 Segue nosso e-mail: *contato@nelsoncoutinho.com.br* e contato telefônico: (81) 3325-4955.
 Pedimos para nos enviar um e-mail ou no ligar para agendamento com nosso time administrativo '
