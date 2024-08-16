@@ -36,7 +36,7 @@ services:
     networks:
       - ai-atende-network
     
-  nginx:
+  nginx_resolve:
     restart: always
     build: ./nginx
     ports:
