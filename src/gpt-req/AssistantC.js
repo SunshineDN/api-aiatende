@@ -214,9 +214,9 @@ User message: '${message_received}'`;
 
 “ 1 - *Dentista | Sem Custo*
 
-2 - *Dra. Juliana Leite | R$ 150,00*
+2 - *Dra. Juliana Leite | Reabilitação e Estética - R$ 120,00*
 
-3 - *Odontopediatra | R$ 100,00 (Crianças até 12 anos)* ”
+3 - *Odontopediatra | R$ 99,00 (Crianças até 12 anos)* ”
 
 Retorne uma mensagem para o usuário escolher uma das 3 opções listadas acima.'
 
@@ -250,9 +250,9 @@ User message: '${message_received}'`;
 
 “ 1 - *Dentista | Sem Custo*
 
-2 - *Dra. Juliana Leite | R$ 150,00*
+2 - *Dra. Juliana Leite | Reabilitação e Estética - R$ 120,00*
 
-3 - *Odontopediatra | R$ 100,00 (Crianças até 12 anos)* ” '
+3 - *Odontopediatra | R$ 99,00 (Crianças até 12 anos)* ” '
 
 User message: '${message_received}'`;
 

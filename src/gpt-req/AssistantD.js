@@ -69,16 +69,15 @@ class AssistantD {
         dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado', req.body.account.id));
       }
 
-      const text = `System message:
-Etapa do pré-agendamento, nesta etapa sempre enviar ao usuário as melhores opções de datas para o pré-agendamento, conforme critérios definidos abaixo. Sempre ágil de maneira humanizada, cordial e gentil. 
-Dia da semana, Data e Horário atual são
-${weekDayFormatted}, ${date} GMT-3;
+      const text = `System message: Adotar Dia da semana, Data e Horário atual são ${weekDayFormatted}, ${date} GMT-3.
 
 Endereço da Clínica: Av. Bernardo Vieira de Melo, 2418, Piedade - PE. Próximo ao Banco Bradesco.
 
 Horário de atendimento da Clínica Dental Santé: 
 Segunda à Sexta: 08h00 às 20h00
 Sábado: 08h00 às 13h00
+
+Etapa do pré-agendamento, nesta etapa sempre enviar ao usuário as melhores opções de datas para o pré-agendamento, conforme critérios definidos abaixo. Sempre ágil de maneira humanizada, cordial e gentil. 
 
 Verifique as datas disponíveis da agenda a seguir e siga os passos logo em seguida:
 
@@ -93,7 +92,7 @@ ${dates}
 3 - Tomar conhecimento do dia da semana, data e horário atual: ${weekDayFormatted}, ${date};
 4 - Quaisquer data disponível deverá ser após a data e horário atual;
 5 - Nunca concluir o pré-agendamento sem data e horário determinado;
-6 - Restringir apenas duas opções de datas e horários para demonstração de escassez, e apresentar horários entre 12 horas e 72 horas da data e horário atual, mas sempre oferecer um horário ao usuário;
+6 - Restringir apenas duas opções de datas e horários para demonstração de escassez, e considerar apresentar horários entre 12 horas e 72 horas, como referência a partir da data e horário atual, mas sempre oferecer um horário ao usuário;
 7 - Quando o usuário solicitar uma data e horário vamos verificar a disponibilidade na *Agenda Disponível* e atender a solicitação, conforme modelo de mensagem abaixo.
 Adotar dados reais, no padrão brasileiro e o formato a seguir para listar as 2 datas e horários distintos sugeridos a melhor data e horário de acordo com os critérios, seguindo o exemplo:
 'Apresento as seguintes opções para o pré-agendamento:
@@ -109,7 +108,7 @@ Você gostaria de reservar a sua consulta para alguns desses horários?'
 
 Quando o usuário escolher alguma das informações apresentadas, faça o pré-agendamento da consulta e informe que apenas no final do agendamento que será confirmada a disponibilidade da agenda, após ele fornecer os dados que serão solicitados nas próximas mensagens. 
 
-User message: ${messageReceived}`;
+User message: '${messageReceived}'`;
 
       const data = {
         leadID,
