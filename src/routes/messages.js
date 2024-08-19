@@ -13,6 +13,7 @@ const Agendamento = require('../gpt-req/Agendamento');
 const Recepcao = require('../gpt-req/Recepcao');
 const Aquecimento = require('../gpt-req/Aquecimento');
 const Cutucada = require('../gpt-req/Cutucada');
+const EsteiraConfirm = require('../gpt-req/EsteiraConfirm');
 
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
@@ -106,5 +107,19 @@ router.post('/assistant/:assistant_id/aquecimento/nao_qualificado', Aquecimento.
 router.post('/prompt/cutucada/gerar_perguntas', Cutucada.gerar_perguntas);
 
 router.post('/assistant/:assistant_id/cutucada/assistante', Cutucada.assistente);
+
+// BOT PÓS-AGENDAMENTO - ESTEIRA DE CONFIRMAÇÕES
+
+router.post('/prompt/confirmacao/intencao', EsteiraConfirm.intencao);
+
+router.post('/assistant/:assistant_id/confirmacao/24h_1st_try', EsteiraConfirm._24h_1);
+
+router.post('/assistant/:assistant_id/confirmacao/24h_2nd_try', EsteiraConfirm._24h_2);
+
+router.post('/assistant/:assistant_id/confirmacao/24h_3rd_try', EsteiraConfirm._24h_3);
+
+router.post('/assistant/:assistant_id/confirmacao/3h_1st_try', EsteiraConfirm._3h_1);
+
+router.post('/assistant/:assistant_id/confirmacao/3h_2nd_try', EsteiraConfirm._3h_2);
 
 module.exports = router;
