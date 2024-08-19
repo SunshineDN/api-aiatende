@@ -9,9 +9,8 @@ class Cutucada {
   constructor() {
     this.assistant = this.assistant.bind(this);
     this.prompt = this.prompt.bind(this);
-    this.intencao = this.intencao.bind(this);
-    this.indefinido = this.indefinido.bind(this);
-    this.nao_qualificado = this.nao_qualificado.bind(this);
+    this.gerar_perguntas = this.gerar_perguntas.bind(this);
+    this.assistente = this.assistente.bind(this);
   }
 
   async assistant(req, res, data) {
