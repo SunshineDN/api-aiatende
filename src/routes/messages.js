@@ -12,6 +12,7 @@ const AssistantE = require('../gpt-req/AssistantE');
 const Agendamento = require('../gpt-req/Agendamento');
 const Recepcao = require('../gpt-req/Recepcao');
 const Aquecimento = require('../gpt-req/Aquecimento');
+const Cutucada = require('../gpt-req/Cutucada');
 
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
@@ -99,5 +100,11 @@ router.post('/assistant/:assistant_id/aquecimento/lead', Aquecimento.aquecimento
 router.post('/prompt/aquecimento/intencao', Aquecimento.intencao);
 
 router.post('/assistant/:assistant_id/aquecimento/nao_qualificado', Aquecimento.nao_qualificado);
+
+// BOT CUTUCADA
+
+router.post('/prompt/cutucada/gerar_perguntas', Cutucada.gerar_perguntas);
+
+router.post('/assistant/:assistant_id/cutucada/assistante', Cutucada.assistente);
 
 module.exports = router;
