@@ -29,8 +29,8 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
     let endDateTime = new Date(startDateTime);
     endDateTime.setHours(endDateTime.getHours() + 1);
     eventData = {
-      eventId,
-      eventSummary,
+      eventId: eventId?.values[0]?.value,
+      eventSummary: eventSummary?.values[0]?.value,
       startDateTime,
       endDateTime
     };
