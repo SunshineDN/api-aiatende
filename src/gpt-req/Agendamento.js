@@ -139,12 +139,31 @@ Considerar que o usuário passou por todas as etapas para fazer o primeiro agend
         dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado', req.body.account.id));
       }
 
+      let specialist;
+      if (nameDoctor?.values[0]?.value === 'Dra. Juliana Leite') {
+        specialist = 'Dra. Juliana Leite';
+      } else if (nameDoctor?.values[0]?.value === 'Dra. Lucília Miranda') {
+        specialist = 'Dra. Lucília Miranda';
+      } else {
+        specialist = 'Dentistas da Equipe';
+      }
+
       const text = `System message: Adotar o dia e hora atual: ${weekDayFormatted}, ${date} GMT-3. *APENAS CONSIDERE A AGENDA DISPONÍVEL ATUAL. DESCONSIDERE QUALQUER OUTRA AGENDA PASSADA ANTERIORMENTE*
 Etapa de confirmação do agendamento, o usuário passou pelo pré-agendamento porém a data escolhida anteriormente não está disponível. Nesta etapa sempre enviar ao usuário duas opções de horários mais próximos do horário e da data solicitada, conforme critérios definidos abaixo. Sempre ágil de maneira humanizada, cordial e gentil.
 
 Endereço da Clínica: Av. Bernardo Vieira de Melo, 2418, Piedade - PE. Próximo ao Banco Bradesco.
 
-Horário de atendimento da Clínica Dental Santé: 
+Especialista do Agendamento: ${specialist};
+
+Horário de atendimento da Dra. Juliana Leite: 
+Segunda à Quinta: 10h00 às 18h00
+Sexta: 10h00 às 13h00
+
+Horário de atendimento da Dra. Lucília Miranda:
+Quarta: 08h00 às 18h00
+Sábado: 08h00 às 13h00
+
+Horário de atendimento dos demais dentistas da equipe:
 Segunda à Sexta: 08h00 às 20h00
 Sábado: 08h00 às 13h00
 
