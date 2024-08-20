@@ -78,6 +78,8 @@ router.post('/assistant/:assistant_id/e_faltosos', AssistantE.faltosos);
 
 // BOT AGENDAMENTO
 
+router.post('/assistant/:assistant_id/agendamento/form_join', Agendamento.form_join);
+
 router.post('/assistant/:assistant_id/agendamento/disponibilidade', Agendamento.assistant_disponibilidade_horario);
 
 router.post('/prompt/agendamento/intencao', Agendamento.prompt_intencao);

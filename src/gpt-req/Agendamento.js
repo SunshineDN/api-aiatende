@@ -13,6 +13,7 @@ class Agendamento {
   constructor() {
     this.assistant = this.assistant.bind(this);
     this.prompt = this.prompt.bind(this);
+    this.form_join = this.form_join.bind(this);
     this.assistant_disponibilidade_horario = this.assistant_disponibilidade_horario.bind(this);
     this.prompt_intencao = this.prompt_intencao.bind(this);
     this.assistant_verificar_datas = this.assistant_verificar_datas.bind(this);
@@ -51,6 +52,61 @@ class Agendamento {
       console.log(`Erro ao enviar prompt: ${error.message}`);
       await SendLog(req.body, `Erro ao enviar prompt: ${error.message}`, access_token);
       res.status(500).send('Erro ao enviar prompt');
+    }
+  }
+
+  async form_join(req, res) {
+    console.log('Assistant | BOT - Agendamento | Entrada pelo Formulário...');
+    try {
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const { lead_id: leadID } = req.body;
+      const { assistant_id } = req.params;
+
+      const user = await GetUser(req.body, false, access_token);
+      const username_field = user?.custom_fields_values?.filter(
+        (field) => field.field_name === 'Nome Completo'
+      )[0];
+      const username = username_field?.values[0]?.value || 'Não encontrado';
+
+      const birthday_field = user?.custom_fields_values?.filter(
+        (field) => field.field_name === 'Data de Nascimento (Texto)'
+      )[0];
+      const birthday = birthday_field?.values[0]?.value || 'Não encontrado';
+
+      const neighborhood_field = user?.custom_fields_values?.filter(
+        (field) => field.field_name === 'Bairro'
+      )[0];
+      const neighborhood = neighborhood_field?.values[0]?.value || 'Não encontrado';
+
+      const scheduled_date_field = user?.custom_fields_values?.filter(
+        (field) => field.field_name === 'Event Start'
+      )[0];
+      const scheduled_date = scheduled_date_field?.values[0]?.value || 'Não encontrado';
+
+      const specialist_field = user?.custom_fields_values?.filter(
+        (field) => field.field_name === 'Dentista'
+      )[0];
+      const specialist = specialist_field?.values[0]?.value || 'Dentistas da Equipe';
+
+      const text = `O usuário abaixo foi diretamente agendado pela recepção:
+Nome Completo: ${username}
+Data de Nascimento: ${birthday}
+Bairro: ${neighborhood}
+Data do agendamento: ${scheduled_date}
+Especialista: ${specialist}
+
+Considerar que o usuário passou por todas as etapas para fazer o primeiro agendamento.`;
+
+      const data = {
+        leadID,
+        text,
+        assistant_id
+      };
+
+      await this.assistant(req, res, data);
+    } catch (error) {
+      console.log(`Erro ao enviar mensagem para o assistente: ${error.message}`);
+      res.status(500).send('Erro ao enviar mensagem para o assistente');
     }
   }
 
