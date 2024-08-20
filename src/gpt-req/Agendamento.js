@@ -77,7 +77,7 @@ class Agendamento {
       const neighborhood = neighborhood_field?.values[0]?.value || 'Não encontrado';
 
       const scheduled_date_field = user?.custom_fields_values?.filter(
-        (field) => field.field_name === 'Data Escolhida'
+        (field) => field.field_name === 'Data escolhida'
       )[0];
       const scheduled_date = scheduled_date_field?.values[0]?.value || 'Não encontrado';
 
