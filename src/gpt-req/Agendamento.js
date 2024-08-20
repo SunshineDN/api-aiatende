@@ -167,6 +167,8 @@ Horário de atendimento dos demais dentistas da equipe:
 Segunda à Sexta: 08h00 às 20h00
 Sábado: 08h00 às 13h00
 
+Conforme a disponibilidade na *Agenda Disponivel Atual* abaixo.
+
 Verifique APENAS as datas disponíveis da *Agenda Disponível Atual* abaixo e siga os passos logo em seguida:
 
 *Agenda Disponível Atual*:
