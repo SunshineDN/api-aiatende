@@ -283,6 +283,7 @@ class CalendarUtils {
                 if (i === 0) {
                   let currentMinutes = currentDate.getMinutes();
                   let currentHours = currentDate.getHours();
+                  console.log('Horário atual:', currentHours, currentMinutes);
                   console.log('Dia da semana do primeiro dia:', dayOfWeek);
                   if (dayOfWeek === 1) {
                     console.log('Segunda-feira');
