@@ -57,11 +57,7 @@ class AssistantD {
 
       const dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate());
 
-      const text = `System message:
-Etapa do agendamento, nesta etapa sempre enviar ao usuário as melhores opções de datas para o agendamento, conforme critérios definidos abaixo. Sempre ágil de maneira humanizada, cordial e gentil. 
-Dia da semana, Data e Horário atual são
-${weekDayFormatted}, ${date} GMT-3;
-
+      const text = `System message: Etapa do agendamento, nesta etapa sempre enviar ao usuário as melhores opções de datas para o agendamento, e considerar apresentar *APENAS* horários entre 6 horas e 72 horas após ${date} GMT-3, mas sempre oferecer um horário ao usuário, conforme critérios definidos abaixo. Sempre ágil de maneira humanizada, cordial e gentil.
 Endereço do Consultório: Av. Eng. Domingos Ferreira, 636.
 Recife, Boa Viagem. Ed. Clinical Center Karla Patrícia, 1º andar, sala 109.
 
@@ -70,7 +66,7 @@ Segundas-feira: 9h00 às 12h00
 Terças-feira: 14h00 às 17h00
 Quintas-feira: 14h00 às 17h00
 
-Verifique as datas disponíveis da agenda a seguir e siga os passos logo em seguida:
+Verifique as datas disponíveis da *Agenda Disponível* a seguir e siga os passos logo em seguida:
 
 *Agenda Disponível*:
 
@@ -83,7 +79,7 @@ ${dates}
 3 - Tomar conhecimento do dia da semana, data e horário atual: ${weekDayFormatted}, ${date};
 4 - Quaisquer data disponível deverá ser após a data e horário atual;
 5 - Nunca concluir um agendamento sem data e horário determinado;
-6 - Restringir apenas duas opções de datas e horários para demonstração de escassez, e apresentar horários entre 12 horas e 72 horas da data e horário atual, mas sempre oferecer um horário ao usuário;
+6 - Restringir apenas duas opções de datas e horários para demonstração de escassez, e considerar apresentar *APENAS* horários entre 6 horas e 72 horas após ${date} GMT-3, mas sempre oferecer um horário ao usuário;
 7 - Quando o usuário solicitar uma data e horário vamos verificar a disponibilidade na *Agenda Disponível* e atender a solicitação, conforme modelo de mensagem abaixo.
 Adotar dados reais, no padrão brasileiro e o formato a seguir para listar as 2 datas e horários distintos sugeridos a melhor data e horário de acordo com os critérios, seguindo o exemplo:
 'Apresento as seguintes opções de agendamento:
@@ -99,8 +95,7 @@ Você gostaria de reservar a sua consulta para alguns desses horários?'
 
 Quando o usuário escolher alguma das informações apresentadas, agende a consulta e informe nosso endereço. 
 
-User message:
-${messageReceived}`;
+User message: '${messageReceived}'`;
 
       const data = {
         leadID,
@@ -144,7 +139,7 @@ ${messageReceived}`;
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
 
-      const text = `System message: *SE BASEANDO NOS INTERVALOS DISPONÍVEIS PASSADOS ANTERIORMENTE, SIGA AS PRÓXIMAS INSTRUÇÕES*  Se o usuário escolheu alguma data ou horário, retornar uma mensagem avisando que iremos agendá-lo na data escolhida após coletar alguns dados dele que serão pedidos nas próximas mensagens. Não colete dados do usuário nesta mensagem.
+      const text = `System message: *SE BASEANDO NA AGENDA DISPONÍVEL PASSADA ANTERIORMENTE, SIGA AS PRÓXIMAS INSTRUÇÕES*  Se o usuário escolheu alguma data ou horário, retornar uma mensagem avisando que iremos agendá-lo na data escolhida após coletar alguns dados dele que serão pedidos nas próximas mensagens. Não colete dados do usuário nesta mensagem.
 Caso contrário, apenas trate a mensagem do usuário ignorando as instruções anterior.
 User message: '${message_received}'`;
 
