@@ -285,6 +285,7 @@ class CalendarUtils {
                   let currentHours = currentDate.getHours();
                   console.log('Dia da semana do primeiro dia:', dayOfWeek);
                   if (dayOfWeek === 1) {
+                    console.log('Segunda-feira');
                     if (currentHours < 8) {
                       currentHours = 12;
                       currentMinutes = 0;
@@ -297,6 +298,7 @@ class CalendarUtils {
                       }
                     }
                   } else {
+                    console.log('Terça e Quinta-feira');
                     if (currentHours < 12) {
                       currentHours = 17;
                       currentMinutes = 0;
