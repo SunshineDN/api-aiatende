@@ -6,6 +6,7 @@ const GetMessageReceived = require('../services/kommo/GetMessageReceived');
 const GetUser = require('../services/kommo/GetUser');
 const SendLog = require('../services/kommo/SendLog');
 const SendMessage = require('../services/kommo/SendMessage');
+const SetNameFromContact = require('../services/kommo/SetNameFromContact');
 const CalendarIdValidate = require('../utils/CalendarIdValidate');
 const CalendarUtils = require('../utils/CalendarUtils');
 
@@ -62,11 +63,8 @@ class Agendamento {
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
 
-      const user = await GetUser(req.body, false, access_token);
-      const username_field = user?.custom_fields_values?.filter(
-        (field) => field.field_name === 'Nome Completo'
-      )[0];
-      const username = username_field?.values[0]?.value || 'Não encontrado';
+      const user = await GetUser(req.body, true, access_token);
+      const username = user?.contact?.name || 'Não encontrado';
 
       const birthday_field = user?.custom_fields_values?.filter(
         (field) => field.field_name === 'Data de Nascimento (Texto)'
@@ -79,7 +77,7 @@ class Agendamento {
       const neighborhood = neighborhood_field?.values[0]?.value || 'Não encontrado';
 
       const scheduled_date_field = user?.custom_fields_values?.filter(
-        (field) => field.field_name === 'Event Start'
+        (field) => field.field_name === 'Data Escolhida'
       )[0];
       const scheduled_date = scheduled_date_field?.values[0]?.value || 'Não encontrado';
 
@@ -103,6 +101,7 @@ Considerar que o usuário passou por todas as etapas para fazer o primeiro agend
         assistant_id
       };
 
+      await SetNameFromContact(req.body, access_token);
       await this.assistant(req, res, data);
     } catch (error) {
       console.log(`Erro ao enviar mensagem para o assistente: ${error.message}`);
