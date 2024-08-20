@@ -283,7 +283,7 @@ class CalendarUtils {
                 if (i === 0) {
                   let currentMinutes = currentDate.getMinutes();
                   let currentHours = currentDate.getHours();
-
+                  console.log('Dia da semana do primeiro dia:', dayOfWeek);
                   if (dayOfWeek === 1) {
                     if (currentHours < 8) {
                       currentHours = 12;
