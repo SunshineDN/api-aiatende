@@ -284,15 +284,29 @@ class CalendarUtils {
                   let currentMinutes = currentDate.getMinutes();
                   let currentHours = currentDate.getHours();
 
-                  if (currentHours < 8) {
-                    currentHours = 12;
-                    currentMinutes = 0;
-                  } else {
-                    if (currentMinutes < 30) {
-                      currentMinutes = 30;
-                    } else {
+                  if (dayOfWeek === 1) {
+                    if (currentHours < 8) {
+                      currentHours = 12;
                       currentMinutes = 0;
-                      currentHours++;
+                    } else {
+                      if (currentMinutes < 30) {
+                        currentMinutes = 30;
+                      } else {
+                        currentMinutes = 0;
+                        currentHours++;
+                      }
+                    }
+                  } else {
+                    if (currentHours < 12) {
+                      currentHours = 17;
+                      currentMinutes = 0;
+                    } else {
+                      if (currentMinutes < 30) {
+                        currentMinutes = 30;
+                      } else {
+                        currentMinutes = 0;
+                        currentHours++;
+                      }
                     }
                   }
                   dayStart.setHours(currentHours, currentMinutes, 0, 0);
