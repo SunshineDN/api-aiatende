@@ -95,6 +95,7 @@ class CalendarUtils {
         if (err) {
           console.error('Erro na autenticação:', err);
           reject(new Error('Erro na autenticação'));
+          return;
         }
         const calendar = google.calendar({ version: 'v3', auth: this.authorization });
         calendar.events.delete(
@@ -105,10 +106,11 @@ class CalendarUtils {
           (err, result) => {
             if (err) {
               console.error('Erro ao deletar evento:', err);
-              reject(new Error('Erro ao deletar evento'));
+              reject(err);
+              return;
             }
             console.log('Evento deletado com sucesso.');
-            resolve(result.data);
+            resolve(result?.data);
           });
       });
     });
