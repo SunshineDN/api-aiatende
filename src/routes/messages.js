@@ -92,6 +92,8 @@ router.post('/assistant/:assistant_id/cliente_an/assistente', ClienteAntigoNovo.
 
 // BOT CUTUCADA
 
+router.post('/prompt/cutucada/intencao', Cutucada.intencao);
+
 router.post('/prompt/cutucada/gerar_perguntas', Cutucada.gerar_perguntas);
 
 router.post('/assistant/:assistant_id/cutucada/assistante', Cutucada.assistente);
