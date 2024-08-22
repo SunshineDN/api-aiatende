@@ -2,6 +2,7 @@ require('dotenv').config();
 const OpenAIController = require('../controllers/OpenAIController');
 const GetAccessToken = require('../services/kommo/GetAccessToken');
 const GetAnswer = require('../services/kommo/GetAnswer');
+const GetMessageReceived = require('../services/kommo/GetMessageReceived');
 const SendLog = require('../services/kommo/SendLog');
 const SendMessage = require('../services/kommo/SendMessage');
 
@@ -73,6 +74,7 @@ Pode utilizar alguns dos exemplos, mas tente produzir sempre mensagens novas. Re
     try {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
 
+      const message_received = await GetMessageReceived(req.body, access_token);
       const answer = await GetAnswer(req.body, access_token);
 
       const text = `System message: 'Analise a mensagem da clínica: ${answer} e veja em quais das situações abaixo encaixa a intenção da resposta do usuário: '${message_received}'.
