@@ -13,6 +13,7 @@ const Recepcao = require('../gpt-req/Recepcao');
 const Aquecimento = require('../gpt-req/Aquecimento');
 const Cutucada = require('../gpt-req/Cutucada');
 const EsteiraConfirm = require('../gpt-req/EsteiraConfirm');
+const ClienteAntigoNovo = require('../gpt-req/ClienteAntigoNovo');
 
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
@@ -83,6 +84,11 @@ router.post('/prompt/aquecimento/intencao', Aquecimento.intencao);
 
 router.post('/assistant/:assistant_id/aquecimento/nao_qualificado', Aquecimento.nao_qualificado);
 
+// BOT CLIENTE ANTIGO/NOVO
+
+router.post('/prompt/cliente_an/prompt', ClienteAntigoNovo.intencao);
+
+router.post('/assistant/:assistant_id/cliente_an/assistente', ClienteAntigoNovo.assistente);
 
 // BOT CUTUCADA
 
