@@ -7,7 +7,7 @@ const GetUser = require('../services/kommo/GetUser');
 const SendLog = require('../services/kommo/SendLog');
 const SendMessage = require('../services/kommo/SendMessage');
 
-class Cutucada {
+class EsteiraConfirm {
   constructor() {
     this.assistant = this.assistant.bind(this);
     this.prompt = this.prompt.bind(this);
@@ -226,4 +226,4 @@ Ok?"`;
   }
 }
 
-module.exports = new Cutucada();
+module.exports = new EsteiraConfirm();
