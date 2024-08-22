@@ -11,6 +11,7 @@ class Cutucada {
     this.assistant = this.assistant.bind(this);
     this.prompt = this.prompt.bind(this);
     this.gerar_perguntas = this.gerar_perguntas.bind(this);
+    this.intencao = this.intencao.bind(this);
     this.assistente = this.assistente.bind(this);
   }
 
