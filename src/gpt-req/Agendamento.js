@@ -57,7 +57,7 @@ class Agendamento {
   }
 
   async form_join(req, res) {
-    console.log('Assistant | BOT - Agendamento | Entrada pelo Formulário...');
+    console.log('Assistant | BOT - Agendamento | Agendamento pelo Formulário...');
     try {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const { lead_id: leadID } = req.body;
@@ -86,14 +86,14 @@ class Agendamento {
       )[0];
       const specialist = specialist_field?.values[0]?.value || 'Dentistas da Equipe';
 
-      const text = `O usuário abaixo foi diretamente agendado pela recepção:
+      const text = `O usuário abaixo foi diretamente agendado pela recepção como um usuário novo, ou é um usuário reagendado. Seguem os dados do usuário:
 Nome Completo: ${username}
 Data de Nascimento: ${birthday}
 Bairro: ${neighborhood}
 Data do agendamento: ${scheduled_date}
 Especialista: ${specialist}
 
-Considerar que o usuário passou por todas as etapas para fazer o primeiro agendamento.`;
+Considerar que o usuário passou por todas as etapas para fazer o primeiro agendamento ou reagendamento.`;
 
       const data = {
         leadID,
