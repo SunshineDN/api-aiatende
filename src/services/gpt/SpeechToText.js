@@ -5,6 +5,7 @@ const GetUser = require('../kommo/GetUser');
 const UpdateLead = require('../kommo/UpdateLead');
 const OpenAIController = require('../../controllers/OpenAIController');
 const HandlingError = require('../kommo/HandlingError');
+const Fill_Lead_Message = require('./Fill_Lead_Message');
 
 const SpeechToText = async (payload, access_token = null) => {
   // console.log('Função SpeechToText');
@@ -32,7 +33,11 @@ const SpeechToText = async (payload, access_token = null) => {
 
     const transcription = await OpenAIController.audioToText(text_audio, lead_id);
     console.log('Mensagem transcrita:', transcription);
-
+    const last_message = {
+      type: 'voice',
+      text_audio: transcription
+    }
+    await Fill_Lead_Message(payload, last_message, access_token);
     const message = `${message_received?.values[0]?.value || ''}\n${transcription}`;
 
     let kommoData;
