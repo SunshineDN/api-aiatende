@@ -53,7 +53,7 @@ const SpeechToText = async (payload, access_token = null) => {
             'field_id': send_audio_field?.id,
             'values': [
               {
-                'value': false // Alterar para true para enviar áudio VIA WHATSAPP
+                'value': true // Alterar para true para enviar áudio VIA WHATSAPP
               }
             ]
           }
