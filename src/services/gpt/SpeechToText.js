@@ -7,7 +7,7 @@ const OpenAIController = require('../../controllers/OpenAIController');
 const HandlingError = require('../kommo/HandlingError');
 
 const SpeechToText = async (payload, access_token = null) => {
-  console.log('Função SpeechToText');
+  // console.log('Função SpeechToText');
   try {
     if (!access_token) {
       access_token = await GetAccessToken(payload);
@@ -18,7 +18,7 @@ const SpeechToText = async (payload, access_token = null) => {
     const { text_audio, lead_id } = payload;
 
     const message_received = user?.custom_fields_values?.filter(field => field.field_name === 'GPT | Message received')[0];
-    const channel = user?.custom_fields_values?.filter(field => field.field_name === 'CANAL')[0];
+    const channel = user?.custom_fields_values?.filter(field => field.field_name === 'CANAL DE ENTRADA')[0];
 
     // const URL = 'https://gpt.aiatende.com.br/audio-to-text';
     // const data = {
@@ -38,7 +38,7 @@ const SpeechToText = async (payload, access_token = null) => {
     let kommoData;
 
 
-    if (channel?.values[0]?.value === 'WHATSAPP LITE') {
+    if (channel?.values[0]?.value === '01 - WHATSAPP LITE') {
       kommoData = {
         'custom_fields_values': [
           {

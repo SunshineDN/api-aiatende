@@ -7,7 +7,7 @@ const OpenAIController = require('../../controllers/OpenAIController');
 const HandlingError = require('../kommo/HandlingError');
 
 const TextToSpeech = async (payload, access_token = null) => {
-  console.log('Função TextToSpeech');
+  // console.log('Função TextToSpeech');
   try {
     if (!access_token) {
       access_token = await GetAccessToken(payload);
@@ -21,7 +21,7 @@ const TextToSpeech = async (payload, access_token = null) => {
     const gptAnswer = user?.custom_fields_values.filter(field => field.field_name === 'GPT | Answer')[0];
   
     const gptSentAudio = custom_fields.filter(field => field.name === 'GPT | Sent Audio')[0];
-    const gptAudioReceived = custom_fields.filter(field => field.name === 'GPT | Audio Received?')[0];
+    // const gptAudioReceived = custom_fields.filter(field => field.name === 'GPT | Audio Received?')[0];
   
     // const URL = 'https://gpt.aiatende.com.br/text-to-audio';
     // const data = {
@@ -42,14 +42,6 @@ const TextToSpeech = async (payload, access_token = null) => {
           'values': [
             {
               'value': false
-            }
-          ]
-        },
-        {
-          'field_id': gptAudioReceived?.id,
-          'values': [
-            {
-              'value': true
             }
           ]
         }
