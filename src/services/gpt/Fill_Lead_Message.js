@@ -3,9 +3,9 @@ const GetCustomFields = require('../kommo/GetCustomFields');
 const GetUser = require('../kommo/GetUser');
 const UpdateLead = require('../kommo/UpdateLead');
 
-const Fill_Lead_Message = async (payload, access_token = null) => {
+const Fill_Lead_Message = async (payload, message_obj, access_token = null) => {
   console.log('Função Fill_Lead_Message');
-  let lastMessages, message, log;
+  let lastMessages, message, str,log;
   try {
     if (!access_token) {
       access_token = await GetAccessToken(payload);
@@ -18,14 +18,20 @@ const Fill_Lead_Message = async (payload, access_token = null) => {
     log = custom_fields.filter(field => field.name === 'GPT | LOG')[0];
     const leadMessage_isFilled = user?.custom_fields_values?.filter(field => field.field_name === 'GPT | Last messages')[0];
 
+    if (message_obj.type !== 'voice') {
+      str = message_obj.text_audio.replace(/\+/g, ' ');
+    } else {
+      str = message_obj.text_audio;
+    }
+
     if (leadMessage_isFilled?.values[0]?.value) {
       const messageSplit = leadMessage_isFilled?.values[0]?.value.split('\n');
       const sortedMessage = messageSplit?.reverse();
       const filterMessage = sortedMessage.filter((_, index) => index < 2);
       message = `${filterMessage.reverse().join('\n')}
-${payload.text_audio.replace(/\+/g, ' ')}`;
+${str}`;
     } else {
-      message = payload.text_audio.replace(/\+/g, ' ');
+      message = str;
     }
 
     const data = {
