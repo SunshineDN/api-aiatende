@@ -1,5 +1,6 @@
 require('dotenv').config();
 const OpenAIController = require('../controllers/OpenAIController');
+const TextToSpeech = require('../services/gpt/TextToSpeech');
 const GetAccessToken = require('../services/kommo/GetAccessToken');
 const GetMessageReceived = require('../services/kommo/GetMessageReceived');
 const GetUser = require('../services/kommo/GetUser');
@@ -20,7 +21,7 @@ class AssistantE {
     try {
       console.log('Enviando para o assistente GPT...');
       access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
-      
+      await TextToSpeech(req.body, access_token);
       console.log('Mensagem enviada para o assistente:', data.text);
       const { message } = await OpenAIController.generateMessage(data);
       console.log('Resposta recebida do assistente:', message);

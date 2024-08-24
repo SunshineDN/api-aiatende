@@ -59,13 +59,12 @@ const TextToSpeech = async (payload, access_token = null) => {
     return;
   } catch (error) {
     if (error.response) {
-      console.log(`Erro ao enviar mensagem de áudio: ${error.response.data}`);
       await HandlingError(payload, access_token, `Erro ao enviar mensagem de áudio: ${error.response.data}`);
     } else {
-      console.log(`Erro ao enviar mensagem de áudio: ${error.message}`);
       await HandlingError(payload, access_token, `Erro ao enviar mensagem de áudio: ${error.message}`);
     }
-    throw new Error('Erro no TextToSpeech');
+    console.log('Erro ao enviar mensagem de áudio');
+    throw new Error(error);
   }
 };
 
