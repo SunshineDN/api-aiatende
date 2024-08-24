@@ -14,6 +14,13 @@ const TextToSpeech = async (payload, access_token = null) => {
     }
     const user = await GetUser(payload, true, access_token);
     const custom_fields = await GetCustomFields(payload, access_token);
+
+    const user_sent_audio = user?.custom_fields_values.filter(field => field.field_name === 'GPT | Sent Audio')[0];
+
+    if (!user_sent_audio?.values[0]?.value) {
+      console.log('Lead não necessita de áudio');
+      return;
+    }
     
     const phoneField = user?.contact?.custom_fields_values.filter(field => field.field_name === 'Phone')[0];
     const phone = phoneField?.values?.filter(value => value.enum_code === 'WORK')[0]?.value;
