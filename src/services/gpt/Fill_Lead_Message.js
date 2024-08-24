@@ -30,6 +30,9 @@ const Fill_Lead_Message = async (payload, message_obj, access_token = null) => {
       const filterMessage = sortedMessage.filter((_, index) => index < 2);
       message = `${filterMessage.reverse().join('\n')}
 ${str}`;
+      const filled_message = message.split('\n');
+      const unique_messages = [...new Set(filled_message)];
+      message = unique_messages.join('\n');
     } else {
       message = str;
     }
