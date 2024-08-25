@@ -28,7 +28,7 @@ const SendMessage = async (body, audio, message, access_token) => {
       ]
     };
     if (audio) {
-      await TextToSpeech(body, access_token);
+      await TextToSpeech(body, message, access_token);
     }
     await UpdateLead(body, data, access_token);
     return;
