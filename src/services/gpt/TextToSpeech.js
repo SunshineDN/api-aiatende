@@ -30,7 +30,7 @@ const TextToSpeech = async (payload, access_token = null) => {
     const gptSentAudio = custom_fields.filter(field => field.name === 'GPT | Sent Audio')[0];
     const gptAudioReceived = custom_fields.filter(field => field.name === 'GPT | Audio Received?')[0];
     
-    const voice_field = custom_fields.filter(field => field.name === 'Voz')[0];
+    const voice_field = user?.custom_fields_values.filter(field => field.name === 'Voz')[0];
     const voice = voice_field?.values[0]?.value || 'shimmer';
   
     // const URL = 'https://gpt.aiatende.com.br/text-to-audio';
