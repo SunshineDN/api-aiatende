@@ -27,7 +27,7 @@ class PromptE {
       console.log('Mensagem enviada para o prompt:', text);
       const { message } = await OpenAIController.promptMessage(text);
       console.log('Resposta recebida do prompt:', message);
-      await SendMessage(req.body, message, access_token);
+      await SendMessage(req.body, false, message, access_token);
       res.status(200).send({ message: 'Prompt enviado com sucesso', response: message });
     } catch (error) {
       console.log(`Erro ao enviar prompt: ${error.message}`);
