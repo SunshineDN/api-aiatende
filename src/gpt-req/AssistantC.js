@@ -1,6 +1,5 @@
 require('dotenv').config();
 const OpenAIController = require('../controllers/OpenAIController');
-const TextToSpeech = require('../services/gpt/TextToSpeech');
 const GetAccessToken = require('../services/kommo/GetAccessToken');
 const GetLeadChannel = require('../services/kommo/GetLeadChannel');
 const GetLeadInfoForBotC = require('../services/kommo/GetLeadInfoForBotC');
@@ -28,8 +27,7 @@ class AssistantC {
       console.log('Mensagem enviada para o assistente:', data.text);
       const { message } = await OpenAIController.generateMessage(data);
       console.log('Resposta recebida do assistente:', message);
-      await SendMessage(req.body, message, access_token);
-      await TextToSpeech(req.body, access_token);
+      await SendMessage(req.body, true, message, access_token);
       res.status(200).send({ message: 'Mensagem enviada com sucesso para o assistente', response: message });
     } catch (error) {
       console.log(`Erro ao enviar mensagem para o assistente: ${error.message}`);

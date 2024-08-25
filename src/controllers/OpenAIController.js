@@ -344,7 +344,7 @@ class OpenAIController {
 
       const mp3 = await openai.audio.speech.create({
         'model': 'tts-1',
-        'voice': voice,
+        'voice': voice || 'shimmer',
         'input': message
       });
 
