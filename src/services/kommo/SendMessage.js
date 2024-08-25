@@ -1,7 +1,8 @@
+const TextToSpeech = require('../gpt/TextToSpeech');
 const GetCustomFields = require('./GetCustomFields');
 const UpdateLead = require('./UpdateLead');
 
-const SendMessage = async (body, message, access_token) => {
+const SendMessage = async (body, audio, message, access_token) => {
   try {
     const custom_fields = await GetCustomFields(body, access_token);
     const answer = custom_fields?.filter(field => field.name === 'GPT | Answer')[0];
@@ -26,6 +27,9 @@ const SendMessage = async (body, message, access_token) => {
         }
       ]
     };
+    if (audio) {
+      await TextToSpeech(body, access_token);
+    }
     await UpdateLead(body, data, access_token);
     return;
   } catch (e) {
