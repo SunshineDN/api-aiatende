@@ -306,7 +306,7 @@ class OpenAIController {
     }
   }
 
-  async textToAudio(message, phone, business) {
+  async textToAudio(message, voice, phone, business) {
 
     let access_token, instance_id;
 
@@ -341,7 +341,7 @@ class OpenAIController {
     try {
       const mp3 = await openai.audio.speech.create({
         'model': 'tts-1',
-        'voice': 'shimmer',
+        'voice': voice,
         'input': message
       });
 
