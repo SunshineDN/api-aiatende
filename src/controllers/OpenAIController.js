@@ -339,6 +339,9 @@ class OpenAIController {
     };
 
     try {
+      console.log('\nGenerating audio with voice:', voice);
+      console.log('Audio Message:', message);
+
       const mp3 = await openai.audio.speech.create({
         'model': 'tts-1',
         'voice': voice,
