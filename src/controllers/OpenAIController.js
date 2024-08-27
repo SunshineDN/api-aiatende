@@ -150,20 +150,20 @@ class OpenAIController {
               existThreads.threadID[indexOfAssistant],
               run.id
             );
-            console.log(`${repeat}# ${count}' Run status: ${run.status}`);
+            console.log(`[Lead ${leadID}] - ${repeat}# ${count}' Run status: ${run.status}`);
             if (run.status === 'completed') {
-              console.log('Run completed');
+              console.log(`[Lead ${leadID}] - Run completed`);
               return;
             } else if (run.status !== 'completed' && repeat === times && count === 10) {
-              console.log('Run not completed');
+              console.log(`[Lead ${leadID}] - Run not completed`);
               if (run.status === 'failed') {
-                console.log('Run failed');
+                console.log(`[Lead ${leadID}] - Run failed`);
                 throw new Error(`Erro no running da mensagem do Assistant GPT: ${run?.last_error?.message}`);
               } else if (run.status === 'expired') {
-                console.log('Run expired');
+                console.log(`[Lead ${leadID}] - Run expired`);
                 throw new Error('O tempo de execução do Assistant GPT expirou');
               } else {
-                console.log('Run not completed');
+                console.log(`[Lead ${leadID}] - Run not completed`);
               }
             }
             await wait(1000);
@@ -178,7 +178,10 @@ class OpenAIController {
               existThreads.threadID[indexOfAssistant],
               run.id
             );
-            console.log('Run status for cancel:', run.status);
+            console.log(`[Lead ${leadID}]Run status for cancel: ${run.status}`);
+            console.log(`Cancel? ${run.status === 'cancelled'}
+Expired? ${run.status === 'expired'}
+Failed? ${run.status === 'failed'}\n`);
             await wait(1000);
           };
           count = 1;
