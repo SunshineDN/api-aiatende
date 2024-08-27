@@ -6,6 +6,7 @@ const GetMessageReceived = require('../services/kommo/GetMessageReceived');
 const GetUser = require('../services/kommo/GetUser');
 const SendLog = require('../services/kommo/SendLog');
 const SendMessage = require('../services/kommo/SendMessage');
+const SetActualDateHour = require('../services/kommo/SetActualDateHour');
 const CalendarIdValidate = require('../utils/CalendarIdValidate');
 const CalendarUtils = require('../utils/CalendarUtils');
 
@@ -145,6 +146,8 @@ Responda apenas com o ID correspondente da opção, que segue este padrão: "#pa
       };
       const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
       const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
+
+      await SetActualDateHour(req.body, access_token);
 
       const user = await GetUser(req.body, false, access_token);
       const choice_date = user?.custom_fields_values?.filter(
