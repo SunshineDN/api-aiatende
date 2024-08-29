@@ -173,17 +173,21 @@ class OpenAIController {
             existThreads.threadID[indexOfAssistant],
             run.id
           );
-          while (run.status !== 'cancelled' || run.status !== 'expired' || run.status !== 'failed') {
+          let cancel_time = 1;
+          while (run.status !== 'cancelled' && run.status !== 'expired' && run.status !== 'failed') {
             run = await openai.beta.threads.runs.retrieve(
               existThreads.threadID[indexOfAssistant],
               run.id
             );
-            console.log(`[Lead ${leadID}]Run status for cancel: ${run.status}`);
+            console.log(`\n[Lead ${leadID}] - Timing for cancel: ${cancel_time}`);
+            console.log(`[Lead ${leadID}] - Run status for cancel: ${run.status}`);
             console.log(`Cancel? ${run.status === 'cancelled'}
 Expired? ${run.status === 'expired'}
-Failed? ${run.status === 'failed'}\n`);
+Failed? ${run.status === 'failed'}`);
+            cancel_time++;
             await wait(1000);
           };
+          cancel_time = 1;
           count = 1;
           repeat++;
         }
