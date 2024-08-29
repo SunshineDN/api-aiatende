@@ -14,6 +14,7 @@ const Aquecimento = require('../gpt-req/Aquecimento');
 const Cutucada = require('../gpt-req/Cutucada');
 const EsteiraConfirm = require('../gpt-req/EsteiraConfirm');
 const ClienteAntigoNovo = require('../gpt-req/ClienteAntigoNovo');
+const Agendamento = require('../gpt-req/Agendamento');
 
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
@@ -55,6 +56,8 @@ router.post('/assistant/:assistant_id/d_previa_datas', AssistantD.d_previa_datas
 router.post('/assistant/:assistant_id/d_verificar_datas', AssistantD.d_verificar_datas);
 
 router.post('/assistant/:assistant_id/d_confirmacao', AssistantD.d_confirmacao);
+
+router.post('/assistant/:assistant_id/agendamento/form_join', Agendamento.form_join);
 
 // BOT E
 
