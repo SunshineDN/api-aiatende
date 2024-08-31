@@ -63,29 +63,29 @@ class Agendamento {
       const { assistant_id } = req.params;
 
       const user = await GetUser(req.body, true, access_token);
-      const username = user?.contact?.name || 'Não encontrado';
+      const username = user?.contact?.name || 'Não informado';
 
       const birthday_field = user?.custom_fields_values?.filter(
         (field) => field.field_name === 'Data de Nascimento (Texto)'
       )[0];
-      const birthday = birthday_field?.values[0]?.value || 'Não encontrado';
+      const birthday = birthday_field?.values[0]?.value || 'Não informado';
 
       const neighborhood_field = user?.custom_fields_values?.filter(
         (field) => field.field_name === 'Bairro'
       )[0];
-      const neighborhood = neighborhood_field?.values[0]?.value || 'Não encontrado';
+      const neighborhood = neighborhood_field?.values[0]?.value || 'Não informado';
 
       const scheduled_date_field = user?.custom_fields_values?.filter(
         (field) => field.field_name === 'Data escolhida'
       )[0];
-      const scheduled_date = scheduled_date_field?.values[0]?.value || 'Não encontrado';
+      const scheduled_date = scheduled_date_field?.values[0]?.value || 'Não informado';
 
       const specialist_field = user?.custom_fields_values?.filter(
         (field) => field.field_name === 'Dentista'
       )[0];
       const specialist = specialist_field?.values[0]?.value || 'Dentistas da Equipe';
 
-      const text = `O usuário abaixo foi diretamente agendado pela recepção como um usuário novo, ou é um usuário reagendado. Seguem os dados do usuário:
+      const text = `O usuário abaixo foi diretamente agendado pela recepção como um usuário novo, ou é um usuário reagendado e será atualizado os dados. Seguem os dados do usuário:
 Nome Completo: ${username}
 Data de Nascimento: ${birthday}
 Bairro: ${neighborhood}
@@ -100,7 +100,6 @@ Considerar que o usuário passou por todas as etapas para fazer o primeiro agend
         assistant_id
       };
 
-      await SetNameFromContact(req.body, access_token);
       await this.assistant(req, res, data);
     } catch (error) {
       console.log(`Erro ao enviar mensagem para o assistente: ${error.message}`);
