@@ -164,8 +164,7 @@ Antes de solicitar os dados, verifique se estão preenchidos em dados existentes
 3 - Bairro 
 4 - Telefone "
 
-Importante solicitar os dados do campo que esteja pendente ou em branco. Plano de saúde ou convênio médico, perguntar se é particular ou qual o tipo de plano.
-continuar solicitando o dado até que esteja completamente satisfeito.'
+Importante solicitar os dados do campo que esteja pendente ou em branco. Continuar solicitando o dado até que esteja completamente satisfeito.'
 User message: '${message_received}'`;
       } else {
         text = `System message:'Adote a informação, dia de semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife e (GMT-3).
