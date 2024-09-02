@@ -211,11 +211,11 @@ User message: '${message_received}'`;
 
       const text = `System message: 'Agora estamos na etapa de solicitar a especialista para a *CONSULTA INICIAL*. Temos os dados do usuário e o último passo antes do agendamento final é saber qual especialidade ele vai querer. Temos 3 opções para listar e o usuário escolher para sua *CONSULTA INICIAL*, segue as opções:
 
-“ 1 - Dentistas da Equipe | *Sem Custo*
+“ 1 - *Dentista da equipe:* Atendimento isento de custo para realização da consulta inicial, apenas para Primeiro Agendamento;
 
-2 - Dra. Juliana Leite | Reabilitação e Estética - *R$ 120,00*
+2 - *Dra. Juliana Leite | Reabilitação Oral e Estética:* Investimento para avaliação geral: R$ 120,00 (cento e vinte reais);
 
-3 - Odontopediatra | Crianças até 12 anos - *R$ 99,00* ”
+3 - *Odontopediatra | Crianças até 12 anos:* Investimento para consulta: R$ 99,00 (noventa e nove reais); ”
 
 Retorne uma mensagem para o usuário escolher uma das 3 opções listadas acima.'
 
@@ -247,11 +247,11 @@ User message: '${message_received}'`;
 
       const text = `System message: 'Analise a escolha da especialista para a *CONSULTA INICIAL* que o usuário fez e retorne uma mensagem listando a opção e perguntando se ele confirma a escolha. Caso contrário, peça novamente para o usuário escolher uma das 3 opções listadas abaixo:
 
-“ 1 - Dentistas da Equipe | *Sem Custo*
+“ 1 - *Dentista da equipe:* Atendimento isento de custo para realização da consulta inicial, apenas para Primeiro Agendamento;
 
-2 - Dra. Juliana Leite | Reabilitação e Estética - *R$ 120,00*
+2 - *Dra. Juliana Leite | Reabilitação Oral e Estética:* Investimento para avaliação geral: R$ 120,00 (cento e vinte reais);
 
-3 - Odontopediatra | Crianças até 12 anos - *R$ 99,00* ” '
+3 - *Odontopediatra | Crianças até 12 anos:* Investimento para consulta: R$ 99,00 (noventa e nove reais); ” '
 
 User message: '${message_received}'`;
 

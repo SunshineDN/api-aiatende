@@ -164,9 +164,9 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
 
 #OutraEspecialidade: Caso a resposta do usuário seja CONFIRMANDO outra especialidade que não seja a enviada pela clínica.
 
-#Juliana: Caso a resposta do usuário seja CONFIRMANDO a Dra. Juliana Leite ou Reabilitadora Oral.
+#Juliana: Caso a resposta do usuário seja CONFIRMANDO a Dra. Juliana Leite ou Reabilitadora Oral e Estética.
 
-#Isento: Se a resposta do usuário for CONFIRMANDO Dentistas Especialista da equipe (sem custo).
+#Isento: Se a resposta do usuário for CONFIRMANDO Dentista da equipe (sem custo).
 
 #Odontopediatria: Se a resposta do usuário CONFIRMA odontopediatria, kids (Crianças até 12 anos).
 
