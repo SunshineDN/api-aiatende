@@ -6,7 +6,6 @@ const GetMessageReceived = require('../services/kommo/GetMessageReceived');
 const GetUser = require('../services/kommo/GetUser');
 const SendLog = require('../services/kommo/SendLog');
 const SendMessage = require('../services/kommo/SendMessage');
-const SetNameFromContact = require('../services/kommo/SetNameFromContact');
 const CalendarIdValidate = require('../utils/CalendarIdValidate');
 const CalendarUtils = require('../utils/CalendarUtils');
 
