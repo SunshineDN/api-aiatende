@@ -50,7 +50,7 @@ class ClienteAntigoNovo {
   }
 
   async intencao(req, res) {
-    console.log('Prompt | BOT - Cliente Antigo/Novo | Intencao...');
+    console.log('Prompt | BOT - Paciente Antigo/Novo | Intencao...');
     try {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
 
@@ -59,13 +59,13 @@ class ClienteAntigoNovo {
 
       const text = `Analise a mensagen enviada pela clínica: '${answer}' veja a resposta do usuário: '${message_received}' e identifique a intenção do usuário baseado nas opções abaixo:
 
-#ClienteAntigo: O usuário é um cliente antigo, ou confirmou que é um cliente antigo.
+#PacienteAntigo: O usuário é um Paciente antigo, ou confirmou que é um Paciente antigo.
 
-#ClienteNovo: O usuário é um cliente novo, nunca utilizou os serviços do consultório, ou confirmou que é um cliente novo.
+#PacienteNovo: O usuário é um Paciente novo, nunca utilizou os serviços do consultório, ou confirmou que é um Paciente novo.
 
-#Indefinido: Não é possível identificar se o usuário é um cliente antigo ou novo.
+#Indefinido: Não é possível identificar se o usuário é um Paciente antigo ou novo.
 
-Analise a intenção do usuário e retorne apenas a opção com o ID correto, exemplo: #ClienteAntigo`;
+Analise a intenção do usuário e retorne apenas a opção com o ID correto, exemplo: #PacienteAntigo`;
 
       await this.prompt(req, res, text);
     } catch (error) {
@@ -75,12 +75,12 @@ Analise a intenção do usuário e retorne apenas a opção com o ID correto, ex
   }
 
   async assistente(req, res) {
-    console.log('Assistant | BOT - Cliente Antigo/Novo | Assistente...');
+    console.log('Assistant | BOT - Paciente Antigo/Novo | Assistente...');
     try {
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
 
-      const text = 'System message: gere uma mensagem para o usuário perguntando se ele é cliente novo ou já é um cliente antigo.';
+      const text = 'System message: gere uma mensagem para o usuário perguntando se ele é paciente novo ou já é um paciente antigo.';
 
       const data = {
         leadID,
