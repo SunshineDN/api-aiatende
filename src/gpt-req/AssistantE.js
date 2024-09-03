@@ -48,16 +48,15 @@ class AssistantE {
 - Pedir desculpas pelo inconveniente e mostrar disposição para ajudar a reagendar.
 
 Exemplo de mensagem:
-Olá Augêncio,
+'Olá Augêncio,
 
 Notamos que você não pôde comparecer à sua sessão agendada conosco no dia 05/08/2024 10:00. Entendemos que imprevistos acontecem e gostaríamos de ajudar a remarcar essa sessão para um momento mais conveniente para você.
 
 Por favor, entre em contato conosco para reagendarmos. Estamos à disposição para encontrar um horário que se encaixe melhor na sua agenda.
 
-Agradecemos a sua compreensão e aguardamos seu retorno.
+Agradecemos a sua compreensão e aguardamos seu retorno.'
 
-User message:
-'${message_received}'`;
+User message: '${message_received}'`;
 
       const data = {
         leadID,
@@ -85,8 +84,15 @@ User message:
       const DifDates = require('../utils/DifDates');
 
       const { diferencaDias, diferencaHoras } = DifDates(scheduleDateValue);
+      const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
+      const weekOptions = {
+        timeZone: 'America/Recife',
+        weekday: 'long'
+      };
+      const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
+      const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
 
-      const text = `System message: Envie uma mensagem para o usuário avisando sobre a data de agendamento: '${scheduleDateValue}'. Adicione também que faltam ${diferencaDias} dia(s) e ${diferencaHoras} hora(s) para a consulta.`;
+      const text = `System message: O dia da semana, data e hora atual são; '${weekDayFormatted}, ${date}' Envie uma mensagem para o usuário avisando sobre a data de agendamento: '${scheduleDateValue}'. Adicione também que faltam ${diferencaDias} dia(s) e ${diferencaHoras} hora(s) para a consulta.`;
 
       const data = {
         leadID,

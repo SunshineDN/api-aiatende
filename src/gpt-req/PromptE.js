@@ -69,12 +69,12 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
       const message_received = await GetMessageReceived(req.body, access_token);
       const answer = await GetAnswer(req.body, access_token);
 
-      const text = `Aqui está a mensagem do consultório: '${answer}', baseada nela, analise a reposta do usuário: '${message_received}'.
+      const text = `Aqui está a mensagem da clínica: '${answer}', baseada nela, analise a reposta do usuário: '${message_received}'.
 Verifique abaixo qual das intenções mais se encaixa com a resposta do usuário.
 
 #Reagendar: Caso o usuário queira dar continuidade em reagendamento.
 
-#Perdido: Caso o usuário não queira mais manter contato com o consultório.
+#Perdido: Caso o usuário não queira mais manter contato com a clínica.
 
 #Geral: Se não for nenhum dos cenários anteriores.
 
