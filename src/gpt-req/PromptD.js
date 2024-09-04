@@ -3,8 +3,10 @@ const OpenAIController = require('../controllers/OpenAIController');
 const GetAccessToken = require('../services/kommo/GetAccessToken');
 const GetAnswer = require('../services/kommo/GetAnswer');
 const GetMessageReceived = require('../services/kommo/GetMessageReceived');
+const GetUser = require('../services/kommo/GetUser');
 const SendLog = require('../services/kommo/SendLog');
 const SendMessage = require('../services/kommo/SendMessage');
+const SetActualDateHour = require('../services/kommo/SetActualDateHour');
 
 
 class PromptD {
@@ -145,13 +147,20 @@ Responda apenas com o ID correspondente da opção, que segue este padrão: "#pa
       const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
       const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
 
+      await SetActualDateHour(req.body, access_token);
+
+      const user = await GetUser(req.body, false, access_token);
+      const choice_date = user?.custom_fields_values?.filter(
+        (field) => field.field_name === 'Data escolhida'
+      )[0];
+
       const answer = await GetAnswer(req.body, access_token);
 
       const text = `Dia da semana, data e hora atual: '${weekDayFormatted}, ${date}'. Na resposta abaixo se basear na data atual.
 Considere a resposta a seguir:
 
 [
- ${answer}
+  ${choice_date?.values[0]?.value || answer}
 ]
 
 Retorne apenas o dia agendado e as horas formatadas no padrão brasileiro, por exemplo: 10/09/2024 10:30

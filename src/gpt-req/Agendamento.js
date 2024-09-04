@@ -65,32 +65,20 @@ class Agendamento {
       const user = await GetUser(req.body, true, access_token);
       const username = user?.contact?.name || 'Não encontrado';
 
-      const birthday_field = user?.custom_fields_values?.filter(
-        (field) => field.field_name === 'Data de Nascimento (Texto)'
+      const plano_field = user?.custom_fields_values?.filter(
+        (field) => field.field_name === 'Plano (Texto)'
       )[0];
-      const birthday = birthday_field?.values[0]?.value || 'Não encontrado';
-
-      const neighborhood_field = user?.custom_fields_values?.filter(
-        (field) => field.field_name === 'Bairro'
-      )[0];
-      const neighborhood = neighborhood_field?.values[0]?.value || 'Não encontrado';
+      const plano = plano_field?.values[0]?.value || 'Não encontrado';
 
       const scheduled_date_field = user?.custom_fields_values?.filter(
         (field) => field.field_name === 'Data escolhida'
       )[0];
       const scheduled_date = scheduled_date_field?.values[0]?.value || 'Não encontrado';
 
-      const specialist_field = user?.custom_fields_values?.filter(
-        (field) => field.field_name === 'Dentista'
-      )[0];
-      const specialist = specialist_field?.values[0]?.value || 'Dentistas da Equipe';
-
-      const text = `O usuário abaixo foi diretamente agendado pela recepção como um usuário novo, ou é um usuário reagendado. Seguem os dados do usuário:
+      const text = `O usuário abaixo foi diretamente agendado pela recepção como um usuário novo, ou é um usuário reagendado e será atualizado os dados. Seguem os dados do usuário:
 Nome Completo: ${username}
-Data de Nascimento: ${birthday}
-Bairro: ${neighborhood}
+Tipo de Consulta: ${plano}
 Data do agendamento: ${scheduled_date}
-Especialista: ${specialist}
 
 Considerar que o usuário passou por todas as etapas para fazer o primeiro agendamento ou reagendamento.`;
 
