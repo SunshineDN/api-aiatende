@@ -11,10 +11,6 @@ class Agendamento {
     this.assistant = this.assistant.bind(this);
     this.prompt = this.prompt.bind(this);
     this.form_join = this.form_join.bind(this);
-    this.assistant_disponibilidade_horario = this.assistant_disponibilidade_horario.bind(this);
-    this.prompt_intencao = this.prompt_intencao.bind(this);
-    this.assistant_verificar_datas = this.assistant_verificar_datas.bind(this);
-    this.prompt_verificar_confirmacao = this.prompt_verificar_confirmacao.bind(this);
   }
 
   async assistant(req, res, data) {
