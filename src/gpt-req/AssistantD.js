@@ -152,7 +152,15 @@ User message: '${messageReceived}'`;
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
 
-      const text = `System message: *SE BASEANDO NA AGENDA DISPONÍVEL PASSADA ANTERIORMENTE, SIGA AS PRÓXIMAS INSTRUÇÕES*  Se o usuário escolheu alguma data ou horário, retornar uma mensagem avisando que iremos analisar a data escolhida (deixando de maneira clara qual é a data e o horário escolhido), após coletar alguns dados dele que serão solicitados nas próximas mensagens. Não colete dados do usuário ou agende nesta mensagem.
+      const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
+      const weekOptions = {
+        timeZone: 'America/Recife',
+        weekday: 'long'
+      };
+      const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
+      const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
+
+      const text = `System message: *SE BASEANDO NA AGENDA DISPONÍVEL PASSADA ANTERIORMENTE, SIGA AS PRÓXIMAS INSTRUÇÕES* Adote o dia da semana, data e hora atual: '${weekDayFormatted}, ${date}'. Se o usuário escolheu alguma data ou horário, retornar uma mensagem avisando que iremos analisar a data escolhida (deixando de maneira clara qual é a data e o horário escolhido), após coletar alguns dados dele que serão solicitados nas próximas mensagens. Não colete dados do usuário ou agende nesta mensagem.
 Caso contrário, apenas trate a mensagem do usuário ignorando as instruções anteriores.
 
 User message: '${message_received}'`;
@@ -178,7 +186,15 @@ User message: '${message_received}'`;
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const answer = await GetAnswer(req.body, access_token);
 
-      const text = `Mensagem do sistema: Retorne uma mensagem para o cliente com sucesso de confirmação de agendamento, e a data agendada a seguir: ${answer}. Utilize como referência a agenda e o formato brasileiro no padrão a seguir: (Segunda-feira) 08 de abril de 2024 às 10 horas e 30 minutos.
+      const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
+      const weekOptions = {
+        timeZone: 'America/Recife',
+        weekday: 'long'
+      };
+      const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
+      const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
+
+      const text = `Mensagem do sistema: Adote o dia da semana, data e hora atual: '${weekDayFormatted}, ${date}'. Retorne uma mensagem para o cliente com sucesso de confirmação de agendamento, e a data agendada a seguir: ${answer}. Utilize como referência a agenda e o formato brasileiro no padrão a seguir: (Segunda-feira) 08 de abril de 2024 às 10 horas e 30 minutos.
 Caso precise, o nome da clínica é: Clínica Dental Santé`;
 
       const data = {
