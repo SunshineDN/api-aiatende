@@ -15,20 +15,20 @@ const TextToSpeech = async (payload, text, access_token = null) => {
     const user = await GetUser(payload, true, access_token);
     const custom_fields = await GetCustomFields(payload, access_token);
 
-    const user_sent_audio = user?.custom_fields_values.filter(field => field.field_name === 'GPT | Sent Audio')[0];
+    const user_sent_audio = user?.custom_fields_values?.filter(field => field.field_name === 'GPT | Sent Audio')[0];
 
     if (!user_sent_audio?.values[0]?.value) {
       console.log('Lead não necessita de áudio');
       return;
     }
     
-    const phoneField = user?.contact?.custom_fields_values.filter(field => field.field_name === 'Phone')[0];
+    const phoneField = user?.contact?.custom_fields_values?.filter(field => field.field_name === 'Phone' || field.field_name === 'Telefone')[0];
     const phone = phoneField?.values?.filter(value => value.enum_code === 'WORK')[0]?.value;
   
     // const gptAnswer = user?.custom_fields_values.filter(field => field.field_name === 'GPT | Answer')[0];
   
-    const gptSentAudio = custom_fields.filter(field => field.name === 'GPT | Sent Audio')[0];
-    const gptAudioReceived = custom_fields.filter(field => field.name === 'GPT | Audio Received?')[0];
+    const gptSentAudio = custom_fields?.filter(field => field.name === 'GPT | Sent Audio')[0];
+    const gptAudioReceived = custom_fields?.filter(field => field.name === 'GPT | Audio Received?')[0];
     
     const voice_field = user?.custom_fields_values.filter(field => field.field_name === 'Voz')[0];
     const voice = voice_field?.values[0]?.value || 'shimmer';
