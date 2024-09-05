@@ -77,15 +77,19 @@ Pode utilizar alguns dos exemplos, mas tente produzir sempre mensagens novas. Re
       const message_received = await GetMessageReceived(req.body, access_token);
       const answer = await GetAnswer(req.body, access_token);
 
-      const text = `System message: 'Analise a mensagem da clínica: ${answer} e veja em quais das situações abaixo encaixa a intenção da resposta do usuário: '${message_received}'.
+      const text = `Aja como um analista de marketing experiente e veja se mensagem de pergunta da clínica: ${answer} e a resposta do usuário: '${message_received}'.
+
+Para identifique em qual das situações abaixo melhor se encaixa a intenção do usuário nesta troca de mensagem:
 
 #Perdido: Se o usuário estiver com intenção de encerrar a conversa, ou não quer continuar falando.
 
-#Aguardar: Se o usuário estiver não puder responder no momento, ou está ocupado, ou está querendo responder depois.
+#Aguardar: Se o usuário estiver sem poder responder no momento, ou está ocupado, ou está querendo responder depois.
 
-#Geral: Para os demais assuntos.
+#Continuar: Quando a resposta do usuário quer responder uma mensagem da Clínica. 
 
-Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra:" Exemplo: #Agendamento'`;
+#Geral: os demais assuntos.
+
+Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra:" Exemplo: #Geral'`;
 
       await this.prompt(req, res, text);
     } catch (error) {
