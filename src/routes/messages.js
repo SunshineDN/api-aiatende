@@ -14,6 +14,7 @@ const Recepcao = require('../gpt-req/Recepcao');
 const Aquecimento = require('../gpt-req/Aquecimento');
 const Cutucada = require('../gpt-req/Cutucada');
 const EsteiraConfirm = require('../gpt-req/EsteiraConfirm');
+const Repescagem = require('../gpt-req/Repescagem');
 
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
@@ -125,5 +126,13 @@ router.post('/assistant/:assistant_id/confirmacao/24h_3rd_try', EsteiraConfirm._
 router.post('/assistant/:assistant_id/confirmacao/3h_1st_try', EsteiraConfirm._3h_1);
 
 router.post('/assistant/:assistant_id/confirmacao/3h_2nd_try', EsteiraConfirm._3h_2);
+
+// BOT REPESCAGEM
+
+router.post('/prompt/repescagem/intencao', Repescagem.intencao);
+
+router.post('/assistant/:assistant_id/repescagem/frio', Repescagem.frio);
+
+router.post('/assistant/:assistant_id/repescagem/congelado', Repescagem.congelado);
 
 module.exports = router;
