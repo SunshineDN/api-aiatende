@@ -67,11 +67,8 @@ class AssistantC {
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
 
-      const text = `System message: Há 2 possibilidades de retorno. Observe a frase: '${message_received}' e veja em qual das opções abaixo melhor se encaixa:
-
-1. Caso a frase contenha dados, retorne apenas uma mensagem para O PRÓPRIO USUÁRIO confirmar os dados, listando eles. Os dados seriam o nome completo e o tipo do plano de saúde ou convênio médico (ou se vai ser consulta particular).
-
-2. Caso a frase esteja vazia ou faltando algum dos dados (nome completo ou o tipo do plano de saúde, convênio médico ou se vai ser consulta particular), retorne apenas uma mensagem pedindo ao usuário que digite o(os) dado(s) que esteja faltando, deixando explícito qual foi o dado considerado e qual é o dado ainda faltante.`;
+      const text = `Os dados cadastrais são: Nome completo e tipo do plano de saúde ou convênio médico (ou se é consulta particular). 
+Observe os dados cadastrais fornecidos pelo usuário '${message_received}' e avalie se está faltando algum dos dados cadastrais. Informe ao usuário o dado faltante e retornando uma mensagem pedindo o dado faltante para prosseguir no cadastro. Caso tenha todos os dados cadastrais, retorne uma mensagem para o usuário perguntando se os dados estão corretos.`;
 
       const data = {
         leadID,
