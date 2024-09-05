@@ -10,6 +10,9 @@ class Repescagem {
   constructor() {
     this.assistant = this.assistant.bind(this);
     this.prompt = this.prompt.bind(this);
+    this.frio = this.frio.bind(this);
+    this.congelado = this.congelado.bind(this);
+    this.intencao = this.intencao.bind(this);
   }
 
   async assistant(req, res, data) {
