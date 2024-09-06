@@ -33,7 +33,7 @@ const SendMessage = async (body, audio, message, access_token) => {
         }
       ]
     };
-    if (audio && canal !== '02 - WHATSAPP API' && canal !== '04 - REDES SOCIAIS') {
+    if (audio && canal !== '02 - WHATSAPP API' && canal !== '03 - REDE SOCIAL') {
       await TextToSpeech(body, message, access_token);
     }
     await UpdateLead(body, data, access_token);
