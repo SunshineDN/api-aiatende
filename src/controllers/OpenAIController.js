@@ -339,10 +339,11 @@ Failed? ${run.status === 'failed'}`);
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${access_token}`
     };
+    const phone_number = phone.replace('+', '');
     const data = {
       media: { ptt: true, base64: null },
       instance_id: instance_id,
-      recipient: phone
+      recipient: phone_number
     };
 
     try {

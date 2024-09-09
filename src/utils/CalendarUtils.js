@@ -296,7 +296,7 @@ class CalendarUtils {
                       currentHours++;
                     }
                   }
-                  dayStart.setHours(currentHours, currentMinutes, 0, 0);
+                  dayStart.setHours(currentHours + 6, currentMinutes, 0, 0);
                 } else {
                   dayStart.setHours(11, 0, 0, 0);
                 };
