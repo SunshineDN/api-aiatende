@@ -104,13 +104,30 @@ User message: '${message_received}'`;
 
       const text = `System message: 'Aja como um especialista em análise de dados para clínicas odontológicas.
 Considere que você esteja analisando a intenção de uma frase digitada por um usuário em um chatbot. Dia de Semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife (GMT-3). Analise a mensagem da clínica: ${answer} e veja em quais das situações abaixo encaixa a intenção da resposta do usuário: '${message_received}'.
+
 #Saudacao: Para leads Realizando a Saudação (exemplo: Oi, Olá, Bom dia, Boa noite, Tudo bem? etc).
 
-#tratamento: Para leads buscando informações dos tipos de tratamentos odontológicos, Implantes, Invisalign, Ortodontia, Extração, Limpeza, HOF, Lentes, Facetas, Prótese, Coroa, Siso, Cirurgia Oral, Periodontia, Odontopediatria e etc;
+#lentes: Para leads buscando informações sobre Lentes de Contato Dental.
+
+#Invisalign: caso esteja querendo informações sobre o Invisalign.
+
+#Implante: Para leads buscando informações sobre Implantes Dentários.
+
+#Ortognatica: Para leads buscando informações sobre Cirurgia Ortognática.
+
+#HOF: Para leads buscando informações sobre Harmonização Orofacial ou HOF.
+
+#Kids: Para leads buscando informações sobre Odontopediatria ou dentista para crianças.
+
+#tratamento: Para leads buscando informações de demais tipos de tratamentos odontológicos que não se encaixam nas opções anteriores.
 
 #Informacao: Para usuário buscando informações sobre a clínica.
 
 #valores: Para usuário buscando valores dos serviços ou consulta inicial.
+
+#convenio: Para usuário buscando informações sobre convênios ou planos de saúde aceitos na clínica.
+
+#particular: Para usuário buscando informações sobre atendimento particular.
 
 #Agendamento: Para usuário com intenção clara de marcar uma consulta inicial (exemplo: sim, agendar, marcar, consulta).
 
