@@ -27,7 +27,7 @@ const Fill_Lead_Message = async (payload, message_obj, access_token = null) => {
     if (leadMessage_isFilled?.values[0]?.value) {
       const messageSplit = leadMessage_isFilled?.values[0]?.value.split('\n');
       const sortedMessage = messageSplit?.reverse();
-      const filterMessage = sortedMessage.filter((_, index) => index < 2);
+      const filterMessage = sortedMessage.filter((_, index) => index < 3);
       message = `${filterMessage.reverse().join('\n')}
 ${str}`;
       const filled_message = message.split('\n');
