@@ -98,15 +98,31 @@ const LeadQuery = async (body, data, access_token) => {
       return;
     } else {
       const lead_id = leadFound[0]?.id || leadFound?.id;
+      const isSchedule = leadFound[0]?.custom_fields_values?.filter(field => field.field_name === 'Data escolhida')[0]?.values[0]?.value;
       const custom_fields = await GetCustomFields(body, access_token);
       const params = {
+        'pipeline_id': 9281436,
+        'status_id': 72882096,
         'custom_fields_values': []
-      }
+      };
 
       const bairro_field = custom_fields?.filter(field => field.name === 'Bairro')[0];
       const birthdate_field = custom_fields?.filter(field => field.name === 'Data de Nascimento (Texto)')[0];
       const dentist_field = custom_fields?.filter(field => field.name === 'Dentista')[0];
       const schedule_date_field = custom_fields?.filter(field => field.name === 'Data escolhida')[0];
+      const reschedule = custom_fields?.filter(field => field.name === 'Reagendou')[0];
+
+      if (isSchedule) {
+        params.custom_fields_values.push({
+          'field_id': reschedule.id,
+          'values': [
+            {
+              'value': true
+            }
+          ]
+        });
+      }
+
 
       if (bairro_field) {
         params.custom_fields_values.push({
