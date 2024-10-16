@@ -4,7 +4,7 @@ const GetContactCustomFields = require('./GetContactCustomFields');
 
 const LeadQuery = async (body, data, access_token) => {
   const subdomain = body.account.subdomain;
-  const { name, bairro, birthdate, dentist, schedule_date, phone } = data;
+  let { name, bairro, birthdate, dentist, schedule_date, phone } = data;
 
   try {
     const options = {
@@ -32,6 +32,13 @@ const LeadQuery = async (body, data, access_token) => {
         schedule_date,
         phone
       });
+
+      if (dentist !== 'Dra. Juliana Leite' && dentist !== 'Dra. Anik Calvalcanti' && dentist !== 'Dra. Cícera Milena' && dentist !== 'Dra. Gabriela Perez'
+        && dentist !== 'Dra. Iris Leão' && dentist !== 'Dr. Laureano Filho' && dentist !== 'Dra. Liana Mavignier' && dentist !== 'Dra. Luciana Luna'
+        && dentist !== 'Dra. Lucília Miranda' && dentist !== 'Dr. Marcus Barbosa' && dentist !== 'Dra. Nashly Rodrigues' && dentist !== 'Dra. Rafaella Karina'
+        && dentist !== 'Dra. Renata Cabral' && dentist !== 'Dr. Rafael Fialho') {
+        dentist = 'Dentista Isento'
+      }
 
       const params = [
         {
@@ -149,6 +156,13 @@ const LeadQuery = async (body, data, access_token) => {
       }
 
       if (dentist_field) {
+        if (dentist !== 'Dra. Juliana Leite' && dentist !== 'Dra. Anik Calvalcanti' && dentist !== 'Dra. Cícera Milena' && dentist !== 'Dra. Gabriela Perez'
+          && dentist !== 'Dra. Iris Leão' && dentist !== 'Dr. Laureano Filho' && dentist !== 'Dra. Liana Mavignier' && dentist !== 'Dra. Luciana Luna'
+          && dentist !== 'Dra. Lucília Miranda' && dentist !== 'Dr. Marcus Barbosa' && dentist !== 'Dra. Nashly Rodrigues' && dentist !== 'Dra. Rafaella Karina'
+          && dentist !== 'Dra. Renata Cabral' && dentist !== 'Dr. Rafael Fialho') {
+          dentist = 'Dentista Isento'
+        }
+
         params.custom_fields_values.push({
           'field_id': dentist_field.id,
           'values': [
