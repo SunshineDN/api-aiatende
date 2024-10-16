@@ -1,4 +1,4 @@
-const TextToSpeech = require('../gpt/TextToSpeech');
+// const TextToSpeech = require('../gpt/TextToSpeech');
 const GetCustomFields = require('./GetCustomFields');
 const GetUser = require('./GetUser');
 const UpdateLead = require('./UpdateLead');
@@ -34,7 +34,8 @@ const SendMessage = async (body, audio, message, access_token) => {
       ]
     };
     if (audio && canal !== '02 - WHATSAPP API' && canal !== '03 - REDE SOCIAL') {
-      await TextToSpeech(body, message, access_token);
+      console.log('Lead precisa de áudio...');
+      // await TextToSpeech(body, message, access_token);
     }
     await UpdateLead(body, data, access_token);
     return;

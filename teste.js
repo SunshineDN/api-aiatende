@@ -144,3 +144,26 @@
 // }
 
 // console.log(message);
+
+const fatherFieldValues = 'Nome: Teste1; Bairro: teste2; Dentista: teste4; Data do Agendamento: teste5; Telefone: null';
+
+// Separar cada valor do pai em uma variavel especifica sem o nome do campo
+const nome = fatherFieldValues.split('; ').filter(value => value.includes('Nome:'))[0]?.split(': ')[1] || 'null';
+const bairro = fatherFieldValues.split('; ').filter(value => value.includes('Bairro:'))[0]?.split(': ')[1] || 'null';
+const data_nascimento = fatherFieldValues.split('; ').filter(value => value.includes('Data de Nascimento:'))[0]?.split(': ')[1] || 'null';
+const dentista = fatherFieldValues.split('; ').filter(value => value.includes('Dentista:'))[0]?.split(': ')[1] || 'null';
+const data_agendamento = fatherFieldValues.split('; ').filter(value => value.includes('Data do Agendamento:'))[0]?.split(': ')[1] || 'null';
+const telefone = fatherFieldValues.split('; ').filter(value => value.includes('Telefone:'))[0]?.split(': ')[1] || 'null';
+
+// Montar um objeto apenas com os dados existentes que forem diferentes de 'null'
+const data = {
+  nome: nome !== 'null' ? nome : null,
+  bairro: bairro !== 'null' ? bairro : null,
+  data_nascimento: data_nascimento !== 'null' ? data_nascimento : null,
+  dentista: dentista !== 'null' ? dentista : null,
+  data_agendamento: data_agendamento !== 'null' ? data_agendamento : null,
+  telefone: telefone !== 'null' ? telefone : null
+};
+Object?.keys(data)?.forEach(key => data[key] === null && delete data[key]);
+
+console.log(data);

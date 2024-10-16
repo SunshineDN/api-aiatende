@@ -15,6 +15,7 @@ const Aquecimento = require('../gpt-req/Aquecimento');
 const Cutucada = require('../gpt-req/Cutucada');
 const EsteiraConfirm = require('../gpt-req/EsteiraConfirm');
 const Repescagem = require('../gpt-req/Repescagem');
+const AgendamentoVoz = require('../gpt-req/AgendamentoVoz');
 
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
@@ -134,5 +135,9 @@ router.post('/prompt/repescagem/intencao', Repescagem.intencao);
 router.post('/assistant/:assistant_id/repescagem/frio', Repescagem.frio);
 
 router.post('/assistant/:assistant_id/repescagem/congelado', Repescagem.congelado);
+
+// AGENDAMENTO POR VOZ
+
+router.post('/assistant/:assistant_id/agendamento/voz', AgendamentoVoz.voice_schedule);
 
 module.exports = router;
