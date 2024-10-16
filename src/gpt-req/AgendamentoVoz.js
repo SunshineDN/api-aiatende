@@ -56,7 +56,7 @@ class AgendamentoVoz {
       const { assistant_id } = req.params;
       access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const message_received = await GetMessageReceived(req.body);
-      const prompt_text = `Analise a mensagema recebida: ${message_received}. Agora retire apenas os dados desejados a seguir, em ordem: Nome, bairro, data de nascimento, dentista, data do agendamento (Data e hora) e telefone. Os dados devem estar em ordem seguindo o padrão chave: valor, separados por ponto e vírgula ( ; ) e na mesma linha, sem pular para a próima linha ou conter o código ( \n ). Caso esteja faltando algum dado retorne 'null'.
+      const prompt_text = `Analise a mensagema recebida: ${message_received}. Agora retire apenas os dados desejados a seguir, em ordem: Nome, bairro, data de nascimento, dentista, data do agendamento (Data e hora) e telefone. Os dados devem estar em ordem seguindo o padrão chave: valor, separados por ponto e vírgula ( ; ) e na mesma linha, sem pular para a próima linha ou conter o código ( \n ). Caso esteja faltando algum dado retorne 'null'. O campo dentista deve ter o Doutor ou Doutora abreviado para Dr. ou Dra. e em seguida o nome do dentista.
       
 Por exemplo:
 Nome: Fulano de Tal; Bairro: Centro; Data de Nascimento: 01/01/2000; Dentista: Dr. João; Data do Agendamento: 01/01/2022 10:00; Telefone: (11) 99999-9999`;
