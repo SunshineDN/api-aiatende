@@ -113,6 +113,8 @@ const LeadQuery = async (body, data, access_token) => {
       const reschedule = custom_fields?.filter(field => field.name === 'Reagendou')[0];
 
       if (isSchedule) {
+        params.pipeline_id = 7760035,
+        params.status_id = 75226020;
         params.custom_fields_values.push({
           'field_id': reschedule.id,
           'values': [
