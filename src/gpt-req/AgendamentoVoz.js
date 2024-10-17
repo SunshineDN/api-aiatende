@@ -52,8 +52,8 @@ class AgendamentoVoz {
     console.log('Assistant | BOT - Agendamento por Voz...');
     let access_token;
     try {
-      const { lead_id: leadID } = req.body;
-      const { assistant_id } = req.params;
+      // const { lead_id: leadID } = req.body;
+      // const { assistant_id } = req.params;
       access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const message_received = await GetMessageReceived(req.body);
       const prompt_text = `Analise a mensagema recebida: ${message_received}. Agora retire apenas os dados desejados a seguir, em ordem: Nome, bairro, data de nascimento, dentista, data do agendamento (Data e hora) e telefone. Os dados devem estar em ordem seguindo o padrão chave: valor, separados por ponto e vírgula ( ; ) e na mesma linha, sem pular para a próima linha ou conter o código ( \n ). Caso esteja faltando algum dado retorne 'null'. O campo dentista deve ter o Doutor ou Doutora abreviado para Dr. ou Dra. e em seguida o nome do dentista.
@@ -80,25 +80,10 @@ Nome: Fulano de Tal; Bairro: Centro; Data de Nascimento: 01/01/2000; Dentista: D
         phone: phone !== 'null' ? FormatTelephone(phone) : null
       };
 
-      await LeadQuery(req.body, obj, access_token);
+      const text = await LeadQuery(req.body, obj, access_token);
 
-      const text = `Os dados recebidos foram:
-Nome: ${name}
-Bairro: ${bairro}
-Data de Nascimento: ${birthdate}
-Dentista: ${dentist}
-Data do Agendamento: ${schedule_date}
-Telefone: ${phone}
-
-Os dados foram enviados para o sistema de agendamento. Retorne uma mensagem dizendo que os dados foram enviados e armazenados com sucesso.`;
-
-      const data = {
-        leadID,
-        text,
-        assistant_id,
-      };
-
-      await this.assistant(req, res, data);
+      await SendMessage(req.body, false, text, access_token);
+      res.status(200).send({ message: 'Lead criado via agendamento por VOZ com sucesso!', response: text });
     } catch (error) {
       console.log('Erro ao criar / atualizar lead via agendamento por VOZ:', error);
       res.status(500).send('Erro ao criar / atualizar lead via agendamento por VOZ');

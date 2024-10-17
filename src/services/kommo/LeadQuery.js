@@ -13,9 +13,9 @@ const LeadQuery = async (body, data, access_token) => {
       }
     };
 
-    const { data: { _embedded } } = await axios.get(`https://${subdomain}.kommo.com/api/v4/leads?query=${phone}&with=contacts`, options);
-    const leadFound = _embedded?.leads;
-    if (!leadFound) {
+    const { data: { _embedded } } = await axios.get(`https://${subdomain}.kommo.com/api/v4/contacts?query=${phone}&with=leads`, options);
+    const contactFound = _embedded?.contacts;
+    if (!contactFound) {
       console.log('Lead não encontrado, criando novo lead via agendamento por VOZ...');
       const custom_fields = await GetCustomFields(body, access_token);
       const contact_custom_fields = await GetContactCustomFields(body, access_token);
@@ -37,7 +37,7 @@ const LeadQuery = async (body, data, access_token) => {
         && dentist !== 'Dra. Iris Leão' && dentist !== 'Dr. Laureano Filho' && dentist !== 'Dra. Liana Mavignier' && dentist !== 'Dra. Luciana Luna'
         && dentist !== 'Dra. Lucília Miranda' && dentist !== 'Dr. Marcus Barbosa' && dentist !== 'Dra. Nashly Rodrigues' && dentist !== 'Dra. Rafaella Karina'
         && dentist !== 'Dra. Renata Cabral' && dentist !== 'Dr. Rafael Fialho') {
-        dentist = 'Dentista Isento'
+        dentist = 'Dentista Isento';
       }
 
       const params = [
@@ -102,10 +102,20 @@ const LeadQuery = async (body, data, access_token) => {
 
       await axios.post(`https://${subdomain}.kommo.com/api/v4/leads/complex`, params, options);
       console.log('Lead criado via agendamento por VOZ com sucesso!');
-      return;
+      return `Usuário cadastrado com sucesso! Seguem os dados cadastrados:
+
+Nome: ${name}
+Bairro: ${bairro}
+Data de Nascimento: ${birthdate}
+Dentista: ${dentist}
+Data do Agendamento: ${schedule_date}
+Telefone: ${phone}`;
     } else {
-      const lead_id = leadFound[0]?.id || leadFound?.id;
-      const isSchedule = leadFound[0]?.custom_fields_values?.filter(field => field.field_name === 'Data escolhida')[0]?.values[0]?.value;
+      const leadFilterContacts = contactFound?.filter(contact => contact?._embedded?.leads?.length > 0);
+      const leadFound = leadFilterContacts[0]?._embedded?.leads[0];
+      const lead_id = leadFound?.id;
+      const { data: leadObj } = await axios.get(leadFound?._links?.self?.href, options);
+      const isSchedule = leadObj?.custom_fields_values?.filter(field => field.field_name === 'Data escolhida')[0]?.values[0]?.value;
       const custom_fields = await GetCustomFields(body, access_token);
       const params = {
         'pipeline_id': 9281436,
@@ -133,7 +143,7 @@ const LeadQuery = async (body, data, access_token) => {
       }
 
 
-      if (bairro_field) {
+      if (bairro) {
         params.custom_fields_values.push({
           'field_id': bairro_field.id,
           'values': [
@@ -144,7 +154,7 @@ const LeadQuery = async (body, data, access_token) => {
         });
       }
 
-      if (birthdate_field) {
+      if (birthdate) {
         params.custom_fields_values.push({
           'field_id': birthdate_field.id,
           'values': [
@@ -155,12 +165,12 @@ const LeadQuery = async (body, data, access_token) => {
         });
       }
 
-      if (dentist_field) {
+      if (dentist) {
         if (dentist !== 'Dra. Juliana Leite' && dentist !== 'Dra. Anik Calvalcanti' && dentist !== 'Dra. Cícera Milena' && dentist !== 'Dra. Gabriela Perez'
           && dentist !== 'Dra. Iris Leão' && dentist !== 'Dr. Laureano Filho' && dentist !== 'Dra. Liana Mavignier' && dentist !== 'Dra. Luciana Luna'
           && dentist !== 'Dra. Lucília Miranda' && dentist !== 'Dr. Marcus Barbosa' && dentist !== 'Dra. Nashly Rodrigues' && dentist !== 'Dra. Rafaella Karina'
           && dentist !== 'Dra. Renata Cabral' && dentist !== 'Dr. Rafael Fialho') {
-          dentist = 'Dentista Isento'
+          dentist = 'Dentista Isento';
         }
 
         params.custom_fields_values.push({
@@ -173,7 +183,7 @@ const LeadQuery = async (body, data, access_token) => {
         });
       }
 
-      if (schedule_date_field) {
+      if (schedule_date) {
         params.custom_fields_values.push({
           'field_id': schedule_date_field.id,
           'values': [
@@ -184,9 +194,22 @@ const LeadQuery = async (body, data, access_token) => {
         });
       }
 
+      if (name) {
+        await axios.patch(`https://${subdomain}.kommo.com/api/v4/contacts/${leadFilterContacts[0].id}`, {
+          'name': name
+        }, options);
+      };
+
       await axios.patch(`https://${subdomain}.kommo.com/api/v4/leads/${lead_id}`, params, options);
       console.log('Lead atualizado via agendamento por VOZ com sucesso!');
-      return;
+      return `Usuário atualizado com sucesso! Segue os dados atualizados do Lead: *${lead_id}*:
+
+Nome: ${name}
+Bairro: ${bairro}
+Data de Nascimento: ${birthdate}
+Dentista: ${dentist}
+Data do Agendamento: ${schedule_date}
+Telefone (NÃO MUTÁVEL): ${phone}`;
     }
   } catch (error) {
     console.log('Erro ao criar / atualizar lead via agendamento por VOZ:', error);
