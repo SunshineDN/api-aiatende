@@ -1,3 +1,4 @@
+const { parse } = require('date-fns');
 const GetAccessToken = require('./GetAccessToken');
 const GetCustomFields = require('./GetCustomFields');
 const GetUser = require('./GetUser');
@@ -18,8 +19,63 @@ const SplitSchedulingFields = async (payload, access_token = null) => {
     const dataFieldValues = dataField?.values[0]?.value;
     const data_field_split = dataFieldValues.split(';');
     const fields_names = data_field_split.map((_, index) => `Scheduling field ${index + 1}`);
-    const findField = (name) => custom_fields.filter(field => field.name === name)[0];
     let custom_fields_values = [];
+
+    if (data_field_split.length >= 3) {
+      const birth = data_field_split[1];
+      const birthField = custom_fields.filter(field => field.name === 'Data de Nascimento')[0];
+      const dateTime = parse(
+        birth,
+        'dd/MM/yyyy',
+        new Date()
+      );
+      const birthMs = dateTime.getTime();
+      const birthTime = Math.round(birthMs / 1000);
+
+      const neighbor = data_field_split[2];
+      const neighborField = custom_fields.filter(field => field.name === 'Bairro')[0];
+      const neighbor_lower = neighbor.toLowerCase();
+      let neighborhood = '';
+
+      if (neighbor_lower.includes('candeias')) {
+        neighborhood = 'Candeias';
+      } else if (neighbor_lower.includes('boa viagem')) {
+        neighborhood = 'Boa Viagem';
+      } else if (neighbor_lower.includes('piedade')) {
+        neighborhood = 'Piedade';
+      } else if (neighbor_lower.includes('barra de jangada')) {
+        neighborhood = 'Barra de Jangada';
+      } else if (neighbor_lower.includes('prazeres')) {
+        neighborhood = 'Prazeres';
+      } else if (neighbor_lower.includes('paiva')) {
+        neighborhood = 'Paiva';
+      } else if (neighbor_lower.includes('imbiribeira')) {
+        neighborhood = 'Imbiribeira';
+      } else if (neighbor_lower.includes('setubal')) {
+        neighborhood = 'Setubal';
+      } else {
+        neighborhood = 'Outro';
+      }
+
+      custom_fields_values.push({
+        'field_id': birthField.id,
+        'values': [
+          {
+            'value': birthTime
+          }
+        ]
+      },
+      {
+        'field_id': neighborField.id,
+        'values': [
+          {
+            'value': neighborhood
+          }
+        ]
+      });
+    }
+
+    const findField = (name) => custom_fields.filter(field => field.name === name)[0];
     data_field_split.forEach((value, index) => {
       const field = findField(fields_names[index]);
       if (!field) {
@@ -65,23 +121,23 @@ const SplitSchedulingFields = async (payload, access_token = null) => {
         ]
       });
     }
-      // const sonField1 = custom_fields.filter(field => field.name === 'Nome Completo')[0];
-      // const sonField2 = custom_fields.filter(field => field.name === 'Data Nascimento (Texto)')[0];
-      // const sonField3 = custom_fields.filter(field => field.name === 'Bairro')[0];
+    // const sonField1 = custom_fields.filter(field => field.name === 'Nome Completo')[0];
+    // const sonField2 = custom_fields.filter(field => field.name === 'Data Nascimento (Texto)')[0];
+    // const sonField3 = custom_fields.filter(field => field.name === 'Bairro')[0];
     // console.log('Campo Pai:', dataFieldValues);
-      // const [son1, son2, son3] = dataFieldValues.split(';');
-      // console.log('Filho 1:', son1);
-      // console.log('Filho 2:', son2);
-      // console.log('Filho 3:', son3);
+    // const [son1, son2, son3] = dataFieldValues.split(';');
+    // console.log('Filho 1:', son1);
+    // console.log('Filho 2:', son2);
+    // console.log('Filho 3:', son3);
     // console.log('Requisição para o Kommo');
     // console.log('ID do Lead:', payload.lead_id);
     // console.log('Campo Pai:', dataField);
-      // console.log('Campo Filho 1:', sonField1);
-      // console.log('Campo Filho 2:', sonField2);
-      // console.log('Campo Filho 3:', sonField3);
-      // console.log('ID do Campo Filho 1:', sonField1?.id);
-      // console.log('ID do Campo Filho 2:', sonField2?.id);
-      // console.log('ID do Campo Filho 3:', sonField3?.id);
+    // console.log('Campo Filho 1:', sonField1);
+    // console.log('Campo Filho 2:', sonField2);
+    // console.log('Campo Filho 3:', sonField3);
+    // console.log('ID do Campo Filho 1:', sonField1?.id);
+    // console.log('ID do Campo Filho 2:', sonField2?.id);
+    // console.log('ID do Campo Filho 3:', sonField3?.id);
     const bodyReq = {
       'custom_fields_values': custom_fields_values
     };
