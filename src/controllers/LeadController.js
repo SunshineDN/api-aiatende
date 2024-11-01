@@ -51,6 +51,17 @@ class LeadController {
     }
   }
 
+  async displayBody(req, res) {
+    try {
+      console.log('Displaying body:');
+      console.log(req.body);
+      res.json(req.body);
+    } catch (error) {
+      console.error('Error on displayBody:', error);
+      res.status(500).json({ error });
+    }
+  }
+
   async test(req, res) {
     try {
       const access_token = await GetAccessToken(req.body);

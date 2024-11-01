@@ -15,6 +15,8 @@ router.post('/split-fields/data', LeadController.setSplitDataFields);
 
 router.post('/split-fields/scheduling', LeadController.setSplitSchedulingFields);
 
+router.post('/display-body', LeadController.displayBody);
+
 router.post('/test', LeadController.test);
 
 router.post('/add-tel', LeadController.addTelephone);
