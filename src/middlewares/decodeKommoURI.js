@@ -43,6 +43,8 @@ const decodeLeadURI = (uri) => {
 
   const { leads, account } = props;
   const lead_id = leads?.status?.[0]?.id || leads?.add?.[0]?.id;
+  const old_status_id = leads?.status?.[0]?.old_status_id || leads?.add?.[0]?.old_status_id;
+  const old_pipeline_id = leads?.status?.[0]?.old_pipeline_id || leads?.add?.[0]?.old_pipeline_id;  
   const status_id = leads?.status?.[0]?.status_id || leads?.add?.[0]?.status_id;
   const pipeline_id = leads?.status?.[0]?.pipeline_id || leads?.add?.[0]?.pipeline_id;
   const account_id = account?.id;
@@ -51,6 +53,8 @@ const decodeLeadURI = (uri) => {
 
   return {
     lead_id,
+    old_status_id,
+    old_pipeline_id,
     status_id,
     pipeline_id,
     account: {
