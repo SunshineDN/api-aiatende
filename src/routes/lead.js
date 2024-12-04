@@ -15,11 +15,8 @@ router.post('/split-fields/data', LeadController.setSplitDataFields);
 
 router.post('/split-fields/scheduling', LeadController.setSplitSchedulingFields);
 
-// NAO DE ERRO POR FAVOR
 router.post('/add-tel', LeadController.addTelephone);
 
 router.post('/created', LeadController.setCalendarForm);
-
-router.post('/test/auth', LeadController.testToken);
 
 module.exports = router;

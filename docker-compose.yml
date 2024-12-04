@@ -4,14 +4,7 @@ services:
     command: "npm run start"
     working_dir: /home/node/app
     environment:
-      - NODE_ENV=development
-      - DB_USER=docker
-      - DB_PASSWORD=docker
-      - DB_DIALECT=postgres
-      - DB_HOST=aiatende.com
-      - DB_NAME=lead-conversation
-      - TABLE_NAME=lead_threads
-      - DB_URL=postgres://docker:docker@aiatende.com:5432/lead-conversation
+      - DB_URL=postgres://DB_USER:DB_PASS@DB_HOST:DB_PORT/DB_NAME
     expose:
       - "3000"
     ports:
