@@ -1,42 +1,11 @@
 services:
-  dental_sante_database:
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: docker
-      POSTGRES_PASSWORD: docker
-      POSTGRES_DB: lead-conversation
-    ports:
-      - "5432:5432"
-    volumes:
-      - ./data:/var/lib/postgresql/data
-    networks:
-      - dental-sante-network
-
   dental_sante_backend:
-    depends_on:
-      - dental_sante_database
     build: .
     command: "npm run start"
     working_dir: /home/node/app
     environment:
-      - NODE_ENV=production
-      - DB_USER=docker
-      - DB_PASSWORD=docker
-      - DB_DIALECT=postgres
-      - DB_HOST=localhost
-      - DB_NAME=lead-conversation
-      - TABLE_NAME=lead_threads
-      - DB_URL=postgres://docker:docker@aiatende.com:5432/lead-conversation
+      - DB_URL=postgres://docker:docker@server.aiatende.dev.br:4000/lead-conversation
     expose:
       - "3000"
     ports:
       - "3000:3000"
-    networks:
-      - dental-sante-network
-
-volumes:
-  data:
-
-networks:
-  dental-sante-network:
-    external: true
