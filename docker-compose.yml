@@ -10,7 +10,7 @@ services:
     volumes:
       - ./data:/var/lib/postgresql/data
     networks:
-      - dental_sante_network
+      - dental-sante-network
 
   dental_sante_backend:
     depends_on:
@@ -32,11 +32,11 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - dental_sante_network
+      - dental-sante-network
 
 volumes:
   data:
 
 networks:
-  dental_sante_network:
+  dental-sante-network:
     external: true
