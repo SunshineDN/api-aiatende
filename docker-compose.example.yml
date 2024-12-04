@@ -1,12 +1,12 @@
 services:
   dental_sante_database:
-    image: postgres:latest
+    image: postgres:16
     environment:
-      POSTGRES_USER: docker
-      POSTGRES_PASSWORD: docker
-      POSTGRES_DB: lead-conversation
+      POSTGRES_USER: DB_USER # Altere o usuário do banco de dados
+      POSTGRES_PASSWORD: DB_PASS # Altere a senha do banco de dados
+      POSTGRES_DB: DB_NAME # Altere o nome do banco de dados
     ports:
-      - "5432:5432"
+      - "PORT:5432" # Altere a porta para a porta que deseja expor
     volumes:
       - ./data:/var/lib/postgresql/data
     networks:
@@ -19,14 +19,8 @@ services:
     command: "npm run start"
     working_dir: /home/node/app
     environment:
-      - NODE_ENV=production
-      - DB_USER=docker
-      - DB_PASSWORD=docker
-      - DB_DIALECT=postgres
-      - DB_HOST=localhost
-      - DB_NAME=lead-conversation
-      - TABLE_NAME=lead_threads
-      - DB_URL=postgres://docker:docker@aiatende.com:5432/lead-conversation
+      - TABLE_NAME=lead_threads # Altere o nome da tabela
+      - DB_URL=postgres://DB_USER:DB_PASS@DB_HOST:DB_PORT/DB_NAME # Altere as informações de conexão com o banco de dados
     expose:
       - "3000"
     ports:
