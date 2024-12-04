@@ -4,6 +4,7 @@ services:
     command: "npm run start"
     working_dir: /home/node/app
     environment:
+      - TABLE_NAME=lead_threads
       - DB_URL=postgres://DB_USER:DB_PASS@DB_HOST:DB_PORT/DB_NAME
     expose:
       - "3000"
