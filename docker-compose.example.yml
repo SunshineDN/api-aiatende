@@ -4,8 +4,8 @@ services:
     command: "npm run start"
     working_dir: /home/node/app
     environment:
-      - DB_URL=postgres://docker:docker@server.aiatende.dev.br:4000/lead-conversation
+      - DB_URL=postgres://DB_USER:DB_PASS@DB_HOST:DB_PORT/DB_NAME # Altere os valores para os valores do seu banco de dados
     expose:
-      - "3000"
+      - "PORT" # Altere para a porta que deseja expor
     ports:
-      - "3000:3000"
+      - "PORT:3000" # Altere para a porta que deseja expor
