@@ -13,8 +13,6 @@ services:
       - dental-sante-network
 
   dental_sante_backend:
-    depends_on:
-      - dental_sante_database
     build: .
     command: "npm run start"
     working_dir: /home/node/app
