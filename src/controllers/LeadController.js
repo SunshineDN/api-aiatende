@@ -1,10 +1,10 @@
 const GetAccessToken = require('../services/kommo/GetAccessToken');
-const HandlingError = require('../services/kommo/HandlingError');
+// const HandlingError = require('../services/kommo/HandlingError');
+// const TokenizeTest = require('../services/kommo/TokenizeTest');
 const SetActualDateHour = require('../services/kommo/SetActualDateHour');
 const SplitDataFields = require('../services/kommo/SplitDataFields');
 const SplitSchedulingFields = require('../services/kommo/SplitSchedulingFields');
 const AddTelephoneService = require('../services/kommo/AddTelephoneService');
-const TokenizeTest = require('../services/kommo/TokenizeTest');
 const SetCalendarFormService = require('../services/kommo/SetCalendarForm');
 
 class LeadController {
@@ -58,27 +58,6 @@ class LeadController {
       await SetCalendarFormService(req.body, access_token);
     } catch (error) {
       console.error('Error on setCalendarForm:', error);
-      res.status(500).json({ error });
-    }
-  }
-
-  async test(req, res) {
-    try {
-      const access_token = await GetAccessToken(req.body);
-      const error = 'Error test: BAD (400)!';
-      await HandlingError(req.body, access_token, `Testando tratamento de erro ${error}`);
-    } catch (error) {
-      console.error('Error on test:', error);
-      res.status(500).json({ error });
-    }
-  }
-
-  async testToken(req, res) {
-    try {
-      const access_token = await GetAccessToken(req.body);
-      await TokenizeTest(req.body, access_token, res);
-    } catch (error) {
-      console.error('Error on testToken:', error);
       res.status(500).json({ error });
     }
   }
