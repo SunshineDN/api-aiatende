@@ -1,5 +1,5 @@
 services:
-  database:
+  dental_sante_database:
     image: postgres:latest
     environment:
       POSTGRES_USER: docker
@@ -10,11 +10,11 @@ services:
     volumes:
       - ./data:/var/lib/postgresql/data
     networks:
-      - ai-atende-network
+      - dental-sante-network
 
-  backend:
+  dental_sante_backend:
     depends_on:
-      - database
+      - dental_sante_database
     build: .
     command: "npm run start"
     working_dir: /home/node/app
@@ -26,27 +26,17 @@ services:
       - DB_HOST=localhost
       - DB_NAME=lead-conversation
       - TABLE_NAME=lead_threads
-      - DB_URL=postgres://docker:docker@database:5432/lead-conversation
+      - DB_URL=postgres://docker:docker@dental_sante_database:5432/lead-conversation
     expose:
-      - "3005"
+      - "3000"
     ports:
-      - "3005:3005"
+      - "3000:3000"
     networks:
-      - ai-atende-network
-    
-  nginx:
-    restart: always
-    build: ./nginx
-    ports:
-        - "3000:80"
-    depends_on:
-      - backend
-    networks:
-      - app-network
+      - dental-sante-network
 
 volumes:
   data:
 
 networks:
-  ai-atende-network:
+  dental-sante-network:
     external: true

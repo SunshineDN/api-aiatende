@@ -2,6 +2,7 @@ const ListCalendarEvents = require('../services/calendar/ListCalendarEvent');
 const RegisterCalendarEvent = require('../services/calendar/RegisterCalendarEvent');
 const RemoveCalendarEvent = require('../services/calendar/RemoveCalendarEvent');
 const UpdateCalendarEvent = require('../services/calendar/UpdateCalendarEvent');
+const WebListCalendarEvents = require('../services/calendar/WebListCalendarEvents');
 const GetAccessToken = require('../services/kommo/GetAccessToken');
 const GetUser = require('../services/kommo/GetUser');
 
@@ -28,6 +29,16 @@ class CalendarController {
       res.status(500).json({ error });
     }
   };
+
+  async listEventsWeb(req, res) {
+    try {
+      const options_response = await WebListCalendarEvents(req.body);
+      res.status(200).json(options_response);
+    } catch (error) {
+      console.error('Error on listEventsWeb:', error);
+      res.status(500).json({ error });
+    }
+  }
 
   async addEvent(req, res) {
     try {

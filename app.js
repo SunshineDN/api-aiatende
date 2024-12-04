@@ -8,6 +8,7 @@ const messagesRouter = require('./src/routes/messages');
 const accountRouter = require('./src/routes/account');
 const sequelize = require('./src/config/database');
 const calendarRouter = require('./src/routes/calendar');
+const calendarWebRouter = require('./src/routes/react-calendar-form');
 
 const colors = require('colors');
 colors.setTheme({
@@ -31,6 +32,7 @@ app.use('/lead', leadRouter);
 app.use('/gpt/v1', gptRouter);
 app.use('/gpt/v2', messagesRouter);
 app.use('/calendar', calendarRouter);
+app.use('/web/calendar', calendarWebRouter);
 app.use('/account', accountRouter);
 
 // app.use((req, res) => {

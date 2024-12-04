@@ -21,6 +21,8 @@ router.post('/test', LeadController.test);
 
 router.post('/add-tel', LeadController.addTelephone);
 
+router.post('/created', LeadController.setCalendarForm);
+
 router.post('/test/auth', LeadController.testToken);
 
 module.exports = router;

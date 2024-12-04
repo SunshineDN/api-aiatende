@@ -30,7 +30,7 @@ services:
       - TABLE_NAME=lead_threads
       - DB_URL=postgres://docker:docker@database:5432/lead-conversation
     expose:
-      - "3005"
+      - "3000"
     ports:
       - "3005:3005"
     networks:

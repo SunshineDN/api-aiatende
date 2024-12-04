@@ -1,5 +1,5 @@
 services:
-  backend:
+  dental_sante_backend:
     build: .
     command: "npm run start"
     working_dir: /home/node/app
@@ -13,22 +13,6 @@ services:
       - TABLE_NAME=lead_threads
       - DB_URL=postgres://docker:docker@aiatende.com:5432/lead-conversation
     expose:
-      - "3005"
+      - "3000"
     ports:
-      - "3005:3005"
-    networks:
-      - app-network
-
-  nginx:
-    restart: always
-    build: ./nginx
-    ports:
-        - "3000:80"
-    depends_on:
-      - backend
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge
+      - "3000:3000"
