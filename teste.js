@@ -17,6 +17,8 @@
 //   }
 // ];
 
+const styled = require('./src/utils/styledLog');
+
 // const fatherFieldValues = 'Teste1;teste2;teste3;teste4;teste5';
 // const father_field_split = fatherFieldValues.split(';');
 // const fields_names = father_field_split.map((_, index) => `Field ${index + 1}`);
@@ -185,3 +187,7 @@
 // } else {
 //   console.log('Lead criado via agendamento por VOZ com sucesso!');
 // }
+
+const message = 'OI';
+
+styled.info(`Its a message: ${message}`);

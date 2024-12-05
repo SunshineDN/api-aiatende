@@ -6,6 +6,7 @@ const LeadThread = require('../models/LeadThread');
 const { Op } = require('sequelize');
 const transcribeAudio = require('../services/gpt/TranscribeAudio');
 const getFileNameFromUrl = require('../utils/GetNameExtension');
+const styled = require('../utils/styledLog');
 
 const openai = new OpenAI(process.env.OPENAI_API_KEY);
 
@@ -27,7 +28,7 @@ class OpenAIController {
       });
 
       if (!existThreads) {
-        console.log('Creating thread for lead in database for first time'.magenta.bold);
+        styled.info('Creating thread for lead in database for first time');
         await LeadThread.create({
           leadID
         });
@@ -36,10 +37,10 @@ class OpenAIController {
             user: leadID.toString()
           }
         });
-        console.log('Thread created in OpenAI for first time'.magenta.bold);
-        console.log(newThread);
+        styled.success('Thread created in OpenAI for first time');
+        styled.success(newThread);
 
-        console.log('Updating threadID in database for first time'.magenta.bold);
+        styled.info('Updating threadID in database for first time');
         await LeadThread.update({
           threadID: [newThread.id],
           assistant_id: [assistant_id]
@@ -48,19 +49,19 @@ class OpenAIController {
             leadID
           }
         });
-        console.log('ThreadID updated in database for first time'.magenta.bold);
+        styled.success('ThreadID updated in database for first time');
         return;
       } else {
-        console.log('Thread already exists in database'.magenta.bold);
+        styled.info('Thread already exists in database');
         const newThread = await openai.beta.threads.create({
           metadata: {
             user: leadID.toString()
           }
         });
-        console.log('Thread created in OpenAI'.magenta.bold);
-        console.log(newThread);
+        styled.success('Thread created in OpenAI');
+        styled.success(newThread);
 
-        console.log('Updating threadID in database'.magenta.bold);
+        styled.info('Updating threadID in database');
         let newArrayAssistans = existThreads.assistant_id;
         let newArrayThreads = existThreads.threadID;
 
@@ -72,7 +73,7 @@ class OpenAIController {
             leadID
           }
         });
-        console.log('Assistant added to thread'.magenta.bold);
+        styled.success('Assistant added to thread');
         return;
       }
     } catch (error) {
@@ -85,7 +86,7 @@ class OpenAIController {
 
     const { decode } = require('base-64');
 
-    // console.log('Texto recebido do usuário:'.magenta.bold, text);
+    // console.log('Texto recebido do usuário:', text);
 
     const assistant = decode(assistant_id);
 
@@ -111,13 +112,13 @@ class OpenAIController {
         });
       }
 
-      console.log('Thread found'.magenta.bold);
-      console.log(existThreads.dataValues);
+      styled.info('Thread found');
+      styled.info(existThreads.dataValues);
 
       const indexOfAssistant = existThreads.assistant_id.indexOf(assistant);
-      console.log('Index of assistant'.magenta.bold, indexOfAssistant);
+      styled.info('Index of assistant', indexOfAssistant);
 
-      console.log('Sending message to assistant'.magenta.bold);
+      styled.info('Sending message to assistant');
       await openai.beta.threads.messages.create(
         existThreads.threadID[indexOfAssistant],
         {
@@ -130,7 +131,7 @@ class OpenAIController {
         return new Promise(resolve => setTimeout(resolve, ms));
       };
 
-      console.log('Running assistant'.magenta.bold);
+      styled.info('Running assistant');
       // let run = await openai.beta.threads.runs.create(
       //   existThreads.threadID[indexOfAssistant],
       //   { assistant_id: assistant }
@@ -150,20 +151,20 @@ class OpenAIController {
               existThreads.threadID[indexOfAssistant],
               run.id
             );
-            console.log(`[Lead ${leadID}] - ${repeat}# ${count}' Run status: ${run.status}`);
+            styled.info(`[Lead ${leadID}] - ${repeat}# ${count}' Run status: ${run?.status}`);
             if (run.status === 'completed') {
-              console.log(`[Lead ${leadID}] - Run completed`);
+              styled.info(`[Lead ${leadID}] - Run completed`);
               return;
             } else if (run.status !== 'completed' && repeat === times && count === 10) {
-              console.log(`[Lead ${leadID}] - Run not completed`);
+              styled.warning(`[Lead ${leadID}] - Run not completed`);
               if (run.status === 'failed') {
-                console.log(`[Lead ${leadID}] - Run failed`);
+                styled.error(`[Lead ${leadID}] - Run failed`);
                 throw new Error(`Erro no running da mensagem do Assistant GPT: ${run?.last_error?.message}`);
               } else if (run.status === 'expired') {
-                console.log(`[Lead ${leadID}] - Run expired`);
+                styled.error(`[Lead ${leadID}] - Run expired`);
                 throw new Error('O tempo de execução do Assistant GPT expirou');
               } else {
-                console.log(`[Lead ${leadID}] - Run not completed`);
+                styled.warning(`[Lead ${leadID}] - Run not completed`);
               }
             }
             await wait(1000);
@@ -179,9 +180,9 @@ class OpenAIController {
               existThreads.threadID[indexOfAssistant],
               run.id
             );
-            console.log(`\n[Lead ${leadID}] - Timing for cancel: ${cancel_time}`);
-            console.log(`[Lead ${leadID}] - Run status for cancel: ${run.status}`);
-            console.log(`Cancel? ${run.status === 'cancelled'}
+            styled.warning(`\n[Lead ${leadID}] - Timing for cancel: ${cancel_time}`);
+            styled.warning(`[Lead ${leadID}] - Run status for cancel: ${run.status}`);
+            styled.warning(`Cancel? ${run.status === 'cancelled'}
 Expired? ${run.status === 'expired'}
 Failed? ${run.status === 'failed'}`);
             cancel_time++;
@@ -211,7 +212,7 @@ Failed? ${run.status === 'failed'}`);
 
       return { message: messages_response?.data[0]?.content[0]?.text?.value };
     } catch (error) {
-      console.error(error);
+      styled.error('Erro ao enviar mensagem para o assistente:', error);
       throw new Error(error);
     }
   }
@@ -230,7 +231,7 @@ Failed? ${run.status === 'failed'}`);
 
       return { message: completions.choices[0].message.content };
     } catch (error) {
-      console.error(error);
+      styled.error('Erro ao gerar mensagem para o prompt:', error);
       throw new Error(error);
     }
   }
@@ -254,7 +255,7 @@ Failed? ${run.status === 'failed'}`);
 
       return messages;
     } catch (error) {
-      console.error(error);
+      styled.error('Erro ao listar mensagens:', error);
       throw new Error(error);
     }
   }
@@ -280,7 +281,7 @@ Failed? ${run.status === 'failed'}`);
 
       return { message: 'Thread deleted' };
     } catch (error) {
-      console.error(error);
+      styled.error('Erro ao deletar thread:', error);
       throw new Error(error);
     }
   }
@@ -294,21 +295,21 @@ Failed? ${run.status === 'failed'}`);
     const fileObj = getFileNameFromUrl(audio_link, lead_id);
 
     try {
-      console.log('Downloading audio...'.magenta.bold);
+      styled.info('Downloading audio...');
       await downloadAudio(fileObj);
-      console.log('Success\n'.green.bold);
+      styled.success('Success\n'.green.bold);
 
-      console.log('Transcribing audio...'.magenta.bold);
+      styled.info('Transcribing audio...');
       const transcription = await transcribeAudio(fileObj);
-      console.log('Success\n'.green.bold);
+      styled.success('Success\n'.green.bold);
 
-      console.log('Deleting temporary file...'.magenta.bold);
+      styled.info('Deleting temporary file...');
       await deleteTempFile(fileObj);
-      console.log('Success\n'.green.bold);
+      styled.success('Success\n'.green.bold);
 
       return transcription;
     } catch (error) {
-      console.error(error);
+      styled.error('Erro ao gravar audio no armazenamento:', error);
       throw new Error(error);
     }
   }
@@ -317,7 +318,7 @@ Failed? ${run.status === 'failed'}`);
 
     let access_token, instance_id;
 
-    console.log('Business:', business);
+    styled.info('Business:', business);
     if (business === 'kommoatende') {
       access_token = process.env.API_KEY_ZAPSTER_AIATENDE;
       instance_id = process.env.INSTANCE_ID_ZAPSTER_AIATENDE;
@@ -326,10 +327,11 @@ Failed? ${run.status === 'failed'}`);
       instance_id = process.env.INSTANCE_ID_ZAPSTER_DENTALSANTE;
     }
 
-    console.log('API Key:', access_token);
-    console.log('Instance ID:', instance_id);
+    styled.info('API Key:', access_token);
+    styled.info('Instance ID:', instance_id);
 
     if (!message || !phone) {
+      styled.error('Missing parameters');
       throw new Error('Missing parameters');
     }
 
@@ -347,8 +349,8 @@ Failed? ${run.status === 'failed'}`);
     };
 
     try {
-      console.log('\nGenerating audio with voice:', voice);
-      console.log('Audio Message:', message);
+      styled.info('\nGenerating audio with voice:', voice);
+      styled.info('Audio Message:', message);
 
       const mp3 = await openai.audio.speech.create({
         'model': 'tts-1',
@@ -361,10 +363,10 @@ Failed? ${run.status === 'failed'}`);
 
       await axios.post(URL, data, { headers });
       // return { message: 'Audio sent' };
-      console.log('===============\nAudio sent\n===============');
+      styled.log('magenta', '===============\nAudio sent\n===============');
       return;
     } catch (error) {
-      console.error('Error', error.message);
+      styled.error('Error ao gerar e enviar audio:', error);
       throw new Error(error);
     }
   }
@@ -386,7 +388,7 @@ Failed? ${run.status === 'failed'}`);
       });
       return data;
     } catch (error) {
-      console.error(error);
+      styled.error('Erro ao gerar texto para o prompt:', error);
       throw new Error(error);
     }
   }
