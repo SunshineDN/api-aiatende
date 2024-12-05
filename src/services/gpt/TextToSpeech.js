@@ -39,9 +39,9 @@ const TextToSpeech = async (payload, text, access_token = null) => {
     //   phone: phone
     // };
   
-    console.log('Enviando áudio para o telefone:', phone);
-
+    
     // const response = await axios.post(URL, data);
+    console.log('Enviando áudio para o telefone:', phone);
     await OpenAIController.textToAudio(text, voice, phone, payload?.account?.subdomain);
     console.log('Áudio enviado com sucesso!');
 
