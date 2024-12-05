@@ -11,6 +11,7 @@ const calendarRouter = require('./src/routes/calendar');
 const calendarWebRouter = require('./src/routes/react-calendar-form');
 
 const colors = require('colors');
+const styled = require('./src/utils/styledLog');
 colors.setTheme({
   silly: 'rainbow',
   input: 'grey',
@@ -40,13 +41,14 @@ app.use('/account', accountRouter);
 // });
 
 app.listen(PORT, async () => {
-  console.log('Servidor rodando na porta: '.info + `${PORT}`.attention);
+  styled.info('Servidor rodando na porta: ' + PORT);
   try {
     await sequelize.authenticate();
-    console.log('Conexão com o banco de dados estabelecida com sucesso!'.info);
+    // console.log('Conexão com o banco de dados estabelecida com sucesso!'.info);
+    styled.success('Conexão com o banco de dados estabelecida com sucesso!');
 
     await sequelize.sync();
-    console.log('Tabelas sincronizadas!'.info);
+    styled.success('Tabelas sincronizadas!'.info);
   } catch (error) {
     console.error('Erro ao conectar com o banco de dados:'.error, error);
   }
