@@ -6,6 +6,7 @@ const HandlingError = require('../kommo/HandlingError');
 const GetUser = require('../kommo/GetUser');
 const CalendarUtils = require('../../utils/CalendarUtils');
 const CalendarIdValidate = require('../../utils/CalendarIdValidate');
+const styled = require('../../utils/styledLog');
 
 const UpdateCalendarEvent = async (payload, access_token = null) => {
   let eventData, nameDoctor;
@@ -20,11 +21,11 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
       (field) => field.field_name === 'Dentista'
     )[0];
   
-    console.log('Sumário:', eventSummary?.values[0]?.value);
-    console.log('Inicio do Evento:', eventStart?.values[0]?.value);
-    console.log('ID do Evento:', eventId?.values[0]?.value);
+    styled.info('Sumário:', eventSummary?.values[0]?.value);
+    styled.info('Inicio do Evento:', eventStart?.values[0]?.value);
+    styled.info('ID do Evento:', eventId?.values[0]?.value);
 
-    console.log('Atualizando evento...');
+    styled.info('Atualizando evento...');
     const startDateTime = parse(eventStart, 'dd/MM/yyyy HH:mm', new Date());
     let endDateTime = new Date(startDateTime);
     endDateTime.setHours(endDateTime.getHours() + 1);
@@ -37,19 +38,18 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
 
     try {
       const resultUpdate = await CalendarUtilsClass.executeUpdateEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), eventData);
-      console.log('Fim do Updated !');
+      styled.info('Fim do Updated !');
       return resultUpdate;
     }catch{
       const resultUpdate = await CalendarUtilsClass.executeUpdateEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), eventData);
-      console.log('Fim do Updated !');
+      styled.info('Fim do Updated !');
       return resultUpdate;
     }
   }catch (error) {
+    styled.error('Erro ao atualizar evento no Google Calendar:', error.message);
     if (error.response) {
-      console.log(`Erro ao atualizar evento no Google Calendar: ${error.response.data}`);
       await HandlingError(payload, access_token, `Erro ao atualizar evento no Google Calendar: ${error.response.data}`);
     } else {
-      console.log(`Erro ao atualizar evento no Google Calendar: ${error.message}`);
       await HandlingError(payload, access_token, `Erro ao atualizar evento no Google Calendar: ${error.message}`);
     }
     throw new Error('Erro no UpdateCalendarEvent');

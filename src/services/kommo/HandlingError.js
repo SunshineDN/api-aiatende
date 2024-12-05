@@ -1,3 +1,4 @@
+const styled = require('../../utils/styledLog');
 const GetAccessToken = require('./GetAccessToken');
 const GetCustomFields = require('./GetCustomFields');
 const UpdateLead = require('./UpdateLead');
@@ -27,7 +28,7 @@ const HandlingError = async (payload, access_token = null, error) => {
     // console.log('Erro setado no LOG com sucesso!');
     return;
   } catch (e) {
-    console.log('Erro ao tratar erro no handler:', e);
+    styled.error('Erro ao tratar erro no handler:', e);
     throw new Error('Erro ao tratar no HandlingError');
   }
 };

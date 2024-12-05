@@ -1,6 +1,7 @@
 const axios = require('axios');
 const GetCustomFields = require('./GetCustomFields');
 const GetContactCustomFields = require('./GetContactCustomFields');
+const styled = require('../../utils/styledLog');
 
 const LeadQuery = async (body, data, access_token) => {
   const subdomain = body.account.subdomain;
@@ -30,8 +31,8 @@ const LeadQuery = async (body, data, access_token) => {
       if (!name || !phone || !schedule_date) {
         throw new Error('Nome, Telefone e Data do Agendamento são obrigatórios!');
       } else {
-        console.log('Lead não encontrado, criando novo lead via agendamento por VOZ...');
-        console.log('Dados do novo lead:', {
+        styled.info('Lead não encontrado, criando novo lead via agendamento por VOZ...');
+        styled.info('Dados do novo lead:', {
           name,
           bairro,
           birthdate,
@@ -146,8 +147,8 @@ const LeadQuery = async (body, data, access_token) => {
         }
 
         await axios.post(`https://${subdomain}.kommo.com/api/v4/leads/complex`, params, options);
-        console.log('Lead criado via agendamento por VOZ com sucesso!');
-        return `Usuário cadastrado com sucesso! Seguem os dados cadastrados:
+        styled.success('Lead criado via agendamento por VOZ com sucesso!');
+        return `Usuário cadastrado com sucesso! Segue os dados cadastrados:
 
 Nome: ${name || 'Não informado'}
 Bairro: ${bairro || 'Não informado'}
@@ -256,7 +257,7 @@ Telefone: ${phone}`;
       };
 
       await axios.patch(`https://${subdomain}.kommo.com/api/v4/leads/${lead_id}`, params, options);
-      console.log('Lead atualizado via agendamento por VOZ com sucesso!');
+      styled.success('Lead atualizado via agendamento por VOZ com sucesso!');
       return `Usuário atualizado com sucesso! Segue os dados atualizados do Lead: *${lead_id}*:
 
 Nome: ${name}
@@ -267,7 +268,7 @@ Data do Agendamento: ${schedule_date}
 Telefone (NÃO MUTÁVEL): ${phone}`;
     }
   } catch (error) {
-    console.log('Erro ao criar / atualizar lead via agendamento por VOZ:', error);
+    styled.error('Erro ao criar / atualizar lead via agendamento por VOZ:', error);
     throw new Error(`Erro ao criar lead: ${error.message}`);
   }
 };

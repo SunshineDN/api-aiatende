@@ -1,6 +1,7 @@
 const axios = require('axios');
 const GetAccessToken = require('./GetAccessToken');
 const HandlingError = require('./HandlingError');
+const styled = require('../../utils/styledLog');
 
 const UpdateLead = async (payload, data, access_token = null) => {
   // console.log('Função UpdateLead');
@@ -34,12 +35,11 @@ const UpdateLead = async (payload, data, access_token = null) => {
     // console.log('Lead atualizado com sucesso!');
     return;
   } catch (error) {
+    styled.error('Error on UpdateLead:', error);
     if (error.response) {
-      console.log('Erro ao atualizar lead');
-      console.dir(error.response.data, { depth: null });
+      styled.errordir(error.response.data);
       await HandlingError(payload, access_token, `Erro ao atualizar lead: ${error.response.data}`);
     } else {
-      console.log(`Erro ao atualizar lead: ${error.message}`);
       await HandlingError(payload, access_token, `Erro ao atualizar lead: ${error.message}`);
     }
     throw new Error('Erro no UpdateLead');

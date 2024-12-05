@@ -5,6 +5,7 @@ const GetAccessToken = require('../kommo/GetAccessToken');
 const UpdateLead = require('../kommo/UpdateLead');
 const OpenAIController = require('../../controllers/OpenAIController');
 const HandlingError = require('../kommo/HandlingError');
+const styled = require('../../utils/styledLog');
 
 const TextToSpeech = async (payload, text, access_token = null) => {
   // console.log('Função TextToSpeech');
@@ -18,7 +19,7 @@ const TextToSpeech = async (payload, text, access_token = null) => {
     const user_sent_audio = user?.custom_fields_values?.filter(field => field.field_name === 'GPT | Sent Audio')[0];
 
     if (!user_sent_audio?.values[0]?.value) {
-      console.log('Lead não necessita de áudio');
+      styled.info('Lead não necessita de áudio');
       return;
     }
     
@@ -41,9 +42,9 @@ const TextToSpeech = async (payload, text, access_token = null) => {
   
     
     // const response = await axios.post(URL, data);
-    console.log('Enviando áudio para o telefone:', phone);
+    styled.info('Enviando áudio para o telefone:', phone);
     await OpenAIController.textToAudio(text, voice, phone, payload?.account?.subdomain);
-    console.log('Áudio enviado com sucesso!');
+    styled.success('Áudio enviado com sucesso!');
 
     const kommoData = {
       'custom_fields_values': [
@@ -66,15 +67,15 @@ const TextToSpeech = async (payload, text, access_token = null) => {
       ]
     };
     await UpdateLead(payload, kommoData, access_token);
-    console.log('Audio enviado para o lead atualizado com sucesso!');
+    styled.success('Audio enviado para o lead atualizado com sucesso!');
     return;
   } catch (error) {
+    styled.error('Erro ao enviar mensagem de áudio:', error);
     if (error.response) {
       await HandlingError(payload, access_token, `Erro ao enviar mensagem de áudio: ${error.response.data}`);
     } else {
       await HandlingError(payload, access_token, `Erro ao enviar mensagem de áudio: ${error.message}`);
     }
-    console.log('Erro ao enviar mensagem de áudio');
     throw new Error(error);
   }
 };

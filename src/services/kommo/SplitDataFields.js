@@ -1,3 +1,4 @@
+const styled = require('../../utils/styledLog');
 const GetAccessToken = require('./GetAccessToken');
 const GetCustomFields = require('./GetCustomFields');
 const GetUser = require('./GetUser');
@@ -65,23 +66,23 @@ const SplitDataFields = async (payload, access_token = null) => {
         ]
       });
     }
-      // const sonField1 = custom_fields.filter(field => field.name === 'Nome Completo')[0];
-      // const sonField2 = custom_fields.filter(field => field.name === 'Data Nascimento (Texto)')[0];
-      // const sonField3 = custom_fields.filter(field => field.name === 'Bairro')[0];
+    // const sonField1 = custom_fields.filter(field => field.name === 'Nome Completo')[0];
+    // const sonField2 = custom_fields.filter(field => field.name === 'Data Nascimento (Texto)')[0];
+    // const sonField3 = custom_fields.filter(field => field.name === 'Bairro')[0];
     // console.log('Campo Pai:', dataFieldValues);
-      // const [son1, son2, son3] = dataFieldValues.split(';');
-      // console.log('Filho 1:', son1);
-      // console.log('Filho 2:', son2);
-      // console.log('Filho 3:', son3);
+    // const [son1, son2, son3] = dataFieldValues.split(';');
+    // console.log('Filho 1:', son1);
+    // console.log('Filho 2:', son2);
+    // console.log('Filho 3:', son3);
     // console.log('Requisição para o Kommo');
     // console.log('ID do Lead:', payload.lead_id);
     // console.log('Campo Pai:', dataField);
-      // console.log('Campo Filho 1:', sonField1);
-      // console.log('Campo Filho 2:', sonField2);
-      // console.log('Campo Filho 3:', sonField3);
-      // console.log('ID do Campo Filho 1:', sonField1?.id);
-      // console.log('ID do Campo Filho 2:', sonField2?.id);
-      // console.log('ID do Campo Filho 3:', sonField3?.id);
+    // console.log('Campo Filho 1:', sonField1);
+    // console.log('Campo Filho 2:', sonField2);
+    // console.log('Campo Filho 3:', sonField3);
+    // console.log('ID do Campo Filho 1:', sonField1?.id);
+    // console.log('ID do Campo Filho 2:', sonField2?.id);
+    // console.log('ID do Campo Filho 3:', sonField3?.id);
     const bodyReq = {
       'custom_fields_values': custom_fields_values
     };
@@ -108,11 +109,10 @@ const SplitDataFields = async (payload, access_token = null) => {
     // console.log('Split Data Fields finalizado com sucesso!');
     return;
   } catch (error) {
+    styled.error('Erro no SplitDataFields:', error);
     if (error.response) {
-      console.log(`Erro ao dividir o campo de dados: ${error.response.data}`);
       await HandlingError(payload, access_token, `Erro ao dividir o campo de dados: ${error.response.data}`);
     } else {
-      console.log(`Erro ao dividir o campo de dados: ${error.message}`);
       await HandlingError(payload, access_token, `Erro ao dividir o campo de dados: ${error.message}`);
     }
     throw new Error('Erro no SplitDataFields');

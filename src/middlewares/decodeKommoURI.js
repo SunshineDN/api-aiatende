@@ -1,3 +1,5 @@
+const styled = require('../utils/styledLog');
+
 function subdividirPropriedades(obj) {
   const newObj = {};
   for (const key in obj) {
@@ -117,18 +119,18 @@ const decodeAccoutUri = (uri) => {
 };
 
 module.exports = (req, res, next) => {
-  console.log('Request method: ', req.method);
+  styled.info('Request method: ', req.method);
   if (req.method === 'GET') {
     return next();
   }
 
   if (!req.body) {
-    console.log('Body is required');
+    styled.warning('Body is required');
     return res.status(400).json({ error: 'Body is required' });
   }
 
   let decoded;
-  console.log('Request body: ', req.body);
+  styled.info('Request body: ', req.body);
   if (req.body?.startsWith('account')) {
     decoded = decodeAccoutUri(req.body);
   } else {

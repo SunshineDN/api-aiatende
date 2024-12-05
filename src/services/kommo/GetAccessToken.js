@@ -1,3 +1,5 @@
+const styled = require('../../utils/styledLog');
+
 require('dotenv').config();
 // const axios = require('axios');
 
@@ -31,11 +33,7 @@ const GetAccessToken = async (payload) => {
     const access_token = process.env.ACCESS_TOKEN;
     return access_token;
   } catch (error) {
-    if (error.response) {
-      console.log('Erro ao adquirir tokens:', error.response.data);
-    } else {
-      console.log('Erro ao adquirir tokens:', error.message);
-    }
+    styled.error('Erro ao adquirir tokens:', error);
     throw new Error('Erro no GetAccessToken');
   }
 };

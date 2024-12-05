@@ -4,6 +4,7 @@ const GetCustomFields = require('./GetCustomFields');
 const GetUser = require('./GetUser');
 const HandlingError = require('./HandlingError');
 const UpdateLead = require('./UpdateLead');
+const styled = require('../../utils/styledLog');
 
 const SplitSchedulingFields = async (payload, access_token = null) => {
   // REQUISICAO PARA O KOMMO
@@ -164,11 +165,10 @@ const SplitSchedulingFields = async (payload, access_token = null) => {
     // console.log('Split Shceduling Fields finalizado com sucesso!');
     return;
   } catch (error) {
+    styled.error('Erro ao dividir campo de dados de agendamento:', error);
     if (error.response) {
-      console.log(`Erro ao dividir campo de dados de agendamento: ${error.response.data}`);
       await HandlingError(payload, access_token, `Erro ao dividir campo de dados de agendamento: ${error.response.data}`);
     } else {
-      console.log(`Erro ao dividir campo de dados de agendamento: ${error.message}`);
       await HandlingError(payload, access_token, `Erro ao dividir campo de dados de agendamento: ${error.message}`);
     }
     throw new Error('Erro no SplitSchedulingFields');

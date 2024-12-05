@@ -1,5 +1,6 @@
 const axios = require('axios');
 const fs = require('fs');
+const styled = require('../../utils/styledLog');
 
 const downloadAudio = async (file) => {
   const response = await axios.get(file.url, {
@@ -18,9 +19,9 @@ const downloadAudio = async (file) => {
 const deleteTempFile = async (file) => {
   fs.unlinkSync(`./public/files/${file.name}.${file.extension}`, (err) => {
     if (err) {
-      console.error(err);
+      styled.error(err);
     } else {
-      console.log('Temporary file deleted');
+      styled.info('Temporary file deleted');
     }
   });
 };

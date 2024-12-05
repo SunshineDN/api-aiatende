@@ -2,6 +2,7 @@ const GetCustomFields = require('./GetCustomFields');
 const UpdateLead = require('./UpdateLead');
 const GetAccessToken = require('./GetAccessToken');
 const HandlingError = require('./HandlingError');
+const styled = require('../../utils/styledLog');
 
 const SendLog = async (payload, message, access_token = null) => {
   try {
@@ -29,11 +30,10 @@ const SendLog = async (payload, message, access_token = null) => {
     await UpdateLead(payload, data, access_token);
     return;
   } catch (error) {
+    styled.error('Erro no SendLog:', error);
     if (error.response) {
-      console.log(`Erro ao setar log no SendLog: ${error.response.data}`);
       await HandlingError(payload, access_token, `Erro ao setar log no SendLog: ${error.response.data}`);
     } else {
-      console.log(`Erro ao setar log no SendLog: ${error.message}`);
       await HandlingError(payload, access_token, `Erro ao setar log no SendLog: ${error.message}`);
     }
     throw new Error('Erro no SendLog');

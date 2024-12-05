@@ -6,6 +6,7 @@ const UpdateLead = require('../kommo/UpdateLead');
 const HandlingError = require('../kommo/HandlingError');
 const GetUser = require('../kommo/GetUser');
 const CalendarUtils = require('../../utils/CalendarUtils');
+const styled = require('../../utils/styledLog');
 
 // async function Calendar(calendarId) {
 //   const auth = AuthCalendar.authenticate();
@@ -83,7 +84,7 @@ const ListCalendarEvent = async (payload, access_token = null) => {
     }
   }catch(error) {
     if (error.response) {
-      console.log(
+      styled.error(
         `Erro ao listar eventos no Google Calendar: ${error.response.data}`
       );
       await HandlingError(
@@ -92,7 +93,7 @@ const ListCalendarEvent = async (payload, access_token = null) => {
         `Erro ao listar eventos no Google Calendar: ${error.response.data}`
       );
     } else {
-      console.log(
+      styled.error(
         `Erro ao listar eventos no Google Calendar: ${error.message}`
       );
       await HandlingError(
@@ -116,7 +117,7 @@ const ListCalendarEvent = async (payload, access_token = null) => {
     ],
   };
   await UpdateLead(payload, reqBody, access_token);
-  console.log('Fim do ListCalendar!');
+  styled.info('Fim do ListCalendar!');
 };
 
 module.exports = ListCalendarEvent;
