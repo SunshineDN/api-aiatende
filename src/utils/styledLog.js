@@ -12,9 +12,10 @@ class styled {
   }
 
   static errordir(obj) {
+    const message = JSON.stringify(obj, null, 2);
     console.log(
-      colors.red + colors.bold,
-      JSON.stringify(obj, null, 2),
+      colors.red + colors.bold +
+      message +
       colors.reset
     );
   }
@@ -25,9 +26,10 @@ class styled {
   }
 
   static successdir(obj) {
+    const message = JSON.stringify(obj, null, 2);
     console.log(
-      colors.green + colors.bold,
-      JSON.stringify(obj, null, 2),
+      colors.green + colors.bold +
+      message +
       colors.reset
     );
   }
@@ -38,9 +40,10 @@ class styled {
   }
 
   static warningdir(obj) {
+    const message = JSON.stringify(obj, null, 2);
     console.log(
-      colors.yellow + colors.bold,
-      JSON.stringify(obj, null, 2),
+      colors.yellow + colors.bold +
+      message +
       colors.reset
     );
   }
@@ -51,9 +54,10 @@ class styled {
   }
 
   static infodir(obj) {
+    const message = JSON.stringify(obj, null, 2);
     console.log(
-      colors.blue + colors.bold,
-      JSON.stringify(obj, null, 2),
+      colors.blue + colors.bold +
+      message +
       colors.reset
     );
   }
