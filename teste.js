@@ -188,6 +188,18 @@ const styled = require('./src/utils/styledLog');
 //   console.log('Lead criado via agendamento por VOZ com sucesso!');
 // }
 
-const message = 'OI';
+const message = {
+  'leadID': 18944190,
+  'threadID': [
+    'thread_BVbKIMLLSb4ouZsYLDvJJznG'
+  ],
+  'assistant_id': [
+    'asst_jx9BZS1tBT0xhFNczkRHEA90'
+  ],
+  'createdAt': '2024-10-29T22:26:19.405Z',
+  'updatedAt': '2024-10-29T22:26:19.645Z'
+};
 
-styled.info(`Its a message: ${message}`);
+styled.error('Teste');
+styled.errordir(message);
+
