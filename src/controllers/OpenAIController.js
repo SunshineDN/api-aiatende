@@ -38,7 +38,7 @@ class OpenAIController {
           }
         });
         styled.success('Thread created in OpenAI for first time');
-        styled.success(newThread);
+        styled.successdir(newThread);
 
         styled.info('Updating threadID in database for first time');
         await LeadThread.update({
@@ -113,7 +113,7 @@ class OpenAIController {
       }
 
       styled.info('Thread found');
-      styled.info(existThreads.dataValues);
+      styled.infodir(existThreads.dataValues);
 
       const indexOfAssistant = existThreads.assistant_id.indexOf(assistant);
       styled.info('Index of assistant', indexOfAssistant);
@@ -153,7 +153,7 @@ class OpenAIController {
             );
             styled.info(`[Lead ${leadID}] - ${repeat}# ${count}' Run status: ${run?.status}`);
             if (run.status === 'completed') {
-              styled.info(`[Lead ${leadID}] - Run completed`);
+              styled.success(`[Lead ${leadID}] - Run completed`);
               return;
             } else if (run.status !== 'completed' && repeat === times && count === 10) {
               styled.warning(`[Lead ${leadID}] - Run not completed`);
