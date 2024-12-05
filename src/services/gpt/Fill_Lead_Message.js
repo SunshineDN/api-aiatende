@@ -1,10 +1,11 @@
+const styled = require('../../utils/styledLog');
 const GetAccessToken = require('../kommo/GetAccessToken');
 const GetCustomFields = require('../kommo/GetCustomFields');
 const GetUser = require('../kommo/GetUser');
 const UpdateLead = require('../kommo/UpdateLead');
 
 const Fill_Lead_Message = async (payload, message_obj, access_token = null) => {
-  console.log('Função Fill_Lead_Message');
+  styled.info('Função Fill_Lead_Message');
   let lastMessages, message, str,log;
   try {
     if (!access_token) {
@@ -52,15 +53,14 @@ ${str}`;
 
     await UpdateLead(payload, data, access_token);
 
-    console.log('Preenchido mensagem do lead:', message);
+    styled.info('Preenchido mensagem do lead:', message);
   } catch (e) {
+    styled.error('Erro ao setar últimas mensagens do lead:', e);
     let error;
     if (e.response) {
       error = e.response.data;
-      console.log('Erro ao setar últimas mensagens do lead:', e.response.data);
     } else {
       error = e.message;
-      console.log('Erro ao setar últimas mensagens do lead:', e.message);
     }
 
     const reqBody = {

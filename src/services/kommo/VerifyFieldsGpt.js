@@ -1,3 +1,4 @@
+const styled = require('../../utils/styledLog');
 const GetAccessToken = require('./GetAccessToken');
 const GetCustomFields = require('./GetCustomFields');
 
@@ -298,10 +299,10 @@ const VerifyFieldsGpt = async (payload, res, access_token = null) => {
 
   } catch (error) {
     if (error.response) {
-      console.error(error.response.data);
+      styled.error(error.response.data);
       throw new Error(error.response.data);
     } else {
-      console.error(error.message);
+      styled.error(error.message);
       throw new Error(error.message);
     }
   }

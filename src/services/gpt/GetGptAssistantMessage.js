@@ -4,10 +4,11 @@ const GetAccessToken = require('../kommo/GetAccessToken');
 const GetUser = require('../kommo/GetUser');
 const UpdateLead = require('../kommo/UpdateLead');
 const OpenAIController = require('../../controllers/OpenAIController');
+const styled = require('../../utils/styledLog');
 // const TextToSpeech = require('./TextToSpeech');
 
 const GetGptAssistantMessage = async (payload, assistant_id, access_token = null) => {
-  console.log('Função GetGptAssistantMessage');
+  styled.info('Função GetGptAssistantMessage');
   let logField, onOff;
   try {
     if (!access_token) {
@@ -39,7 +40,7 @@ const GetGptAssistantMessage = async (payload, assistant_id, access_token = null
 
     const { message } = await OpenAIController.generateMessage(data);
 
-    console.log('Mensagem do assistente:', message);
+    styled.info('Mensagem do assistente:', message);
     const reqBody = {
       'custom_fields_values': [
         {
@@ -82,15 +83,14 @@ const GetGptAssistantMessage = async (payload, assistant_id, access_token = null
     // if (sent_audio?.values[0].value === true) {
     //   await TextToSpeech(payload, access_token);
     // }
-    console.log('Mensagem da assistente armazenada com sucesso!');
+    styled.success('Mensagem da assistente armazenada com sucesso!');
   } catch (e) {
+    styled.error('Erro ao enviar mensagem para o GPT Assistant:', e);
     let error;
     if (e.response) {
       error = e.response.data;
-      console.log('Erro ao enviar mensagem para o GPT Assistant:', e.response.data);
     } else {
       error = e.message;
-      console.log('Erro ao enviar mensagem para o GPT Assistant:', e.message);
     }
     const reqBody = {
       'custom_fields_values': [

@@ -6,6 +6,7 @@ const UpdateLead = require('../kommo/UpdateLead');
 const OpenAIController = require('../../controllers/OpenAIController');
 const HandlingError = require('../kommo/HandlingError');
 const Fill_Lead_Message = require('./Fill_Lead_Message');
+const styled = require('../../utils/styledLog');
 
 const SpeechToText = async (payload, access_token = null) => {
   // console.log('Função SpeechToText');
@@ -32,18 +33,17 @@ const SpeechToText = async (payload, access_token = null) => {
     const send_audio_field = custom_fields?.filter(field => field.name === 'GPT | Sent Audio')[0];
 
     const transcription = await OpenAIController.audioToText(text_audio, lead_id);
-    console.log('Mensagem transcrita:', transcription);
+    styled.info('Mensagem transcrita:', transcription);
     const last_message = {
       type: 'voice',
       text_audio: transcription
-    }
+    };
     await Fill_Lead_Message(payload, last_message, access_token);
     const filled_message_received = message_received?.values[0]?.value?.split('\n') || [];
     const unique_messages = [...new Set(filled_message_received)] || [];
     const message = `${unique_messages || ''}\n${transcription}`;
 
     let kommoData;
-
 
     if (channel?.values[0]?.value === '01 - WHATSAPP LITE') {
       kommoData = {
@@ -89,14 +89,13 @@ const SpeechToText = async (payload, access_token = null) => {
       };
     }
     await UpdateLead(payload, kommoData, access_token);
-    console.log('Lead atualizado com mensagem transcrita');
+    styled.success('Lead atualizado com mensagem transcrita');
     return;
   } catch (error) {
+    styled.error('Erro ao transcrever mensagem de áudio:', error);
     if (error.response) {
-      console.log(`Erro ao transcrever mensagem de áudio: ${error.response.data}`);
       await HandlingError(payload, access_token, `Erro ao transcrever mensagem de áudio: ${error.response.data}`);
     } else {
-      console.log(`Erro ao transcrever mensagem de áudio: ${error.message}`);
       await HandlingError(payload, access_token, `Erro ao transcrever mensagem de áudio: ${error.message}`);
     }
     throw new Error('Erro no SpeechToText');

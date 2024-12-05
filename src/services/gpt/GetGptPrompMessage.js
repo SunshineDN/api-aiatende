@@ -4,9 +4,10 @@ const UpdateLead = require('../kommo/UpdateLead');
 const GetAccessToken = require('../kommo/GetAccessToken');
 const GetUser = require('../kommo/GetUser');
 const OpenAIController = require('../../controllers/OpenAIController');
+const styled = require('../../utils/styledLog');
 
 const GetGptPromptMessage = async (payload, access_token = null) => {
-  console.log('Função GetGptPromptMessage');
+  styled.info('Função GetGptPromptMessage');
   let log, onOff;
   try {
     if (!access_token) {
@@ -66,16 +67,15 @@ const GetGptPromptMessage = async (payload, access_token = null) => {
       ]
     };
     await UpdateLead(payload, reqBody, access_token);
-    console.log('Lead atualizado com mensagem do prompt');
+    styled.success('Lead atualizado com mensagem do prompt');
     return;
   } catch (e) {
+    styled.error('Erro ao enviar mensagem para o prompt:', e);
     let error;
     if (e.response) {
       error = e.response.data;
-      console.log('Erro ao enviar mensagem para o prompt:', e.response.data);
     } else {
       error = e.message;
-      console.log('Erro ao enviar mensagem para o prompt:', e.message);
     }
 
     const reqBody = {

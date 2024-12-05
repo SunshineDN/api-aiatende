@@ -7,6 +7,7 @@ const UpdateLead = require('../kommo/UpdateLead');
 const HandlingError = require('../kommo/HandlingError');
 const GetUser = require('../kommo/GetUser');
 const CalendarUtils = require('../../utils/CalendarUtils');
+const styled = require('../../utils/styledLog');
 
 // const Calendar = async (calendarId, resource)  => {
 //   const auth = AuthCalendar.authenticate();
@@ -66,12 +67,12 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
       (field) => field.name === 'Data do Agendamento'
     )[0];
 
-    console.log('Sumário:', eventSummary?.values[0]?.value);
-    console.log('Inicio do Evento:', eventStart?.values[0]?.value);
+    styled.info('Sumário:', eventSummary?.values[0]?.value);
+    styled.info('Inicio do Evento:', eventStart?.values[0]?.value);
 
     let eventData = {};
 
-    console.log('Adicionando evento...');
+    styled.info('Adicionando evento...');
     //console.log(req.body);
     // const { summary, description, start, ...rest } = req.body;
     const summary = eventSummary?.values[0]?.value;
@@ -83,9 +84,9 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
     startDateTime.setHours(startDateTime.getHours() + 3);
     let endDateTime = new Date(startDateTime);
     endDateTime.setMinutes(endDateTime.getMinutes() + 30);
-    console.log('summary:', summary);
-    console.log('startDateTime:', startDateTime);
-    console.log('endDateTime:', endDateTime);
+    styled.indo('summary:', summary);
+    styled.indo('startDateTime:', startDateTime);
+    styled.indo('endDateTime:', endDateTime);
 
     const schedule_date_hour_to_ms = startDateTime.getTime();
     const schedule_date_in_ms = Math.round(schedule_date_hour_to_ms / 1000);
@@ -101,7 +102,7 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
       },
       //...rest,
     };
-    console.log('Evento:', event);
+    styled.info('Evento:', event);
 
     try {
       eventData = await CalendarUtilsClass.executeRegisterEvent( CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id), event);
@@ -109,7 +110,7 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
       eventData = await CalendarUtilsClass.executeRegisterEvent( CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id), event);
     }
 
-    console.log('Dados do Evento (eventData):', eventData);
+    styled.info('Dados do Evento (eventData):', eventData);
     const reqBody = {
       custom_fields_values: [
         {
@@ -138,14 +139,14 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
         },
       ],
     };
-    console.log('Dados do corpo da requisição (reqBody):', reqBody);
-    console.log('Atualizando lead...');
+    styled.info('Dados do corpo da requisição (reqBody):', reqBody);
+    styled.info('Atualizando lead...');
 
     await UpdateLead(payload, reqBody, access_token);
-    console.log('Evento registrado com sucesso!');
+    styled.success('Evento registrado com sucesso!');
   } catch (error) {
     if (error.response) {
-      console.log(
+      styled.error(
         `Erro ao registrar evento no Google Calendar: ${error.response.data}`
       );
       await HandlingError(
@@ -154,7 +155,7 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
         `Erro ao registrar evento no Google Calendar: ${error.response.data}`
       );
     } else {
-      console.log(
+      styled.error(
         `Erro ao registrar evento no Google Calendar: ${error.message}`
       );
       await HandlingError(

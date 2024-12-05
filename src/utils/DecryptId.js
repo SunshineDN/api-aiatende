@@ -1,5 +1,6 @@
 require('dotenv').config();
 const crypto = require('crypto');
+const styled = require('./styledLog');
 
 const DecryptId = (id) => {
   try {
@@ -12,7 +13,7 @@ const DecryptId = (id) => {
     decrypted += decipher.final('utf8');
     return decrypted;
   } catch (error) {
-    console.error('Error on DecryptId:', error);
+    styled.error('Error on DecryptId:', error);
     throw new Error('Error on DecryptId');
   }
 };

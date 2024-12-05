@@ -17,6 +17,6 @@ const TokenizeTest = async (payload, access_token, res) => {
   } catch (error) {
     throw new Error(error);
   }
-}
+};
 
 module.exports = TokenizeTest;

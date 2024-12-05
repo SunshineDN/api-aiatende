@@ -15,7 +15,7 @@ function DifDates(data) {
   return {
     diferencaDias: Math.floor(diferencaMs / (1000 * 60 * 60 * 24)),
     diferencaHoras: Math.floor((diferencaMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-  }
+  };
 };
 
 module.exports = DifDates;

@@ -1,4 +1,5 @@
 // const TextToSpeech = require('../gpt/TextToSpeech');
+const styled = require('../../utils/styledLog');
 const GetCustomFields = require('./GetCustomFields');
 // const GetUser = require('./GetUser');
 const UpdateLead = require('./UpdateLead');
@@ -40,14 +41,12 @@ const SendMessage = async (body, audio, message, access_token) => {
     await UpdateLead(body, data, access_token);
     return;
   } catch (e) {
-    console.log(e);
+    styled.error('Erro no SendMessage:', e);
     let error;
     if (e.response) {
       error = e.response.data;
-      console.log(`Erro no SendMessage: ${error.response.data}`);
     } else {
       error = e.message;
-      console.log(`Erro no SendMessage: ${error}`);
     }
     throw new Error('Erro no SendMessage:', error);
   }

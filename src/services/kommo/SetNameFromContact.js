@@ -1,3 +1,4 @@
+const styled = require('../../utils/styledLog');
 const GetAccessToken = require('./GetAccessToken');
 const GetCustomFields = require('./GetCustomFields');
 const GetUser = require('./GetUser');
@@ -31,11 +32,10 @@ const SetNameFromContact = async (payload, access_token = null) => {
     };
     await UpdateLead(payload, kommoData, access_token);
   } catch (error) {
+    styled.error('Error on SetNameFromContact:', error);
     if (error.response) {
-      console.log(`Erro ao setar o nome do contato no campo NOME COMPLETO do card: ${error.response.data}`);
       await HandlingError(payload, access_token, `Erro ao setar o nome do contato no campo NOME COMPLETO do card: ${error.response.data}`);
     } else {
-      console.log(`Erro ao setar o nome do contato no campo NOME COMPLETO do card: ${error.message}`);
       await HandlingError(payload, access_token, `Erro ao setar o nome do contato no campo NOME COMPLETO do card: ${error.message}`);
     }
     throw new Error('Erro no SetNameFromContact');

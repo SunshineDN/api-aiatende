@@ -5,6 +5,7 @@ const HandlingError = require('../kommo/HandlingError');
 const GetUser = require('../kommo/GetUser');
 const CalendarUtils = require('../../utils/CalendarUtils');
 const GetAccessToken = require('../kommo/GetAccessToken');
+const styled = require('../../utils/styledLog');
 
 const WebListCalendarEvents = async (payload) => {
   let access_token, user, reason, nameDoctor;
@@ -33,7 +34,7 @@ const WebListCalendarEvents = async (payload) => {
     }
   }catch(error) {
     if (error.response) {
-      console.log(
+      styled.error(
         `Erro ao listar eventos no Google Calendar: ${error.response.data}`
       );
       await HandlingError(
@@ -42,7 +43,7 @@ const WebListCalendarEvents = async (payload) => {
         `Erro ao listar eventos no Google Calendar: ${error.response.data}`
       );
     } else {
-      console.log(
+      styled.error(
         `Erro ao listar eventos no Google Calendar: ${error.message}`
       );
       await HandlingError(

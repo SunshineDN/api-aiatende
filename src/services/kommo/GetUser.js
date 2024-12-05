@@ -1,6 +1,7 @@
 const axios = require('axios');
 const GetAccessToken = require('./GetAccessToken');
 const HandlingError = require('./HandlingError');
+const styled = require('../../utils/styledLog');
 
 const GetUser = async (payload, with_contact = false, access_token = null) => {
   // console.log('Função GetUser');
@@ -24,7 +25,7 @@ const GetUser = async (payload, with_contact = false, access_token = null) => {
         }
       }));
     } catch {
-      console.log('Erro ao pegar usuário, tentando novamente');
+      styled.warning('Erro ao pegar usuário, tentando novamente');
       ({ data: responseData } = await axios.get(`${domain}/api/v4/leads/${lead_id}`, {
         headers: {
           'Content-Type': 'application/json',
@@ -50,7 +51,7 @@ const GetUser = async (payload, with_contact = false, access_token = null) => {
           }
         }));
       } catch {
-        console.log('Erro ao pegar contato, tentando novamente');
+        styled.warning('Erro ao pegar contato, tentando novamente');
         ({ data: completeUser } = await axios.get(`${domain}/api/v4/contacts/${userContact}`, {
           headers: {
             'Content-Type': 'application/json',
@@ -68,12 +69,10 @@ const GetUser = async (payload, with_contact = false, access_token = null) => {
     // console.log('Usuário obtido com sucesso');
     return responseData;
   } catch (error) {
-    console.log(error);
+    styled.error('Erro ao pegar usuário (GetUser):', error);
     if (error.response) {
-      console.log(`Erro ao pegar usuário: ${error.response.data}`);
       await HandlingError(payload, access_token, `Erro ao pegar usuário: ${error.response.data}`);
     } else {
-      console.log(`Erro ao pegar usuário: ${error.message}`);
       await HandlingError(payload, access_token, `Erro ao pegar usuário: ${error.message}`);
     }
     throw new Error('Erro no GetUser');

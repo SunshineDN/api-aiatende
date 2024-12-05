@@ -1,5 +1,6 @@
 const { google } = require('googleapis');
 const AuthCalendar = require('./AuthCalendar');
+const styled = require('./styledLog');
 // const AvailableSlots = require('../utils/AvailableSlots');
 // const serviceAccount = require('../config/serviceAccount.json');
 
@@ -13,7 +14,7 @@ class CalendarUtils {
     const calendar_return = new Promise((resolve, reject) => {
       this.authorization.authorize((err) => {
         if (err) {
-          console.error('Erro na autenticação:', err);
+          styled.error('Erro na autenticação:', err);
           reject('Erro na autenticação');
         }
         const calendar = google.calendar({ version: 'v3', auth: this.authorization });
@@ -27,7 +28,7 @@ class CalendarUtils {
           },
           (err, result) => {
             if (err) {
-              console.error('Erro ao listar eventos do calendário:', err);
+              styled.error('Erro ao listar eventos do calendário:', err);
               reject(new Error('Erro ao listar eventos do calendário'));
             }
             const events = result.data.items;
@@ -56,7 +57,7 @@ class CalendarUtils {
             }
           }
         );
-        console.log('Eventos listados com sucesso!');
+        styled.success('Eventos listados com sucesso!');
       });
     });
     return await calendar_return;
@@ -66,7 +67,7 @@ class CalendarUtils {
     const createEvent = new Promise((resolve, reject) => {
       this.authorization.authorize((err) => {
         if (err) {
-          console.error('Erro na autenticação:', err);
+          styled.error('Erro na autenticação:', err);
           reject(new Error('Erro na autenticação'));
         }
         const calendar = google.calendar({ version: 'v3', auth: this.authorization });
@@ -77,10 +78,10 @@ class CalendarUtils {
           },
           (err, result) => {
             if (err) {
-              console.error('Erro ao adicionar evento:', err);
+              styled.error('Erro ao adicionar evento:', err);
               reject(new Error('Erro ao adicionar evento'));
             }
-            console.log('Evento adicionado:', result.data.htmlLink);
+            styled.info('Evento adicionado:', result.data.htmlLink);
             resolve(result.data);
           }
         );
@@ -93,7 +94,7 @@ class CalendarUtils {
     const deleteEvent = new Promise((resolve, reject) => {
       this.authorization.authorize((err) => {
         if (err) {
-          console.error('Erro na autenticação:', err);
+          styled.error('Erro na autenticação:', err);
           reject(new Error('Erro na autenticação'));
           return;
         }
@@ -105,11 +106,11 @@ class CalendarUtils {
           },
           (err, result) => {
             if (err) {
-              console.error('Erro ao deletar evento:', err);
+              styled.error('Erro ao deletar evento:', err);
               reject(err);
               return;
             }
-            console.log('Evento deletado com sucesso.');
+            styled.info('Evento deletado com sucesso.');
             resolve(result?.data);
           });
       });
@@ -121,7 +122,7 @@ class CalendarUtils {
     const updateEvent = new Promise((resolve, reject) => {
       this.authorization.authorize((err) => {
         if (err) {
-          console.error('Erro na autenticação:', err);
+          styled.error('Erro na autenticação:', err);
           reject(new Error('Erro na autenticação'));
         }
         const calendar = google.calendar({ version: 'v3', auth: this.authorization });
@@ -142,10 +143,10 @@ class CalendarUtils {
           },
           (err, result) => {
             if (err) {
-              console.error('Erro ao atualizar evento:', err);
+              styled.error('Erro ao atualizar evento:', err);
               reject(new Error('Erro ao atualizar evento'));
             }
-            console.log('Evento atualizado:', result.data.htmlLink);
+            styled.info('Evento atualizado:', result.data.htmlLink);
             resolve(result.data);
           });
       });
@@ -210,7 +211,7 @@ class CalendarUtils {
     const calendar_return = new Promise((resolve, reject) => {
       this.authorization.authorize((err) => {
         if (err) {
-          console.error('Erro na autenticação:', err);
+          styled.error('Erro na autenticação:', err);
           reject('Erro na autenticação');
           return;
         }
@@ -225,7 +226,7 @@ class CalendarUtils {
           },
           (err, result) => {
             if (err) {
-              console.error('Erro ao listar eventos do calendário:', err);
+              styled.error('Erro ao listar eventos do calendário:', err);
               reject(new Error('Erro ao listar eventos do calendário'));
               return;
             }
@@ -354,7 +355,7 @@ class CalendarUtils {
             }
           }
         );
-        console.log('Eventos listados com sucesso!');
+        styled.success('Eventos listados com sucesso!');
       });
     });
     return await calendar_return;
@@ -364,7 +365,7 @@ class CalendarUtils {
     const calendar_return = new Promise((resolve, reject) => {
       this.authorization.authorize((err) => {
         if (err) {
-          console.error('Erro na autenticação:', err);
+          styled.error('Erro na autenticação:', err);
           reject('Erro na autenticação');
           return;
         }
@@ -379,7 +380,7 @@ class CalendarUtils {
           },
           (err, result) => {
             if (err) {
-              console.error('Erro ao listar eventos do calendário:', err);
+              styled.error('Erro ao listar eventos do calendário:', err);
               reject(new Error('Erro ao listar eventos do calendário'));
               return;
             }
@@ -500,7 +501,7 @@ class CalendarUtils {
             }
           }
         );
-        console.log('Eventos listados com sucesso!');
+        styled.success('Eventos listados com sucesso!');
       });
     });
     return await calendar_return;

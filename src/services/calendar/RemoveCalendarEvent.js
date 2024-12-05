@@ -6,6 +6,7 @@ const UpdateLead = require('../kommo/UpdateLead');
 const HandlingError = require('../kommo/HandlingError');
 const GetUser = require('../kommo/GetUser');
 const CalendarUtils = require('../../utils/CalendarUtils');
+const styled = require('../../utils/styledLog');
 
 const RemoveCalendarEvent = async (payload, access_token = null) => {
   try {
@@ -26,16 +27,16 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
       (field) => field.field_name === 'Dentista'
     )[0];
 
-    console.log('Deletando evento...');
+    styled.info('Deletando evento...');
 
-    console.log('ID do Evento:', eventId?.values[0]?.value);
+    styled.info('ID do Evento:', eventId?.values[0]?.value);
     try {
       await CalendarUtilsClass.executeRemoveEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id), eventId?.values[0]?.value);
     } catch {
       try {
         await CalendarUtilsClass.executeRemoveEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id), eventId?.values[0]?.value);
       } catch (error) {
-        console.log(`Erro ao remover evento no Google Calendar (2ª tentativa)`);
+        styled.error('Erro ao remover evento no Google Calendar (2ª tentativa)');
         throw error;
       }
     }
@@ -94,10 +95,10 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
 
     await UpdateLead(payload, bodyReq, access_token);
 
-    console.log('Evento removido com sucesso!');
+    styled.success('Evento removido com sucesso!');
 
   } catch (error) {
-    console.log(`Erro ao remover evento no Google Calendar (última tentativa): ${error}`);
+    styled.error(`Erro ao remover evento no Google Calendar (última tentativa): ${error}`);
     if (error.response) {
       await HandlingError(payload, access_token, `Erro ao remover evento no Google Calendar: ${error?.response?.data}`);
     } else {

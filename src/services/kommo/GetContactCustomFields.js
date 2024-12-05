@@ -1,6 +1,7 @@
 const axios = require('axios');
 const GetAccessToken = require('./GetAccessToken');
 const HandlingError = require('./HandlingError');
+const styled = require('../../utils/styledLog');
 
 const GetContactCustomFields = async (payload, access_token = null) => {
   // console.log('Função GetContactCustomFields!');
@@ -20,7 +21,7 @@ const GetContactCustomFields = async (payload, access_token = null) => {
         }
       }));
     } catch {
-      console.log('Erro ao pegar campos customizados do contato, tentando novamente');
+      styled.warning('Erro ao pegar campos customizados do contato, tentando novamente');
       ({ data: { _embedded: { custom_fields } } } = await axios.get(`${domain}/api/v4/contacts/custom_fields`, {
         headers: {
           Authorization: `Bearer ${access_token}`
@@ -31,12 +32,10 @@ const GetContactCustomFields = async (payload, access_token = null) => {
     // console.log('Campos customizados adquiridos!');
     return custom_fields;
   } catch (error) {
-    console.log(error);
+    styled.error('Erro ao pegar campos customizados do contato:', error);
     if (error.response) {
-      console.log(`Erro ao pegar campos customizados do contato: ${error.response.data}`);
       await HandlingError(payload, access_token, `Erro ao pegar campos customizados: ${error.response.data}`);
     } else {
-      console.log(`Erro ao pegar campos customizados do contato: ${error.message}`);
       await HandlingError(payload, access_token, `Erro ao pegar campos customizados: ${error.message}`);
     }
     throw new Error('Erro no GetContactCustomFields');

@@ -2,6 +2,7 @@ const updateLead = require('./UpdateLead');
 const getCustomFields = require('./GetCustomFields');
 const HandlingError = require('./HandlingError');
 const EncryptId = require('../../utils/EncryptId');
+const styled = require('../../utils/styledLog');
 
 const SetCalendarFormService = async (payload, access_token) => {
   try {
@@ -25,13 +26,13 @@ const SetCalendarFormService = async (payload, access_token) => {
 
     await updateLead(payload, reqBody, access_token);
   } catch (error) {
+    styled.error('Error on SetCalendarFormService:', error);
     if (error.response) {
-      console.log(`Erro ao setar formulario de calendário: ${error.response.data}`);
       await HandlingError(payload, access_token, `Erro ao setar formulario de calendário: ${error.response.data}`);
     } else {
-      console.log(`Erro ao setar formulario de calendário: ${error.message}`);
       await HandlingError(payload, access_token, `Erro ao setar formulario de calendário: ${error.message}`);
     }
+    throw new Error('Erro no SetCalendarFormService');
   }
 };
 

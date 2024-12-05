@@ -1,5 +1,6 @@
 require('dotenv').config();
 const crypto = require('crypto');
+const styled = require('./styledLog');
 
 const EncryptId = (id) => {
   try {
@@ -8,7 +9,7 @@ const EncryptId = (id) => {
     encrypted += cipher.final('hex');
     return encrypted;
   } catch (error) {
-    console.error('Error on EncryptId:', error);
+    styled.error('Error on EncryptId:', error);
     throw new Error('Error on EncryptId');
   }
 };

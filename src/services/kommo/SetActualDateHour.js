@@ -1,3 +1,4 @@
+const styled = require('../../utils/styledLog');
 const GetAccessToken = require('./GetAccessToken');
 const GetCustomFields = require('./GetCustomFields');
 const HandlingError = require('./HandlingError');
@@ -38,11 +39,10 @@ const SetActualDateHour = async (payload, access_token = null) => {
     };
     await UpdateLead(payload, kommoData, access_token);
   } catch (error) {
+    styled.error('Error on SetActualDateHour:', error);
     if (error.response) {
-      console.log(`Erro ao setar data, hora e dia da semana: ${error.response.data}`);
       await HandlingError(payload, access_token, `Erro ao setar data, hora e dia da semana: ${error.response.data}`);
     } else {
-      console.log(`Erro ao setar data, hora e dia da semana: ${error.message}`);
       await HandlingError(payload, access_token, `Erro ao setar data, hora e dia da semana: ${error.message}`);
     }
     throw new Error('Erro no SetActualDataHour');

@@ -1,5 +1,6 @@
  
 const FormatTelephone = require('../../utils/FormatTelephone');
+const styled = require('../../utils/styledLog');
 const GetContactCustomFields = require('./GetContactCustomFields');
 const GetUser = require('./GetUser');
 const HandlingError = require('./HandlingError');
@@ -14,6 +15,7 @@ const AddTelephoneService = async (payload, access_token) => {
     const telephone = user?.custom_fields_values.filter((field) => field.field_name === 'Telefone (Texto)')[0];
 
     if (!telephone) {
+      styled.error('Telefone não encontrado');
       throw new Error('Telefone não encontrado');
     }
 
@@ -43,11 +45,10 @@ const AddTelephoneService = async (payload, access_token) => {
     // console.log('Telefone adicionado com sucesso!');
     return;
   } catch (error) {
+    styled.error('Erro ao adicionar telefone ao contato do lead:', error);
     if (error.response) {
-      console.log(`Erro ao adiciontar telefone ao contato do lead: ${error.response.data}`);
       await HandlingError(payload, access_token, `Erro ao adiciontar telefone ao contato do lead: ${error.response.data}`);
     } else {
-      console.log(`Erro ao adiciontar telefone ao contato do lead: ${error.message}`);
       await HandlingError(payload, access_token, `Erro ao adiciontar telefone ao contato do lead: ${error.message}`);
     }
     throw new Error('Erro no AddTelephoneService');
