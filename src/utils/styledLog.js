@@ -8,7 +8,7 @@ class styled {
 
   static error(...data) {
     let message = data.join(' ');
-    console.log(`${colors.bgRed}${colors.white}${colors.bold} \u{2716} ${colors.reset}${colors.red}${colors.bold} ERROR: ${message} ${colors.reset}`);
+    console.log(`${colors.bgRed}${colors.white}${colors.bold}   \u{2716}   ${colors.reset}${colors.red}${colors.bold} ERROR: ${message} ${colors.reset}`);
   }
 
   static errordir(obj) {
@@ -21,7 +21,7 @@ class styled {
 
   static success(...data) {
     let message = data.join(' ');
-    console.log(`${colors.bgGreen}${colors.white}${colors.bold} \u{2714} ${colors.reset}${colors.green}${colors.bold} SUCCESS: ${message} ${colors.reset}`);
+    console.log(`${colors.bgGreen}${colors.white}${colors.bold}   \u{2714}   ${colors.reset}${colors.green}${colors.bold} SUCCESS: ${message} ${colors.reset}`);
   }
 
   static successdir(obj) {
@@ -34,7 +34,7 @@ class styled {
 
   static warning(...data) {
     let message = data.join(' ');
-    console.log(`${colors.bgYellow}${colors.white}${colors.bold} \u{26A0} ${colors.reset}${colors.yellow}${colors.bold} WARNING: ${message} ${colors.reset}`);
+    console.log(`${colors.bgYellow}${colors.white}${colors.bold}   \u{26A0}   ${colors.reset}${colors.yellow}${colors.bold} WARNING: ${message} ${colors.reset}`);
   }
 
   static warningdir(obj) {
@@ -47,7 +47,7 @@ class styled {
 
   static info(...data) {
     let message = data.join(' ');
-    console.log(`${colors.bgBlue}${colors.white}${colors.bold} \u{2139} ${colors.reset}${colors.blue}${colors.bold} INFO: ${message} ${colors.reset}`);
+    console.log(`${colors.bgBlue}${colors.white}${colors.bold}   \u{2139}   ${colors.reset}${colors.blue}${colors.bold} INFO: ${message} ${colors.reset}`);
   }
 
   static infodir(obj) {
