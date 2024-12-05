@@ -12,12 +12,12 @@ class styled {
   }
 
   static errordir(obj) {
-    const message = JSON.stringify(obj, null, 2);
-    console.log(
-      colors.red + colors.bold +
-      message +
-      colors.reset
-    );
+    const jsonString = JSON.stringify(obj, null, 2);
+    const styledJson = jsonString
+      .split('\n')
+      .map(line => `${colors.red}${colors.bold}${line}${colors.reset}`)
+      .join('\n');
+    console.log(styledJson);
   }
 
   static success(...data) {
@@ -26,12 +26,12 @@ class styled {
   }
 
   static successdir(obj) {
-    const message = JSON.stringify(obj, null, 2);
-    console.log(
-      colors.green + colors.bold +
-      message +
-      colors.reset
-    );
+    const jsonString = JSON.stringify(obj, null, 2);
+    const styledJson = jsonString
+      .split('\n')
+      .map(line => `${colors.green}${colors.bold}${line}${colors.reset}`)
+      .join('\n');
+    console.log(styledJson);
   }
 
   static warning(...data) {
@@ -40,12 +40,12 @@ class styled {
   }
 
   static warningdir(obj) {
-    const message = JSON.stringify(obj, null, 2);
-    console.log(
-      colors.yellow + colors.bold +
-      message +
-      colors.reset
-    );
+    const jsonString = JSON.stringify(obj, null, 2);
+    const styledJson = jsonString
+      .split('\n')
+      .map(line => `${colors.yellow}${colors.bold}${line}${colors.reset}`)
+      .join('\n');
+    console.log(styledJson);
   }
 
   static info(...data) {
@@ -54,12 +54,12 @@ class styled {
   }
 
   static infodir(obj) {
-    const message = JSON.stringify(obj, null, 2);
-    console.log(
-      colors.blue + colors.bold +
-      message +
-      colors.reset
-    );
+    const jsonString = JSON.stringify(obj, null, 2);
+    const styledJson = jsonString
+      .split('\n')
+      .map(line => `${colors.blue}${colors.bold}${line}${colors.reset}`)
+      .join('\n');
+    console.log(styledJson);
   }
 
   static bgBlack(...data) {
