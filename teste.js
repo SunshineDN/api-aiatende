@@ -168,20 +168,20 @@
 
 // console.log(data);
 
-const obj = {
-  nome: 'Douglas Augusto Cabral da Silva',
-  bairro: 'Candeias',
-  birthdate: '11/03/2003',
-  dentist: 'Dra. Juliana Leite',
-  schedule_date: 'null',
-  reason: 'Avaliação Geral',
-  phone: '+558196724310'
-};
+// const obj = {
+//   nome: 'Douglas Augusto Cabral da Silva',
+//   bairro: 'Candeias',
+//   birthdate: '11/03/2003',
+//   dentist: 'Dra. Juliana Leite',
+//   schedule_date: 'null',
+//   reason: 'Avaliação Geral',
+//   phone: '+558196724310'
+// };
 
-const { nome, bairro, birthdate, dentist, schedule_date, reason, phone } = obj;
+// const { nome, bairro, birthdate, dentist, schedule_date, reason, phone } = obj;
 
-if (!nome || !schedule_date || !phone) {
-  console.log('Erro ao criar / atualizar lead via agendamento por VOZ: Dados obrigatórios não informados');
-} else {
-  console.log('Lead criado via agendamento por VOZ com sucesso!');
-}
+// if (!nome || !schedule_date || !phone) {
+//   console.log('Erro ao criar / atualizar lead via agendamento por VOZ: Dados obrigatórios não informados');
+// } else {
+//   console.log('Lead criado via agendamento por VOZ com sucesso!');
+// }

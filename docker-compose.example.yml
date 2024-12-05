@@ -20,7 +20,7 @@ services:
       - TABLE_NAME=lead_threads # Altere o nome da tabela
       - DB_URL=postgres://DB_USER:DB_PASS@DB_HOST:DB_PORT/DB_NAME # Altere as informações de conexão com o banco de dados
     expose:
-      - "3000"
+      - "PORT" # Altere para a porta que deseja expor
     ports:
       - "3000:3000"
     networks:

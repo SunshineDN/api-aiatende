@@ -368,6 +368,21 @@ concat-map@0.0.1:
   resolved "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz"
   integrity sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==
 
+console-error@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.npmjs.org/console-error/-/console-error-0.0.4.tgz"
+  integrity sha512-tyQF/oporapv/KZpMBxmd8URCZT40eRVoKhYdtKj3Kozca0TDcwkZLGK8dLFcJbAOveKwGUxPSKRxvLgWJKTSA==
+
+console-info@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.npmjs.org/console-info/-/console-info-0.0.5.tgz"
+  integrity sha512-MeKxYcvji3CIC1eE59EgG+lCkmS+TNHwkxVjAm7jExFAiwlexO1pXS+IzB8xAHB54wDDslLjak/eAtzKPOreMQ==
+
+console-warn@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.npmjs.org/console-warn/-/console-warn-0.0.4.tgz"
+  integrity sha512-A7fiygX+mGt0OjwTbP0hBiJ709Jo24eHlp7+/DkMwE1AXcwbu3IAOlDEM+Waa8wZe4Yr1OZNlpdPfhoW5iylDw==
+
 content-disposition@0.5.4:
   version "0.5.4"
   resolved "https://registry.npmjs.org/content-disposition/-/content-disposition-0.5.4.tgz"
