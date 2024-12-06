@@ -89,6 +89,15 @@ class styled {
     console.log(`${colors.orange}${colors.bold}FUNCTION: ${colors.reset}${messageArray}`);
   }
 
+  static middleware(...data) {
+    let message = data.join(' ');
+    const messageArray = message
+      .split('\n')
+      .map(line => `${colors.lightMagenta}${line}${colors.reset}`)
+      .join('\n');
+    console.log(`${colors.bgLightMagenta}${colors.white}${colors.bold}   \u{1F47E}   ${colors.reset}${colors.lightMagenta}${colors.bold} MIDDLEWARE: ${colors.reset}${messageArray}`);
+  }
+
   static bgBlack(...data) {
     let message = data.join(' ');
     console.log(colors.bgBlack + message + colors.reset);
