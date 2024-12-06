@@ -1,56 +1,58 @@
 require('dotenv').config();
-const OpenAIController = require('../controllers/OpenAIController');
+// const OpenAIController = require('../controllers/OpenAIController');
 const GetAccessToken = require('../services/kommo/GetAccessToken');
 const GetAnswer = require('../services/kommo/GetAnswer');
 const GetMessageReceived = require('../services/kommo/GetMessageReceived');
-const SendLog = require('../services/kommo/SendLog');
-const SendMessage = require('../services/kommo/SendMessage');
+const styled = require('../utils/styledLog');
+const Communicator = require('../utils/Communicator');
+// const SendLog = require('../services/kommo/SendLog');
+// const SendMessage = require('../services/kommo/SendMessage');
 
 class Aquecimento {
   constructor() {
-    this.assistant = this.assistant.bind(this);
-    this.prompt = this.prompt.bind(this);
+    // this.assistant = this.assistant.bind(this);
+    // this.prompt = this.prompt.bind(this);
     this.aquecimento = this.aquecimento.bind(this);
     this.intencao = this.intencao.bind(this);
     this.nao_qualificado = this.nao_qualificado.bind(this);
   }
 
-  async assistant(req, res, data) {
-    let access_token;
-    try {
-      console.log('Enviando para o assistente GPT...');
-      access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
-      console.log('Mensagem enviada para o assistente:', data.text);
-      const { message } = await OpenAIController.generateMessage(data);
-      console.log('Resposta recebida do assistente:', message);
-      await SendMessage(req.body, true, message, access_token);
-      res.status(200).send({ message: 'Mensagem enviada com sucesso para o assistente', response: message });
-    } catch (error) {
-      console.log(`Erro ao enviar mensagem para o assistente: ${error.message}`);
-      await SendLog(req.body, `Erro ao enviar mensagem para o assistente: ${error.message}`, access_token);
-      res.status(500).send('Erro ao enviar mensagem para o assistente');
-    }
-  }
+  // async assistant(req, res, data) {
+  //   let access_token;
+  //   try {
+  //     console.log('Enviando para o assistente GPT...');
+  //     access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+  //     console.log('Mensagem enviada para o assistente:', data.text);
+  //     const { message } = await OpenAIController.generateMessage(data);
+  //     console.log('Resposta recebida do assistente:', message);
+  //     await SendMessage(req.body, true, message, access_token);
+  //     res.status(200).send({ message: 'Mensagem enviada com sucesso para o assistente', response: message });
+  //   } catch (error) {
+  //     console.log(`Erro ao enviar mensagem para o assistente: ${error.message}`);
+  //     await SendLog(req.body, `Erro ao enviar mensagem para o assistente: ${error.message}`, access_token);
+  //     res.status(500).send('Erro ao enviar mensagem para o assistente');
+  //   }
+  // }
 
-  async prompt(req, res, text) {
-    let access_token;
-    try {
-      console.log('Enviando prompt...');
-      access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
-      console.log('Mensagem enviada para o prompt:', text);
-      const { message } = await OpenAIController.promptMessage(text);
-      console.log('Resposta recebida do prompt:', message);
-      await SendMessage(req.body, false, message, access_token);
-      res.status(200).send({ message: 'Prompt enviado com sucesso', response: message });
-    } catch (error) {
-      console.log(`Erro ao enviar prompt: ${error.message}`);
-      await SendLog(req.body, `Erro ao enviar prompt: ${error.message}`, access_token);
-      res.status(500).send('Erro ao enviar prompt');
-    }
-  }
+  // async prompt(req, res, text) {
+  //   let access_token;
+  //   try {
+  //     console.log('Enviando prompt...');
+  //     access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+  //     console.log('Mensagem enviada para o prompt:', text);
+  //     const { message } = await OpenAIController.promptMessage(text);
+  //     console.log('Resposta recebida do prompt:', message);
+  //     await SendMessage(req.body, false, message, access_token);
+  //     res.status(200).send({ message: 'Prompt enviado com sucesso', response: message });
+  //   } catch (error) {
+  //     console.log(`Erro ao enviar prompt: ${error.message}`);
+  //     await SendLog(req.body, `Erro ao enviar prompt: ${error.message}`, access_token);
+  //     res.status(500).send('Erro ao enviar prompt');
+  //   }
+  // }
 
   async aquecimento(req, res) {
-    console.log('Assistant | BOT - Aquecimento | Aquecimento do Lead...');
+    styled.function('Assistant | BOT - Aquecimento | Aquecimento do Lead...');
     try {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const { lead_id: leadID } = req.body;
@@ -79,15 +81,15 @@ User message: '${message_received}'`;
         assistant_id,
       };
 
-      await this.assistant(req, res, data);
+      await Communicator.assistant(req, res, data);
     } catch (error) {
-      console.log(`Erro ao enviar mensagem para a assistente: ${error.message}`);
+      styled.error(`Erro ao enviar mensagem para a assistente: ${error.message}`);
       res.status(500).send('Erro ao enviar mensagem para a assistente');
     }
   }
 
   async intencao(req, res) {
-    console.log('Prompt | BOT - Aquecimento | Intenção...');
+    styled.function('Prompt | BOT - Aquecimento | Intenção...');
     try {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
 
@@ -138,15 +140,15 @@ Considere que você esteja analisando a intenção de uma frase digitada por um 
 #1mes: Para usuário que ainda não pretendem agendar agora, mas tem a intenção de agendar no futuro.
 
 Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra:" Exemplo: #Agendamento'`;
-      await this.prompt(req, res, text);
+      await Communicator.prompt(req, res, text);
     } catch (error) {
-      console.log(`Erro ao enviar prompt: ${error.message}`);
+      styled.error(`Erro ao enviar prompt: ${error.message}`);
       res.status(500).send('Erro ao enviar prompt');
     }
   }
 
   async nao_qualificado(req, res) {
-    console.log('Assistant | BOT - Aquecimento | Não Qualificado...');
+    styled.function('Assistant | BOT - Aquecimento | Não Qualificado...');
     try {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const message_received = await GetMessageReceived(req.body, access_token);
@@ -203,9 +205,9 @@ Inicie a conversa perguntando o seu nome para demonstrar proximidade, e na sequ�
         assistant_id,
       };
 
-      await this.assistant(req, res, data);
+      await Communicator.assistant(req, res, data);
     } catch (error) {
-      console.log(`Erro ao enviar mensagem para a assistente: ${error.message}`);
+      styled.error(`Erro ao enviar mensagem para a assistente: ${error.message}`);
       res.status(500).send('Erro ao enviar mensagem para a assistente');
     }
   }
