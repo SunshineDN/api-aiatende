@@ -64,16 +64,16 @@ class styled {
     let message = data.join(' ');
     const messageArray = message
       .split('\n')
-      .map(line => `${colors.blue}${line}${colors.reset}`)
+      .map(line => `${colors.cyan}${line}${colors.reset}`)
       .join('\n');
-    console.log(`${colors.bgBlue}${colors.white}${colors.bold}   \u{2139}   ${colors.reset}${colors.blue}${colors.bold} INFO: ${colors.reset}${messageArray}`);
+    console.log(`${colors.bgCyan}${colors.white}${colors.bold}   \u{2139}   ${colors.reset}${colors.cyan}${colors.bold} INFO: ${colors.reset}${messageArray}`);
   }
 
   static infodir(obj) {
     const jsonString = JSON.stringify(obj, null, 2);
     const styledJson = jsonString
       .split('\n')
-      .map(line => `${colors.blue}${line}${colors.reset}`)
+      .map(line => `${colors.cyan}${line}${colors.reset}`)
       .join('\n');
     console.log(styledJson);
   }
