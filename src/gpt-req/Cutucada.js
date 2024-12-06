@@ -104,7 +104,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
 
-      const text = `System message: Retorne uma mensagem para continuar conversando, sem ser sobre agendar, para o usuário sobre o assunto que estava ocorrendo nas últimas mensagens.`;
+      const text = 'System message: Retorne uma mensagem para continuar conversando, sem ser sobre agendar, para o usuário sobre o assunto que estava ocorrendo nas últimas mensagens.';
 
       const data = {
         leadID,

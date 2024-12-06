@@ -40,7 +40,7 @@ const SpeechToText = async (payload, access_token = null) => {
     };
     await Fill_Lead_Message(payload, last_message, access_token);
     const filled_message_received = message_received?.values[0]?.value?.split('\n') || [];
-    const unique_messages = [...new Set(filled_message_received)] || [];
+    const unique_messages = [...new Set(filled_message_received)];
     const message = `${unique_messages || ''}\n${transcription}`;
 
     let kommoData;

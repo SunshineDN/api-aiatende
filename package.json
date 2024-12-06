@@ -6,9 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "lint": "eslint .",
-    "docker-up": "docker-compose up -d --build",
-    "docker-d": "docker-compose down"
+    "lint": "eslint ."
   },
   "dependencies": {
     "axios": "^1.7.2",

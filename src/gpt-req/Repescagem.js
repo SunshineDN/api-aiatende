@@ -66,7 +66,7 @@ Gostaria de agendar uma consulta ou saber mais sobre nossas condições?
 Sim, quero agendar uma consulta.
 Gostaria de saber mais sobre as condições.
 Tenho uma dúvida. Aguardamos seu retorno!
-Atenciosamente, Gabriele"`
+Atenciosamente, Gabriele"`;
 
       const data = {
         leadID,
@@ -96,7 +96,7 @@ Gostaria de agendar uma consulta ou saber mais sobre nossas promoções?
 Sim, quero agendar uma consulta.
 Gostaria de saber mais sobre as promoções.
 Tenho uma dúvida. Aguardamos seu retorno!
-Atenciosamente, Gabriele"`
+Atenciosamente, Gabriele"`;
 
       const data = {
         leadID,

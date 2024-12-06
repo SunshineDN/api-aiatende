@@ -62,6 +62,11 @@ class styled {
     console.log(styledJson);
   }
 
+  static function(...data) {
+    let message = data.join(' ');
+    console.log(`${colors.orange}${colors.bold} FUNCTION: ${message} ${colors.reset}`);
+  }
+
   static bgBlack(...data) {
     let message = data.join(' ');
     console.log(colors.bgBlack + message + colors.reset);
