@@ -84,9 +84,9 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
     startDateTime.setHours(startDateTime.getHours() + 3);
     let endDateTime = new Date(startDateTime);
     endDateTime.setMinutes(endDateTime.getMinutes() + 30);
-    styled.indo('summary:', summary);
-    styled.indo('startDateTime:', startDateTime);
-    styled.indo('endDateTime:', endDateTime);
+    styled.info('summary:', summary);
+    styled.info('startDateTime:', startDateTime);
+    styled.info('endDateTime:', endDateTime);
 
     const schedule_date_hour_to_ms = startDateTime.getTime();
     const schedule_date_in_ms = Math.round(schedule_date_hour_to_ms / 1000);

@@ -7,11 +7,10 @@ const PromptC = require('../gpt-req/PromptC');
 const AssistantC = require('../gpt-req/AssistantC');
 const PromptD = require('../gpt-req/PromptD');
 const AssistantD = require('../gpt-req/AssistantD');
-const PromptE = require('../gpt-req/PromptE');
-const AssistantE = require('../gpt-req/AssistantE');
+const PostScheduling = require('../gpt-req/PostScheduling');
 const Agendamento = require('../gpt-req/Agendamento');
 const Recepcao = require('../gpt-req/Recepcao');
-const Aquecimento = require('../gpt-req/Aquecimento');
+const Qualificado = require('../gpt-req/Qualificado');
 const Cutucada = require('../gpt-req/Cutucada');
 const EsteiraConfirm = require('../gpt-req/EsteiraConfirm');
 const Repescagem = require('../gpt-req/Repescagem');
@@ -66,17 +65,17 @@ router.post('/assistant/:assistant_id/d_verificar_datas', AssistantD.d_verificar
 
 router.post('/assistant/:assistant_id/d_confirmacao', AssistantD.d_confirmacao);
 
-// BOT E
+// BOT PÓS AGENDAMENTO
 
-router.post('/prompt/e_identificar_confirmacao', PromptE.identificar_confirmacao);
+router.post('/prompt/post-scheduling/analyze-intent', PostScheduling.analyzeIntent);
 
-router.post('/prompt/e_intencao_faltosos', PromptE.faltosos);
+router.post('/prompt/post-scheduling/interpret-no-show', PostScheduling.interpretNoShowResponse);
 
-router.post('/assistant/:assistant_id/e_confirmacao_vinda', AssistantE.confirmacao_vinda);
+router.post('/assistant/:assistant_id/post-scheduling/confirm-attendance', PostScheduling.confirmAttendance);
 
-router.post('/assistant/:assistant_id/e_reagendamento', AssistantE.reagendamento);
+router.post('/assistant/:assistant_id/post-scheduling/initial-rescheduling', PostScheduling.initiateRescheduling);
 
-router.post('/assistant/:assistant_id/e_faltosos', AssistantE.faltosos);
+router.post('/assistant/:assistant_id/post-scheduling/notify-no-show', PostScheduling.notifyNoShow);
 
 // BOT AGENDAMENTO
 
@@ -98,13 +97,13 @@ router.post('/assistant/:assistant_id/recepcao/indefinido', Recepcao.indefinido)
 
 router.post('/assistant/:assistant_id/recepcao/nao_qualificado', Recepcao.nao_qualificado);
 
-// BOT AQUECIMENTO
+// BOT QUALIFICADO
 
-router.post('/assistant/:assistant_id/aquecimento/lead', Aquecimento.aquecimento);
+router.post('/assistant/:assistant_id/qualificado/lead', Qualificado.qualificado);
 
-router.post('/prompt/aquecimento/intencao', Aquecimento.intencao);
+router.post('/prompt/qualificado/intencao', Qualificado.intencao);
 
-router.post('/assistant/:assistant_id/aquecimento/nao_qualificado', Aquecimento.nao_qualificado);
+router.post('/assistant/:assistant_id/qualificado/nao_qualificado', Qualificado.nao_qualificado);
 
 // BOT CUTUCADA
 
