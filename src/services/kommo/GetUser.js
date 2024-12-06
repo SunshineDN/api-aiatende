@@ -1,7 +1,7 @@
 const axios = require('axios');
 const GetAccessToken = require('./GetAccessToken');
 const HandlingError = require('./HandlingError');
-const styled = require('../../utils/styledLog');
+const styled = require('../../utils/log/styledLog');
 
 const GetUser = async (payload, with_contact = false, access_token = null) => {
   // console.log('Função GetUser');

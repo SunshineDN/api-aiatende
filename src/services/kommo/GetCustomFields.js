@@ -1,7 +1,7 @@
 const axios = require('axios');
 const GetAccessToken = require('./GetAccessToken');
 const HandlingError = require('./HandlingError');
-const styled = require('../../utils/styledLog');
+const styled = require('../../utils/log/styledLog');
 
 const GetCustomFields = async (payload, access_token = null) => {
   // console.log('Função GetCustomFields!');

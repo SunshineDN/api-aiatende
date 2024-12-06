@@ -4,7 +4,7 @@ const GetAccessToken = require('../kommo/GetAccessToken');
 const GetUser = require('../kommo/GetUser');
 const UpdateLead = require('../kommo/UpdateLead');
 const OpenAIController = require('../../controllers/OpenAIController');
-const styled = require('../../utils/styledLog');
+const styled = require('../../utils/log/styledLog');
 // const TextToSpeech = require('./TextToSpeech');
 
 const GetGptAssistantMessage = async (payload, assistant_id, access_token = null) => {

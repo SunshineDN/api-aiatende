@@ -9,21 +9,21 @@ const accountRouter = require('./src/routes/account');
 const sequelize = require('./src/config/database');
 const calendarRouter = require('./src/routes/calendar');
 const calendarWebRouter = require('./src/routes/react-calendar-form');
-const styled = require('./src/utils/styledLog');
+const styled = require('./src/utils/log/styledLog');
 
 const app = express();
 
 app.use(cors());
 app.use('/lead', leadRouter);
+app.use('/calendar', calendarRouter);
+app.use('/account', accountRouter);
 app.use('/gpt/v1', gptRouter);
 app.use('/gpt/v2', messagesRouter);
-app.use('/calendar', calendarRouter);
 app.use('/web/calendar', calendarWebRouter);
-app.use('/account', accountRouter);
 
-// app.use((req, res) => {
-//   res.status(404).json({error: 'Endpoint não encontrado!'});
-// });
+app.use((req, res) => {
+  res.status(404).json({error: 'Endpoint não encontrado!'});
+});
 
 app.listen(PORT, async () => {
   styled.info('Servidor rodando na porta: ' + PORT);

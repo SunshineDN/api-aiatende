@@ -1,6 +1,6 @@
 const axios = require('axios');
 const fs = require('fs');
-const styled = require('../../utils/styledLog');
+const styled = require('../../utils/log/styledLog');
 
 const downloadAudio = async (file) => {
   const response = await axios.get(file.url, {

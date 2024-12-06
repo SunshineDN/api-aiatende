@@ -6,7 +6,7 @@ const LeadThread = require('../models/LeadThread');
 const { Op } = require('sequelize');
 const transcribeAudio = require('../services/gpt/TranscribeAudio');
 const getFileNameFromUrl = require('../utils/GetNameExtension');
-const styled = require('../utils/styledLog');
+const styled = require('../utils/log/styledLog');
 
 const openai = new OpenAI(process.env.OPENAI_API_KEY);
 

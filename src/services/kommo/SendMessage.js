@@ -1,5 +1,5 @@
 // const TextToSpeech = require('../gpt/TextToSpeech');
-const styled = require('../../utils/styledLog');
+const styled = require('../../utils/log/styledLog');
 const GetCustomFields = require('./GetCustomFields');
 // const GetUser = require('./GetUser');
 const UpdateLead = require('./UpdateLead');

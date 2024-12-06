@@ -1,7 +1,7 @@
 const axios = require('axios');
 const GetCustomFields = require('./GetCustomFields');
 const GetContactCustomFields = require('./GetContactCustomFields');
-const styled = require('../../utils/styledLog');
+const styled = require('../../utils/log/styledLog');
 
 const LeadQuery = async (body, data, access_token) => {
   const subdomain = body.account.subdomain;

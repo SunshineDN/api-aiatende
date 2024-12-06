@@ -6,7 +6,7 @@ const UpdateLead = require('../kommo/UpdateLead');
 const OpenAIController = require('../../controllers/OpenAIController');
 const HandlingError = require('../kommo/HandlingError');
 const Fill_Lead_Message = require('./Fill_Lead_Message');
-const styled = require('../../utils/styledLog');
+const styled = require('../../utils/log/styledLog');
 
 const SpeechToText = async (payload, access_token = null) => {
   // console.log('Função SpeechToText');

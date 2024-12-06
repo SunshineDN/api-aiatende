@@ -1,7 +1,7 @@
-const OpenAIController = require('../controllers/OpenAIController');
-const SendLog = require('../services/kommo/SendLog');
-const SendMessage = require('../services/kommo/SendMessage');
-const styled = require('./styledLog');
+const OpenAIController = require('../../controllers/OpenAIController');
+const SendLog = require('../../services/kommo/SendLog');
+const SendMessage = require('../../services/kommo/SendMessage');
+const styled = require('../log/styledLog');
 
 class Communicator {
   static async assistant(req, res, data) {

@@ -2,7 +2,7 @@ const GetCustomFields = require('./GetCustomFields');
 const UpdateLead = require('./UpdateLead');
 const GetAccessToken = require('./GetAccessToken');
 const HandlingError = require('./HandlingError');
-const styled = require('../../utils/styledLog');
+const styled = require('../../utils/log/styledLog');
 
 const SendLog = async (payload, message, access_token = null) => {
   try {

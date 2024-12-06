@@ -1,6 +1,6 @@
 const axios = require('axios');
 const HandlingError = require('./HandlingError');
-const styled = require('../../utils/styledLog');
+const styled = require('../../utils/log/styledLog');
 
 const UpdateContact = async (payload, contact_id, data, access_token = null) => {
   // console.log('Função UpdateContact');

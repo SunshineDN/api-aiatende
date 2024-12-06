@@ -1,4 +1,4 @@
-const styled = require('../../utils/styledLog');
+const styled = require('../../utils/log/styledLog');
 const GetAccessToken = require('../kommo/GetAccessToken');
 const GetCustomFields = require('../kommo/GetCustomFields');
 const GetUser = require('../kommo/GetUser');

@@ -1,4 +1,4 @@
-const styled = require('../../utils/styledLog');
+const styled = require('../../utils/log/styledLog');
 const GetAccessToken = require('./GetAccessToken');
 const GetCustomFields = require('./GetCustomFields');
 const UpdateLead = require('./UpdateLead');

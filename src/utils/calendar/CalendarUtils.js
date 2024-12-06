@@ -1,11 +1,8 @@
 const { google } = require('googleapis');
 const AuthCalendar = require('./AuthCalendar');
-const styled = require('./styledLog');
-// const AvailableSlots = require('../utils/AvailableSlots');
-// const serviceAccount = require('../config/serviceAccount.json');
+const styled = require('../log/styledLog');
 
 class CalendarUtils {
-
   constructor(account_id) {
     this.authorization = AuthCalendar.authenticate(account_id);
   };
@@ -155,59 +152,6 @@ class CalendarUtils {
   };
 
   async listAvailableDate(calendarId) {
-    // console.log('Id: ', calendarId);
-    // const calendar_return = new Promise((resolve, reject) => {
-    //   this.authorization.authorize((err) => {
-    //     if (err) {
-    //       console.error('Erro na autenticação:', err);
-    //       reject('Erro na autenticação');
-    //     }
-    //     const calendar = google.calendar({ version: 'v3', auth: this.authorization });
-    //     calendar.events.list(
-    //       {
-    //         calendarId: calendarId,
-    //         timeMin: new Date().toISOString(),
-    //         maxResults: 600,
-    //         singleEvents: true,
-    //         orderBy: 'startTime',
-    //         eventTypes: 'outOfOffice',
-    //       },
-    //       (err, result) => {
-    //         if (err) {
-    //           console.error('Erro ao listar eventos do calendário:', err);
-    //           reject(new Error('Erro ao listar eventos do calendário', err));
-    //         }
-    //         const events = result?.data?.items;
-    //         let res = [];
-    //         if (events?.length) {
-    //           events.map ((event) => {
-    //             let startDate = new Date(event.start.dateTime).toLocaleString(
-    //               'pt-BR',
-    //               { timeZone: 'America/Sao_Paulo' }
-    //             );
-    //             let startDateSplit = startDate.split(', ');
-    //             startDate = startDateSplit[1].substring(0,5);
-
-    //             let endDate = new Date(event.end.dateTime).toLocaleString(
-    //               'pt-BR',
-    //               { timeZone: 'America/Sao_Paulo' }
-    //             );
-    //             let endDateSplit = endDate.split(', ');                
-    //             endDate = endDateSplit[1].substring(0,5);
-
-    //             res.push({'Data': endDateSplit[0] , 'Horario': `${startDate} - ${endDate}`});
-
-    //           });
-    //           resolve( res ); 
-    //         } else {
-    //           reject(new Error('Eventos não encontrados.'));
-    //         }
-    //       }
-    //     );
-    //     console.log('Eventos listados com sucesso!');
-    //   });
-    // });
-    // return await calendar_return;
     const calendar_return = new Promise((resolve, reject) => {
       this.authorization.authorize((err) => {
         if (err) {

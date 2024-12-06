@@ -2,8 +2,8 @@ const GetAccessToken = require('../services/kommo/GetAccessToken');
 const GetAnswer = require('../services/kommo/GetAnswer');
 const GetMessageReceived = require('../services/kommo/GetMessageReceived');
 const GetUser = require('../services/kommo/GetUser');
-const Communicator = require('../utils/Communicator');
-const styled = require('../utils/styledLog');
+const Communicator = require('../utils/assistant-prompt/Communicator');
+const styled = require('../utils/log/styledLog');
 
 class PostScheduling {
   static async notifyNoShow(req, res) {

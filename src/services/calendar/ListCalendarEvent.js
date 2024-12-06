@@ -1,66 +1,11 @@
-// const AuthCalendar = require('../../utils/AuthCalendar');
 // const { google } = require('googleapis');
-const CalendarIdValidate = require('../../utils/CalendarIdValidate');
+const CalendarIdValidate = require('../../utils/calendar/CalendarIdValidate');
 const GetCustomFields = require('../kommo/GetCustomFields');
 const UpdateLead = require('../kommo/UpdateLead');
 const HandlingError = require('../kommo/HandlingError');
 const GetUser = require('../kommo/GetUser');
-const CalendarUtils = require('../../utils/CalendarUtils');
-const styled = require('../../utils/styledLog');
-
-// async function Calendar(calendarId) {
-//   const auth = AuthCalendar.authenticate();
-//   const calendar_return = new Promise((resolve, reject) => {
-//     auth.authorize((err) => {
-//       if (err) {
-//         console.error('Erro na autenticação:', err);
-//         reject('Erro na autenticação');
-//       }
-//       const calendar = google.calendar({ version: 'v3', auth });
-//       calendar.events.list(
-//         {
-//           calendarId: calendarId,
-//           timeMin: new Date().toISOString(),
-//           maxResults: 50,
-//           singleEvents: true,
-//           orderBy: 'startTime',
-//         },
-//         (err, result) => {
-//           if (err) {
-//             console.error('Erro ao listar eventos do calendário:', err);
-//             reject('Erro ao listar eventos do calendário');
-//           }
-//           const events = result.data.items;
-//           if (events.length) {
-//             let string = '';
-//             string += 'Eventos encontrados:\n';
-//             events.map((event) => {
-//               const start = new Date(event.start.dateTime).toLocaleString(
-//                 'pt-BR',
-//                 { timeZone: 'America/Sao_Paulo' }
-//               );
-//               string += `${start} - ${event.summary}\n`;
-//               // Calculo para pegar a duracao do evento
-//               const startDate = new Date(event.start.dateTime);
-//               const endDate = new Date(event.end.dateTime);
-//               let duration = (endDate - startDate) / 60000;
-//               if (duration >= 60) {
-//                 duration = `${Math.floor(duration / 60)}h${duration % 60}m`;
-//               }
-//               string += `Duração: ${duration} minutos\n\n`;
-//             });
-//             console.log(string);
-//             resolve(string);
-//           } else {
-//             resolve('Eventos não encontrados.');
-//           }
-//         }
-//       );
-//       console.log('Eventos listados com sucesso!');
-//     });
-//   });
-//   return await calendar_return;
-// }
+const CalendarUtils = require('../../utils/calendar/CalendarUtils');
+const styled = require('../../utils/log/styledLog');
 
 const ListCalendarEvent = async (payload, access_token = null) => {
   let eventData, custom_fields, filledDates, user, nameDoctor;

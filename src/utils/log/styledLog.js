@@ -1,6 +1,6 @@
 const colors = require('./colors');
 
-class styled {
+class styledLog {
   static log(color, ...data) {
     let message = data.join(' ');
     console.log(colors[color] + message + colors.reset);
@@ -229,4 +229,4 @@ class styled {
   }
 };
 
-module.exports = styled;
+module.exports = styledLog;
