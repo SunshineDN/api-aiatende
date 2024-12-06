@@ -7,8 +7,8 @@ const GetUser = require('../services/kommo/GetUser');
 const SendLog = require('../services/kommo/SendLog');
 const SendMessage = require('../services/kommo/SendMessage');
 const SetActualDateHour = require('../services/kommo/SetActualDateHour');
-const CalendarIdValidate = require('../utils/CalendarIdValidate');
-const CalendarUtils = require('../utils/CalendarUtils');
+const CalendarIdValidate = require('../utils/calendar/CalendarIdValidate');
+const CalendarUtils = require('../utils/calendar/CalendarUtils');
 
 
 class PromptD {

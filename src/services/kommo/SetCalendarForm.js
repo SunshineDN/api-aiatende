@@ -1,8 +1,8 @@
 const updateLead = require('./UpdateLead');
 const getCustomFields = require('./GetCustomFields');
 const HandlingError = require('./HandlingError');
-const EncryptId = require('../../utils/EncryptId');
-const styled = require('../../utils/styledLog');
+const encryptId = require('../../utils/crypt/EncryptId');
+const styled = require('../../utils/log/styledLog');
 
 const SetCalendarFormService = async (payload, access_token) => {
   try {
@@ -17,7 +17,7 @@ const SetCalendarFormService = async (payload, access_token) => {
           'field_id': calendar_form?.id,
           'values': [
             {
-              'value': 'https://formulariotest.com/' + EncryptId(payload?.lead_id),
+              'value': 'https://formulariotest.com/' + encryptId(payload?.lead_id),
             }
           ]
         }

@@ -1,7 +1,7 @@
 const axios = require('axios');
 const GetAccessToken = require('./GetAccessToken');
 const HandlingError = require('./HandlingError');
-const styled = require('../../utils/styledLog');
+const styled = require('../../utils/log/styledLog');
 
 const UpdateLead = async (payload, data, access_token = null) => {
   // console.log('Função UpdateLead');

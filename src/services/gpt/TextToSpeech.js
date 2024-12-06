@@ -5,7 +5,7 @@ const GetAccessToken = require('../kommo/GetAccessToken');
 const UpdateLead = require('../kommo/UpdateLead');
 const OpenAIController = require('../../controllers/OpenAIController');
 const HandlingError = require('../kommo/HandlingError');
-const styled = require('../../utils/styledLog');
+const styled = require('../../utils/log/styledLog');
 
 const TextToSpeech = async (payload, text, access_token = null) => {
   // console.log('Função TextToSpeech');

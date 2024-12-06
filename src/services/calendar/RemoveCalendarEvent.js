@@ -1,12 +1,10 @@
-// const { google } = require('googleapis');
-// const AuthCalendar = require('../../utils/AuthCalendar');
-const CalendarIdValidate = require('../../utils/CalendarIdValidate');
+const CalendarIdValidate = require('../../utils/calendar/CalendarIdValidate');
 const GetCustomFields = require('../kommo/GetCustomFields');
 const UpdateLead = require('../kommo/UpdateLead');
 const HandlingError = require('../kommo/HandlingError');
 const GetUser = require('../kommo/GetUser');
-const CalendarUtils = require('../../utils/CalendarUtils');
-const styled = require('../../utils/styledLog');
+const CalendarUtils = require('../../utils/calendar/CalendarUtils');
+const styled = require('../../utils/log/styledLog');
 
 const RemoveCalendarEvent = async (payload, access_token = null) => {
   try {

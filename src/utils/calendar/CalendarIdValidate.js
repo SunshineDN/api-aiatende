@@ -1,5 +1,5 @@
-const CalendarId = require('../config/calendarId');
-const styled = require('./styledLog');
+const CalendarId = require('../../config/calendarId');
+const styled = require('../log/styledLog');
 
 const CalendarIdValidate = (condition = null, account_id) => {
   styled.info('Account ID (CalendarIdValidate): ', account_id);

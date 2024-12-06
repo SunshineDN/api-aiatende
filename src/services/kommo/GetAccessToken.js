@@ -1,4 +1,4 @@
-const styled = require('../../utils/styledLog');
+const styled = require('../../utils/log/styledLog');
 
 require('dotenv').config();
 // const axios = require('axios');

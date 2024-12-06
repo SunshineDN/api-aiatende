@@ -1,41 +1,11 @@
-// const { google } = require('googleapis');
-// const AuthCalendar = require('../../utils/AuthCalendar');
 const { parse } = require('date-fns');
-const CalendarIdValidate = require('../../utils/CalendarIdValidate');
+const CalendarIdValidate = require('../../utils/calendar/CalendarIdValidate');
 const GetCustomFields = require('../kommo/GetCustomFields');
 const UpdateLead = require('../kommo/UpdateLead');
 const HandlingError = require('../kommo/HandlingError');
 const GetUser = require('../kommo/GetUser');
-const CalendarUtils = require('../../utils/CalendarUtils');
-const styled = require('../../utils/styledLog');
-
-// const Calendar = async (calendarId, resource)  => {
-//   const auth = AuthCalendar.authenticate();
-//   const register = new Promise((resolve, reject) => {
-//     auth.authorize((err) => {
-//       if (err) {
-//         console.error('Erro na autenticação:', err);
-//         reject(new Error(err));
-//       }
-//       const calendar = google.calendar({ version: 'v3', auth });
-//       calendar.events.insert(
-//         {
-//           calendarId,
-//           resource,
-//         },
-//         (err, result) => {
-//           if (err) {
-//             console.error('Erro ao adicionar evento:', err);
-//             reject(new Error(err));
-//           }
-//           console.log('Evento adicionado:', result.data.htmlLink);
-//           resolve(result.data);
-//         }
-//       );
-//     });
-//   });
-//   return await register;
-// };
+const CalendarUtils = require('../../utils/calendar/CalendarUtils');
+const styled = require('../../utils/log/styledLog');
 
 const RegisterCalendarEvent = async (payload, access_token = null) => {
   const CalendarUtilsClass = new CalendarUtils(payload?.account?.id);

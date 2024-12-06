@@ -1,6 +1,6 @@
  
 const FormatTelephone = require('../../utils/FormatTelephone');
-const styled = require('../../utils/styledLog');
+const styled = require('../../utils/log/styledLog');
 const GetContactCustomFields = require('./GetContactCustomFields');
 const GetUser = require('./GetUser');
 const HandlingError = require('./HandlingError');

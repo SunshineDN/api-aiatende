@@ -1,4 +1,4 @@
-const styled = require('../utils/styledLog');
+const styled = require('../utils/log/styledLog');
 
 function subdividirPropriedades(obj) {
   const newObj = {};

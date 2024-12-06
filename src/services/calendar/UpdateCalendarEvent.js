@@ -1,12 +1,9 @@
-// const AuthCalendar = require('../../utils/AuthCalendar');
-// const { google } = require('googleapis');
-// const CalendarIdValidate = require('../../utils/CalendarIdValidate');
 const { parse } = require('date-fns');
 const HandlingError = require('../kommo/HandlingError');
 const GetUser = require('../kommo/GetUser');
-const CalendarUtils = require('../../utils/CalendarUtils');
-const CalendarIdValidate = require('../../utils/CalendarIdValidate');
-const styled = require('../../utils/styledLog');
+const CalendarUtils = require('../../utils/calendar/CalendarUtils');
+const CalendarIdValidate = require('../../utils/calendar/CalendarIdValidate');
+const styled = require('../../utils/log/styledLog');
 
 const UpdateCalendarEvent = async (payload, access_token = null) => {
   let eventData, nameDoctor;

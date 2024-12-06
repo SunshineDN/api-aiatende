@@ -4,7 +4,7 @@ const UpdateLead = require('../kommo/UpdateLead');
 const GetAccessToken = require('../kommo/GetAccessToken');
 const GetUser = require('../kommo/GetUser');
 const OpenAIController = require('../../controllers/OpenAIController');
-const styled = require('../../utils/styledLog');
+const styled = require('../../utils/log/styledLog');
 
 const GetGptPromptMessage = async (payload, access_token = null) => {
   styled.info('Função GetGptPromptMessage');

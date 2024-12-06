@@ -4,7 +4,7 @@ const GetCustomFields = require('./GetCustomFields');
 const GetUser = require('./GetUser');
 const HandlingError = require('./HandlingError');
 const UpdateLead = require('./UpdateLead');
-const styled = require('../../utils/styledLog');
+const styled = require('../../utils/log/styledLog');
 
 const SplitSchedulingFields = async (payload, access_token = null) => {
   // REQUISICAO PARA O KOMMO

@@ -1,6 +1,6 @@
 require('dotenv').config();
 const crypto = require('crypto');
-const styled = require('./styledLog');
+const styled = require('../log/styledLog');
 
 const EncryptId = (id) => {
   try {
