@@ -8,63 +8,85 @@ class styled {
 
   static error(...data) {
     let message = data.join(' ');
-    console.log(`${colors.bgRed}${colors.white}${colors.bold}   \u{2716}   ${colors.reset}${colors.red}${colors.bold} ERROR: ${message} ${colors.reset}`);
+    const messageArray = message
+      .split('\n')
+      .map(line => `${colors.red}${line}${colors.reset}`)
+      .join('\n');
+    console.log(`${colors.bgRed}${colors.white}${colors.bold}   \u{2716}   ${colors.reset}${colors.red}${colors.bold} ERROR: ${colors.reset}${messageArray}`);
   }
 
   static errordir(obj) {
     const jsonString = JSON.stringify(obj, null, 2);
     const styledJson = jsonString
       .split('\n')
-      .map(line => `${colors.red}${colors.bold}${line}${colors.reset}`)
+      .map(line => `${colors.red}${line}${colors.reset}`)
       .join('\n');
     console.log(styledJson);
   }
 
   static success(...data) {
     let message = data.join(' ');
-    console.log(`${colors.bgGreen}${colors.white}${colors.bold}   \u{2714}   ${colors.reset}${colors.green}${colors.bold} SUCCESS: ${message} ${colors.reset}`);
+    const messageArray = message
+      .split('\n')
+      .map(line => `${colors.green}${line}${colors.reset}`)
+      .join('\n');
+    console.log(`${colors.bgGreen}${colors.white}${colors.bold}   \u{2714}   ${colors.reset}${colors.green}${colors.bold} SUCCESS: ${colors.reset}${messageArray}`);
   }
 
   static successdir(obj) {
     const jsonString = JSON.stringify(obj, null, 2);
     const styledJson = jsonString
       .split('\n')
-      .map(line => `${colors.green}${colors.bold}${line}${colors.reset}`)
+      .map(line => `${colors.green}${line}${colors.reset}`)
       .join('\n');
     console.log(styledJson);
   }
 
   static warning(...data) {
     let message = data.join(' ');
-    console.log(`${colors.bgYellow}${colors.white}${colors.bold}   \u{26A0}   ${colors.reset}${colors.yellow}${colors.bold} WARNING: ${message} ${colors.reset}`);
+    const messageArray = message
+      .split('\n')
+      .map(line => `${colors.yellow}${line}${colors.reset}`)
+      .join('\n');
+    console.log(`${colors.bgYellow}${colors.white}${colors.bold}   \u{26A0}   ${colors.reset}${colors.yellow}${colors.bold} WARNING: ${colors.reset}${messageArray}`);
   }
 
   static warningdir(obj) {
     const jsonString = JSON.stringify(obj, null, 2);
     const styledJson = jsonString
       .split('\n')
-      .map(line => `${colors.yellow}${colors.bold}${line}${colors.reset}`)
+      .map(line => `${colors.yellow}${line}${colors.reset}`)
       .join('\n');
     console.log(styledJson);
   }
 
   static info(...data) {
     let message = data.join(' ');
-    console.log(`${colors.bgBlue}${colors.white}${colors.bold}   \u{2139}   ${colors.reset}${colors.blue}${colors.bold} INFO: ${message} ${colors.reset}`);
+    const messageArray = message
+      .split('\n')
+      .map(line => `${colors.blue}${line}${colors.reset}`)
+      .join('\n');
+    console.log(`${colors.bgBlue}${colors.white}${colors.bold}   \u{2139}   ${colors.reset}${colors.blue}${colors.bold} INFO: ${colors.reset}${messageArray}`);
   }
 
   static infodir(obj) {
     const jsonString = JSON.stringify(obj, null, 2);
     const styledJson = jsonString
       .split('\n')
-      .map(line => `${colors.blue}${colors.bold}${line}${colors.reset}`)
+      .map(line => `${colors.blue}${line}${colors.reset}`)
       .join('\n');
     console.log(styledJson);
   }
 
+  // Console log for function entrance
   static function(...data) {
     let message = data.join(' ');
-    console.log(`${colors.orange}${colors.bold} FUNCTION: ${message} ${colors.reset}`);
+    // console.log(`${colors.orange}${colors.bold} FUNCTION: ${message} ${colors.reset}`);
+    const messageArray = message
+      .split('\n')
+      .map(line => `${colors.orange}${line}${colors.reset}`)
+      .join('\n');
+    console.log(`${colors.orange}${colors.bold}FUNCTION: ${colors.reset}${messageArray}`);
   }
 
   static bgBlack(...data) {
