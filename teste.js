@@ -211,7 +211,16 @@ const styled = require('./src/utils/log/styledLog');
 
 // styled.errordir(teste.soma());
 
-console.log(BrazilianDate.getLocalDate());
-console.log(BrazilianDate.getLocalTime());
-console.log(BrazilianDate.getLocalDateTime());
-console.log(BrazilianDate.getLocalWeekDay());
+// console.log(BrazilianDate.getLocalDate());
+// console.log(BrazilianDate.getLocalTime());
+// console.log(BrazilianDate.getLocalDateTime());
+// console.log(BrazilianDate.getLocalWeekDay());
+
+const user = {
+  name: 'Douglas Augusto Cabral da Silva',
+  email: 'example@teste.com',
+  phone: '+558196724310',
+};
+
+styled.function('Erro ao criar / atualizar lead via agendamento por VOZ: Dados obrigatórios não informados');
+styled.middlewaredir(user);
