@@ -3,7 +3,7 @@ const GetAccessToken = require('./GetAccessToken');
 const GetCustomFields = require('./GetCustomFields');
 const UpdateLead = require('./UpdateLead');
 
-const HandlingError = async (payload, access_token = null, error) => {
+const HandlingError = async (payload, access_token = null, error = '') => {
   // console.log('Função HandlingError');
   try {
     if (!access_token) {

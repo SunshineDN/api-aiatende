@@ -3,27 +3,45 @@ const fs = require('fs');
 const styled = require('../../utils/log/styledLog');
 
 const downloadAudio = async (file) => {
-  const response = await axios.get(file.url, {
-    responseType: 'stream'
-  });
+  try {
+    const response = await axios.get(file.url, {
+      responseType: 'stream'
+    });
 
-  const writer = fs.createWriteStream(`./public/files/${file.name}.${file.extension}`);
-  response.data.pipe(writer);
+    const filePath = `./public/files/${file.name}.${file.extension}`;
+    const writer = fs.createWriteStream(filePath);
+    response.data.pipe(writer);
 
-  return new Promise((resolve, reject) => {
-    writer.on('finish', resolve);
-    writer.on('error', reject);
-  });
+    return new Promise((resolve, reject) => {
+      writer.on('finish', () => {
+        styled.success(`Arquivo baixado com sucesso: ${filePath}`);
+        resolve(filePath);
+      });
+      writer.on('error', (err) => {
+        styled.error('Erro ao gravar o arquivo:', err);
+        reject(err);
+      });
+    });
+  } catch (error) {
+    styled.error('Erro ao fazer download do arquivo:', error);
+    throw new Error(`Falha no download do áudio: ${error.message}`);
+  }
 };
 
 const deleteTempFile = async (file) => {
-  fs.unlinkSync(`./public/files/${file.name}.${file.extension}`, (err) => {
-    if (err) {
-      styled.error(err);
+  try {
+    const filePath = `./public/files/${file.name}.${file.extension}`;
+    if (!fs.existsSync(filePath)) {
+      styled.warning(`Arquivo não encontrado para exclusão: ${filePath}`);
+      return;
     } else {
-      styled.info('Temporary file deleted');
+      fs.unlinkSync(filePath);
+      styled.success(`Arquivo temporário deletado: ${filePath}`);
     }
-  });
+  } catch (error) {
+    styled.error('Erro ao deletar o arquivo temporário:', error);
+    throw new Error(`Erro ao deletar o arquivo temporário: ${error.message}`);
+  }
 };
 
 module.exports = {

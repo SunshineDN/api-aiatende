@@ -17,6 +17,7 @@
 //   }
 // ];
 
+const BrazilianDate = require('./src/utils/BrazilianDate');
 const styled = require('./src/utils/log/styledLog');
 
 // const fatherFieldValues = 'Teste1;teste2;teste3;teste4;teste5';
@@ -189,24 +190,37 @@ const styled = require('./src/utils/log/styledLog');
 // }
 
 
-class Teste {
-  static sum(a, b) {
-    return a + b;
-  }
-}
+// class Teste {
+//   static sum(a, b) {
+//     return a + b;
+//   }
+// }
 
-class Teste2 {
-  constructor(a, b) {
-    this.a = a;
-    this.b = b;
-  }
+// class Teste2 {
+//   constructor(a, b) {
+//     this.a = a;
+//     this.b = b;
+//   }
 
-  soma() {
-    return Teste.sum(this.a, this.b);
-  }
-}
+//   soma() {
+//     return Teste.sum(this.a, this.b);
+//   }
+// }
 
-const teste = new Teste2(1, 2);
+// const teste = new Teste2(1, 2);
 
-styled.errordir(teste.soma());
+// styled.errordir(teste.soma());
 
+// console.log(BrazilianDate.getLocalDate());
+// console.log(BrazilianDate.getLocalTime());
+// console.log(BrazilianDate.getLocalDateTime());
+// console.log(BrazilianDate.getLocalWeekDay());
+
+const user = {
+  name: 'Douglas Augusto Cabral da Silva',
+  email: 'example@teste.com',
+  phone: '+558196724310',
+};
+
+styled.function('Erro ao criar / atualizar lead via agendamento por VOZ: Dados obrigatórios não informados');
+styled.middlewaredir(user);
