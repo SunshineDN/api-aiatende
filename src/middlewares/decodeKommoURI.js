@@ -137,6 +137,7 @@ module.exports = (req, res, next) => {
   } else {
     decoded = decodeLeadURI(req.body);
   }
+  styled.middleware('Request Lead ID:', decoded.lead_id);
   // console.log('Decoded: ', decoded);
   req.body = decoded;
   next();
