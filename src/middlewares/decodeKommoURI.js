@@ -120,6 +120,8 @@ const decodeAccoutUri = (uri) => {
 
 module.exports = (req, res, next) => {
   styled.middleware('Request method: ', req.method);
+  styled.middleware('Request URL: ', req.originalUrl);
+  styled.middleware('Request body: ', req.body);
   if (req.method === 'GET') {
     return next();
   }
@@ -130,7 +132,6 @@ module.exports = (req, res, next) => {
   }
 
   let decoded;
-  styled.middleware('Request body: ', req.body);
   if (req.body?.startsWith('account')) {
     decoded = decodeAccoutUri(req.body);
   } else {
