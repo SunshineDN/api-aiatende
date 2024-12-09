@@ -5,7 +5,7 @@ const GetUser = require('../kommo/GetUser');
 const UpdateLead = require('../kommo/UpdateLead');
 
 const Fill_Lead_Message = async (payload, message_obj, access_token = null) => {
-  styled.info('Função Fill_Lead_Message');
+  styled.function('Função Fill_Lead_Message');
   let lastMessages, message, str,log;
   try {
     if (!access_token) {
