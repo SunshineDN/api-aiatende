@@ -1,14 +1,13 @@
 require('dotenv').config();
-// const OpenAIController = require('../controllers/OpenAIController');
 const GetAccessToken = require('../services/kommo/GetAccessToken');
 const GetAnswer = require('../services/kommo/GetAnswer');
 const GetMessageReceived = require('../services/kommo/GetMessageReceived');
 const styled = require('../utils/log/styledLog');
 const Communicator = require('../utils/assistant-prompt/Communicator');
-// const SendLog = require('../services/kommo/SendLog');
-// const SendMessage = require('../services/kommo/SendMessage');
 
 class Qualificado {
+
+  //Assistente
   static async qualificado(req, res) {
     styled.function('Assistant | BOT - Qualificado...');
     try {
@@ -46,6 +45,7 @@ User message: '${message_received}'`;
     }
   }
 
+  //Prompt
   static async intencao(req, res) {
     styled.function('Prompt | BOT - Qualificado | Intenção...');
     try {
@@ -105,6 +105,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
     }
   }
 
+  //Assistente
   static async nao_qualificado(req, res) {
     styled.function('Assistant | BOT - Qualificado | Não Qualificado...');
     try {

@@ -6,6 +6,8 @@ const styled = require('../utils/log/styledLog');
 const Communicator = require('../utils/assistant-prompt/Communicator');
 
 class Recepcao {
+
+  //Prompt
   static async intencao(req, res) {
     styled.function('Prompt | BOT - Recepção | Intenção...');
     try {
@@ -42,6 +44,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
     }
   }
 
+  //Assistente
   static async indefinido(req, res) {
     styled.function('Assistant | BOT - Recepção | Indefinido...');
     try {
@@ -78,6 +81,7 @@ User message: '${message_received}'`;
     }
   }
 
+  //Assistente
   static async nao_qualificado(req, res) {
     styled.function('Assistant | BOT - Recepção | Não Qualificado...');
     try {

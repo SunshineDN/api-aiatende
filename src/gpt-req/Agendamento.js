@@ -1,61 +1,18 @@
 require('dotenv').config();
-const OpenAIController = require('../controllers/OpenAIController');
 const GetAccessToken = require('../services/kommo/GetAccessToken');
 const GetAnswer = require('../services/kommo/GetAnswer');
 const GetMessageReceived = require('../services/kommo/GetMessageReceived');
 const GetUser = require('../services/kommo/GetUser');
-const SendLog = require('../services/kommo/SendLog');
-const SendMessage = require('../services/kommo/SendMessage');
+const Communicator = require('../utils/assistant-prompt/Communicator');
 const CalendarIdValidate = require('../utils/calendar/CalendarIdValidate');
 const CalendarUtils = require('../utils/calendar/CalendarUtils');
+const styled = require('../utils/log/styledLog');
 
 class Agendamento {
-  constructor() {
-    this.assistant = this.assistant.bind(this);
-    this.prompt = this.prompt.bind(this);
-    this.form_join = this.form_join.bind(this);
-    this.assistant_disponibilidade_horario = this.assistant_disponibilidade_horario.bind(this);
-    this.prompt_intencao = this.prompt_intencao.bind(this);
-    this.assistant_verificar_datas = this.assistant_verificar_datas.bind(this);
-    this.prompt_verificar_confirmacao = this.prompt_verificar_confirmacao.bind(this);
-  }
 
-  async assistant(req, res, data) {
-    let access_token;
-    try {
-      console.log('Enviando para o assistente GPT...');
-      access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
-      console.log('Mensagem enviada para o assistente:', data.text);
-      const { message } = await OpenAIController.generateMessage(data);
-      console.log('Resposta recebida do assistente:', message);
-      await SendMessage(req.body, true, message, access_token);
-      res.status(200).send({ message: 'Mensagem enviada com sucesso para o assistente', response: message });
-    } catch (error) {
-      console.log(`Erro ao enviar mensagem para o assistente: ${error.message}`);
-      await SendLog(req.body, `Erro ao enviar mensagem para o assistente: ${error.message}`, access_token);
-      res.status(500).send('Erro ao enviar mensagem para o assistente');
-    }
-  }
-
-  async prompt(req, res, text) {
-    let access_token;
-    try {
-      console.log('Enviando prompt...');
-      access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
-      console.log('Mensagem enviada para o prompt:', text);
-      const { message } = await OpenAIController.promptMessage(text);
-      console.log('Resposta recebida do prompt:', message);
-      await SendMessage(req.body, false, message, access_token);
-      res.status(200).send({ message: 'Prompt enviado com sucesso', response: message });
-    } catch (error) {
-      console.log(`Erro ao enviar prompt: ${error.message}`);
-      await SendLog(req.body, `Erro ao enviar prompt: ${error.message}`, access_token);
-      res.status(500).send('Erro ao enviar prompt');
-    }
-  }
-
-  async form_join(req, res) {
-    console.log('Assistant | BOT - Agendamento | Agendamento pelo Formulário...');
+  //Assistente
+  static async form_join(req, res) {
+    styled.function('Assistant | BOT - Agendamento | Agendamento pelo Formulário...');
     try {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const { lead_id: leadID } = req.body;
@@ -99,15 +56,16 @@ Considerar que o usuário passou por todas as etapas para fazer o primeiro agend
         assistant_id
       };
 
-      await this.assistant(req, res, data);
+      await Communicator.assistant(req, res, data);
     } catch (error) {
-      console.log(`Erro ao enviar mensagem para o assistente: ${error.message}`);
+      styled.error(`Erro ao enviar mensagem para o assistente: ${error.message}`);
       res.status(500).send('Erro ao enviar mensagem para o assistente');
     }
   }
 
-  async assistant_disponibilidade_horario(req, res) {
-    console.log('Verificando disponibilidade | BOT - Agendamento | Disponibilidade de Horário...');
+  //Assistente
+  static async disponibilidade_horario(req, res) {
+    styled.function('Verificando disponibilidade | BOT - Agendamento | Disponibilidade de Horário...');
     try {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const { lead_id: leadID } = req.body;
@@ -203,15 +161,16 @@ User message: '${message_received}'`;
         assistant_id
       };
 
-      await this.assistant(req, res, data);
+      await Communicator.assistant(req, res, data);
     } catch (error) {
-      console.log(`Erro ao verificar disponibilidade de horário: ${error.message}`);
+      styled.error(`Erro ao verificar disponibilidade de horário: ${error.message}`);
       res.status(500).send('Erro ao verificar disponibilidade de horário');
     }
   }
 
-  async prompt_intencao(req, res) {
-    console.log('Prompt | BOT - Agendamento | Intenção...');
+  //Prompt
+  static async intencao(req, res) {
+    styled.function('Prompt | BOT - Agendamento | Intenção...');
     try {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const answer = await GetAnswer(req.body, access_token);
@@ -250,15 +209,16 @@ User message: '${message_received}'`;
 #OutraData: Caso esteja querendo remarcar para outra data, ou saber outras opções de datas.
 
 Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra:" Exemplo: #Agendamento`;
-      await this.prompt(req, res, text);
+      await Communicator.prompt(req, res, text);
     } catch (error) {
-      console.log(`Erro ao enviar mensagem para o assistente: ${error.message}`);
+      styled.error(`Erro ao enviar mensagem para o assistente: ${error.message}`);
       res.status(500).send('Erro ao enviar mensagem para o assistente');
     }
   }
 
-  async assistant_verificar_datas(req, res) {
-    console.log('Recebendo requisição de assistente | Verificar Datas...');
+  //Assistente
+  static async verificar_datas(req, res) {
+    styled.function('Recebendo requisição de assistente | Verificar Datas...');
     try {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const message_received = await GetMessageReceived(req.body, access_token);
@@ -275,15 +235,16 @@ User message: '${message_received}'`;
         assistant_id,
       };
 
-      await this.assistant(req, res, data);
+      await Communicator.assistant(req, res, data);
     } catch (error) {
-      console.log(`Erro ao enviar mensagem para a assistente: ${error.message}`);
+      styled.error(`Erro ao enviar mensagem para a assistente: ${error.message}`);
       res.status(500).send('Erro ao enviar mensagem para a assistente');
     }
   }
 
-  async prompt_verificar_confirmacao(req, res) {
-    console.log('Prompt | BOT - Agendamento | Verificar Confirmação...');
+  //Prompt
+  static async verificar_confirmacao(req, res) {
+    styled.function('Prompt | BOT - Agendamento | Verificar Confirmação...');
     try {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
       const answer = await GetAnswer(req.body, access_token);
@@ -323,12 +284,12 @@ Por gentileza, informe-nos quais essas opções funcionam melhor para você.'
 
 Responda apenas com o ID correspondente da opção, que segue este padrão: "#palavra:" Exemplo: #IndefiniteDate`;
 
-      await this.prompt(req, res, text);
+      await Communicator.prompt(req, res, text);
     } catch (error) {
-      console.log(`Erro ao enviar mensagem para o assistente: ${error.message}`);
+      styled.error(`Erro ao enviar mensagem para o assistente: ${error.message}`);
       res.status(500).send('Erro ao enviar mensagem para o assistente');
     }
   }
 }
 
-module.exports = new Agendamento();
+module.exports = Agendamento;

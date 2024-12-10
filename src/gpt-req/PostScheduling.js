@@ -6,6 +6,8 @@ const Communicator = require('../utils/assistant-prompt/Communicator');
 const styled = require('../utils/log/styledLog');
 
 class PostScheduling {
+ 
+  //Assistente
   static async notifyNoShow(req, res) {
     styled.function('Assistant | BOT - PÓS AGENDAMENTO | Faltosos...');
     try {
@@ -45,6 +47,7 @@ User message: '${message_received}'`;
     }
   }
 
+
   static async confirmAttendance(req, res) {
     styled.function('Assistente | BOT - PÓS AGENDAMENTO | Confirmar Vinda...');
     try {
@@ -81,6 +84,7 @@ User message: '${message_received}'`;
     }
   }
 
+  //Assistente
   static async initiateRescheduling(req, res) {
     styled.function('Assistente | BOT - PÓS AGENDAMENTO | Reagendamento...');
     try {
@@ -105,6 +109,7 @@ User message: '${message_received}'`;
     }
   }
 
+  //Prompt
   static async analyzeIntent(req, res) {
     styled.function('Prompt | BOT - PÓS AGENDAMENTO | Intenção...');
     try {
@@ -131,6 +136,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
     }
   }
 
+  //Prompt
   static async interpretNoShowResponse(req, res) {
     styled.function('Prompt | BOT - PÓS AGENDAMENTO | Faltosos...');
     try {
