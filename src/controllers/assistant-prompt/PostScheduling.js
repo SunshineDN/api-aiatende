@@ -1,9 +1,9 @@
-const GetAccessToken = require('../services/kommo/GetAccessToken');
-const GetAnswer = require('../services/kommo/GetAnswer');
-const GetMessageReceived = require('../services/kommo/GetMessageReceived');
-const GetUser = require('../services/kommo/GetUser');
-const Communicator = require('../utils/assistant-prompt/Communicator');
-const styled = require('../utils/log/styledLog');
+const GetAccessToken = require('../../services/kommo/GetAccessToken');
+const GetAnswer = require('../../services/kommo/GetAnswer');
+const GetMessageReceived = require('../../services/kommo/GetMessageReceived');
+const GetUser = require('../../services/kommo/GetUser');
+const Communicator = require('../../utils/assistant-prompt/Communicator');
+const styled = require('../../utils/log/styledLog');
 
 class PostScheduling {
  
@@ -58,7 +58,7 @@ User message: '${message_received}'`;
       const scheduleDate = user?.custom_fields_values?.filter(field => field.field_name === 'Event Start')[0];
       const scheduleDateValue = scheduleDate?.values[0]?.value;
 
-      const DifDates = require('../utils/DifDates');
+      const DifDates = require('../../utils/DifDates');
 
       const { diferencaDias, diferencaHoras } = DifDates(scheduleDateValue);
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });

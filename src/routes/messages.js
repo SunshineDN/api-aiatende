@@ -28,25 +28,25 @@ router.post('/assistant/:assistant_id/only_assistant', GlobalAssistant.only_assi
 
 // BOT C: DADOS
 
-router.post('/prompt/c_intencao', Dados.intencao);
+router.post('/prompt/dados/intencao', Dados.intencao);
 
-router.post('/prompt/c_confirma_dados', Dados.confirma_dados);
+router.post('/prompt/dados/confirma_dados', Dados.confirma_dados);
 
-router.post('/prompt/c_intencao_especialista', Dados.intencao_especialista);
+router.post('/prompt/dados/intencao_especialista', Dados.intencao_especialista);
 
-router.post('/prompt/c_identificar_especialista', Dados.identificar_especialista);
+router.post('/prompt/dados/identificar_especialista', Dados.identificar_especialista);
 
-router.post('/assistant/:assistant_id/c_previa_dados', Dados.previa_dados);
+router.post('/assistant/:assistant_id/dados/previa_dados', Dados.previa_dados);
 
-router.post('/assistant/:assistant_id/c_dados_cadastrais', Dados.dados_cadastrais);
+router.post('/assistant/:assistant_id/dados/dados_cadastrais', Dados.dados_cadastrais);
 
-router.post('/assistant/:assistant_id/c_split_dados', Dados.split_dados);
+router.post('/assistant/:assistant_id/dados/split_dados', Dados.split_dados);
 
-router.post('/assistant/:assistant_id/c_verifica_dados', Dados.verifica_dados);
+router.post('/assistant/:assistant_id/dados/verifica_dados', Dados.verifica_dados);
 
-router.post('/assistant/:assistant_id/c_listar_especialidades', Dados.listar_especialidades);
+router.post('/assistant/:assistant_id/dados/listar_especialidades', Dados.listar_especialidades);
 
-router.post('/assistant/:assistant_id/c_verificar_especialista', Dados.verificar_especialista);
+router.post('/assistant/:assistant_id/dados/verificar_especialista', Dados.verificar_especialista);
 
 // BOT PRÉ-AGENDAMENTO
 

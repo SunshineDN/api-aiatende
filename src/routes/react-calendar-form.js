@@ -7,11 +7,10 @@ const styled = require('../utils/log/styledLog');
 router.use(express.json({ type: 'application/json' }));
 
 router.use((req, res, next) => {
-  styled.info('Time: ', Date.now());
-  styled.info('Request Type: ', req.method);
-  styled.info('Request URL: ', req.originalUrl);
+  styled.middleware('Request Type: ', req.method);
+  styled.middleware('Request URL: ', req.originalUrl);
   req.body.lead_id = decryptId(req.body.lead_id);
-  styled.info('Request Body: ', req.body);
+  styled.middlewaredir('Request Body: ', req.body);
   next();
 });
 

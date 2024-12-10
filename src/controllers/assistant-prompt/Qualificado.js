@@ -1,9 +1,9 @@
 require('dotenv').config();
-const GetAccessToken = require('../services/kommo/GetAccessToken');
-const GetAnswer = require('../services/kommo/GetAnswer');
-const GetMessageReceived = require('../services/kommo/GetMessageReceived');
-const styled = require('../utils/log/styledLog');
-const Communicator = require('../utils/assistant-prompt/Communicator');
+const GetAccessToken = require('../../services/kommo/GetAccessToken');
+const GetAnswer = require('../../services/kommo/GetAnswer');
+const GetMessageReceived = require('../../services/kommo/GetMessageReceived');
+const styled = require('../../utils/log/styledLog');
+const Communicator = require('../../utils/assistant-prompt/Communicator');
 
 class Qualificado {
 

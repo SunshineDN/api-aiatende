@@ -1,12 +1,12 @@
 require('dotenv').config();
-const GetAccessToken = require('../services/kommo/GetAccessToken');
-const GetAnswer = require('../services/kommo/GetAnswer');
-const GetMessageReceived = require('../services/kommo/GetMessageReceived');
-const GetUser = require('../services/kommo/GetUser');
-const Communicator = require('../utils/assistant-prompt/Communicator');
-const CalendarIdValidate = require('../utils/calendar/CalendarIdValidate');
-const CalendarUtils = require('../utils/calendar/CalendarUtils');
-const styled = require('../utils/log/styledLog');
+const GetAccessToken = require('../../services/kommo/GetAccessToken');
+const GetAnswer = require('../../services/kommo/GetAnswer');
+const GetMessageReceived = require('../../services/kommo/GetMessageReceived');
+const GetUser = require('../../services/kommo/GetUser');
+const Communicator = require('../../utils/assistant-prompt/Communicator');
+const CalendarIdValidate = require('../../utils/calendar/CalendarIdValidate');
+const CalendarUtils = require('../../utils/calendar/CalendarUtils');
+const styled = require('../../utils/log/styledLog');
 
 class Agendamento {
 
