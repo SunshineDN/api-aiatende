@@ -6,6 +6,59 @@ const Communicator = require('../../utils/assistant-prompt/Communicator');
 const styled = require('../../utils/log/styledLog');
 
 class PostScheduling {
+
+  //Prompt
+  static async analyzeIntent(req, res) {
+    styled.function('Prompt | BOT - PÓS AGENDAMENTO | Intenção...');
+    try {
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const answer = await GetAnswer(req.body, access_token);
+      const messageReceived = await GetMessageReceived(req.body, access_token);
+
+      const text = `Considere que você esteja analisando a intenção de uma frase digitada por um usuário em um chatbot.
+Analise a mensagem: '${answer}' e veja em quais das situações abaixo encaixa a intenção para a resposta: '${messageReceived}'.
+#Confirmação: A resposta tem intenção de confirmar ou continuar com o agendamento.
+
+#Reagendar: Caso a resposta tenha a intenção de marcar a consulta ou data agendada para outra data.
+
+#Desmarcar: Caso a resposta tenha intenção de desmarcar a consulta.
+
+#Geral: Não condiz com os demais cenários.
+
+Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra:" Exemplo: #Atendente `;
+
+      Communicator.prompt(req, res, text);
+    } catch (error) {
+      styled.error(`Erro ao enviar mensagem para o assistente: ${error.message}`);
+      res.status(500).send('Erro ao enviar mensagem para o assistente');
+    }
+  }
+
+  //Prompt
+  static async interpretNoShowResponse(req, res) {
+    styled.function('Prompt | BOT - PÓS AGENDAMENTO | Faltosos...');
+    try {
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const message_received = await GetMessageReceived(req.body, access_token);
+      const answer = await GetAnswer(req.body, access_token);
+
+      const text = `Aqui está a mensagem da clínica: '${answer}', baseada nela, analise a reposta do usuário: '${message_received}'.
+Verifique abaixo qual das intenções mais se encaixa com a resposta do usuário.
+
+#Reagendar: Caso o usuário queira dar continuidade em reagendamento.
+
+#Perdido: Caso o usuário não queira mais manter contato com a clínica.
+
+#Geral: Se não for nenhum dos cenários anteriores.
+
+Retorne apenas o ID da intencão antecedido do #, por exemplo: #Geral`;
+
+      await Communicator.prompt(req, res, text);
+    } catch (error) {
+      styled.error(`Erro ao enviar prompt: ${error.message}`);
+      res.status(500).send('Erro ao enviar prompt');
+    }
+  }
  
   //Assistente
   static async notifyNoShow(req, res) {
@@ -47,7 +100,7 @@ User message: '${message_received}'`;
     }
   }
 
-
+  //Assistente
   static async confirmAttendance(req, res) {
     styled.function('Assistente | BOT - PÓS AGENDAMENTO | Confirmar Vinda...');
     try {
@@ -106,59 +159,6 @@ User message: '${message_received}'`;
     } catch (error) {
       styled.error(`Erro ao enviar mensagem para a assistente: ${error.message}`);
       res.status(500).send('Erro ao enviar mensagem para o assistente');
-    }
-  }
-
-  //Prompt
-  static async analyzeIntent(req, res) {
-    styled.function('Prompt | BOT - PÓS AGENDAMENTO | Intenção...');
-    try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
-      const answer = await GetAnswer(req.body, access_token);
-      const messageReceived = await GetMessageReceived(req.body, access_token);
-
-      const text = `Considere que você esteja analisando a intenção de uma frase digitada por um usuário em um chatbot.
-Analise a mensagem: '${answer}' e veja em quais das situações abaixo encaixa a intenção para a resposta: '${messageReceived}'.
-#Confirmação: A resposta tem intenção de confirmar ou continuar com o agendamento.
-
-#Reagendar: Caso a resposta tenha a intenção de marcar a consulta ou data agendada para outra data.
-
-#Desmarcar: Caso a resposta tenha intenção de desmarcar a consulta.
-
-#Geral: Não condiz com os demais cenários.
-
-Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra:" Exemplo: #Atendente `;
-
-      Communicator.prompt(req, res, text);
-    } catch (error) {
-      styled.error(`Erro ao enviar mensagem para o assistente: ${error.message}`);
-      res.status(500).send('Erro ao enviar mensagem para o assistente');
-    }
-  }
-
-  //Prompt
-  static async interpretNoShowResponse(req, res) {
-    styled.function('Prompt | BOT - PÓS AGENDAMENTO | Faltosos...');
-    try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
-      const message_received = await GetMessageReceived(req.body, access_token);
-      const answer = await GetAnswer(req.body, access_token);
-
-      const text = `Aqui está a mensagem da clínica: '${answer}', baseada nela, analise a reposta do usuário: '${message_received}'.
-Verifique abaixo qual das intenções mais se encaixa com a resposta do usuário.
-
-#Reagendar: Caso o usuário queira dar continuidade em reagendamento.
-
-#Perdido: Caso o usuário não queira mais manter contato com a clínica.
-
-#Geral: Se não for nenhum dos cenários anteriores.
-
-Retorne apenas o ID da intencão antecedido do #, por exemplo: #Geral`;
-
-      await Communicator.prompt(req, res, text);
-    } catch (error) {
-      styled.error(`Erro ao enviar prompt: ${error.message}`);
-      res.status(500).send('Erro ao enviar prompt');
     }
   }
 }

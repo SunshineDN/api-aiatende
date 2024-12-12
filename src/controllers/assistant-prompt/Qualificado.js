@@ -7,44 +7,6 @@ const Communicator = require('../../utils/assistant-prompt/Communicator');
 
 class Qualificado {
 
-  //Assistente
-  static async qualificado(req, res) {
-    styled.function('Assistant | BOT - Qualificado...');
-    try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
-      const { lead_id: leadID } = req.body;
-      const { assistant_id } = req.params;
-
-      const message_received = await GetMessageReceived(req.body, access_token);
-
-      const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
-      const weekOptions = {
-        timeZone: 'America/Recife',
-        weekday: 'long'
-      };
-      const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
-      const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
-
-      const text = `System message: 'Adote a informação, dia de semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife (GMT-3).
-
-O usuário entrou no fluxo do agendamento, ou seja, o usuário quer ter informações sobre a clínica, algum tratamento específico, ou valores.
-Vamos mostrar nosso conhecimento com respostas bem precisas, mas de simples entendimento, além de apresentar que Clínica Dental Santé através da estrutura, dos equipamentos, da equipe podem faz muita diferença para realizar a sua consulta inicial. Crie cada vez mais desejo para que ele queira agendar sua consulta odontológica conosco. Nunca informar valores dos tratamentos odontológicos. Não oferecer nenhuma data para agendamento nesta etapa'
-
-User message: '${message_received}'`;
-
-      const data = {
-        leadID,
-        text,
-        assistant_id,
-      };
-
-      await Communicator.assistant(req, res, data);
-    } catch (error) {
-      styled.error(`Erro ao enviar mensagem para a assistente: ${error.message}`);
-      res.status(500).send('Erro ao enviar mensagem para a assistente');
-    }
-  }
-
   //Prompt
   static async intencao(req, res) {
     styled.function('Prompt | BOT - Qualificado | Intenção...');
@@ -102,6 +64,44 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
     } catch (error) {
       styled.error(`Erro ao enviar prompt: ${error.message}`);
       res.status(500).send('Erro ao enviar prompt');
+    }
+  }
+
+  //Assistente
+  static async qualificado(req, res) {
+    styled.function('Assistant | BOT - Qualificado | Qualificado...');
+    try {
+      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const { lead_id: leadID } = req.body;
+      const { assistant_id } = req.params;
+
+      const message_received = await GetMessageReceived(req.body, access_token);
+
+      const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
+      const weekOptions = {
+        timeZone: 'America/Recife',
+        weekday: 'long'
+      };
+      const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
+      const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
+
+      const text = `System message: 'Adote a informação, dia de semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife (GMT-3).
+
+O usuário entrou no fluxo do agendamento, ou seja, o usuário quer ter informações sobre a clínica, algum tratamento específico, ou valores.
+Vamos mostrar nosso conhecimento com respostas bem precisas, mas de simples entendimento, além de apresentar que Clínica Dental Santé através da estrutura, dos equipamentos, da equipe podem faz muita diferença para realizar a sua consulta inicial. Crie cada vez mais desejo para que ele queira agendar sua consulta odontológica conosco. Nunca informar valores dos tratamentos odontológicos. Não oferecer nenhuma data para agendamento nesta etapa'
+
+User message: '${message_received}'`;
+
+      const data = {
+        leadID,
+        text,
+        assistant_id,
+      };
+
+      await Communicator.assistant(req, res, data);
+    } catch (error) {
+      styled.error(`Erro ao enviar mensagem para a assistente: ${error.message}`);
+      res.status(500).send('Erro ao enviar mensagem para a assistente');
     }
   }
 
