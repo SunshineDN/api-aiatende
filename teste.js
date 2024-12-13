@@ -18,6 +18,8 @@
 // ];
 
 const BrazilianDate = require('./src/utils/BrazilianDate');
+const DecryptId = require('./src/utils/crypt/DecryptId');
+const EncryptId = require('./src/utils/crypt/EncryptId');
 const styled = require('./src/utils/log/styledLog');
 
 // const fatherFieldValues = 'Teste1;teste2;teste3;teste4;teste5';
@@ -216,11 +218,30 @@ const styled = require('./src/utils/log/styledLog');
 // console.log(BrazilianDate.getLocalDateTime());
 // console.log(BrazilianDate.getLocalWeekDay());
 
-const user = {
-  name: 'Douglas Augusto Cabral da Silva',
-  email: 'example@teste.com',
-  phone: '+558196724310',
-};
+// const user = {
+//   name: 'Douglas Augusto Cabral da Silva',
+//   email: 'example@teste.com',
+//   phone: '+558196724310',
+// };
 
-styled.function('Erro ao criar / atualizar lead via agendamento por VOZ: Dados obrigatórios não informados');
-styled.middlewaredir(user);
+// styled.function('Erro ao criar / atualizar lead via agendamento por VOZ: Dados obrigatórios não informados');
+// styled.middlewaredir(user);
+
+// Importando bibliotecas necessárias
+require('dotenv').config();
+
+// Exemplo de uso
+const originalID = 19030890;
+const encrypted = EncryptId(originalID);
+styled.info('Token encurtado:', encrypted);
+
+const restored = DecryptId(encrypted);
+styled.info('Token restaurado:', restored);
+
+// Verificação
+styled.info('É igual ao original?');
+if (originalID === restored) {
+  styled.success('Sim');
+} else {
+  styled.error('Não');
+}

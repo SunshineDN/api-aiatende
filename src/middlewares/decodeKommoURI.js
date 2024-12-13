@@ -121,7 +121,12 @@ const decodeAccoutUri = (uri) => {
 module.exports = (req, res, next) => {
   styled.middleware('Request method: ', req.method);
   styled.middleware('Request URL: ', req.originalUrl);
-  styled.middleware('Request body: ', req.body);
+  if (typeof req.body === 'object') {
+    styled.middleware('Request body:');
+    styled.middlewaredir(req.body);
+  } else {
+    styled.middleware('Request body: ', req.body);
+  }
   if (req.method === 'GET') {
     return next();
   }

@@ -5,6 +5,8 @@ const PORT = process.env.PORT || 3000;
 const leadRouter = require('./src/routes/lead');
 const gptRouter = require('./src/routes/gpt');
 const messagesRouter = require('./src/routes/messages');
+const recepcaoAssistente = require('./src/routes/messages/recepcao/assistant/assistant');
+const recepcaoPrompt = require('./src/routes/messages/recepcao/prompt/prompt');
 const accountRouter = require('./src/routes/account');
 const sequelize = require('./src/config/database');
 const calendarRouter = require('./src/routes/calendar');
@@ -18,7 +20,7 @@ app.use('/lead', leadRouter);
 app.use('/calendar', calendarRouter);
 app.use('/account', accountRouter);
 app.use('/gpt/v1', gptRouter);
-app.use('/gpt/v2', messagesRouter);
+app.use('/gpt/v2', [messagesRouter, recepcaoAssistente, recepcaoPrompt]);
 app.use('/web/calendar', calendarWebRouter);
 
 app.use((req, res) => {
