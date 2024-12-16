@@ -228,20 +228,25 @@ const styled = require('./src/utils/log/styledLog');
 // styled.middlewaredir(user);
 
 // Importando bibliotecas necessárias
-require('dotenv').config();
+// require('dotenv').config();
 
-// Exemplo de uso
-const originalID = 19030890;
-const encrypted = EncryptId(originalID);
-styled.info('Token encurtado:', encrypted);
+// // Exemplo de uso
+// const originalID = 19030890;
+// const encrypted = EncryptId(originalID);
+// styled.info('Token encurtado:', encrypted);
 
-const restored = DecryptId(encrypted);
-styled.info('Token restaurado:', restored);
+// const restored = DecryptId(encrypted);
+// styled.info('Token restaurado:', restored);
 
-// Verificação
-styled.info('É igual ao original?');
-if (originalID === restored) {
-  styled.success('Sim');
-} else {
-  styled.error('Não');
-}
+// // Verificação
+// styled.info('É igual ao original?');
+// if (originalID === restored) {
+//   styled.success('Sim');
+// } else {
+//   styled.error('Não');
+// }
+
+styled.info('Console de informações');
+styled.success('Console de sucesso');
+styled.warning('Console de alerta');
+styled.error('Console de erro');

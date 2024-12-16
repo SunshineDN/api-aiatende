@@ -7,11 +7,13 @@ const Recepcao = require('../../../../controllers/assistant-prompt/Recepcao');
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
 
-router.get('/recepcao/prompt', (req, res) => {
-  res.json({ message: 'Rota de requisição de prompt - recepção' });
+router.get('/recepcao/assistant', (req, res) => {
+  res.json({ message: 'Rota de requisição de assistente - recepção' });
 });
 
 // BOT RECEPÇÃO
-router.post('/recepcao/prompt/intencao', Recepcao.intencao);
+router.post('recepcao/assistant/:assistant_id/indefinido', Recepcao.indefinido);
+
+router.post('recepcao/assistant/:assistant_id/nao_qualificado', Recepcao.nao_qualificado);
 
 module.exports = router;
