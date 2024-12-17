@@ -1,12 +1,12 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const leadRouter = require('./src/routes/lead');
-const gptRouter = require('./src/routes/gpt');
-const gptRouter2 = require('./src/routes/gpt/v2');
-const accountRouter = require('./src/routes/account');
-const calendarRouter = require('./src/routes/calendar');
-const calendarWebRouter = require('./src/routes/react-calendar-form');
+const leadRouter = require('./routes/lead');
+const gptRouter = require('./routes/gpt');
+const gptRouter2 = require('./routes/gpt/v2');
+const accountRouter = require('./routes/account');
+const calendarRouter = require('./routes/calendar');
+const calendarWebRouter = require('./routes/react-calendar-form');
 
 const app = express();
 

@@ -2,18 +2,20 @@ const express = require('express');
 const router = express.Router();
 const decodeKommoURI = require('../../../../../middlewares/decodeKommoURI');
 const bodyParser = require('body-parser');
-const Recepcao = require('../../../../../controllers/assistant-prompt/Recepcao');
+const PreAgendamento = require('../../../../../controllers/assistant-prompt/PreAgendamento');
 
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
 
 router.get('/', (req, res) => {
-  res.json({ message: 'Rota de requisição de assistente - recepção' });
+  res.json({ message: 'Rota de requisição de assistente - pré agendamento' });
 });
 
-// BOT RECEPÇÃO
-router.post('/:assistant_id/indefinido', Recepcao.indefinido);
+// BOT PRÉ AGENDAMENTO
+router.post('/:assistant_id/disponibilidade', PreAgendamento.disponibilidade);
 
-router.post('/:assistant_id/nao_qualificado', Recepcao.nao_qualificado);
+router.post('/:assistant_id/verificar-datas', PreAgendamento.verificar_datas);
+
+router.post('/:assistant_id/confirmacao', PreAgendamento.confirmacao);
 
 module.exports = router;

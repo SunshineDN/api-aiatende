@@ -243,7 +243,8 @@ const styled = require('./src/utils/log/styledLog');
 //   styled.error('Não');
 // }
 
-styled.info('Console de informações');
-styled.success('Console de sucesso');
-styled.warning('Console de alerta');
-styled.error('Console de erro');
+// styled.info('Console de informações');
+// styled.success('Console de sucesso');
+// styled.warning('Console de alerta');
+// styled.error('Console de erro');
+

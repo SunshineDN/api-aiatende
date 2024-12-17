@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const decodeKommoURI = require('../../../../../middlewares/decodeKommoURI');
 const bodyParser = require('body-parser');
-const Confirmacao = require('../../../../../controllers/assistant-prompt/Confirm');
+const Confirmacao = require('../../../../../controllers/assistant-prompt/Confirmacao');
 
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);

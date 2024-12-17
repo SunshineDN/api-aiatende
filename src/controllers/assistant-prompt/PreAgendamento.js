@@ -8,7 +8,7 @@ const GetAnswer = require('../../services/kommo/GetAnswer');
 const SetActualDateHour = require('../../services/kommo/SetActualDateHour');
 const GetMessageReceived = require('../../services/kommo/GetMessageReceived');
 
-class PreScheduling {
+class PreAgendamento {
 
   //Prompt
   static async intencao(req, res) {
@@ -366,4 +366,4 @@ Caso precise, o nome da clínica é: Clínica Dental Santé`;
   }
 };
 
-module.exports = PreScheduling;
+module.exports = PreAgendamento;

@@ -5,10 +5,10 @@ const GetUser = require('../../services/kommo/GetUser');
 const Communicator = require('../../utils/assistant-prompt/Communicator');
 const styled = require('../../utils/log/styledLog');
 
-class PostScheduling {
+class PosAgendamento {
 
   //Prompt
-  static async analyzeIntent(req, res) {
+  static async intencao(req, res) {
     styled.function('Prompt | BOT - PÓS AGENDAMENTO | Intenção...');
     try {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
@@ -35,7 +35,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
   }
 
   //Prompt
-  static async interpretNoShowResponse(req, res) {
+  static async intencao_falta(req, res) {
     styled.function('Prompt | BOT - PÓS AGENDAMENTO | Faltosos...');
     try {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
@@ -61,7 +61,7 @@ Retorne apenas o ID da intencão antecedido do #, por exemplo: #Geral`;
   }
  
   //Assistente
-  static async notifyNoShow(req, res) {
+  static async notificar_falta(req, res) {
     styled.function('Assistant | BOT - PÓS AGENDAMENTO | Faltosos...');
     try {
       const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
@@ -101,7 +101,7 @@ User message: '${message_received}'`;
   }
 
   //Assistente
-  static async confirmAttendance(req, res) {
+  static async confirmar_presenca(req, res) {
     styled.function('Assistente | BOT - PÓS AGENDAMENTO | Confirmar Vinda...');
     try {
       const { lead_id: leadID } = req.body;
@@ -138,7 +138,7 @@ User message: '${message_received}'`;
   }
 
   //Assistente
-  static async initiateRescheduling(req, res) {
+  static async inicar_reagendamento(req, res) {
     styled.function('Assistente | BOT - PÓS AGENDAMENTO | Reagendamento...');
     try {
       const { lead_id: leadID } = req.body;
@@ -163,4 +163,4 @@ User message: '${message_received}'`;
   }
 }
 
-module.exports = PostScheduling;
+module.exports = PosAgendamento;
