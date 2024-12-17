@@ -5,9 +5,9 @@ const BrazilianDate = require('../BrazilianDate');
 class styledLog {
 
   static name_version() {
-    const project_name = process.env.PROJECT_NAME || 'Projeto';
+    const project_name = process.env.PROJECT_NAME || 'ALTERE O PROJECT_NAME NO .ENV';
     const version = require('../../../package.json').version;
-    return `${colors.white}${colors.bold}[ AI Atende - ${project_name} ] v${version}${colors.reset}`;
+    return `${colors.white}[ AI Atende - ${project_name} ] v${version}${colors.reset}`;
   }
 
   static prefix() {

@@ -17,9 +17,6 @@
 //   }
 // ];
 
-const BrazilianDate = require('./src/utils/BrazilianDate');
-const DecryptId = require('./src/utils/crypt/DecryptId');
-const EncryptId = require('./src/utils/crypt/EncryptId');
 const styled = require('./src/utils/log/styledLog');
 
 // const fatherFieldValues = 'Teste1;teste2;teste3;teste4;teste5';
