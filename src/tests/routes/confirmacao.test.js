@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../../app');
+const app = require('../../../app');
 
 describe('Método GET no /confirmacao', () => {
   it('Deve retornar 200 OK na rota "/" confirmacao prompt', async () => {

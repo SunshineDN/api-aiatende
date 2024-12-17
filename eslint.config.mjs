@@ -24,4 +24,14 @@ export default [
     }
   },
   pluginJs.configs.recommended,
+  {
+    "overrides": [
+      {
+        "files": ["tests/**/*"],
+        "env": {
+          "jest": true
+        }
+      }
+    ]
+  }
 ];
