@@ -7,10 +7,12 @@ const gptRouter2 = require('./routes/gpt/v2');
 const accountRouter = require('./routes/account');
 const calendarRouter = require('./routes/calendar');
 const calendarWebRouter = require('./routes/react-calendar-form');
+const apiDocs = require('./routes/api-docs');
 
 const app = express();
 
 app.use(cors());
+app.use('/api-docs', apiDocs);
 app.use('/lead', leadRouter);
 app.use('/calendar', calendarRouter);
 app.use('/account', accountRouter);
