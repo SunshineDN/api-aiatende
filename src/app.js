@@ -8,10 +8,12 @@ const accountRouter = require('./routes/account');
 const calendarRouter = require('./routes/calendar');
 const calendarWebRouter = require('./routes/react-calendar-form');
 const apiDocs = require('./routes/api-docs');
+const teste = require('./routes/teste');
 
 const app = express();
 
 app.use(cors());
+app.use('/teste', teste);
 app.use('/api-docs', apiDocs);
 app.use('/lead', leadRouter);
 app.use('/calendar', calendarRouter);

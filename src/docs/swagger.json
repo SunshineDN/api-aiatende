@@ -29,6 +29,70 @@
           }
         }
       }
+    },
+    "/teste": {
+      "post": {
+        "summary": "Testar middleware",
+        "description": "Caminho para verificar se o middleware de autenticação está funcionando",
+        "tags": [
+          "Teste"
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "leads[add][0][id]": {
+                    "type": "string",
+                    "example": "18885738"
+                  },
+                  "leads[add][0][status_id]": {
+                    "type": "string",
+                    "example": "71995064"
+                  },
+                  "leads[add][0][pipeline_id]": {
+                    "type": "string",
+                    "example": "8833059"
+                  },
+                  "account[id]": {
+                    "type": "string",
+                    "example": "32000011"
+                  },
+                  "account[subdomain]": {
+                    "type": "string",
+                    "example": "kommoagendamento"
+                  }
+                },
+                "required": [
+                  "leads[add][0][id]",
+                  "leads[add][0][status_id]",
+                  "leads[add][0][pipeline_id]",
+                  "account[id]",
+                  "account[subdomain]"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Hello World"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   }
 }
