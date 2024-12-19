@@ -21,7 +21,7 @@ app.use('/gpt/v1', gptRouter);
 app.use('/gpt/v2', gptRouter2);
 app.use('/web/calendar', calendarWebRouter);
 
-app.use((req, res) => {
+app.use((_, res) => {
   res.status(404).json({error: 'Endpoint não encontrado!'});
 });
 
