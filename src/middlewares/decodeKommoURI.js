@@ -1,4 +1,4 @@
-const styled = require('../utils/log/styledLog');
+import styled from '../utils/log/styledLog.js';
 
 function subdividirPropriedades(obj) {
   const newObj = {};
@@ -118,7 +118,7 @@ const decodeAccoutUri = (uri) => {
   };
 };
 
-module.exports = (req, res, next) => {
+export const decodeKommoURI = (req, res, next) => {
   try {
     styled.middleware('Request method: ', req.method);
     styled.middleware('Request URL: ', req.originalUrl);

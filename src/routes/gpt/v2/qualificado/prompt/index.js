@@ -1,8 +1,9 @@
-const express = require('express');
+import express from 'express';
+import bodyParser from 'body-parser';
+import Qualificado from '../../../../../controllers/assistant-prompt/Qualificado.js';
+import { decodeKommoURI } from '../../../../../middlewares/decodeKommoURI.js';
+
 const router = express.Router();
-const decodeKommoURI = require('../../../../../middlewares/decodeKommoURI');
-const bodyParser = require('body-parser');
-const Qualificado = require('../../../../../controllers/assistant-prompt/Qualificado');
 
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
@@ -14,4 +15,4 @@ router.get('/', (req, res) => {
 // BOT QUALIFICADO
 router.post('/intencao', Qualificado.intencao);
 
-module.exports = router;
+export default router;

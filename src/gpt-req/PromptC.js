@@ -1,10 +1,10 @@
-require('dotenv').config();
-const OpenAIController = require('../controllers/OpenAIController');
-const GetAccessToken = require('../services/kommo/GetAccessToken');
-const GetAnswer = require('../services/kommo/GetAnswer');
-const GetMessageReceived = require('../services/kommo/GetMessageReceived');
-const SendLog = require('../services/kommo/SendLog');
-const SendMessage = require('../services/kommo/SendMessage');
+
+const OpenAIController = require('../controllers/OpenAIController.js');
+const GetAccessToken = require('../services/kommo/GetAccessToken.js');
+const GetAnswer = require('../services/kommo/GetAnswer.js');
+const GetMessageReceived = require('../services/kommo/GetMessageReceived.js');
+const SendLog = require('../services/kommo/SendLog.js');
+const SendMessage = require('../services/kommo/SendMessage.js');
 
 
 class PromptC {
@@ -25,7 +25,7 @@ class PromptC {
     let access_token;
     try {
       console.log('Enviando prompt...');
-      access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      access_token = GetAccessToken();
       console.log('Mensagem enviada para o prompt:', text);
       const { message } = await OpenAIController.promptMessage(text);
       console.log('Resposta recebida do prompt:', message);
@@ -43,7 +43,7 @@ class PromptC {
   async c_intencao(req, res) {
     console.log('Recebendo requisição de prompt...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const answer = await GetAnswer(req.body, access_token);
       const message_received = await GetMessageReceived(req.body, access_token);
 
@@ -84,7 +84,7 @@ class PromptC {
   async c_confirma_dados(req, res) {
     console.log('Recebendo requisição de prompt...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const message_received = await GetMessageReceived(req.body, access_token);
       const answer = await GetAnswer(req.body, access_token);
       const text = `Analise a pergunta da clínica: '${answer}' e a resposta do usuário: '${message_received}' e verifique as intenções abaixo qual melhor se encaixa:
@@ -126,7 +126,7 @@ Identifique a intenção da resposta do usuário baseada na pergunta da clínica
   async c_intencao_especialista(req, res) {
     console.log('Recebendo requisição de prompt...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const answer = await GetAnswer(req.body, access_token);
       const message_received = await GetMessageReceived(req.body, access_token);
 
@@ -156,7 +156,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
   async c_identificar_especialista(req, res) {
     console.log('Recebendo requisição de prompt...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const answer = await GetAnswer(req.body, access_token);
       const message_received = await GetMessageReceived(req.body, access_token);
 

@@ -1,8 +1,9 @@
-const express = require('express');
+import express from 'express';
+import bodyParser from 'body-parser';
+import GptController from '../controllers/GptController.js';
+import { decodeKommoURI } from '../middlewares/decodeKommoURI.js';
+
 const router = express.Router();
-const GptController = require('../controllers/GptController');
-const decodeKommoURI = require('../middlewares/decodeKommoURI');
-const bodyParser = require('body-parser');
 
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
@@ -21,4 +22,4 @@ router.post('/audio-to-text', GptController.transcribeMessage);
 
 router.post('/text-to-audio', GptController.sendAudioFromGpt);
 
-module.exports = router;
+export default router;

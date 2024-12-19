@@ -1,8 +1,8 @@
-const axios = require('axios');
-const HandlingError = require('./HandlingError');
-const styled = require('../../utils/log/styledLog');
+import axios from 'axios';
+import styled from '../../utils/log/styledLog.js';
+import { HandlingError } from './HandlingError.js';
 
-const UpdateContact = async (payload, contact_id, data, access_token = null) => {
+export const UpdateContact = async (payload, contact_id, data, access_token = null) => {
   // console.log('Função UpdateContact');
   // console.log('Payload:', payload);
   // Example = {
@@ -40,5 +40,3 @@ const UpdateContact = async (payload, contact_id, data, access_token = null) => 
     throw new Error('Erro no UpdateContact');
   }
 };
-
-module.exports = UpdateContact;

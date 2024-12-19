@@ -1,4 +1,4 @@
-const FormatTelephone = (numero) => {
+export const FormatTelephone = (numero) => {
   let string = '';
 
   // Verificar se o número é um número
@@ -53,5 +53,3 @@ const FormatTelephone = (numero) => {
   // Retornar o número formatado
   return `+55${ddd}${newNumber.substring(0,4)}${newNumber.substring(4)}`;
 };
-
-module.exports = FormatTelephone;

@@ -1,12 +1,11 @@
-const CalendarIdValidate = require('../../utils/calendar/CalendarIdValidate');
-const GetCustomFields = require('../kommo/GetCustomFields');
-const UpdateLead = require('../kommo/UpdateLead');
-const HandlingError = require('../kommo/HandlingError');
-const GetUser = require('../kommo/GetUser');
-const CalendarUtils = require('../../utils/calendar/CalendarUtils');
-const styled = require('../../utils/log/styledLog');
+import styled from '../../utils/log/styledLog.js';
+import { CalendarIdValidate } from '../../utils/calendar/CalendarIdValidate.js';
+import { GetCustomFields } from '../kommo/GetCustomFields.js';
+import { UpdateLead } from '../kommo/UpdateLead.js';
+import { GetUser } from '../kommo/GetUser.js';
+import { HandlingError } from '../kommo/HandlingError.js';
 
-const RemoveCalendarEvent = async (payload, access_token = null) => {
+export const RemoveCalendarEvent = async (payload, access_token = null) => {
   try {
     const CalendarUtilsClass = new CalendarUtils(payload?.account?.id);
 
@@ -105,4 +104,3 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
     throw new Error('Erro no RemoveCalendarEvent');
   };
 };
-module.exports = RemoveCalendarEvent;

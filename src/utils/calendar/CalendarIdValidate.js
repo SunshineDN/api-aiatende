@@ -1,7 +1,7 @@
-const CalendarId = require('../../config/calendarId');
-const styled = require('../log/styledLog');
+import styled from '../log/styledLog.js';
+import { CalendarId } from '../../config/calendarId.js';
 
-const CalendarIdValidate = (condition = null, account_id) => {
+export const CalendarIdValidate = (condition = null, account_id) => {
   styled.info('Account ID (CalendarIdValidate): ', account_id);
   if (account_id === 32000011) {
     if(condition === 'Dra. Juliana Leite'){
@@ -21,5 +21,3 @@ const CalendarIdValidate = (condition = null, account_id) => {
     }
   }
 };
-
-module.exports= CalendarIdValidate;

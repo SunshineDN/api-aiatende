@@ -1,8 +1,7 @@
-require('dotenv').config();
-const styled = require('../log/styledLog');
-const { deflate } = require('pako');
+import { deflate } from 'pako';
+import styled from '../log/styledLog.js';
 
-const EncryptId = (id) => {
+export const EncryptId = (id) => {
   try {
     const stringId = String(id);
     const compressed = deflate(stringId);
@@ -13,5 +12,3 @@ const EncryptId = (id) => {
     throw new Error('Error on EncryptId');
   }
 };
-
-module.exports = EncryptId;

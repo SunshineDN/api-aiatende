@@ -1,17 +1,17 @@
-require('dotenv').config();
-const GetAccessToken = require('../../services/kommo/GetAccessToken');
-const GetAnswer = require('../../services/kommo/GetAnswer');
-const GetMessageReceived = require('../../services/kommo/GetMessageReceived');
-const styled = require('../../utils/log/styledLog');
-const Communicator = require('../../utils/assistant-prompt/Communicator');
 
-class Recepcao {
+import styled from '../../utils/log/styledLog.js';
+import { GetAccessToken } from '../../services/kommo/GetAccessToken.js';
+import { GetAnswer } from '../../services/kommo/GetAnswer.js';
+import { GetMessageReceived } from '../../services/kommo/GetMessageReceived.js';
+import { Communicator } from '../../utils/assistant-prompt/Communicator.js';
+
+export default class Recepcao {
 
   //Prompt
   static async intencao(req, res) {
     styled.function('Prompt | BOT - Recepção | Intenção...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
 
       const message_received = await GetMessageReceived(req.body, access_token);
       const answer = await GetAnswer(req.body, access_token);
@@ -48,7 +48,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
   static async indefinido(req, res) {
     styled.function('Assistant | BOT - Recepção | Indefinido...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
 
@@ -85,7 +85,7 @@ User message: '${message_received}'`;
   static async nao_qualificado(req, res) {
     styled.function('Assistant | BOT - Recepção | Não Qualificado...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const message_received = await GetMessageReceived(req.body, access_token);
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
@@ -146,5 +146,3 @@ Inicie a conversa perguntando o seu nome para demonstrar proximidade, e na sequ�
     }
   }
 }
-
-module.exports = Recepcao;

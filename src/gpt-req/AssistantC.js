@@ -1,11 +1,11 @@
-require('dotenv').config();
-const OpenAIController = require('../controllers/OpenAIController');
-const GetAccessToken = require('../services/kommo/GetAccessToken');
-const GetLeadChannel = require('../services/kommo/GetLeadChannel');
-const GetLeadInfoForBotC = require('../services/kommo/GetLeadInfoForBotC');
-const GetMessageReceived = require('../services/kommo/GetMessageReceived');
-const SendLog = require('../services/kommo/SendLog');
-const SendMessage = require('../services/kommo/SendMessage');
+
+const OpenAIController = require('../controllers/OpenAIController.js');
+const GetAccessToken = require('../services/kommo/GetAccessToken.js');
+const GetLeadChannel = require('../services/kommo/GetLeadChannel.js');
+const GetLeadInfoForBotC = require('../services/kommo/GetLeadInfoForBotC.js');
+const GetMessageReceived = require('../services/kommo/GetMessageReceived.js');
+const SendLog = require('../services/kommo/SendLog.js');
+const SendMessage = require('../services/kommo/SendMessage.js');
 
 
 class AssistantC {
@@ -23,7 +23,7 @@ class AssistantC {
     let access_token;
     try {
       console.log('Enviando para o assistente GPT...');
-      access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      access_token = GetAccessToken();
       console.log('Mensagem enviada para o assistente:', data.text);
       const { message } = await OpenAIController.generateMessage(data);
       console.log('Resposta recebida do assistente:', message);
@@ -41,7 +41,7 @@ class AssistantC {
   async c_previa_dados(req, res) {
     console.log('Recebendo requisição de assistente | Previa Dados...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const message_received = await GetMessageReceived(req.body, access_token);
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
@@ -62,7 +62,7 @@ class AssistantC {
   async c_dados_cadastrais(req, res) {
     console.log('Recebendo requisição de assistente | Dados Cadastrais...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
       const channel = await GetLeadChannel(req.body, access_token);
@@ -94,7 +94,7 @@ Observe os dados cadastrais fornecidos pelo usuário '${message_received}' e ava
   async c_split_dados(req, res) {
     console.log('Recebendo requisição de assistente | Split Dados...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
       const channel = await GetLeadChannel(req.body, access_token);
@@ -127,7 +127,7 @@ Observe os dados cadastrais fornecidos pelo usuário '${message_received}' e ava
   async c_verifica_dados(req, res) {
     console.log('Recebendo requisição de assistente | Verifica Dados...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
       const channel = await GetLeadChannel(req.body, access_token);
@@ -203,7 +203,7 @@ User message: '${message_received}'`;
   async c_listar_especialidades(req, res) {
     console.log('Recebendo requisição de assistente | Listar Especialidades...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const message_received = await GetMessageReceived(req.body, access_token);
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
@@ -236,7 +236,7 @@ User message: '${message_received}'`;
   async c_verificar_especialista(req, res) {
     console.log('Recebendo requisição de assistente | Verificar Especialista...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
       const channel = await GetLeadChannel(req.body, access_token);

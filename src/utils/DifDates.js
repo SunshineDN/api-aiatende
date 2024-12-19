@@ -1,4 +1,4 @@
-function DifDates(data) {
+export function DifDates(data) {
   let dataAtual = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
 
   let [dataAtualStr, horaAtualStr] = dataAtual.split(', ');
@@ -17,5 +17,3 @@ function DifDates(data) {
     diferencaHoras: Math.floor((diferencaMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
   };
 };
-
-module.exports = DifDates;

@@ -1,9 +1,9 @@
-const axios = require('axios');
-const GetCustomFields = require('./GetCustomFields');
-const GetContactCustomFields = require('./GetContactCustomFields');
-const styled = require('../../utils/log/styledLog');
+import axios from 'axios';
+import styled from '../../utils/log/styledLog.js';
+import { GetCustomFields } from './GetCustomFields.js';
+import { GetContactCustomFields } from './GetContactCustomFields.js';
 
-const LeadQuery = async (body, data, access_token) => {
+export const LeadQuery = async (body, data, access_token) => {
   const subdomain = body.account.subdomain;
   let { name, bairro, birthdate, dentist, schedule_date, reason, phone } = data;
 
@@ -272,5 +272,3 @@ Telefone (NÃO MUTÁVEL): ${phone}`;
     throw new Error(`Erro ao criar lead: ${error.message}`);
   }
 };
-
-module.exports = LeadQuery;

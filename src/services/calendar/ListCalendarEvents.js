@@ -1,13 +1,12 @@
-// const { google } = require('googleapis');
-const CalendarIdValidate = require('../../utils/calendar/CalendarIdValidate');
-const GetCustomFields = require('../kommo/GetCustomFields');
-const UpdateLead = require('../kommo/UpdateLead');
-const HandlingError = require('../kommo/HandlingError');
-const GetUser = require('../kommo/GetUser');
-const CalendarUtils = require('../../utils/calendar/CalendarUtils');
-const styled = require('../../utils/log/styledLog');
+import styled from '../../utils/log/styledLog.js';
+import { GetUser } from '../kommo/GetUser.js';
+import { CalendarUtils } from '../../utils/calendar/CalendarUtils.js';
+import { CalendarIdValidate } from '../../utils/calendar/CalendarIdValidate.js';
+import { GetCustomFields } from '../kommo/GetCustomFields.js';
+import { UpdateLead } from '../kommo/UpdateLead.js';
+import { HandlingError } from '../kommo/HandlingError.js';
 
-const ListCalendarEvent = async (payload, access_token = null) => {
+export const ListCalendarEvents = async (payload, access_token = null) => {
   let eventData, custom_fields, filledDates, user, nameDoctor;
   try{
     const CalendarUtilsClass = new CalendarUtils(payload?.account?.id);
@@ -64,5 +63,3 @@ const ListCalendarEvent = async (payload, access_token = null) => {
   await UpdateLead(payload, reqBody, access_token);
   styled.info('Fim do ListCalendar!');
 };
-
-module.exports = ListCalendarEvent;

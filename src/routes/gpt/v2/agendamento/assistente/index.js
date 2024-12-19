@@ -1,8 +1,9 @@
-const express = require('express');
+import express from 'express';
+import bodyParser from 'body-parser';
+import Agendamento from '../../../../../controllers/assistant-prompt/Agendamento.js';
+import { decodeKommoURI } from '../../../../middlewares/decodeKommoURI.js';
+
 const router = express.Router();
-const decodeKommoURI = require('../../../../../middlewares/decodeKommoURI');
-const bodyParser = require('body-parser');
-const Agendamento = require('../../../../../controllers/assistant-prompt/Agendamento');
 
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
@@ -18,4 +19,4 @@ router.post('/:assistant_id/disponibilidade-horario', Agendamento.disponibilidad
 
 router.post('/:assistant_id/verificar-datas', Agendamento.verificar_datas);
 
-module.exports = router;
+export default router;

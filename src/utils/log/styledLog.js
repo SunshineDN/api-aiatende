@@ -1,12 +1,15 @@
-require('dotenv').config();
-const colors = require('./colors');
-const BrazilianDate = require('../BrazilianDate');
+// import { createRequire } from 'module';
+import { colors } from './colors.js';
+import BrazilianDate from '../BrazilianDate.js';
+import packageJson from '../../../package.json' with { type: "json" };
 
-class styledLog {
+export default class styledLog {
 
   static name_version() {
     const project_name = process.env.PROJECT_NAME || 'ALTERE O PROJECT_NAME NO .ENV';
-    const version = require('../../../package.json').version;
+    // const require = createRequire(import.meta.url);
+    // const { version } = require('../../../package.json');
+    const version = packageJson.version;
     return `${colors.white}[ AI Atende - ${project_name} ] v${version}${colors.reset}`;
   }
 
@@ -133,5 +136,3 @@ class styledLog {
     console.log(`${styledLog.prefix()} ${styledJson}`);
   }
 };
-
-module.exports = styledLog;

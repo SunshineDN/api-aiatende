@@ -1,11 +1,11 @@
-const { parse } = require('date-fns');
-const HandlingError = require('../kommo/HandlingError');
-const GetUser = require('../kommo/GetUser');
-const CalendarUtils = require('../../utils/calendar/CalendarUtils');
-const CalendarIdValidate = require('../../utils/calendar/CalendarIdValidate');
-const styled = require('../../utils/log/styledLog');
+import { parse } from 'date-fns';
+import styled from '../../utils/log/styledLog.js';
+import { HandlingError } from '../kommo/HandlingError.js';
+import { GetUser } from '../kommo/GetUser.js';
+import { CalendarUtils } from '../../utils/calendar/CalendarUtils.js';
+import { CalendarIdValidate } from '../../utils/calendar/CalendarIdValidate.js';
 
-const UpdateCalendarEvent = async (payload, access_token = null) => {
+export const UpdateCalendarEvent = async (payload, access_token = null) => {
   let eventData, nameDoctor;
   const CalendarUtilsClass = new CalendarUtils(payload?.account?.id);
 
@@ -52,5 +52,3 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
     throw new Error('Erro no UpdateCalendarEvent');
   }
 };
-
-module.exports = UpdateCalendarEvent;

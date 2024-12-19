@@ -1,9 +1,9 @@
-const OpenAIController = require('../../controllers/OpenAIController');
-const SendLog = require('../../services/kommo/SendLog');
-const SendMessage = require('../../services/kommo/SendMessage');
-const styled = require('../log/styledLog');
+import styled from '../log/styledLog.js';
+import OpenAIController from '../../controllers/OpenAIController.js';
+import { SendLog } from '../../services/kommo/SendLog.js';
+import { SendMessage } from '../../services/kommo/SendMessage.js';
 
-class Communicator {
+export class Communicator {
   static async assistant(req, res, data) {
     let access_token;
     try {
@@ -38,5 +38,3 @@ class Communicator {
     }
   }
 };
-
-module.exports = Communicator;

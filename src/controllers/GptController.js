@@ -1,50 +1,51 @@
-const GetGptAssistantMessage = require('../services/gpt/GetGptAssistantMessage');
-const GetGptPromptMessage = require('../services/gpt/GetGptPrompMessage');
-const SpeechToText = require('../services/gpt/SpeechToText');
-const TextToSpeech = require('../services/gpt/TextToSpeech');
-const GetAccessToken = require('../services/kommo/GetAccessToken');
-const OpenAIController = require('../controllers/OpenAIController');
-const SendLog = require('../services/kommo/SendLog');
-const Fill_Lead_Message = require('../services/gpt/Fill_Lead_Message');
+import OpenAIController from '../controllers/OpenAIController.js';
+import { GetGptAssistantMessage } from '../services/gpt/GetGptAssistantMessage.js';
+import { GetGptPromptMessage } from '../services/gpt/GetGptPrompMessage.js';
+import { SpeechToText } from '../services/gpt/SpeechToText.js';
+import { TextToSpeech } from '../services/gpt/TextToSpeech.js';
+import { GetAccessToken } from '../services/kommo/GetAccessToken.js';
+import { SendLog } from '../services/kommo/SendLog.js';
+import { Fill_Lead_Message } from '../services/gpt/Fill_Lead_Message.js';
 
-class GptController {
+export default class GptController {
 
-  async index(req, res) {
+  static async index(_, res) {
     res.status(200).json({ message: 'Hello World' });
   }
 
-  async messageToAssistant(req, res) {
+  static async messageToAssistant(req, res) {
     const { assistant_id } = req.params;
-
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       await GetGptAssistantMessage(req.body, assistant_id, access_token);
+      res.status(200).json({ message: 'Mensagem enviada com sucesso!' });
     } catch (error) {
       console.error('Error on messageToAssistant:', error);
       res.status(500).json({ error });
     }
   }
 
-  async messageToPrompt(req, res) {
+  static async messageToPrompt(req, res) {
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       await GetGptPromptMessage(req.body, access_token);
+      res.status(200).json({ message: 'Mensagem enviada com sucesso!' });
     } catch (error) {
       console.error('Error on messageToPrompt:', error);
       res.status(500).json({ error });
     }
   }
 
-  async transcribeMessage(req, res) {
+  static async transcribeMessage(req, res) {
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       if (req.body?.type !== 'voice' && req.body?.type !== 'audio') {
         const last_message = {
           type: 'text',
           text_audio: req?.body?.text_audio
         };
         await Fill_Lead_Message(req.body, last_message, access_token);
-        return res.status(200).json({ message: 'Mensagem preenchida com sucesso!' });
+        res.status(200).json({ message: 'Mensagem transcrita com sucesso!' });
       }
       await SpeechToText(req.body, access_token);
     } catch (error) {
@@ -53,28 +54,27 @@ class GptController {
     }
   }
 
-  async sendAudioFromGpt(req, res) {
+  static async sendAudioFromGpt(req, res) {
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       await TextToSpeech(req.body, access_token);
+      res.status(200).json({ message: 'Áudio enviado com sucesso!' });
     } catch (error) {
       console.error('Error on sendAudioFromGpt:', error);
       res.status(500).json({ error });
     }
   }
 
-  async deleteThread(req, res) {
+  static async deleteThread(req, res) {
     const { lead_id } = req.body;
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       await OpenAIController.deleteThread(lead_id);
       await SendLog(req.body, 'Histórico de conversas no assistente apagados com sucesso!', access_token);
+      res.status(200).json({ message: 'Histórico de conversas no assistente apagados com sucesso!' });
     } catch (error) {
       console.error('Error on deleteThread:', error);
       res.status(500).json({ error });
     }
   }
-
 };
-
-module.exports = new GptController();

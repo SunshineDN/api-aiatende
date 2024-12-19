@@ -1,9 +1,15 @@
-const app = require('./src/app');
-const sequelize = require('./src/config/database');
-const styled = require('./src/utils/log/styledLog');
+import app from './src/app.js';
+import styled from './src/utils/log/styledLog.js';
+import { sequelize } from './src/config/db.js';
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, async () => {
+  if(process.env.PORT) {
+    styled.info('Servidor rodando com porta personalizada ' + process.env.PORT + '!');
+  } else {
+    styled.info('Servidor rodando com porta padrão 3000!');
+  }
   styled.info('Servidor rodando na porta: ' + PORT);
   try {
     await sequelize.authenticate();

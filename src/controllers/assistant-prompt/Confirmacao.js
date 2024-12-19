@@ -1,17 +1,17 @@
-const GetAccessToken = require('../../services/kommo/GetAccessToken');
-const GetAnswer = require('../../services/kommo/GetAnswer');
-const GetMessageReceived = require('../../services/kommo/GetMessageReceived');
-const GetUser = require('../../services/kommo/GetUser');
-const Communicator = require('../../utils/assistant-prompt/Communicator');
-const styled = require('../../utils/log/styledLog');
+import styled from '../../utils/log/styledLog.js';
+import { GetAccessToken } from '../../services/kommo/GetAccessToken.js';
+import { GetAnswer } from '../../services/kommo/GetAnswer.js';
+import { GetMessageReceived } from '../../services/kommo/GetMessageReceived.js';
+import { GetUser } from '../../services/kommo/GetUser.js';
+import { Communicator } from '../../utils/assistant-prompt/Communicator.js';
 
-class Confirm {
+export default class Confirmacao {
 
   //Prompt
   static async intencao(req, res) {
     styled.function('Prompt | BOT - Confirmação | Intenção - Esteira de Confirmações...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
 
       const answer = await GetAnswer(req.body, access_token);
       const message_received = await GetMessageReceived(req.body, access_token);
@@ -37,7 +37,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
   static async _24h_1(req, res) {
     styled.function('Assistente | BOT - Confirmação | Esteira de Confirmação 24 horas 1/3...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
 
@@ -99,7 +99,7 @@ Confirmado?"`;
   static async _24h_3(req, res) {
     styled.function('Assistente | BOT - Confirmação | Esteira de Confirmação 24 horas 3/3...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
 
@@ -183,7 +183,4 @@ Ok?"`;
       res.status(500).send('Erro ao enviar mensagem para a assistente');
     }
   }
-
 }
-
-module.exports = Confirm;

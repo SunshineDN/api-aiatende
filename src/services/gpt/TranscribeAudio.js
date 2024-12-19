@@ -1,7 +1,7 @@
-const fs = require('fs');
-const openai = require('./AuthenticateOpenAI');
+import fs from 'fs';
+import { openai } from './AuthenticateOpenAI.js';
 
-const transcribeAudio = async (fileObj) => {
+export const transcribeAudio = async (fileObj) => {
   const file = fs.createReadStream(`./public/files/${fileObj.name}.${fileObj.extension}`);
   const transcription = await openai.audio.transcriptions.create({
     file: file,
@@ -10,5 +10,3 @@ const transcribeAudio = async (fileObj) => {
 
   return transcription.text;
 };
-
-module.exports = transcribeAudio;

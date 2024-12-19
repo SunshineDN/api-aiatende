@@ -1,8 +1,9 @@
-const express = require('express');
+import express from 'express';
+import bodyParser from 'body-parser';
+import Recepcao from '../../../../../controllers/assistant-prompt/Recepcao.js';
+import { decodeKommoURI } from '../../../../../middlewares/decodeKommoURI.js';
+
 const router = express.Router();
-const decodeKommoURI = require('../../../../../middlewares/decodeKommoURI');
-const bodyParser = require('body-parser');
-const Recepcao = require('../../../../../controllers/assistant-prompt/Recepcao');
 
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
@@ -16,4 +17,4 @@ router.post('/:assistant_id/indefinido', Recepcao.indefinido);
 
 router.post('/:assistant_id/nao-qualificado', Recepcao.nao_qualificado);
 
-module.exports = router;
+export default router;

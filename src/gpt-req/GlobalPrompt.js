@@ -1,8 +1,8 @@
-require('dotenv').config();
-const OpenAIController = require('../controllers/OpenAIController');
-const GetAccessToken = require('../services/kommo/GetAccessToken');
-const SendLog = require('../services/kommo/SendLog');
-const SendMessage = require('../services/kommo/SendMessage');
+
+const OpenAIController = require('../controllers/OpenAIController.js');
+const GetAccessToken = require('../services/kommo/GetAccessToken.js');
+const SendLog = require('../services/kommo/SendLog.js');
+const SendMessage = require('../services/kommo/SendMessage.js');
 
 
 class GlobalPrompt {
@@ -20,7 +20,7 @@ class GlobalPrompt {
     let access_token;
     try {
       console.log('Enviando prompt...');
-      access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      access_token = GetAccessToken();
       console.log('Mensagem enviada para o prompt:', text);
       const { message } = await OpenAIController.promptMessage(text);
       console.log('Resposta recebida do prompt:', message);

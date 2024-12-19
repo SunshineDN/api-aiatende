@@ -1,17 +1,17 @@
-const { parse } = require('date-fns');
-const GetAccessToken = require('./GetAccessToken');
-const GetCustomFields = require('./GetCustomFields');
-const GetUser = require('./GetUser');
-const HandlingError = require('./HandlingError');
-const UpdateLead = require('./UpdateLead');
-const styled = require('../../utils/log/styledLog');
+import { parse } from 'date-fns';
+import styled from '../../utils/log/styledLog.js';
+import { GetAccessToken } from './GetAccessToken.js';
+import { GetCustomFields } from './GetCustomFields.js';
+import { GetUser } from './GetUser.js';
+import { HandlingError } from './HandlingError.js';
+import { UpdateLead } from './UpdateLead.js';
 
-const SplitSchedulingFields = async (payload, access_token = null) => {
+export const SplitSchedulingFields = async (payload, access_token = null) => {
   // REQUISICAO PARA O KOMMO
   try {
     // console.log('Função SplitSchedulingFields');
     if (!access_token) {
-      access_token = await GetAccessToken(payload);
+      access_token = GetAccessToken()
     }
     const user = await GetUser(payload, false, access_token);
     const custom_fields = await GetCustomFields(payload, access_token);
@@ -174,5 +174,3 @@ const SplitSchedulingFields = async (payload, access_token = null) => {
     throw new Error('Erro no SplitSchedulingFields');
   }
 };
-
-module.exports = SplitSchedulingFields;

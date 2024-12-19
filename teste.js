@@ -17,7 +17,7 @@
 //   }
 // ];
 
-const styled = require('./src/utils/log/styledLog');
+import styled from './src/utils/log/styledLog.js';
 
 // const fatherFieldValues = 'Teste1;teste2;teste3;teste4;teste5';
 // const father_field_split = fatherFieldValues.split(';');
@@ -225,7 +225,7 @@ const styled = require('./src/utils/log/styledLog');
 // styled.middlewaredir(user);
 
 // Importando bibliotecas necessárias
-// require('dotenv').config();
+// 
 
 // // Exemplo de uso
 // const originalID = 19030890;
@@ -248,3 +248,4 @@ const styled = require('./src/utils/log/styledLog');
 // styled.warning('Console de alerta');
 // styled.error('Console de erro');
 
+styled.info(process.env.DB_URL)

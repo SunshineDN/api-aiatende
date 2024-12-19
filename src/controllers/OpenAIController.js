@@ -1,25 +1,17 @@
-require('dotenv').config();
-const axios = require('axios');
-const OpenAI = require('openai');
-const { downloadAudio, deleteTempFile } = require('../services/gpt/DaD-Audio');
-const LeadThread = require('../models/LeadThread');
-const { Op } = require('sequelize');
-const transcribeAudio = require('../services/gpt/TranscribeAudio');
-const getFileNameFromUrl = require('../utils/GetNameExtension');
-const styled = require('../utils/log/styledLog');
+import axios from 'axios';
+import OpenAI from 'openai';
+import { Op } from 'sequelize';
+import styled from '../utils/log/styledLog.js';
+import LeadThread from '../models/LeadThread.js';
+import { transcribeAudio } from '../services/gpt/TranscribeAudio.js';
+import { getFileNameFromUrl } from '../utils/GetNameExtension.js';
+import { downloadAudio, deleteTempFile } from '../services/gpt/DaD-Audio.js';
 
 const openai = new OpenAI(process.env.OPENAI_API_KEY);
 
-class OpenAIController {
-  constructor() {
-    this.generateText = this.generateText.bind(this);
-    this.textToAudio = this.textToAudio.bind(this);
-    this.audioToText = this.audioToText.bind(this);
-    this.createThread = this.createThread.bind(this);
-    this.generateMessage = this.generateMessage.bind(this);
-  }
+export default class OpenAIController {
 
-  async createThread(leadID, assistant_id) {
+  static async createThread(leadID, assistant_id) {
     try {
       const existThreads = await LeadThread?.findOne({
         where: {
@@ -81,7 +73,7 @@ class OpenAIController {
     }
   }
 
-  async generateMessage(info) {
+  static async generateMessage(info) {
     const { text, leadID, assistant_id } = info;
 
     const { decode } = require('base-64');
@@ -101,7 +93,7 @@ class OpenAIController {
       });
 
       if (!existThreads) {
-        await this.createThread(leadID, assistant);
+        await OpenAIController.createThread(leadID, assistant);
         existThreads = await LeadThread.findOne({
           where: {
             leadID,
@@ -217,7 +209,7 @@ Failed? ${run.status === 'failed'}`);
     }
   }
 
-  async promptMessage(text) {
+  static async promptMessage(text) {
     try {
       const completions = await openai.chat.completions.create({
         messages: [
@@ -236,7 +228,7 @@ Failed? ${run.status === 'failed'}`);
     }
   }
 
-  async listMessages(leadID) {
+  static async listMessages(leadID) {
 
     try {
       const existThreads = await LeadThread?.findOne({
@@ -260,7 +252,7 @@ Failed? ${run.status === 'failed'}`);
     }
   }
 
-  async deleteThread(leadID) {
+  static async deleteThread(leadID) {
     try {
       const existThreads = await LeadThread?.findOne({
         where: {
@@ -286,7 +278,7 @@ Failed? ${run.status === 'failed'}`);
     }
   }
 
-  async audioToText(audio_link, lead_id) {
+  static async audioToText(audio_link, lead_id) {
 
     if (!audio_link || !lead_id) {
       throw new Error('Missing parameters');
@@ -314,7 +306,7 @@ Failed? ${run.status === 'failed'}`);
     }
   }
 
-  async textToAudio(message, voice, phone, business) {
+  static async textToAudio(message, voice, phone, business) {
 
     let access_token, instance_id;
 
@@ -371,7 +363,7 @@ Failed? ${run.status === 'failed'}`);
     }
   }
 
-  async generateText(message) {
+  static async generateText(message) {
     try {
       const { data } = await axios.post('https://api.openai.com/v1/chat/completions', {
         model: 'gpt-4o-mini',
@@ -393,5 +385,3 @@ Failed? ${run.status === 'failed'}`);
     }
   }
 }
-
-module.exports = new OpenAIController();

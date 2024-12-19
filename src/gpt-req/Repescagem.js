@@ -1,10 +1,10 @@
-require('dotenv').config();
-const OpenAIController = require('../controllers/OpenAIController');
-const GetAccessToken = require('../services/kommo/GetAccessToken');
-const GetAnswer = require('../services/kommo/GetAnswer');
-const GetMessageReceived = require('../services/kommo/GetMessageReceived');
-const SendLog = require('../services/kommo/SendLog');
-const SendMessage = require('../services/kommo/SendMessage');
+
+const OpenAIController = require('../controllers/OpenAIController.js');
+const GetAccessToken = require('../services/kommo/GetAccessToken.js');
+const GetAnswer = require('../services/kommo/GetAnswer.js');
+const GetMessageReceived = require('../services/kommo/GetMessageReceived.js');
+const SendLog = require('../services/kommo/SendLog.js');
+const SendMessage = require('../services/kommo/SendMessage.js');
 
 class Repescagem {
   constructor() {
@@ -19,7 +19,7 @@ class Repescagem {
     let access_token;
     try {
       console.log('Enviando para o assistente GPT...');
-      access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      access_token = GetAccessToken();
       console.log('Mensagem enviada para o assistente:', data.text);
       const { message } = await OpenAIController.generateMessage(data);
       console.log('Resposta recebida do assistente:', message);
@@ -36,7 +36,7 @@ class Repescagem {
     let access_token;
     try {
       console.log('Enviando prompt...');
-      access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      access_token = GetAccessToken();
       console.log('Mensagem enviada para o prompt:', text);
       const { message } = await OpenAIController.promptMessage(text);
       console.log('Resposta recebida do prompt:', message);
@@ -114,7 +114,7 @@ Atenciosamente, Gabriele"`;
   async intencao(req, res) {
     console.log('Prompt | BOT - Repescagem | Intenção...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
 
       const message_received = await GetMessageReceived(req.body, access_token);
       const answer = await GetAnswer(req.body, access_token);

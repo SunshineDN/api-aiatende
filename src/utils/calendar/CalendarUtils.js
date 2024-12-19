@@ -1,8 +1,8 @@
-const { google } = require('googleapis');
-const AuthCalendar = require('./AuthCalendar');
-const styled = require('../log/styledLog');
+import { google } from 'googleapis';
+import styled from '../log/styledLog.js';
+import { AuthCalendar } from './AuthCalendar.js';
 
-class CalendarUtils {
+export class CalendarUtils {
   constructor(account_id) {
     this.authorization = AuthCalendar.authenticate(account_id);
   };
@@ -451,5 +451,3 @@ class CalendarUtils {
     return await calendar_return;
   }
 }
-
-module.exports = CalendarUtils;

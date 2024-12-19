@@ -1,12 +1,12 @@
-require('dotenv').config();
-const OpenAIController = require('../controllers/OpenAIController');
+
+const OpenAIController = require('../controllers/OpenAIController.js');
 // const TextToSpeech = require('../services/gpt/TextToSpeech');
-const GetAccessToken = require('../services/kommo/GetAccessToken');
-const GetAnswer = require('../services/kommo/GetAnswer');
-const GetMessageReceived = require('../services/kommo/GetMessageReceived');
-const GetUser = require('../services/kommo/GetUser');
-const SendLog = require('../services/kommo/SendLog');
-const SendMessage = require('../services/kommo/SendMessage');
+const GetAccessToken = require('../services/kommo/GetAccessToken.js');
+const GetAnswer = require('../services/kommo/GetAnswer.js');
+const GetMessageReceived = require('../services/kommo/GetMessageReceived.js');
+const GetUser = require('../services/kommo/GetUser.js');
+const SendLog = require('../services/kommo/SendLog.js');
+const SendMessage = require('../services/kommo/SendMessage.js');
 
 class EsteiraConfirm {
   constructor() {
@@ -24,7 +24,7 @@ class EsteiraConfirm {
     let access_token;
     try {
       console.log('Enviando para o assistente GPT...');
-      access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      access_token = GetAccessToken();
       
       console.log('Mensagem enviada para o assistente:', data.text);
       const { message } = await OpenAIController.generateMessage(data);
@@ -42,7 +42,7 @@ class EsteiraConfirm {
     let access_token;
     try {
       console.log('Enviando prompt...');
-      access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      access_token = GetAccessToken();
       console.log('Mensagem enviada para o prompt:', text);
       const { message } = await OpenAIController.promptMessage(text);
       console.log('Resposta recebida do prompt:', message);
@@ -58,7 +58,7 @@ class EsteiraConfirm {
   async intencao(req, res) {
     console.log('Prompt | BOT - Pós-Agendamento | Intenção - Esteira de Confirmações...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
 
       const answer = await GetAnswer(req.body, access_token);
       const message_received = await GetMessageReceived(req.body, access_token);
@@ -83,7 +83,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
   async _24h_1(req, res) {
     console.log('Assistant | BOT - Pós-Agendamento | Esteira de Confirmação 24 horas 1/3...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
 
@@ -143,7 +143,7 @@ Confirmado?"`;
   async _24h_3(req, res) {
     console.log('Assistant | BOT - Pós-Agendamento | Esteira de Confirmação 24 horas 3/3...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
 

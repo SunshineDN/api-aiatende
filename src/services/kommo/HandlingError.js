@@ -1,13 +1,13 @@
-const styled = require('../../utils/log/styledLog');
-const GetAccessToken = require('./GetAccessToken');
-const GetCustomFields = require('./GetCustomFields');
-const UpdateLead = require('./UpdateLead');
+import styled from '../../utils/log/styledLog.js';
+import { GetAccessToken } from './GetAccessToken.js';
+import { GetCustomFields } from './GetCustomFields.js';
+import { UpdateLead } from './UpdateLead.js';
 
-const HandlingError = async (payload, access_token = null, error = '') => {
+export const HandlingError = async (payload, access_token = null, error = '') => {
   // console.log('Função HandlingError');
   try {
     if (!access_token) {
-      access_token = await GetAccessToken(payload);
+      access_token = GetAccessToken()
     }
     const custom_fields = await GetCustomFields(payload, access_token);
 
@@ -32,5 +32,3 @@ const HandlingError = async (payload, access_token = null, error = '') => {
     throw new Error('Erro ao tratar no HandlingError');
   }
 };
-
-module.exports = HandlingError;

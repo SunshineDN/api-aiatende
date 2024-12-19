@@ -1,20 +1,19 @@
-require('dotenv').config();
-const GetAccessToken = require('../../services/kommo/GetAccessToken');
-const GetAnswer = require('../../services/kommo/GetAnswer');
-const GetMessageReceived = require('../../services/kommo/GetMessageReceived');
-const GetUser = require('../../services/kommo/GetUser');
-const Communicator = require('../../utils/assistant-prompt/Communicator');
-const CalendarIdValidate = require('../../utils/calendar/CalendarIdValidate');
-const CalendarUtils = require('../../utils/calendar/CalendarUtils');
-const styled = require('../../utils/log/styledLog');
+import styled from '../../utils/log/styledLog.js';
+import { GetAccessToken } from '../../services/kommo/GetAccessToken.js';
+import { GetAnswer } from '../../services/kommo/GetAnswer.js';
+import { GetMessageReceived } from '../../services/kommo/GetMessageReceived.js';
+import { GetUser } from '../../services/kommo/GetUser.js';
+import { CalendarIdValidate } from '../../utils/calendar/CalendarIdValidate.js';
+import { CalendarUtils } from '../../utils/calendar/CalendarUtils.js';
+import { Communicator } from '../../utils/assistant-prompt/Communicator.js';
 
-class Agendamento {
+export default class Agendamento {
 
   //Prompt
   static async intencao(req, res) {
     styled.function('Prompt | BOT - Agendamento | Intenção...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const answer = await GetAnswer(req.body, access_token);
       const message_received = await GetMessageReceived(req.body, access_token);
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
@@ -62,7 +61,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
   static async verificar_confirmacao(req, res) {
     styled.function('Prompt | BOT - Agendamento | Verificar Confirmação...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const answer = await GetAnswer(req.body, access_token);
       
       const text = `Seja como especialista em agendamento de consultas. Considere que você está analisando a intenção de uma frase digitada pela clínica em um chatbot, e analise em quais das situações abaixo estão inseridas a intenção da frase digitada: '${answer}'
@@ -111,7 +110,7 @@ Responda apenas com o ID correspondente da opção, que segue este padrão: "#pa
   static async form_join(req, res) {
     styled.function('Assistant | BOT - Agendamento | Agendamento pelo Formulário...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
 
@@ -164,7 +163,7 @@ Considerar que o usuário passou por todas as etapas para fazer o primeiro agend
   static async disponibilidade_horario(req, res) {
     styled.function('Verificando disponibilidade | BOT - Agendamento | Disponibilidade de Horário...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
       const CalendarUtilsClass = new CalendarUtils(req.body.account.id);
@@ -269,7 +268,7 @@ User message: '${message_received}'`;
   static async verificar_datas(req, res) {
     styled.function('Recebendo requisição de assistente | Verificar Datas...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const message_received = await GetMessageReceived(req.body, access_token);
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
@@ -291,5 +290,3 @@ User message: '${message_received}'`;
     }
   }
 }
-
-module.exports = Agendamento;

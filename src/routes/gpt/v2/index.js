@@ -1,52 +1,52 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 
 // Roteamento para as subpastas de /gpt/v2/confirmacao
-const confirmacaoAssistenteRouter = require('./confirmacao/assistente');
-const confirmacaoPromptRouter = require('./confirmacao/prompt');
+import confirmacaoAssistenteRouter from './confirmacao/assistente/index.js';
+import confirmacaoPromptRouter from './confirmacao/prompt/index.js';
 router.use('/confirmacao/assistant', confirmacaoAssistenteRouter);
 router.use('/confirmacao/prompt', confirmacaoPromptRouter);
 
 // Roteamento para as subpastas de /gpt/v2/cutucada
-const cutucadaAssistenteRouter = require('./cutucada/assistente');
-const cutucadaPromptRouter = require('./cutucada/prompt');
+import cutucadaAssistenteRouter from './cutucada/assistente/index.js';
+import cutucadaPromptRouter from './cutucada/prompt/index.js';
 router.use('/cutucada/assistant', cutucadaAssistenteRouter);
 router.use('/cutucada/prompt', cutucadaPromptRouter);
 
 // Roteamento para as subpastas de /gpt/v2/dados
-const dadosAssistenteRouter = require('./dados/assistente');
-const dadosPromptRouter = require('./dados/prompt');
+import dadosAssistenteRouter from './dados/assistente/index.js';
+import dadosPromptRouter from './dados/prompt/index.js';
 router.use('/dados/assistant', dadosAssistenteRouter);
 router.use('/dados/prompt', dadosPromptRouter);
 
 // Roteamento para as subpastas de /gpt/v2/global
-const globalAssistenteRouter = require('./global/assistente');
-const globalPromptRouter = require('./global/prompt');
+import globalAssistenteRouter from './global/assistente/index.js';
+import globalPromptRouter from './global/prompt/index.js';
 router.use('/global/assistant', globalAssistenteRouter);
 router.use('/global/prompt', globalPromptRouter);
 
 // Roteamento para as subpastas de /gpt/v2/posagendamento
-const posagendamentoAssistenteRouter = require('./posagendamento/assistente');
-const posagendamentoPromptRouter = require('./posagendamento/prompt');
+import posagendamentoAssistenteRouter from './posagendamento/assistente/index.js';
+import posagendamentoPromptRouter from './posagendamento/prompt/index.js';
 router.use('/posagendamento/assistant', posagendamentoAssistenteRouter);
 router.use('/posagendamento/prompt', posagendamentoPromptRouter);
 
 // Roteamento para as subpastas de /gpt/v2/preagendamento
-const preagendamentoAssistenteRouter = require('./preagendamento/assistente');
-const preagendamentoPromptRouter = require('./preagendamento/prompt');
+import preagendamentoAssistenteRouter from './preagendamento/assistente/index.js';
+import preagendamentoPromptRouter from './preagendamento/prompt/index.js';
 router.use('/preagendamento/assistant', preagendamentoAssistenteRouter);
 router.use('/preagendamento/prompt', preagendamentoPromptRouter);
 
 // Roteamento para as subpastas de /gpt/v2/qualificado
-const qualificadoAssistenteRouter = require('./qualificado/assistente');
-const qualificadoPromptRouter = require('./qualificado/prompt');
+import qualificadoAssistenteRouter from './qualificado/assistente/index.js';
+import qualificadoPromptRouter from './qualificado/prompt/index.js';
 router.use('/qualificado/assistant', qualificadoAssistenteRouter);
 router.use('/qualificado/prompt', qualificadoPromptRouter);
 
 // Roteamento para as subpastas de /gpt/v2/recepcao
-const recepcaoAssistenteRouter = require('./recepcao/assistente');
-const recepcaoPromptRouter = require('./recepcao/prompt');
+import recepcaoAssistenteRouter from './recepcao/assistente/index.js';
+import recepcaoPromptRouter from './recepcao/prompt/index.js';
 router.use('/recepcao/assistant', recepcaoAssistenteRouter);
 router.use('/recepcao/prompt', recepcaoPromptRouter);
 
-module.exports = router;
+export default router;

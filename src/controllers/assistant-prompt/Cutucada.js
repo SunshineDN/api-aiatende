@@ -1,16 +1,16 @@
-const GetAccessToken = require('../../services/kommo/GetAccessToken');
-const GetAnswer = require('../../services/kommo/GetAnswer');
-const GetMessageReceived = require('../../services/kommo/GetMessageReceived');
-const Communicator = require('../../utils/assistant-prompt/Communicator');
-const styled = require('../../utils/log/styledLog');
+import styled from '../../utils/log/styledLog.js';
+import { GetAccessToken } from '../../services/kommo/GetAccessToken.js';
+import { GetAnswer } from '../../services/kommo/GetAnswer.js';
+import { GetMessageReceived } from '../../services/kommo/GetMessageReceived.js';
+import { Communicator } from '../../utils/assistant-prompt/Communicator.js';
 
-class Cutucada {
+export default class Cutucada {
 
   // Prompt
   static async intencao(req, res) {
     styled.function('Prompt | BOT - Cutucada | Inteção...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
 
       const message_received = await GetMessageReceived(req.body, access_token);
       const answer = await GetAnswer(req.body, access_token);
@@ -40,7 +40,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
   static async gerar_perguntas(req, res) {
     styled.function('Prompt | BOT - Cutucada | Gerar Perguntas...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
 
       const answer = await GetAnswer(req.body, access_token);
 
@@ -79,5 +79,3 @@ Pode utilizar alguns dos exemplos, mas tente produzir sempre mensagens novas. Re
     }
   }
 }
-
-module.exports = Cutucada;

@@ -1,5 +1,5 @@
-const request = require('supertest');
-const app = require('../../../app');
+import request from 'supertest';
+import app from '../../app';
 
 describe('Método GET no /recepcao', () => {
   it('Deve retornar 200 OK na rota "/" recepcao prompt', async () => {

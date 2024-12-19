@@ -1,17 +1,17 @@
-const GetAccessToken = require('../../services/kommo/GetAccessToken');
-const GetAnswer = require('../../services/kommo/GetAnswer');
-const GetMessageReceived = require('../../services/kommo/GetMessageReceived');
-const GetUser = require('../../services/kommo/GetUser');
-const Communicator = require('../../utils/assistant-prompt/Communicator');
-const styled = require('../../utils/log/styledLog');
+import styled from '../../utils/log/styledLog.js';
+import { GetAccessToken } from '../../services/kommo/GetAccessToken.js';
+import { GetAnswer } from '../../services/kommo/GetAnswer.js';
+import { GetMessageReceived } from '../../services/kommo/GetMessageReceived.js';
+import { GetUser } from '../../services/kommo/GetUser.js';
+import { Communicator } from '../../utils/assistant-prompt/Communicator.js';
 
-class PosAgendamento {
+export default class PosAgendamento {
 
   //Prompt
   static async intencao(req, res) {
     styled.function('Prompt | BOT - PÓS AGENDAMENTO | Intenção...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const answer = await GetAnswer(req.body, access_token);
       const messageReceived = await GetMessageReceived(req.body, access_token);
 
@@ -38,7 +38,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
   static async intencao_falta(req, res) {
     styled.function('Prompt | BOT - PÓS AGENDAMENTO | Faltosos...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const message_received = await GetMessageReceived(req.body, access_token);
       const answer = await GetAnswer(req.body, access_token);
 
@@ -64,7 +64,7 @@ Retorne apenas o ID da intencão antecedido do #, por exemplo: #Geral`;
   static async notificar_falta(req, res) {
     styled.function('Assistant | BOT - PÓS AGENDAMENTO | Faltosos...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const message_received = await GetMessageReceived(req.body, access_token);
 
       const { lead_id: leadID } = req.body;
@@ -106,7 +106,7 @@ User message: '${message_received}'`;
     try {
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const user = await GetUser(req.body, false, access_token);
       const scheduleDate = user?.custom_fields_values?.filter(field => field.field_name === 'Event Start')[0];
       const scheduleDateValue = scheduleDate?.values[0]?.value;
@@ -143,7 +143,7 @@ User message: '${message_received}'`;
     try {
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const message_received = await GetMessageReceived(req.body, access_token);
 
       const text = `System message: O usuário deseja reagendar. Retorne uma mensagem que iremos continuar com o reagendamento dele e fornecer as datas em breve.
@@ -162,5 +162,3 @@ User message: '${message_received}'`;
     }
   }
 }
-
-module.exports = PosAgendamento;

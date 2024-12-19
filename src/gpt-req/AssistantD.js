@@ -1,13 +1,13 @@
-require('dotenv').config();
-const OpenAIController = require('../controllers/OpenAIController');
-const GetAccessToken = require('../services/kommo/GetAccessToken');
-const GetAnswer = require('../services/kommo/GetAnswer');
-const GetMessageReceived = require('../services/kommo/GetMessageReceived');
-const GetUser = require('../services/kommo/GetUser');
-const SendLog = require('../services/kommo/SendLog');
-const SendMessage = require('../services/kommo/SendMessage');
-const CalendarIdValidate = require('../utils/calendar/CalendarIdValidate');
-const CalendarUtils = require('../utils/calendar/CalendarUtils');
+
+const OpenAIController = require('../controllers/OpenAIController.js');
+const GetAccessToken = require('../services/kommo/GetAccessToken.js');
+const GetAnswer = require('../services/kommo/GetAnswer.js');
+const GetMessageReceived = require('../services/kommo/GetMessageReceived.js');
+const GetUser = require('../services/kommo/GetUser.js');
+const SendLog = require('../services/kommo/SendLog.js');
+const SendMessage = require('../services/kommo/SendMessage.js');
+const CalendarIdValidate = require('../utils/calendar/CalendarIdValidate.js');
+const CalendarUtils = require('../utils/calendar/CalendarUtils.js');
 
 
 class AssistantD {
@@ -23,7 +23,7 @@ class AssistantD {
     let access_token;
     try {
       console.log('Enviando para o assistente GPT...');
-      access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      access_token = GetAccessToken();
       console.log('Mensagem enviada para o assistente:', data.text);
       const { message } = await OpenAIController.generateMessage(data);
       console.log('Resposta recebida do assistente:', message);
@@ -43,7 +43,7 @@ class AssistantD {
     try {
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const messageReceived = await GetMessageReceived(req.body, access_token);
       const user = await GetUser(req.body, false, access_token);
       const CalendarUtilsClass = new CalendarUtils(req.body.account.id);
@@ -126,7 +126,7 @@ User message: '${messageReceived}'`;
   async d_previa_datas(req, res) {
     console.log('Recebendo requisição de assistente | Previa Dados...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const message_received = await GetMessageReceived(req.body, access_token);
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
@@ -147,7 +147,7 @@ User message: '${messageReceived}'`;
   async d_verificar_datas(req, res) {
     console.log('Recebendo requisição de assistente | Verificar Datas...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const message_received = await GetMessageReceived(req.body, access_token);
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
@@ -183,7 +183,7 @@ User message: '${message_received}'`;
     try {
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const answer = await GetAnswer(req.body, access_token);
 
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });

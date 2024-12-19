@@ -1,20 +1,20 @@
-const styled = require('../../utils/log/styledLog');
-const Communicator = require('../../utils/assistant-prompt/Communicator');
-const GetAccessToken = require('../../services/kommo/GetAccessToken');
-const CalendarUtils = require('../../utils/calendar/CalendarUtils');
-const GetUser = require('../../services/kommo/GetUser');
-const CalendarIdValidate = require('../../utils/calendar/CalendarIdValidate');
-const GetAnswer = require('../../services/kommo/GetAnswer');
-const SetActualDateHour = require('../../services/kommo/SetActualDateHour');
-const GetMessageReceived = require('../../services/kommo/GetMessageReceived');
+import styled from '../../utils/log/styledLog.js';
+import { GetAccessToken } from '../../services/kommo/GetAccessToken.js';
+import { GetUser } from '../../services/kommo/GetUser.js';
+import { GetAnswer } from '../../services/kommo/GetAnswer.js';
+import { SetActualDateHour } from '../../services/kommo/SetActualDateHour.js';
+import { GetMessageReceived } from '../../services/kommo/GetMessageReceived.js';
+import { CalendarUtils } from '../../utils/calendar/CalendarUtils.js';
+import { CalendarIdValidate } from '../../utils/calendar/CalendarIdValidate.js';
+import { Communicator } from '../../utils/assistant-prompt/Communicator.js';
 
-class PreAgendamento {
+export default class PreAgendamento {
 
   //Prompt
   static async intencao(req, res) {
     styled.function('Prompt | BOT - Pré Agendamento | Intenção...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const answer = await GetAnswer(req.body, access_token);
       const message_received = await GetMessageReceived(req.body, access_token);
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
@@ -63,7 +63,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
   static async verificar_confirmacao(req, res) {
     styled.function('Prompt | BOT - Pré Agendamento | Verificação de confirmação...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const answer = await GetAnswer(req.body, access_token);
       const message_received = await GetMessageReceived(req.body, access_token);
 
@@ -106,7 +106,7 @@ Responda apenas com o ID correspondente da opção, que segue este padrão: "#pa
   static async confirmar_data(req, res) {
     styled.function('Prompt | BOT - Pré Agendamento | Confirmação de datas...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
 
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
       const weekOptions = {
@@ -145,7 +145,7 @@ Não formate as linhas da resposta solicitada.`;
   static async verificar_agenda_especialista(req, res) {
     styled.function('Prompt | BOT - Pré Agendamento | Verificação de agenda do especialista...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const CalendarUtilsClass = new CalendarUtils(req.body.account.id);
       // const actual_date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
       // const weekOptions = {
@@ -195,7 +195,7 @@ Caso a data e horário contida na frase exista na *Agenda Disponível*, retorne 
     try {
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const messageReceived = await GetMessageReceived(req.body, access_token);
       const user = await GetUser(req.body, false, access_token);
       const CalendarUtilsClass = new CalendarUtils(req.body.account.id);
@@ -279,7 +279,7 @@ User message: '${messageReceived}'`;
   static async previa_datas(req, res) {
     styled.function('Assistente | BOT - Pré Agendamento | Prévia de Datas...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const message_received = await GetMessageReceived(req.body, access_token);
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
@@ -301,7 +301,7 @@ User message: '${messageReceived}'`;
   static async verificar_datas(req, res) {
     styled.function('Assistente | BOT - Pré Agendamento | Verificar Datas...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const message_received = await GetMessageReceived(req.body, access_token);
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
@@ -338,7 +338,7 @@ User message: '${message_received}'`;
     try {
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const answer = await GetAnswer(req.body, access_token);
 
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
@@ -365,5 +365,3 @@ Caso precise, o nome da clínica é: Clínica Dental Santé`;
     }
   }
 };
-
-module.exports = PreAgendamento;

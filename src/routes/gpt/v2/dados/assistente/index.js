@@ -1,8 +1,9 @@
-const express = require('express');
+import express from 'express';
+import bodyParser from 'body-parser';
+import Dados from '../../../../../controllers/assistant-prompt/Dados.js';
+import { decodeKommoURI } from '../../../../../middlewares/decodeKommoURI.js';
+
 const router = express.Router();
-const decodeKommoURI = require('../../../../../middlewares/decodeKommoURI');
-const bodyParser = require('body-parser');
-const Dados = require('../../../../../controllers/assistant-prompt/Dados');
 
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
@@ -24,4 +25,4 @@ router.post('/:assistant_id/listar-especialidades', Dados.listar_especialidades)
 
 router.post('/:assistant_id/verificar-especialista', Dados.verificar_especialista);
 
-module.exports = router;
+export default router;

@@ -1,15 +1,15 @@
-const GetAccessToken = require('../../services/kommo/GetAccessToken');
-const GetMessageReceived = require('../../services/kommo/GetMessageReceived');
-const Communicator = require('../../utils/assistant-prompt/Communicator');
-const styled = require('../../utils/log/styledLog');
+import styled from '../../utils/log/styledLog.js';
+import { GetAccessToken } from '../../services/kommo/GetAccessToken.js';
+import { GetMessageReceived } from '../../services/kommo/GetMessageReceived.js';
+import { Communicator } from '../../utils/assistant-prompt/Communicator.js';
 
-class Global {
+export default class Global {
   
   //Prompt
   static async prompt(req, res) {
     styled.function('Requisição de prompt | Only Prompt (Apenas Prompt)...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const message_received = await GetMessageReceived(req.body, access_token);
 
       await Communicator.prompt(req, res, message_received);
@@ -23,7 +23,7 @@ class Global {
   static async assistant(req, res) {
     styled.function('Requisição de assistente | Only Assistant (Apenas Assistente)...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const message_received = await GetMessageReceived(req.body, access_token);
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
@@ -42,5 +42,3 @@ class Global {
   }
 
 };
-
-module.exports = Global;

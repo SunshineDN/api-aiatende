@@ -1,11 +1,11 @@
-const GetAccessToken = require('./GetAccessToken');
-const GetUser = require('./GetUser');
+import { GetAccessToken } from './GetAccessToken.js';
+import { GetUser } from './GetUser.js';
 
-const GetLeadChannel = async (payload, access_token = null) => {
+export const GetLeadChannel = async (payload, access_token = null) => {
   // console.log('Função GetLeadChannel!');
   try {
     if (!access_token) {
-      access_token = await GetAccessToken(payload);
+      access_token = GetAccessToken()
     }
     const user = await GetUser(payload, false, access_token);
     const answer = user?.custom_fields_values?.filter(field => field.field_name === 'CANAL DE ENTRADA')[0];
@@ -14,5 +14,3 @@ const GetLeadChannel = async (payload, access_token = null) => {
     throw new Error(`Erro ao buscar canal do lead: ${error.message}`);
   }
 };
-
-module.exports = GetLeadChannel;

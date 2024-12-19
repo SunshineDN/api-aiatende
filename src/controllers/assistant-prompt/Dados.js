@@ -1,18 +1,18 @@
-const styled = require('../../utils/log/styledLog');
-const Communicator = require('../../utils/assistant-prompt/Communicator');
-const GetAccessToken = require('../../services/kommo/GetAccessToken');
-const GetAnswer = require('../../services/kommo/GetAnswer');
-const GetMessageReceived = require('../../services/kommo/GetMessageReceived');
-const GetLeadChannel = require('../../services/kommo/GetLeadChannel');
-const GetLeadInfoForBotC = require('../../services/kommo/GetLeadInfoForBotC');
+import styled from '../../utils/log/styledLog.js';
+import { GetAccessToken } from '../../services/kommo/GetAccessToken.js';
+import { GetAnswer } from '../../services/kommo/GetAnswer.js';
+import { GetMessageReceived } from '../../services/kommo/GetMessageReceived.js';
+import { GetLeadChannel } from '../../services/kommo/GetLeadChannel.js';
+import { GetLeadInfoForBotC } from '../../services/kommo/GetLeadInfoForBotC.js';
+import { Communicator } from '../../utils/assistant-prompt/Communicator.js';
 
-class Dados {
+export default class Dados {
 
   //Prompt
   static async intencao(req, res) {
     styled.function('Prompt | BOT - DADOS | Intenção...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const answer = await GetAnswer(req.body, access_token);
       const message_received = await GetMessageReceived(req.body, access_token);
 
@@ -52,7 +52,7 @@ class Dados {
   static async confirma_dados(req, res) {
     styled.function('Prompt | BOT - DADOS | Confirmação de Dados...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const message_received = await GetMessageReceived(req.body, access_token);
       const answer = await GetAnswer(req.body, access_token);
       const text = `Analise a pergunta da clínica: '${answer}' e a resposta do usuário: '${message_received}' e verifique as intenções abaixo qual melhor se encaixa:
@@ -93,7 +93,7 @@ Identifique a intenção da resposta do usuário baseada na pergunta da clínica
   static async intencao_especialista(req, res) {
     styled.function('Prompt | BOT - DADOS | Intenção Especialista...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const answer = await GetAnswer(req.body, access_token);
       const message_received = await GetMessageReceived(req.body, access_token);
 
@@ -121,7 +121,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
   static async identificar_especialista(req, res) {
     styled.function('Prompt | BOT - DADOS | Identificar Especialista...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const answer = await GetAnswer(req.body, access_token);
       const message_received = await GetMessageReceived(req.body, access_token);
 
@@ -149,7 +149,7 @@ Retorne apenas o ID da opção após o #, por exemplo: #Isento`;
   static async previa_dados(req, res) {
     styled.function('Assistant | BOT - DADOS | Prévia de Dados...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const message_received = await GetMessageReceived(req.body, access_token);
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
@@ -171,7 +171,7 @@ Retorne apenas o ID da opção após o #, por exemplo: #Isento`;
   static async dados_cadastrais(req, res) {
     styled.function('Assistant | BOT - DADOS | Dados Cadastrais...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
       const channel = await GetLeadChannel(req.body, access_token);
@@ -204,7 +204,7 @@ Observe os dados cadastrais fornecidos pelo usuário '${message_received}' e ava
   static async split_dados(req, res) {
     styled.function('Assistant | BOT - DADOS | Split Dados...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
       const channel = await GetLeadChannel(req.body, access_token);
@@ -238,7 +238,7 @@ Observe os dados cadastrais fornecidos pelo usuário '${message_received}' e ava
   static async verifica_dados(req, res) {
     styled.function('Assistant | BOT - DADOS | Verifica Dados...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
       const channel = await GetLeadChannel(req.body, access_token);
@@ -315,7 +315,7 @@ User message: '${message_received}'`;
   static async listar_especialidades(req, res) {
     styled.function('Assistant | BOT - DADOS | Listar Especialidades...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const message_received = await GetMessageReceived(req.body, access_token);
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
@@ -349,7 +349,7 @@ User message: '${message_received}'`;
   static async verificar_especialista(req, res) {
     styled.function('Assistant | BOT - DADOS | Verificar Especialista...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
       const channel = await GetLeadChannel(req.body, access_token);
@@ -380,5 +380,3 @@ User message: '${message_received}'`;
     }
   }
 }
-
-module.exports = Dados;

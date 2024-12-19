@@ -1,8 +1,9 @@
-const express = require('express');
+import express from 'express';
+import bodyParser from 'body-parser';
+import CalendarController from '../controllers/CalendarController.js';
+import { decodeKommoURI } from '../middlewares/decodeKommoURI.js';
+
 const router = express.Router();
-const CalendarController = require('../controllers/CalendarController');
-const decodeKommoURI = require('../middlewares/decodeKommoURI');
-const bodyParser = require('body-parser');
 
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
@@ -17,4 +18,4 @@ router.post('/updateEvent', CalendarController.updateEvent);
 
 router.post('/removeEvent', CalendarController.removeEvent);
 
-module.exports = router;
+export default router;

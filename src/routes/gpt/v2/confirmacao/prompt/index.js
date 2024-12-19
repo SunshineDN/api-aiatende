@@ -1,8 +1,9 @@
-const express = require('express');
+import express from 'express';
+import bodyParser from 'body-parser';
+import Confirmacao from '../../../../../controllers/assistant-prompt/Confirmacao.js';
+import { decodeKommoURI } from '../../../../../middlewares/decodeKommoURI.js';
+
 const router = express.Router();
-const decodeKommoURI = require('../../../../../middlewares/decodeKommoURI');
-const bodyParser = require('body-parser');
-const Confirmacao = require('../../../../../controllers/assistant-prompt/Confirmacao');
 
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
@@ -14,4 +15,4 @@ router.get('/', (req, res) => {
 // BOT CONFIRMAÇÃO
 router.post('/intencao', Confirmacao.intencao);
 
-module.exports = router;
+export default router;

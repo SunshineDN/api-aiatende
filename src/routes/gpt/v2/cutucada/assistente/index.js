@@ -1,8 +1,9 @@
-const express = require('express');
+import express from 'express';
+import bodyParser from 'body-parser';
+import Cutucada from '../../../../../controllers/assistant-prompt/Cutucada.js';
+import { decodeKommoURI } from '../../../../../middlewares/decodeKommoURI.js';
+
 const router = express.Router();
-const decodeKommoURI = require('../../../../../middlewares/decodeKommoURI');
-const bodyParser = require('body-parser');
-const Cutucada = require('../../../../../controllers/assistant-prompt/Cutucada');
 
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
@@ -16,4 +17,4 @@ router.post('/:assistant_id/gerar-perguntas', Cutucada.gerar_perguntas);
 
 router.post('/:assistant_id/assistente', Cutucada.assistente);
 
-module.exports = router;
+export default router;

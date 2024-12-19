@@ -1,4 +1,4 @@
-const colors = {
+export const colors = {
   reset: '\x1b[0m',
   bold: '\x1b[1m',
   dim: '\x1b[2m',
@@ -40,5 +40,3 @@ const colors = {
   bgLightCyan: '\x1b[106m',
   bgWhite: '\x1b[107m',
 };
-
-module.exports = colors;

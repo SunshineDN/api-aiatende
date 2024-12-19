@@ -1,6 +1,6 @@
-const axios = require('axios');
+import axios from 'axios';
 
-const TokenizeTest = async (payload, access_token, res) => {
+export const TokenizeTest = async (payload, access_token, res) => {
   console.log('Testando token!');
   try {
     console.log('Token: ' + access_token);
@@ -18,5 +18,3 @@ const TokenizeTest = async (payload, access_token, res) => {
     throw new Error(error);
   }
 };
-
-module.exports = TokenizeTest;

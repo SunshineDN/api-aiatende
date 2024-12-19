@@ -1,12 +1,12 @@
-const styled = require('../../utils/log/styledLog');
-const GetAccessToken = require('./GetAccessToken');
-const GetCustomFields = require('./GetCustomFields');
+import styled from '../../utils/log/styledLog.js';
+import { GetAccessToken } from './GetAccessToken.js';
+import { GetCustomFields } from './GetCustomFields.js';
 
-const VerifyFieldsGpt = async (payload, res, access_token = null) => {
+export const VerifyFieldsGpt = async (payload, res, access_token = null) => {
 
   try {
     if (!access_token) {
-      access_token = await GetAccessToken(payload);
+      access_token = GetAccessToken()
     }
     const custom_fields = await GetCustomFields(payload, access_token);
     const exist_fields = [
@@ -307,5 +307,3 @@ const VerifyFieldsGpt = async (payload, res, access_token = null) => {
     }
   }
 };
-
-module.exports = VerifyFieldsGpt;

@@ -1,17 +1,17 @@
-const ListCalendarEvents = require('../services/calendar/ListCalendarEvent');
-const RegisterCalendarEvent = require('../services/calendar/RegisterCalendarEvent');
-const RemoveCalendarEvent = require('../services/calendar/RemoveCalendarEvent');
-const UpdateCalendarEvent = require('../services/calendar/UpdateCalendarEvent');
-const WebListCalendarEvents = require('../services/calendar/WebListCalendarEvents');
-const GetAccessToken = require('../services/kommo/GetAccessToken');
-const GetUser = require('../services/kommo/GetUser');
+import { ListCalendarEvents } from '../services/calendar/ListCalendarEvents.js';
+import { RegisterCalendarEvent } from '../services/calendar/RegisterCalendarEvent.js';
+import { RemoveCalendarEvent } from '../services/calendar/RemoveCalendarEvent.js';
+import { UpdateCalendarEvent } from '../services/calendar/UpdateCalendarEvent.js';
+import { WebListCalendarEvents } from '../services/calendar/WebListCalendarEvents.js';
+import { GetAccessToken } from '../services/kommo/GetAccessToken.js';
+import { GetUser } from '../services/kommo/GetUser.js';
 
-class CalendarController {
-  async index(req, res) {
+export default class CalendarController {
+  static async index(req, res) {
     res.json(req.body);
   };
 
-  async teste(req, res) {
+  static async teste(req, res) {
     try {
       const user = await GetUser(req.body, true);
       res.json(user);
@@ -20,17 +20,18 @@ class CalendarController {
     }
   };
 
-  async listEvents(req, res) {
+  static async listEvents(req, res) {
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       await ListCalendarEvents(req.body, access_token);
+      res.status(200).json({ message: 'Eventos listados com sucesso!' });
     } catch (error) {
       console.error('Error on listEvents:', error);
       res.status(500).json({ error });
     }
   };
 
-  async listEventsWeb(req, res) {
+  static async listEventsWeb(req, res) {
     try {
       const options_response = await WebListCalendarEvents(req.body);
       res.status(200).json(options_response);
@@ -40,35 +41,36 @@ class CalendarController {
     }
   }
 
-  async addEvent(req, res) {
+  static async addEvent(req, res) {
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       await RegisterCalendarEvent(req.body, access_token);
+      res.status(200).json({ message: 'Evento adicionado com sucesso!' });
     } catch (error) {
       console.error('Error on addEvent:', error);
       res.status(500).json({ error });
     }
   };
 
-  async updateEvent(req, res) {
+  static async updateEvent(req, res) {
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       await UpdateCalendarEvent(req.body, access_token);
+      res.status(200).json({ message: 'Evento atualizado com sucesso!' });
     } catch (error) {
       console.error('Error on updateEvent:', error);
       res.status(500).json({ error });
     }
   };
 
-  async removeEvent(req, res) {
+  static async removeEvent(req, res) {
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       await RemoveCalendarEvent(req.body, access_token);
+      res.status(200).json({ message: 'Evento removido com sucesso!' });
     } catch (error) {
       console.error('Error on removeEvent:', error);
       res.status(500).json({ error });
     }
   };
 }
-
-module.exports = new CalendarController();

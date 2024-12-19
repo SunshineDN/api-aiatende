@@ -1,21 +1,20 @@
-const express = require('express');
+import express from 'express';
+import bodyParser from 'body-parser';
+import { decodeKommoURI } from '../middlewares/decodeKommoURI.js';
+import GlobalAssistant from '../gpt-req/GlobalAssistant.js';
+import PromptD from '../gpt-req/PromptD.js';
+import AssistantD from '../gpt-req/AssistantD.js';
+import Cutucada from '../gpt-req/Cutucada.js';
+import EsteiraConfirm from '../gpt-req/EsteiraConfirm.js';
+import Repescagem from '../gpt-req/Repescagem.js';
+import AgendamentoVoz from '../gpt-req/AgendamentoVoz.js';
+import Dados from '../controllers/assistant-prompt/Dados.js';
+import PostScheduling from '../controllers/assistant-prompt/PosAgendamento.js';
+import Agendamento from '../controllers/assistant-prompt/Agendamento.js';
+import Recepcao from '../controllers/assistant-prompt/Recepcao.js';
+import Qualificado from '../controllers/assistant-prompt/Qualificado.js';
+
 const router = express.Router();
-const decodeKommoURI = require('../middlewares/decodeKommoURI');
-const bodyParser = require('body-parser');
-const GlobalAssistant = require('../gpt-req/GlobalAssistant');
-// const PromptC = require('../gpt-req/PromptC');
-// const AssistantC = require('../gpt-req/AssistantC');
-const PromptD = require('../gpt-req/PromptD');
-const AssistantD = require('../gpt-req/AssistantD');
-const Cutucada = require('../gpt-req/Cutucada');
-const EsteiraConfirm = require('../gpt-req/EsteiraConfirm');
-const Repescagem = require('../gpt-req/Repescagem');
-const AgendamentoVoz = require('../gpt-req/AgendamentoVoz');
-const Dados = require('../controllers/assistant-prompt/Dados');
-const PostScheduling = require('../controllers/assistant-prompt/PosAgendamento');
-const Agendamento = require('../controllers/assistant-prompt/Agendamento');
-const Recepcao = require('../controllers/assistant-prompt/Recepcao');
-const Qualificado = require('../controllers/assistant-prompt/Qualificado');
 
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
@@ -140,4 +139,4 @@ router.post('/assistant/:assistant_id/repescagem/congelado', Repescagem.congelad
 
 router.post('/assistant/:assistant_id/agendamento/voz', AgendamentoVoz.voice_schedule);
 
-module.exports = router;
+export default router;

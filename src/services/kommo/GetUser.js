@@ -1,9 +1,9 @@
-const axios = require('axios');
-const GetAccessToken = require('./GetAccessToken');
-const HandlingError = require('./HandlingError');
-const styled = require('../../utils/log/styledLog');
+import axios from 'axios';
+import styled from '../../utils/log/styledLog.js';
+import { GetAccessToken } from './GetAccessToken.js';
+import { HandlingError } from './HandlingError.js';
 
-const GetUser = async (payload, with_contact = false, access_token = null) => {
+export const GetUser = async (payload, with_contact = false, access_token = null) => {
   // console.log('Função GetUser');
   const { lead_id, account: { account_domain: domain } } = payload;
   // console.log('ID do Lead:', lead_id);
@@ -11,7 +11,7 @@ const GetUser = async (payload, with_contact = false, access_token = null) => {
   try {
     let responseData;
     if (!access_token) {
-      access_token = await GetAccessToken(payload);
+      access_token = GetAccessToken()
     }
 
     try {
@@ -78,5 +78,3 @@ const GetUser = async (payload, with_contact = false, access_token = null) => {
     throw new Error('Erro no GetUser');
   }
 };
-
-module.exports = GetUser;

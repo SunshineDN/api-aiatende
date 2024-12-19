@@ -1,13 +1,11 @@
- 
-const FormatTelephone = require('../../utils/FormatTelephone');
-const styled = require('../../utils/log/styledLog');
-const GetContactCustomFields = require('./GetContactCustomFields');
-const GetUser = require('./GetUser');
-const HandlingError = require('./HandlingError');
-const UpdateContact = require('./UpdateContact');
+import styled from '../../utils/log/styledLog.js';
+import { FormatTelephone } from '../../utils/FormatTelephone.js';
+import { GetContactCustomFields } from './GetContactCustomFields.js';
+import { GetUser } from './GetUser.js';
+import { UpdateContact } from './UpdateContact.js';
+import { HandlingError } from './HandlingError.js';
 
-
-const AddTelephoneService = async (payload, access_token) => {
+export const AddTelephoneService = async (payload, access_token) => {
   try {
     const user = await GetUser(payload, true, access_token);
     const contact_custom_fields = await GetContactCustomFields(payload, access_token);
@@ -55,5 +53,3 @@ const AddTelephoneService = async (payload, access_token) => {
 
   };
 };
-
-module.exports = AddTelephoneService;

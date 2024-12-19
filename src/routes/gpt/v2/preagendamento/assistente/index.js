@@ -1,8 +1,9 @@
-const express = require('express');
+import express from 'express';
+import bodyParser from 'body-parser';
+import PreAgendamento from '../../../../../controllers/assistant-prompt/PreAgendamento.js';
+import { decodeKommoURI } from '../../../../../middlewares/decodeKommoURI.js';
+
 const router = express.Router();
-const decodeKommoURI = require('../../../../../middlewares/decodeKommoURI');
-const bodyParser = require('body-parser');
-const PreAgendamento = require('../../../../../controllers/assistant-prompt/PreAgendamento');
 
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
@@ -18,4 +19,4 @@ router.post('/:assistant_id/verificar-datas', PreAgendamento.verificar_datas);
 
 router.post('/:assistant_id/confirmacao', PreAgendamento.confirmacao);
 
-module.exports = router;
+export default router;

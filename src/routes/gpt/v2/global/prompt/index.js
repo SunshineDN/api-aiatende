@@ -1,17 +1,18 @@
-const express = require('express');
+import express from 'express';
+import bodyParser from 'body-parser';
+import Global from '../../../../../controllers/assistant-prompt/Global.js';
+import { decodeKommoURI } from '../../../../../middlewares/decodeKommoURI.js';
+
 const router = express.Router();
-const decodeKommoURI = require('../../../../../middlewares/decodeKommoURI');
-const bodyParser = require('body-parser');
-const Global = require('../../../../../controllers/assistant-prompt/Global');
 
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
 
 router.get('/', (req, res) => {
-  res.json({ message: 'Rota de requisição de prompt - recepção' });
+  res.json({ message: 'Rota de requisição de prompt - global' });
 });
 
-// BOT RECEPÇÃO
+// ROTA GLOBAL
 router.post('/', Global.prompt);
 
-module.exports = router;
+export default router;

@@ -1,8 +1,9 @@
-const express = require('express');
+import express from 'express';
+import bodyParser from 'body-parser';
+import LeadController from '../controllers/LeadController.js';
+import { decodeKommoURI } from '../middlewares/decodeKommoURI.js';
+
 const router = express.Router();
-const LeadController = require('../controllers/LeadController');
-const decodeKommoURI = require('../middlewares/decodeKommoURI');
-const bodyParser = require('body-parser');
 
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(decodeKommoURI);
@@ -19,4 +20,4 @@ router.post('/add-tel', LeadController.addTelephone);
 
 router.post('/created', LeadController.setCalendarForm);
 
-module.exports = router;
+export default router;

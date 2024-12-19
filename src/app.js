@@ -1,14 +1,13 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const leadRouter = require('./routes/lead');
-const gptRouter = require('./routes/gpt');
-const gptRouter2 = require('./routes/gpt/v2');
-const accountRouter = require('./routes/account');
-const calendarRouter = require('./routes/calendar');
-const calendarWebRouter = require('./routes/react-calendar-form');
-const apiDocs = require('./routes/api-docs');
-const teste = require('./routes/teste');
+import express from 'express';
+import cors from 'cors';
+import teste from './routes/teste.js';
+import apiDocs from './routes/api-docs.js';
+import leadRouter from './routes/lead.js';
+import calendarRouter from './routes/calendar.js';
+import accountRouter from './routes/account.js';
+import gptRouter from './routes/gpt.js';
+import gptRouter2 from './routes/gpt/v2/index.js';
+import calendarWebRouter from './routes/react-calendar-form.js';
 
 const app = express();
 
@@ -26,4 +25,4 @@ app.use((req, res) => {
   res.status(404).json({error: 'Endpoint não encontrado!'});
 });
 
-module.exports = app;
+export default app;
