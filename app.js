@@ -1,13 +1,13 @@
 import express from 'express';
 import cors from 'cors';
-import teste from './routes/teste.js';
-import apiDocs from './routes/api-docs.js';
-import leadRouter from './routes/lead.js';
-import calendarRouter from './routes/calendar.js';
-import accountRouter from './routes/account.js';
-import gptRouter from './routes/gpt.js';
-import gptRouter2 from './routes/gpt/v2/index.js';
-import calendarWebRouter from './routes/react-calendar-form.js';
+import teste from './src/routes/teste.js';
+import apiDocs from './src/routes/api-docs.js';
+import leadRouter from './src/routes/lead.js';
+import calendarRouter from './src/routes/calendar.js';
+import accountRouter from './src/routes/account.js';
+import gptRouter from './src/routes/gpt.js';
+import gptRouter2 from './src/routes/gpt/v2/index.js';
+import calendarWebRouter from './src/routes/react-calendar-form.js';
 
 const app = express();
 

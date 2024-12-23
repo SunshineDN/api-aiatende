@@ -1,6 +1,7 @@
-import app from './src/app.js';
-import styled from './src/utils/log/styledLog.js';
-import { sequelize } from './src/config/db.js';
+import 'module-alias/register.js';
+import app from '@root/app.js';
+import styled from '@utils/log/styledLog.js';
+import { sequelize } from '@config/db.js';
 
 const PORT = process.env.PORT || 3000;
 
