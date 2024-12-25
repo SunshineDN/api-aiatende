@@ -248,9 +248,9 @@ import styled from './src/utils/log/styledLog.js';
 // styled.warning('Console de alerta');
 // styled.error('Console de erro');
 
-styled.info(process.env.DB_URL)
+// styled.info(process.env.DB_URL)
 
-import path from 'path';
-const __dirname = path.resolve();
-styled.info(__dirname);
-styled.info('Caminho do root:', path.join(__dirname, '.'));
+// import path from 'path';
+// const __dirname = path.resolve();
+// styled.info(__dirname);
+// styled.info('Caminho do root:', path.join(__dirname, 'src'));

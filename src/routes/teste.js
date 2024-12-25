@@ -1,7 +1,6 @@
 import express from 'express';
 import kommoMiddleware from '../middlewares/kommoMiddleware.js';
 import kommoWbhkMiddleware from '../middlewares/kommoWbhkMiddleware.js';
-import styled from '../utils/log/styledLog.js';
 
 const router = express.Router();
 
