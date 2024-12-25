@@ -17,12 +17,6 @@ export default function kommoMiddleware(req, _, next) {
   const account_subdomain = account?.subdomain;
   const account_domain = `https://${account_subdomain}.kommo.com`;
 
-  styled.middleware('[ Kommo ] Request Method:', req.method);
-  styled.middleware('[ Kommo ] Request route:', req.originalUrl);
-  styled.middleware('[ Kommo ] Request Body:');
-  styled.middlewaredir(req.body);
-  styled.middleware('[ Kommo ] ID do lead:', lead_id);
-
   req.body = {
     lead_id,
     old_status_id,
@@ -33,6 +27,12 @@ export default function kommoMiddleware(req, _, next) {
     account_subdomain,
     account_domain,
   };
+
+  styled.middleware('[ Kommo ] Request Method:', req.method);
+  styled.middleware('[ Kommo ] Request route:', req.originalUrl);
+  styled.middleware('[ Kommo ] Request Body:');
+  styled.middlewaredir(req.body);
+  styled.middleware('[ Kommo ] ID do lead:', lead_id);
 
   next();
 }

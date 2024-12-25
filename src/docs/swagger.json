@@ -45,29 +45,56 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "18885738"
+                    "example": "18885738",
+                    "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "71995064"
+                    "example": "71995064",
+                    "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8833059"
+                    "example": "8833059",
+                    "description": "ID do pipeline do lead"
+                  },
+                  "leads[status][0][id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do lead (Quando executado via movimentação de status)"
+                  },
+                  "leads[status][0][status_id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do status do lead (Quando executado via movimentação de status)"
+                  },
+                  "leads[status][0][pipeline_id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
+                  },
+                  "leads[status][0][old_status_id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
+                  },
+                  "leads[status][0][old_pipeline_id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011"
+                    "example": "32000011",
+                    "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento"
+                    "example": "kommoagendamento",
+                    "description": "Subdomínio da conta"
                   }
                 },
                 "required": [
-                  "leads[add][0][id]",
-                  "leads[add][0][status_id]",
-                  "leads[add][0][pipeline_id]",
                   "account[id]",
                   "account[subdomain]"
                 ]
