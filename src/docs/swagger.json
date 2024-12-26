@@ -1576,7 +1576,7 @@
     "/gpt/v2/recepcao/prompt/intencao": {
       "post": {
         "summary": "Recepção - Prompt - Intenção",
-        "description": "Recebe a intenção do usuário e retorna a resposta da IA \n\n Prompt: \n\n Considere que você esteja analisando a intenção de uma frase digitada por um usuário em um chatbot. Dia de Semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife (GMT-3). Analise a mensagem da clínica (se houver): '${answer}' e veja em quais das situações abaixo se encaixa a intenção da mensagem do usuário: '${message_received}'. \n\n#Saudacao: Para usuário realizando a Saudação (ex: Oi, Olá, Bom dia, Boa noite, Tudo bem? etc). \n\n#Informacao: Para usuário buscando informações, informando sintomas, pedindo tratamento odontológicos, informações de dentistas, consultórios, clínicas ou valores dos serviços. \n\n#Agendamento: Para usuário com intenção clara de marcar uma consulta inicial. \n\n#Profissional: Para usuário interessados em emprego ou apresentação de produtos ou serviços. \n\n#Geral: Para os demais assuntos. \n\nResponda apenas com o respectivo ID das opções, que segue este padrão: '#palavra' Exemplo: #Agendamento'",
+        "description": "Recebe a intenção do usuário e retorna a resposta da IA",
         "tags": [
           "GPT V2 - Recepção"
         ],
@@ -1660,10 +1660,10 @@
         }
       }
     },
-    "/gpt/v2/recepcao/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/qualificado": {
+    "/gpt/v2/recepcao/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/indefinido": {
       "post": {
         "summary": "Recepção - Assistente - Indefinido",
-        "description": "Envia mensagem do assistente para o lead \n\nPrompt: \n\nSystem message: 'Adote a informação, dia de semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife (GMT-3). \n\nRecebendo um usuário novo. Inicie a conversa perguntando o seu nome, caso já tenha o seu nome utilize, pois demonstra maior proximidade, e na sequência entenda os seus interesses e as suas dúvidas odontológicas. Apresentar que a clínica Dental Santé é o local certo para resolver suas questões de saúde e estética odontológica.' \n\nUser message: '${message_received}'",
+        "description": "Envia mensagem do assistente para o lead",
         "tags": [
           "GPT V2 - Recepção"
         ],
@@ -1750,7 +1750,7 @@
     "/gpt/v2/recepcao/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/nao-qualificado": {
       "post": {
         "summary": "Recepção - Assistente - Não Qualificado",
-        "description": "Envia mensagem do assistente para o lead \n\nPrompt: \n\n System message: 'Adote a informação, dia de semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife (GMT-3). \n\nResposta do usuário: '${message_received}.' \n\nAvaliar a intenção do usuário: \n\n1) Se a intenção do usuário for vender ou oferecer produto ou serviços odontológico, médicos ou de marketing, então conduza com a seguinte resposta, exemplo: \n\n'Muito obrigado pelo seu interesse! \n\nSegue nosso e-mail: *contato@dentalsante.com.br* \n\nEstamos direcionando o seu atendimento ao nosso setor administrativo e financeiro. \n\nEm breve, te responderão!' \n\n2) Se a intenção do usuário de se candidatar alguma vaga disponível na clínica , então conduza com a seguinte resposta, exemplo: \n\n'Muito obrigado pelo seu interesse! \n\nSegue nosso e-mail: *selecao@dentalsante.com.br* \n\nEstamos direcionando o seu atendimento ao setor de Gestão de Pessoas. \n\nEm breve, te responderão!' \n\n3) Se for algum usuário que já é cliente antigo da Dental Santé e queira continuar o atendimento, então conduza com a seguinte resposta, exemplo: \n\n'Como você já é nosso cliente peço falar neste canal exclusivo* 😘 Você tem prioridade em nossos atendimentos. \n\n*Telefone ou WhatsApp* \n\n*(81) 3094-0020*' \n\n4) Se for algum usuário que tenha entrado por engano com nada relacionado a odontologia, então conduza com a seguinte resposta, exemplo: \n\n'Somos a Clínica Odontológica *Dental Santé*, estamos sempre à disposição para Realizar o seu tratamento *saúde e estética Bucal*. Quando quiser estamos de portas aberta. '\n\n5) Se for algum usuário que queira deixar algum feedback positivo ou negativo sobre a clínica Dental Santé, então conduza com a seguinte resposta, exemplo: '\n\nAgradecemos pelo seu Feedback. \n\nSuas Sugestões, Elogios ou Reclamações são informadas diretamente à nossa Diretoria. '\n\n6) Senão for nada do acima, então: \n\n'Receba como usuário novo. \n\nInicie a conversa perguntando o seu nome para demonstrar proximidade, e na sequência entender os seus interesses e as suas dúvidas odontológicas. Mostrar que a clínica Dental Santé é o local certo para resolver suas questões de saúde odontológicas.''",
+        "description": "Envia mensagem do assistente para o lead",
         "tags": [
           "GPT V2 - Recepção"
         ],
@@ -1838,7 +1838,7 @@
     "/gpt/v2/qualificado/prompt/intencao": {
       "post": {
         "summary": "Qualificado - Prompt - Intenção",
-        "description": "Recebe a intenção do usuário e retorna a resposta da IA \n\nPrompt: \n\nSystem message: 'Aja como um especialista em análise de dados para clínicas odontológicas.\nConsidere que você esteja analisando a intenção de uma frase digitada por um usuário em um chatbot. Dia de Semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife (GMT-3). Analise a mensagem da clínica: ${answer} e veja em quais das situações abaixo encaixa a intenção da resposta do usuário: '${message_received}'.\n\n#Saudacao: Para leads Realizando a Saudação (exemplo: Oi, Olá, Bom dia, Boa noite, Tudo bem? etc).\n\n#lentes: Para leads buscando informações sobre Lentes de Contato Dental.\n\n#Invisalign: caso esteja querendo informações sobre o Invisalign.\n\n#Implante: Para leads buscando informações sobre Implantes Dentários.\n\n#Ortognatica: Para leads buscando informações sobre Cirurgia Ortognática.\n\n#HOF: Para leads buscando informações sobre Harmonização Orofacial ou HOF.\n\n#Kids: Para leads buscando informações sobre Odontopediatria ou dentista para crianças.\n\n#tratamento: Para leads buscando informações de demais tipos de tratamentos odontológicos que não se encaixam nas opções anteriores.\n\n#Informacao: Para usuário buscando informações sobre a clínica.\n\n#valores: Para usuário buscando valores dos serviços ou consulta inicial.\n\n#convenio: Para usuário buscando informações sobre convênios ou planos de saúde aceitos na clínica.\n\n#particular: Para usuário buscando informações sobre atendimento particular.\n\n#Agendamento: Para usuário com intenção clara de marcar uma consulta inicial (exemplo: sim, agendar, marcar, consulta).\n\n#Profissional: Para usuário interessados em emprego ou apresentação de produtos ou serviços.\n\n#Geral: Para os demais assuntos.\n\n#1mes: Para usuário que ainda não pretendem agendar agora, mas tem a intenção de agendar no futuro.\n\nResponda apenas com o respectivo ID das opções, que segue este padrão: \"#palavra:\" Exemplo: #Agendamento'",
+        "description": "Recebe a intenção do usuário e retorna a resposta da IA",
         "tags": [
           "GPT V2 - Qualificado"
         ],
@@ -1925,7 +1925,7 @@
     "/gpt/v2/qualificado/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/qualificado": {
       "post": {
         "summary": "Qualificado - Assistente - Qualificado",
-        "description": "Envia mensagem do assistente para o lead \n\nPrompt: \n\nSystem message: 'Adote a informação, dia de semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife (GMT-3).\n\nO usuário entrou no fluxo do agendamento, ou seja, o usuário quer ter informações sobre a clínica, algum tratamento específico, ou valores.\nVamos mostrar nosso conhecimento com respostas bem precisas, mas de simples entendimento, além de apresentar que Clínica Dental Santé através da estrutura, dos equipamentos, da equipe podem faz muita diferença para realizar a sua consulta inicial. Crie cada vez mais desejo para que ele queira agendar sua consulta odontológica conosco. Nunca informar valores dos tratamentos odontológicos. Não oferecer nenhuma data para agendamento nesta etapa'\n\nUser message: '${message_received}'",
+        "description": "Envia mensagem do assistente para o lead",
         "tags": [
           "GPT V2 - Qualificado"
         ],
@@ -2012,7 +2012,7 @@
     "/gpt/v2/qualificado/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/nao-qualificado": {
       "post": {
         "summary": "Qualificado - Assistente - Qualificado",
-        "description": "Envia mensagem do assistente para o lead \n\nPrompt: \n\nSystem message: \"Adote a informação, dia de semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife (GMT-3).\n\nResposta do usuário: ${message_received}\n\nAvaliar a intenção do usuário:\n\n1) Se a intenção do usuário for vender ou oferecer produto ou serviços odontológico, médicos ou de marketing, então conduza com a seguinte resposta, exemplo:\n'Muito obrigado pelo seu interesse! \nSegue nosso e-mail: *contato@dentalsante.com.br*\nEstamos direcionando o seu atendimento ao nosso setor administrativo e financeiro.\n\nEm breve, te responderão!'\n\n2) Se a intenção do usuário de se candidatar alguma vaga disponível na clínica , então conduza com a seguinte resposta, exemplo:\n'Muito obrigado pelo seu interesse! Segue nosso e-mail: *selecao@dentalsante.com.br*\nEstamos direcionando o seu atendimento ao setor de Gestão de Pessoas.\n\nEm breve, te responderão!'\n\n3) Se for algum usuário que já é cliente antigo da Dental Santé e queira continuar o atendimento, então conduza com a seguinte resposta, exemplo:\n'Como você já é nosso cliente peço falar neste canal exclusivo* 😘 Você tem prioridade em nossos atendimentos.\n*Telefone ou WhatsApp*\n*(81) 3094-0020*'\n\n4) Se for algum usuário que tenha entrado por engano com nada relacionado a odontologia, então conduza com a seguinte resposta, exemplo:\n'Somos a Clínica Odontológica *Dental Santé*, estamos sempre à disposição para Realizar o seu tratamento *saúde e estética Bucal*. Quando quiser estamos de portas aberta.'\n\n5) Se for algum usuário que queira deixar algum feedback positivo ou negativo sobre a clínica Dental Santé, então conduza com a seguinte resposta, exemplo:'\nAgradecemos pelo seu Feedback.\nSuas Sugestões, Elogios ou Reclamações são informadas diretamente à nossa Diretoria.'\n\n6) Senão for nada do acima, então:\n'Receba como usuário novo.\nInicie a conversa perguntando o seu nome para demonstrar proximidade, e na sequência entender os seus interesses e as suas dúvidas odontológicas. Mostrar que a clínica Dental Santé é o local certo para resolver suas questões de saúde odontológicas.'\"",
+        "description": "Envia mensagem do assistente para o lead",
         "tags": [
           "GPT V2 - Qualificado"
         ],
@@ -2100,7 +2100,7 @@
     "/gpt/v2/dados/prompt/intencao": {
       "post": {
         "summary": "Dados - Prompt - Intenção",
-        "description": "Recebe a intenção do usuário e retorna a resposta da IA \n\nPrompt: \n\nSystem message: 'Aja como um especialista em análise de dados para clínicas odontológicas. Considere que você esteja analisando a intenção de uma resposta digitada por um usuário em um chatbot. A data e hora atual são: ${date}. Analise a mensagem do sistema: '${answer}' e veja em quais das situações abaixo encaixa a intenção desta frase digitada: '${message_received}'.\n\n#Saudacao: Para usuário Realizando a Saudação (ex: Oi, Olá, Bom dia, Boa noite, Tudo bem? etc).\n\n#cadastro: Para usuário que respondem informam dados pessoais, como: nome completo, plano de saúde ou convênio médico (ou caso seja consulta particular), e/ou telefone (ex: augencio leite ferreira neto,16/12/77, candeias, 8191929779). Consultas particulares se encaixam nessa opção.\n\n#tratamento: Para usuário buscando informações dos tipos de tratamentos médicos, cirurgias, trombose, varizes, vasos sanguíneos, artérias, edemas, outras doenças vasculares;\n\n#Informacao: Para usuário buscando informações sobre o consultório médico, informações sobre Dra. Juliana Leite, qual a especialidade odontológica.\n\n#valores: Para usuário buscando valores dos serviços ou consulta inicial.\n\n#Agendamento: Para usuário com intenção clara de marcar uma consulta inicial. Consultas particulares não se encaixam nessa opção. (exemplo: agendar, marcar, consultar).\n\n#Profissional: Para usuários interessados em emprego ou apresentação de produtos ou serviços.\n\n#ClienteAntigo: Para usuários que se tornaram Cliente e pagar o tratamento proposto.\n\n#Geral: Para os demais assuntos.\n\n#AgendaFutura: Para usuário que ainda não pretende agendar neste momento.\n\nResponda apenas com o respectivo ID das opções, que segue este padrão: \"#palavra\" Exemplo: #Agendamento'",
+        "description": "Recebe a intenção do usuário e retorna a resposta da IA",
         "tags": [
           "GPT V2 - Dados"
         ],
@@ -2187,7 +2187,7 @@
     "/gpt/v2/dados/prompt/confirma-dados": {
       "post": {
         "summary": "Dados - Prompt - Confirmação de Dados",
-        "description": "Recebe a intenção do usuário e retorna a resposta da IA \n\nPrompt: \n\nSystem message: 'Analise a pergunta da clínica: '${answer}' e a resposta do usuário: '${message_received}' e verifique as intenções abaixo qual melhor se encaixa:\n\n#ConfirmouDados: APENAS se a resposta do usuário está confirmando os dados dele descrito na pergunta da clínica, exemplo:\nPergunta da clínica: 'Augencio, para confirmar, temos os seguintes dados:\n- Nome completo: Augencio Leite\n- Data de nascimento: 16/12/77\n- Bairro: Candeias\nPor favor, confirme se está tudo correto!'\nResposta do usuário: '(sim, está tudo correto, ok)'\n\n#Continuar: Se o usuário ainda está fornecendo dados que foi pedido na pergunta da clínica ou não confirmar os dados dele e quer alterar, exemplos:\n“Pergunta da clínica: 'Augencio, só está faltando a informação do bairro que você reside. Você pode me passar essa informação?'\nResposta do usuário: '(candeias, piedade, boa viagem, paiva, barra de jangada)'\n\nPergunta da clínica:\n'Para prosseguir com o agendamento, preciso que você informe:\n\n1 - Nome Completo:\n2 - Data de Nascimento:\n3 - Bairro:\n\nAssim poderei completar seu cadastro e agendar sua consulta'\nResposta do usuário: 'Augencio Leite, 16/12/1977, Candeias' “\n\n#ReiniciarConfirmação: Caso a resposta do usuário seja corrigindo algum dado cadastral que já foi armazenado no sistema, como nome completo, data de nascimento, bairro ou telefone (opcional): (ex: douglas augusto, 11/03/2003, candeias, 81996724310)\n\nIdentifique a intenção da resposta do usuário baseada na pergunta da clínica, e retorne apenas o id das opções listadas acima, por exemplo: #Continuar'",
+        "description": "Recebe a intenção do usuário e retorna a resposta da IA",
         "tags": [
           "GPT V2 - Dados"
         ],
@@ -2274,7 +2274,7 @@
     "/gpt/v2/dados/prompt/intencao-especialista": {
       "post": {
         "summary": "Dados - Prompt - Intenção Especialista",
-        "description": "Recebe a intenção do usuário e retorna a resposta da IA \n\nPrompt: \n\nSystem message: 'Considere que você esteja analisando a intenção de uma resposta digitada por um usuário em um chatbot. A data e hora atual são: ${date}. Analise a mensagem da clínica: '${answer}' e veja em quais das situações abaixo encaixa a intenção desta frase digitada: '${message_received}'.\n\n#Confirmou: Caso a resposta do usuário esteja CONFIRMANDO a mensagem da clínica.\n\n#Novamente: Caso o usuário esteja querendo trocar a opção atual ou escolher outra.\n\n#Parar: Se o usuário estiver com intenção de parar ou descontinuar o chat.\n\n#Geral: Para os demais assuntos.\n\nResponda apenas com o respectivo ID das opções, que segue este padrão: \"#palavra\" Exemplo: #Agendamento'.",
+        "description": "Recebe a intenção do usuário e retorna a resposta da IA",
         "tags": [
           "GPT V2 - Dados"
         ],
@@ -2361,7 +2361,7 @@
     "/gpt/v2/dados/prompt/indentificar-especialista": {
       "post": {
         "summary": "Dados - Prompt - Identificar Especialista",
-        "description": "Recebe a intenção do usuário e retorna a resposta da IA \n\nPrompt: \n\nSystem message: 'Analise a mensagem da clínica: '${answer}' e a resposta do usuário: '${message_received}' e verifique nas opções abaixo, qual mais se encaixa na intenção da frase.\n\n#OutraEspecialidade: Caso a resposta do usuário seja CONFIRMANDO outra especialidade que não seja a enviada pela clínica.\n\n#Juliana: Caso a resposta do usuário seja CONFIRMANDO a Dra. Juliana Leite ou Reabilitadora Oral e Estética.\n\n#Isento: Se a resposta do usuário for CONFIRMANDO Dentista da equipe (sem custo).\n\n#Odontopediatria: Se a resposta do usuário CONFIRMA odontopediatria, kids (Crianças até 12 anos).\n\n#Geral: Nenhum dos cenários anteriores.\n\nRetorne apenas o ID da opção após o #, por exemplo: #Isento'",
+        "description": "Recebe a intenção do usuário e retorna a resposta da IA",
         "tags": [
           "GPT V2 - Dados"
         ],
@@ -2448,7 +2448,7 @@
     "/gpt/v2/dados/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/previa-dados": {
       "post": {
         "summary": "Dados - Assistente - Prévia de Dados",
-        "description": "Envia mensagem do assistente para o lead \n\nPrompt: \n\n MENSAGEM DO USUÁRIO",
+        "description": "Envia mensagem do assistente para o lead",
         "tags": [
           "GPT V2 - Dados"
         ],
@@ -2535,7 +2535,7 @@
     "/gpt/v2/dados/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/dados-cadastrais": {
       "post": {
         "summary": "Dados - Assistente - Dados Cadastrais",
-        "description": "Envia mensagem do assistente para o lead \n\nPrompt: \n\nRedes Sociais: \nSystem message: 'Os dados cadastrais são: Nome completo, data de nascimento, bairro e telefone.\nObserve os dados cadastrais fornecidos pelo usuário: '${message_received}' e avalie se está faltando algum dos dados cadastrais.\n\n1. Se estiver faltando algum dado cadastral, informe ao usuário o dado faltante com a seguinte mensagem:\n\"Está faltando a informação de [Nome completo/Data de nascimento/Bairro/Telefone]. Por favor, me forneça este dado para que possamos prosseguir com o cadastro.\"\n\n2. Caso todos os dados estejam presentes, retorne a seguinte mensagem para o usuário:\n\"Seus dados estão completos:\n- Nome completo: [Nome completo]\n- Data de nascimento: [Data de nascimento]\n- Bairro: [Bairro]\n- Telefone: [Telefone]\nPor favor, confirme se estão todos corretos!\"' \n\nNormal: \n\nSystem message: 'Os dados cadastrais são: Nome completo, data de nascimento e bairro.\n\nObserve os dados cadastrais fornecidos pelo usuário: '${message_received}' e avalie se está faltando algum dos dados cadastrais.\n\n1. Se estiver faltando algum dado cadastral, informe ao usuário o dado faltante com a seguinte mensagem:\n\"Está faltando a informação de [Nome completo/Data de nascimento/Bairro]. Por favor, me forneça este dado para que possamos prosseguir com o cadastro.\"\n\n2. Caso todos os dados estejam presentes, retorne a seguinte mensagem para o usuário:\n\"Seus dados estão completos:\n- Nome completo: [Nome completo]\n- Data de nascimento: [Data de nascimento]\n- Bairro: [Bairro]\nPor favor, confirme se estão todos corretos!\"'",
+        "description": "Envia mensagem do assistente para o lead",
         "tags": [
           "GPT V2 - Dados"
         ],
@@ -2622,7 +2622,7 @@
     "/gpt/v2/dados/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/split-dados": {
       "post": {
         "summary": "Dados - Assistente - Split de Dados",
-        "description": "Envia mensagem do assistente para o lead \n\nPrompt: \n\nRede Social: \nSystem message: 'Aja como um analista de dados cadastrais experiente. Nestes dois textos abaixo, analise cuidadosamente os campos para extrair o dado de nome completo, data de nascimento, bairro e telefone.\n\n*Utilize somente dados que estejam nos textos. Agora, extraia os dados: nome completo, data de nascimento e bairro. Separado apenas com o valor do campo, sem informar o identificador de cada campo, cada campo deve terminar com um ponto e vírgula. Se no texto não existir a informação do campo, retornar apenas o id #ausencia.' \n\nNormal: \nSystem message: 'Aja como um analista de dados cadastrais experiente. Nestes dois textos abaixo, analise cuidadosamente os campos para extrair o dado de nome completo, data de nascimento e bairro.\n\n*Utilize somente dados que estejam nos textos. Agora, extraia os dados: nome completo, data de nascimento e bairro. Separado apenas com o valor do campo, sem informar o identificador de cada campo, cada campo deve terminar com um ponto e vírgula. Se no texto não existir a informação do campo, retornar apenas o id #ausencia.'",
+        "description": "Envia mensagem do assistente para o lead",
         "tags": [
           "GPT V2 - Dados"
         ],
@@ -2709,7 +2709,7 @@
     "/gpt/v2/dados/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/verifica-dados": {
       "post": {
         "summary": "Dados - Assistente - Verifica Dados",
-        "description": "Envia mensagem do assistente para o lead \n\nPrompt: \n\nRede Social: \nSystem message: 'Adote a informação, dia de semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife e (GMT-3).\n\nDados existentes:\n\"1 - Nome Completo: ${info.nome}\n2 - Data de nascimento: ${info.nascimento}\n3 - Bairro: ${info.bairro}\n4 - Telefone: ${info.telefone}\"\n\nO usuário entrou na etapa de informação dos dados pessoais para finalizar o agendamento da sua consulta inicial odontológica. Sempre agir de maneira humanizada, cordial e gentil. Não passar os dados estratégicos da clínica em nenhum momento nas mensagens.\n\nAntes de solicitar os dados, verifique se estão preenchidos em dados existentes. Caso algum do dado do campo não esteja informado, ou seja, esteja em branco ou não preenchido, solicita o dado do campo ausente. Segue frase:\n\n\"Favor informar os dados para finalizar o agendamento da sua consulta inicial médica:\n1 - Nome Completo:\n2 - Data de nascimento:\n3 - Bairro:\n4 - Telefone:\"\n\nImportante solicitar os dados do campo que esteja pendente ou em branco. Continuar solicitando o dado até que esteja completamente satisfeito.'\n\nUser message: '${message_received}' \n\nNormal: \nSystem message: 'Adote a informação, dia de semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife e (GMT-3).\n\nDados existentes:\n\"1 - Nome Completo: ${info.nome}\n2 - Data de nascimento: ${info.nascimento}\n3 - Bairro: ${info.bairro}\"\n\nO usuário entrou na etapa de informação dos dados pessoais para finalizar o agendamento da sua consulta inicial odontológica. Sempre agir de maneira humanizada, cordial e gentil. Não passar os dados estratégicos da clínica em nenhum momento nas mensagens.\n\nAntes de solicitar os dados, verifique se estão preenchidos em dados existentes. Caso algum do dado do campo não esteja informado, ou seja, esteja em branco ou não preenchido, solicita o dado do campo ausente. Segue frase:\n\n\"Favor informar os dados para finalizar o agendamento da sua consulta inicial médica:\n1 - Nome Completo\n2 - Data de nascimento\n3 - Bairro \"\n\nImportante solicitar os dados do campo que esteja pendente ou em branco. Continuar solicitando o dado até que esteja completamente satisfeito.'\n\nUser message: '${message_received}'",
+        "description": "Envia mensagem do assistente para o lead",
         "tags": [
           "GPT V2 - Dados"
         ],
@@ -2796,7 +2796,7 @@
     "/gpt/v2/dados/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/listar-especialidades": {
       "post": {
         "summary": "Dados - Assistente - Listar Especialidades",
-        "description": "Envia mensagem do assistente para o lead \n\nPrompt: \n\nSystem message: 'Agora estamos na etapa de solicitar a especialista para a *CONSULTA INICIAL*. Temos os dados do usuário e o último passo antes do agendamento final é saber qual especialidade ele vai querer. Temos 3 opções para listar e o usuário escolher para sua *CONSULTA INICIAL*, segue as opções:\n\n“ 1 - *Dentista da equipe:* Atendimento isento de custo para realização da consulta inicial, apenas para Primeiro Agendamento;\n\n2 - *Dra. Juliana Leite | Reabilitação Oral e Estética:* Investimento para avaliação geral: R$ 120,00 (cento e vinte reais);\n\n3 - *Odontopediatra | Crianças até 12 anos:* Investimento para consulta: R$ 99,00 (noventa e nove reais); ”\n\nRetorne uma mensagem para o usuário escolher uma das 3 opções listadas acima.'\n\nUser message: '${message_received}'",
+        "description": "Envia mensagem do assistente para o lead",
         "tags": [
           "GPT V2 - Dados"
         ],
@@ -2883,7 +2883,7 @@
     "/gpt/v2/dados/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/verificar-especialista": {
       "post": {
         "summary": "Dados - Assistente - Verificar Especialista",
-        "description": "Envia mensagem do assistente para o lead \n\nPrompt: \n\nSystem message: 'Analise a escolha da especialista para a *CONSULTA INICIAL* que o usuário fez e retorne uma mensagem listando a opção e perguntando se ele confirma a escolha. Caso contrário, peça novamente para o usuário escolher uma das 3 opções listadas abaixo:\n\n“ 1 - *Dentista da equipe:* Atendimento isento de custo para realização da consulta inicial, apenas para Primeiro Agendamento;\n\n2 - *Dra. Juliana Leite | Reabilitação Oral e Estética:* Investimento para avaliação geral: R$ 120,00 (cento e vinte reais);\n\n3 - *Odontopediatra | Crianças até 12 anos:* Investimento para consulta: R$ 99,00 (noventa e nove reais); ” '\n\nUser message: '${message_received}'",
+        "description": "Envia mensagem do assistente para o lead",
         "tags": [
           "GPT V2 - Dados"
         ],
@@ -2971,7 +2971,7 @@
     "/gpt/v2/preagendamento/prompt/intencao": {
       "post": {
         "summary": "Pré-agendamento - Prompt - Intenção",
-        "description": "Recebe a intenção do usuário e retorna a resposta da IA \n\nPrompt: \n\nSystem message: 'Aja como um especialista em análise de dados para clínicas odontológicas. \nConsidere que você esteja analisando a intenção de resposta digitada por um usuário em um chatbot. A data e hora atual são: ${date}. Analise a mensagem da clínica: '${answer}' e veja em quais das situações abaixo encaixa a intenção da resposta digitada pelo usuário: '${message_received}'.\n\n#Saudacao: Para leads Realizando a Saudação (ex: Oi, Olá, Bom dia, Boa noite, Tudo bem? etc).\n\n#continuar: Para leads que estão escolhendo uma opções de data e horários de agendamento. (ex: pode ser, ok, 16, 16h, 19/01, 16h a tarde, manhã, tarde, noite, 16/12/24, outras opções de horário e etc).\n\n#cadastro: Para leads que responderam seus dados cadastrais: nome completo, data de nascimento, bairro ou e-mail (augencio leite, 16/12/77, Candeias, augencio@hotmail.com, etc).\n\n#tratamento: Para leads buscando informações dos tipos de tratamentos odontológicos;\n\n#Informacao: Para leads buscando informações sobre a clínica.\n\n#valores: Para leads buscando valores dos serviços ou consulta inicial.\n\n#Agendamento: Para leads com intenção clara de marcar uma consulta inicial.\n\n#Profissional: Para leads interessados em emprego ou apresentação de produtos ou serviços.\n\n#Perdido: Quando houver um pedido para desistência da conversa.\n\n#ClienteAntigo: Para leads que se tornaram Cliente, pois já realizaram a consulta inicial e querem agendar ou pagar o tratamento.\n\n#FeedbackReclamacao: Para leads que desejam deixar feedback ou reclamação.\n\n#Geral: Para os demais assuntos. \n\n#1mes: Para leads que ainda não pretendem agendar neste momento.\n\n#OutraData: Caso esteja querendo remarcar para outra data, ou saber outras opções de datas.\n\nResponda apenas com o respectivo ID das opções, que segue este padrão: \"#palavra:\" Exemplo: #Agendamento'",
+        "description": "Recebe a intenção do usuário e retorna a resposta da IA",
         "tags": [
           "GPT V2 - Pré-agendamento"
         ],
