@@ -101,45 +101,6 @@ Responda apenas com o ID correspondente da opção, que segue este padrão: "#pa
       res.status(500).send('Erro ao enviar mensagem para o assistente');
     }
   }
-
-  //Prompt
-  static async confirmar_data(req, res) {
-    styled.function('Prompt | BOT - Pré Agendamento | Confirmação de datas...');
-    try {
-      const access_token = GetAccessToken();
-
-      const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
-      const weekOptions = {
-        timeZone: 'America/Recife',
-        weekday: 'long'
-      };
-      const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
-      const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
-
-      await SetActualDateHour(req.body, access_token);
-
-      const user = await GetUser(req.body, false, access_token);
-      const choice_date = user?.custom_fields_values?.filter(
-        (field) => field.field_name === 'Data escolhida'
-      )[0];
-
-      const answer = await GetAnswer(req.body, access_token);
-
-      const text = `Dia da semana, data e hora atual: '${weekDayFormatted}, ${date}'. Na resposta abaixo se basear na data atual.
-Considere a resposta a seguir:
-
-[
- ${choice_date?.values[0]?.value || answer}
-]
-
-Retorne apenas o dia agendado e as horas formatadas no padrão brasileiro, por exemplo: 10/09/2024 10:30
-Não formate as linhas da resposta solicitada.`;
-      await Communicator.prompt(req, res, text);
-    } catch (error) {
-      styled.error(`Erro ao enviar mensagem para o assistente: ${error.message}`);
-      res.status(500).send('Erro ao enviar mensagem para o assistente');
-    }
-  }
   
   //Prompt
   static async verificar_agenda_especialista(req, res) {
@@ -182,6 +143,45 @@ ${dates}
 
 Caso a data e horário contida na frase exista na *Agenda Disponível*, retorne apenas o ID: #Existe, caso o contrário, retorne apenas o ID: #NãoExiste.`;
 
+      await Communicator.prompt(req, res, text);
+    } catch (error) {
+      styled.error(`Erro ao enviar mensagem para o assistente: ${error.message}`);
+      res.status(500).send('Erro ao enviar mensagem para o assistente');
+    }
+  }
+
+  //Prompt
+  static async confirmar_data(req, res) {
+    styled.function('Prompt | BOT - Pré Agendamento | Confirmação de datas...');
+    try {
+      const access_token = GetAccessToken();
+
+      const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
+      const weekOptions = {
+        timeZone: 'America/Recife',
+        weekday: 'long'
+      };
+      const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
+      const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
+
+      await SetActualDateHour(req.body, access_token);
+
+      const user = await GetUser(req.body, false, access_token);
+      const choice_date = user?.custom_fields_values?.filter(
+        (field) => field.field_name === 'Data escolhida'
+      )[0];
+
+      const answer = await GetAnswer(req.body, access_token);
+
+      const text = `Dia da semana, data e hora atual: '${weekDayFormatted}, ${date}'. Na resposta abaixo se basear na data atual.
+Considere a resposta a seguir:
+
+[
+ ${choice_date?.values[0]?.value || answer}
+]
+
+Retorne apenas o dia agendado e as horas formatadas no padrão brasileiro, por exemplo: 10/09/2024 10:30
+Não formate as linhas da resposta solicitada.`;
       await Communicator.prompt(req, res, text);
     } catch (error) {
       styled.error(`Erro ao enviar mensagem para o assistente: ${error.message}`);
@@ -334,7 +334,7 @@ User message: '${message_received}'`;
 
   //Assistente
   static async confirmacao(req, res) {
-    styled.function('Assistente | BOT - Pré Agendamento | Confirmar Dados...');
+    styled.function('Assistente | BOT - Pré Agendamento | Confirmação...');
     try {
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
