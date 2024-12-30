@@ -1,4 +1,4 @@
-require('dotenv').config();
+
 const ListCalendarEvents = require('../services/calendar/ListCalendarEvent');
 const RegisterCalendarEvent = require('../services/calendar/RegisterCalendarEvent');
 const RemoveCalendarEvent = require('../services/calendar/RemoveCalendarEvent');

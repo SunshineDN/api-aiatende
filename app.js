@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const PORT = process.env.PORT;
@@ -8,21 +7,6 @@ const messagesRouter = require('./src/routes/messages');
 const accountRouter = require('./src/routes/account');
 const sequelize = require('./src/config/database');
 const calendarRouter = require('./src/routes/calendar');
-
-const colors = require('colors');
-colors.setTheme({
-  silly: 'rainbow',
-  input: 'grey',
-  verbose: 'cyan',
-  prompt: 'grey',
-  info: 'green',
-  data: 'grey',
-  help: 'cyan',
-  warn: 'yellow',
-  debug: 'blue',
-  error: 'red',
-  attention: 'bgBlue'
-});
 
 const app = express();
 
@@ -38,14 +22,14 @@ app.use('/account', accountRouter);
 // });
 
 app.listen(PORT, async () => {
-  console.log('Servidor rodando na porta: '.info + `${PORT}`.attention);
+  console.log('Servidor rodando na porta: ' + `${PORT}`);
   try {
     await sequelize.authenticate();
-    console.log('Conexão com o banco de dados estabelecida com sucesso!'.info);
+    console.log('Conexão com o banco de dados estabelecida com sucesso!');
 
     await sequelize.sync();
-    console.log('Tabelas sincronizadas!'.info);
+    console.log('Tabelas sincronizadas!');
   } catch (error) {
-    console.error('Erro ao conectar com o banco de dados:'.error, error);
+    console.error('Erro ao conectar com o banco de dados:', error);
   }
 });

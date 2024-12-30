@@ -1,4 +1,4 @@
-require('dotenv').config();
+
 const GetAccessToken = require('../services/kommo/GetAccessToken');
 const VerifyFieldsGpt = require('../services/kommo/VerifyFieldsGpt');
 

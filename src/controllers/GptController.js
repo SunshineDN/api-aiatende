@@ -1,4 +1,4 @@
-require('dotenv').config();
+
 const GetGptAssistantMessage = require('../services/gpt/GetGptAssistantMessage');
 const GetGptPromptMessage = require('../services/gpt/GetGptPrompMessage');
 const SpeechToText = require('../services/gpt/SpeechToText');

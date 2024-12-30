@@ -1,4 +1,4 @@
-require('dotenv').config();
+
 const GetAccessToken = require('../services/kommo/GetAccessToken');
 const HandlingError = require('../services/kommo/HandlingError');
 const SetActualDateHour = require('../services/kommo/SetActualDateHour');

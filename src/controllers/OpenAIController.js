@@ -1,4 +1,4 @@
-require('dotenv').config();
+
 const axios = require('axios');
 const OpenAI = require('openai');
 const { downloadAudio, deleteTempFile } = require('../services/gpt/DaD-Audio');
@@ -28,7 +28,7 @@ class OpenAIController {
       });
 
       if (!existThreads) {
-        console.log('Creating thread for lead in database for first time'.magenta.bold);
+        console.log('Creating thread for lead in database for first time');
         await LeadThread.create({
           leadID
         });
@@ -37,10 +37,10 @@ class OpenAIController {
             user: leadID.toString()
           }
         });
-        console.log('Thread created in OpenAI for first time'.magenta.bold);
+        console.log('Thread created in OpenAI for first time');
         console.log(newThread);
 
-        console.log('Updating threadID in database for first time'.magenta.bold);
+        console.log('Updating threadID in database for first time');
         await LeadThread.update({
           threadID: [newThread.id],
           assistant_id: [assistant_id]
@@ -49,19 +49,19 @@ class OpenAIController {
             leadID
           }
         });
-        console.log('ThreadID updated in database for first time'.magenta.bold);
+        console.log('ThreadID updated in database for first time');
         return;
       } else {
-        console.log('Thread already exists in database'.magenta.bold);
+        console.log('Thread already exists in database');
         const newThread = await openai.beta.threads.create({
           metadata: {
             user: leadID.toString()
           }
         });
-        console.log('Thread created in OpenAI'.magenta.bold);
+        console.log('Thread created in OpenAI');
         console.log(newThread);
 
-        console.log('Updating threadID in database'.magenta.bold);
+        console.log('Updating threadID in database');
         let newArrayAssistans = existThreads.assistant_id;
         let newArrayThreads = existThreads.threadID;
 
@@ -73,7 +73,7 @@ class OpenAIController {
             leadID
           }
         });
-        console.log('Assistant added to thread'.magenta.bold);
+        console.log('Assistant added to thread');
         return;
       }
     } catch (error) {
@@ -86,7 +86,7 @@ class OpenAIController {
 
     const { decode } = require('base-64');
 
-    // console.log('Texto recebido do usuário:'.magenta.bold, text);
+    // console.log('Texto recebido do usuário:', text);
 
     const assistant = decode(assistant_id);
 
@@ -112,13 +112,13 @@ class OpenAIController {
         });
       }
 
-      console.log('Thread found'.magenta.bold);
+      console.log('Thread found');
       console.log(existThreads.dataValues);
 
       const indexOfAssistant = existThreads.assistant_id.indexOf(assistant);
-      console.log('Index of assistant'.magenta.bold, indexOfAssistant);
+      console.log('Index of assistant', indexOfAssistant);
 
-      console.log('Sending message to assistant'.magenta.bold);
+      console.log('Sending message to assistant');
       await openai.beta.threads.messages.create(
         existThreads.threadID[indexOfAssistant],
         {
@@ -131,7 +131,7 @@ class OpenAIController {
         return new Promise(resolve => setTimeout(resolve, ms));
       };
 
-      console.log('Running assistant'.magenta.bold);
+      console.log('Running assistant');
       // let run = await openai.beta.threads.runs.create(
       //   existThreads.threadID[indexOfAssistant],
       //   { assistant_id: assistant }
@@ -303,15 +303,15 @@ Failed? ${run.status === 'failed'}`);
     const fileObj = getFileNameFromUrl(audio_link, lead_id);
 
     try {
-      console.log('Downloading audio...'.magenta.bold);
+      console.log('Downloading audio...');
       await downloadAudio(fileObj);
       console.log('Success\n'.green.bold);
 
-      console.log('Transcribing audio...'.magenta.bold);
+      console.log('Transcribing audio...');
       const transcription = await transcribeAudio(fileObj);
       console.log('Success\n'.green.bold);
 
-      console.log('Deleting temporary file...'.magenta.bold);
+      console.log('Deleting temporary file...');
       await deleteTempFile(fileObj);
       console.log('Success\n'.green.bold);
 

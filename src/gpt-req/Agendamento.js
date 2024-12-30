@@ -1,4 +1,4 @@
-require('dotenv').config();
+
 const OpenAIController = require('../controllers/OpenAIController');
 const GetAccessToken = require('../services/kommo/GetAccessToken');
 const GetUser = require('../services/kommo/GetUser');

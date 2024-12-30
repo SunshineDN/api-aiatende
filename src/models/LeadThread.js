@@ -1,4 +1,4 @@
-require('dotenv').config();
+
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database'); // ajuste o caminho para o seu arquivo de configuração do Sequelize
 

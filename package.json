@@ -4,8 +4,8 @@
   "main": "app.js",
   "license": "MIT",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
+    "start": "node --env-file=.env app.js",
+    "dev": "nodemon --env-file=.env app.js",
     "lint": "eslint .",
     "docker-up": "docker-compose up -d --build",
     "docker-d": "docker-compose down"
@@ -14,10 +14,8 @@
     "axios": "^1.7.2",
     "base-64": "^1.0.0",
     "body-parser": "^1.20.2",
-    "colors": "^1.4.0",
     "cors": "^2.8.5",
     "date-fns": "^3.6.0",
-    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "global": "^4.4.0",
     "googleapis": "^140.0.1",
