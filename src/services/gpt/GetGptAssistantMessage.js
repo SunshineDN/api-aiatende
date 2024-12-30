@@ -4,7 +4,7 @@ const GetAccessToken = require('../kommo/GetAccessToken');
 const GetUser = require('../kommo/GetUser');
 const UpdateLead = require('../kommo/UpdateLead');
 const OpenAIController = require('../../controllers/OpenAIController');
-const TextToSpeech = require('./TextToSpeech');
+// const TextToSpeech = require('./TextToSpeech');
 
 const GetGptAssistantMessage = async (payload, assistant_id, access_token = null) => {
   // console.log('Função GetGptAssistantMessage');
@@ -24,7 +24,7 @@ const GetGptAssistantMessage = async (payload, assistant_id, access_token = null
     logField = custom_fields.filter(field => field.name === 'GPT | LOG')[0];
     onOff = custom_fields.filter(field => field.name === 'GPT | On/Off')[0];
 
-    const sent_audio = user?.custom_fields_values?.filter(field => field.field_name === 'GPT | Sent Audio')[0];
+    // const sent_audio = user?.custom_fields_values?.filter(field => field.field_name === 'GPT | Sent Audio')[0];
 
     const data = {
       leadID,
@@ -79,9 +79,9 @@ const GetGptAssistantMessage = async (payload, assistant_id, access_token = null
 
     await UpdateLead(payload, reqBody, access_token);
 
-    if (sent_audio?.values[0].value === true) {
-      await TextToSpeech(payload, access_token);
-    }
+    // if (sent_audio?.values[0].value === true) {
+    //   await TextToSpeech(payload, access_token);
+    // }
     // console.log('Mensagem da assistente armazenada com sucesso!');
   } catch (e) {
     let error;

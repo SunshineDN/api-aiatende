@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 const leadRouter = require('./src/routes/lead');
 const gptRouter = require('./src/routes/gpt');
 const messagesRouter = require('./src/routes/messages');
