@@ -13,11 +13,6 @@ import cutucadaPromptRouter from './cutucada/prompt/index.js';
 router.use('/cutucada/assistant', cutucadaAssistenteRouter);
 router.use('/cutucada/prompt', cutucadaPromptRouter);
 
-// Roteamento para as subpastas de /gpt/v2/dados
-import dadosAssistenteRouter from './dados/assistente/index.js';
-import dadosPromptRouter from './dados/prompt/index.js';
-router.use('/dados/assistant', dadosAssistenteRouter);
-router.use('/dados/prompt', dadosPromptRouter);
 
 // Roteamento para as subpastas de /gpt/v2/global
 import globalAssistenteRouter from './global/assistente/index.js';
@@ -31,11 +26,6 @@ import posagendamentoPromptRouter from './posagendamento/prompt/index.js';
 router.use('/posagendamento/assistant', posagendamentoAssistenteRouter);
 router.use('/posagendamento/prompt', posagendamentoPromptRouter);
 
-// Roteamento para as subpastas de /gpt/v2/preagendamento
-import preagendamentoAssistenteRouter from './preagendamento/assistente/index.js';
-import preagendamentoPromptRouter from './preagendamento/prompt/index.js';
-router.use('/preagendamento/assistant', preagendamentoAssistenteRouter);
-router.use('/preagendamento/prompt', preagendamentoPromptRouter);
 
 // Roteamento para as subpastas de /gpt/v2/qualificado
 import qualificadoAssistenteRouter from './qualificado/assistente/index.js';
