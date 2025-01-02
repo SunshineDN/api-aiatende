@@ -1,3 +1,5 @@
 export default class BkFunnelsServices {
-  static create
+  static createUpdateLead() {
+    
+  }
 };

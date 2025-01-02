@@ -1,4 +1,5 @@
 import styled from "../utils/log/styledLog.js";
+import BkFunnelsService from "../services/BkFunnelsService.js";
 
 export default class BkFunnelsController {
   static webhook(req, res) {
@@ -14,7 +15,11 @@ export default class BkFunnelsController {
     }
   }
 
-  static register(req, res) {
-    
+  static registerUpdateLead(req, res) {
+    try {
+      styled.info('Registrando ou atualizando lead:');
+      const { body } = req;
+      const answer = BkFunnelsService.identifyAnswer(body);
+    }
   };
 }

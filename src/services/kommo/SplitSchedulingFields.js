@@ -18,7 +18,8 @@ export const SplitSchedulingFields = async (payload, access_token = null) => {
 
     const dataField = user?.custom_fields_values?.filter(field => field.field_name === 'Registration Data')[0];
     const dataFieldValues = dataField?.values[0]?.value;
-    const data_field_split = dataFieldValues.split(';');
+    const data_field_split_symbol = dataFieldValues.split(';');
+    const data_field_split = data_field_split_symbol.map((value) => value.trim());
     const fields_names = data_field_split.map((_, index) => `Scheduling field ${index + 1}`);
     let custom_fields_values = [];
 
