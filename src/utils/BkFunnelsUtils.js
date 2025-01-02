@@ -88,6 +88,36 @@ export default class BkFunnelsUtils {
           type: 'procedimento',
           value: 'Gengivoplastia',
         }
+      } else if (answer === 'Nesta Semana (Até Sábado)') {
+        return {
+          type: 'periodo',
+          value: 'Nesta Semana (Até Sábado)',
+        }
+      } else if (answer === 'Próxima Semana (A partir de Segunda)') {
+        return {
+          type: 'periodo',
+          value: 'Próxima Semana (A partir de Segunda)',
+        }
+      } else if (answer === 'Manhã (8h às 12h)') {
+        return {
+          type: 'turno',
+          value: 'Manhã (8h às 12h)',
+        }
+      } else if (answer === 'Tarde (14h às 18h)') {
+        return {
+          type: 'turno',
+          value: 'Tarde (14h às 18h)',
+        }
+      } else if (answer === 'Noite (18h às 20h)') {
+        return {
+          type: 'turno',
+          value: 'Noite (18h às 20h)'
+        }
+      } else if (answer === 'Especial (12h às 14h)') {
+        return {
+          type: 'turno',
+          value: 'Especial (12h às 14h)',
+        }
       } else {
         return {
           type: 'not_found',

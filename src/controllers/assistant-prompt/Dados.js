@@ -5,6 +5,7 @@ import { GetMessageReceived } from '../../services/kommo/GetMessageReceived.js';
 import { GetLeadChannel } from '../../services/kommo/GetLeadChannel.js';
 import { GetLeadInfoForBotC } from '../../services/kommo/GetLeadInfoForBotC.js';
 import { Communicator } from '../../utils/assistant-prompt/Communicator.js';
+import { GetUser } from '../../services/kommo/GetUser.js';
 
 export default class Dados {
 
@@ -208,15 +209,21 @@ Observe os dados cadastrais fornecidos pelo usuário '${message_received}' e ava
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
       const channel = await GetLeadChannel(req.body, access_token);
+      const user = await GetUser(req.body, false, access_token);
+      const lastAnswer = user?.custom_fields_values?.filter(field => field.field_name === 'GPT | Last Answer')[0];
       styled.info('Channel:', channel);
       let text;
 
       if (channel === '03 - REDE SOCIAL') {
         text = `System message: Aja como um analista de dados cadastrais experiente. Nestes dois textos abaixo, analise cuidadosamente os campos para extrair o dado de nome completo, data de nascimento, bairro e telefone.
 
+${lastAnswer?.values[0]?.value}
+
 *Utilize somente dados que estejam nos textos. Agora, extraia os dados: nome completo, data de nascimento e bairro. Separado apenas com o valor do campo, sem informar o identificador de cada campo, cada campo deve terminar com um ponto e vírgula. Se no texto não existir a informação do campo, retornar apenas o id #ausencia`;
       } else {
         text = `System message: Aja como um analista de dados cadastrais experiente. Nestes dois textos abaixo, analise cuidadosamente os campos para extrair o dado de nome completo, data de nascimento e bairro.
+
+${lastAnswer?.values[0]?.value}
 
 *Utilize somente dados que estejam nos textos. Agora, extraia os dados: nome completo, data de nascimento e bairro. Separado apenas com o valor do campo, sem informar o identificador de cada campo, cada campo deve terminar com um ponto e vírgula. Se no texto não existir a informação do campo, retornar apenas o id #ausencia`;
       }

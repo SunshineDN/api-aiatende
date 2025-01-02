@@ -265,3 +265,12 @@ import styled from './src/utils/log/styledLog.js';
 // const { name, datanascimento, dentista, arr } = obj;
 
 // console.log(name, datanascimento, dentista, arr);
+
+//Encode the String to Base64
+const string = 'f881B1'
+const encodedString = Buffer.from(string).toString('base64');
+console.log(encodedString);
+
+//Decode the Base64 encoded String
+const decodedString = Buffer.from(encodedString, 'base64').toString('utf-8');
+console.log(decodedString);

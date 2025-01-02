@@ -6,6 +6,6 @@ router.use(express.json());
 
 router.post('/webhook', BkFunnelsController.webhook);
 
-router.post('/register', BkFunnelsController.register);
+router.post('/register', BkFunnelsController.registerUpdateLead);
 
 export default router;
