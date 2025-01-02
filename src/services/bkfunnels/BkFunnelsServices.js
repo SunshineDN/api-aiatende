@@ -1,3 +1,3 @@
 export default class BkFunnelsServices {
-  static 
+  static create
 };
