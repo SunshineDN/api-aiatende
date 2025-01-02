@@ -216,11 +216,49 @@ const styled = require('./src/utils/log/styledLog');
 // console.log(BrazilianDate.getLocalDateTime());
 // console.log(BrazilianDate.getLocalWeekDay());
 
-const user = {
-  name: 'Douglas Augusto Cabral da Silva',
-  email: 'example@teste.com',
-  phone: '+558196724310',
-};
+// const user = {
+//   name: 'Douglas Augusto Cabral da Silva',
+//   email: 'example@teste.com',
+//   phone: '+558196724310',
+// };
 
-styled.function('Erro ao criar / atualizar lead via agendamento por VOZ: Dados obrigatórios não informados');
-styled.middlewaredir(user);
+// styled.function('Erro ao criar / atualizar lead via agendamento por VOZ: Dados obrigatórios não informados');
+// styled.middlewaredir(user);
+
+// Importando o Day.js
+const dayjs = require('dayjs');
+const customParseFormat = require('dayjs/plugin/customParseFormat');
+dayjs.extend(customParseFormat);
+function formatDateToMilliseconds(dateString) {
+  // Regex para identificar padrões comuns de datas
+  const datePatterns = [
+    { regex: /^(\d{4})-(\d{2})-(\d{2})$/, format: 'YYYY-MM-DD' },
+    { regex: /^(\d{2})\/(\d{2})\/(\d{4})$/, format: 'DD/MM/YYYY' },
+    { regex: /^(\d{2})-(\d{2})-(\d{4})$/, format: 'DD-MM-YYYY' },
+    { regex: /^(\d{4})\/(\d{2})\/(\d{2})$/, format: 'YYYY/MM/DD' },
+    { regex: /^(\d{2})\.(\d{2})\.(\d{4})$/, format: 'DD.MM.YYYY' },
+    { regex: /^(\d{2}) (\w+) (\d{4})$/, format: 'DD MMMM YYYY' },
+  ];
+
+  // Tentativa de identificar o padrão correto
+  for (const { regex, format } of datePatterns) {
+    if (regex.test(dateString)) {
+      const parsedDate = dayjs(dateString, format, true); // "true" valida o formato estritamente
+      if (parsedDate.isValid()) {
+        return parsedDate.valueOf(); // Retorna a data em milissegundos
+      }
+    }
+  }
+
+  // Caso nenhuma correspondência seja encontrada
+  console.warn('Data inválida ou formato desconhecido:', dateString);
+  return null;
+}
+
+// Exemplos de uso
+console.log(formatDateToMilliseconds('2025-01-02')); // ISO: 1672617600000
+console.log(formatDateToMilliseconds('11/03/2003')); // Brasileiro: 1672617600000
+console.log(formatDateToMilliseconds('02-01-2025')); // Europeu: 1672617600000
+console.log(formatDateToMilliseconds('2025/01/02')); // Alternativo: 1672617600000
+console.log(formatDateToMilliseconds('02.01.2025')); // Alemão: 1672617600000
+console.log(formatDateToMilliseconds('02 January 2025')); // Inglês: 1672617600000

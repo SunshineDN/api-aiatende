@@ -1,10 +1,10 @@
-const { parse } = require('date-fns');
 const GetAccessToken = require('./GetAccessToken');
 const GetCustomFields = require('./GetCustomFields');
 const GetUser = require('./GetUser');
 const HandlingError = require('./HandlingError');
 const UpdateLead = require('./UpdateLead');
 const styled = require('../../utils/log/styledLog');
+const DateUtils = require('../../utils/DateUtils');
 
 const SplitSchedulingFields = async (payload, access_token = null) => {
   // REQUISICAO PARA O KOMMO
@@ -18,19 +18,15 @@ const SplitSchedulingFields = async (payload, access_token = null) => {
 
     const dataField = user?.custom_fields_values?.filter(field => field.field_name === 'Registration Data')[0];
     const dataFieldValues = dataField?.values[0]?.value;
-    const data_field_split = dataFieldValues.split(';');
+    const data_field_split_symbol = dataFieldValues.split('; ');
+    const data_field_split = data_field_split_symbol.map((value) => value.replace(';', ''));
     const fields_names = data_field_split.map((_, index) => `Scheduling field ${index + 1}`);
     let custom_fields_values = [];
 
     if (data_field_split.length >= 3) {
-      const birth = data_field_split[1];
+      const birth = String(data_field_split[1]);
       const birthField = custom_fields.filter(field => field.name === 'Data de Nascimento')[0];
-      const dateTime = parse(
-        birth,
-        'dd/MM/yyyy',
-        new Date()
-      );
-      const birthMs = dateTime.getTime();
+      const birthMs = DateUtils.formatDateToMs(birth);
       const birthTime = Math.round(birthMs / 1000);
 
       const neighbor = data_field_split[2];
