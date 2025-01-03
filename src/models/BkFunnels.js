@@ -10,6 +10,18 @@ const BkFunnels = sequelize.define('BkFunnels', {
   quests: {
     type: DataTypes.ARRAY(DataTypes.STRING),
   },
+  dentista: {
+    type: DataTypes.STRING,
+  },
+  procedimento: {
+    type: DataTypes.STRING,
+  },
+  periodo: {
+    type: DataTypes.STRING,
+  },
+  turno: {
+    type: DataTypes.STRING
+  },
   objects: {
     type: DataTypes.ARRAY(DataTypes.JSON),
   },

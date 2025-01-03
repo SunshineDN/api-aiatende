@@ -275,6 +275,900 @@ import styled from './src/utils/log/styledLog.js';
 // const decodedString = Buffer.from(encodedString, 'base64').toString('utf-8');
 // console.log(decodedString);
 
+// import KommoServices from './src/services/kommo/KommoServices.js';
+// const kommo = new KommoServices();
+// console.log(kommo.listLeads());
+
+// const leads = [
+//   {
+//     "id": 19030890,
+//     "name": "PARA TESTES - NÃO APAGUE",
+//     "price": 0,
+//     "responsible_user_id": 10402999,
+//     "group_id": 0,
+//     "status_id": 73195524,
+//     "pipeline_id": 8933063,
+//     "loss_reason_id": null,
+//     "created_by": 0,
+//     "updated_by": 7421899,
+//     "created_at": 1730486656,
+//     "updated_at": 1735843186,
+//     "closed_at": null,
+//     "closest_task_at": null,
+//     "is_deleted": false,
+//     "custom_fields_values": [
+//       {
+//         "field_id": 1276648,
+//         "field_name": "Recebeu Mensagem",
+//         "field_code": null,
+//         "field_type": "checkbox",
+//         "values": [
+//           {
+//             "value": true
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1271495,
+//         "field_name": "CANAL DE ENTRADA",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "01 - WHATSAPP LITE",
+//             "enum_id": 919467,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1251814,
+//         "field_name": "Marketing",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "00 - INDEFINIDO",
+//             "enum_id": 922465,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1268288,
+//         "field_name": "GPT | Last messages",
+//         "field_code": null,
+//         "field_type": "textarea",
+//         "values": [
+//           {
+//             "value": "É pra pagar\nSe quiser pode colocar meu notebook lá\nNo grupo é só pra avisos\nEu tô falando com ele aq"
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1273751,
+//         "field_name": "Funil",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "ADMINISTRATIVO",
+//             "enum_id": 921395,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1273753,
+//         "field_name": "Tipo de Lead",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "Quente",
+//             "enum_id": 921387,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1274935,
+//         "field_name": "Voz",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "nova",
+//             "enum_id": 922315,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1275209,
+//         "field_name": "Tempo sem retorno",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "6 Dias",
+//             "enum_id": 922557,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1275201,
+//         "field_name": "Agendar - Manual",
+//         "field_code": null,
+//         "field_type": "url",
+//         "values": [
+//           {
+//             "value": "https://forms.kommo.com/rtzcrzv?dp=Q1zaSQHqO-hHArUG1UMtpYOcpL5i8iTu6ibH1PbsjtuzePTd32GOr_oD8YuHOsij"
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1267772,
+//         "field_name": "GPT | Message received",
+//         "field_code": null,
+//         "field_type": "textarea",
+//         "values": [
+//           {
+//             "value": "Olá boa noite, me chamo Douglas"
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1273839,
+//         "field_name": "GPT | Bot running",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "AQUECIMENTO - ASSISTANT | AQUECIMENTO LEAD",
+//             "enum_id": 921731,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1251816,
+//         "field_name": "Motivo Consulta",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "Ortodontia | Invisalign",
+//             "enum_id": 894520,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1280049,
+//         "field_name": "Calendário",
+//         "field_code": null,
+//         "field_type": "url",
+//         "values": [
+//           {
+//             "value": "https://formulariotest.com/03b4b7324c66abc6b124c7d8ff7d4f4d"
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1267762,
+//         "field_name": "GPT | Answer",
+//         "field_code": null,
+//         "field_type": "textarea",
+//         "values": [
+//           {
+//             "value": "Como posso te ajudar mais hoje?"
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1275699,
+//         "field_name": "Etapa",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "INDEFINIDO [QUENTE]",
+//             "enum_id": 923215,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1273845,
+//         "field_name": "GPT | Last Answer",
+//         "field_code": null,
+//         "field_type": "textarea",
+//         "values": [
+//           {
+//             "value": "Olá, Douglas! Boa noite. Que bom te ver por aqui. \n\nGostaria de saber mais sobre algum tratamento específico ou sobre a Clínica Dental Santé? Temos uma equipe especializada e estrutura moderna que fará a diferença na sua atendimento. Estou à disposição para ajudar!"
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1274617,
+//         "field_name": "Last Bot Runned",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "AQUECIMENTO 1/1",
+//             "enum_id": 922041,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1251804,
+//         "field_name": "Dentista",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "Dra. Juliana Leite",
+//             "enum_id": 894424,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1251802,
+//         "field_name": "Data do Agendamento",
+//         "field_code": null,
+//         "field_type": "date_time",
+//         "values": [
+//           {
+//             "value": 1734012000
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1276872,
+//         "field_name": "Last Agendamento",
+//         "field_code": null,
+//         "field_type": "date_time",
+//         "values": [
+//           {
+//             "value": 1733751000
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1251806,
+//         "field_name": "Tipo de Consulta",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "Particular",
+//             "enum_id": 894464,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1278572,
+//         "field_name": "Status do Agendamento",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "Confirmou",
+//             "enum_id": 927122,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1273841,
+//         "field_name": "Data escolhida",
+//         "field_code": null,
+//         "field_type": "text",
+//         "values": [
+//           {
+//             "value": "12/12/2024 11:00"
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1276694,
+//         "field_name": "FUNIL",
+//         "field_code": null,
+//         "field_type": "multiselect",
+//         "values": [
+//           {
+//             "value": "03 - PRÉ-AGENDAMENTO",
+//             "enum_id": 925364,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1273507,
+//         "field_name": "Mensagem",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "24 Horas ( 7 dias )",
+//             "enum_id": 921087,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1268746,
+//         "field_name": "GPT | Sent Audio",
+//         "field_code": null,
+//         "field_type": "checkbox",
+//         "values": [
+//           {
+//             "value": true
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1269532,
+//         "field_name": "Registration Data",
+//         "field_code": null,
+//         "field_type": "textarea",
+//         "values": [
+//           {
+//             "value": "Douglas Augusto; 11/03/2003; Candeias"
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1277048,
+//         "field_name": "Bairro",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "Candeias",
+//             "enum_id": 925828,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1269522,
+//         "field_name": "Scheduling field 1",
+//         "field_code": null,
+//         "field_type": "text",
+//         "values": [
+//           {
+//             "value": "Douglas Augusto"
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1269524,
+//         "field_name": "Scheduling field 2",
+//         "field_code": null,
+//         "field_type": "text",
+//         "values": [
+//           {
+//             "value": "11/03/2003"
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1269526,
+//         "field_name": "Scheduling field 3",
+//         "field_code": null,
+//         "field_type": "text",
+//         "values": [
+//           {
+//             "value": "Candeias"
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1269546,
+//         "field_name": "Return Data",
+//         "field_code": null,
+//         "field_type": "checkbox",
+//         "values": [
+//           {
+//             "value": true
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1251460,
+//         "field_name": "Data de Nascimento",
+//         "field_code": null,
+//         "field_type": "birthday",
+//         "values": [
+//           {
+//             "value": 1047265200
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1282147,
+//         "field_name": "BK Funnels ID",
+//         "field_code": null,
+//         "field_type": "text",
+//         "values": [
+//           {
+//             "value": "f881B1"
+//           }
+//         ]
+//       }
+//     ],
+//     "score": null,
+//     "account_id": 32000011,
+//     "labor_cost": null,
+//     "_links": {
+//       "self": {
+//         "href": "https://kommoagendamento.kommo.com/api/v4/leads/19030890?query=f881B1&page=1&limit=250"
+//       }
+//     },
+//     "_embedded": {
+//       "tags": [],
+//       "companies": []
+//     }
+//   },{
+//     "id": 19030890,
+//     "name": "PARA TESTES - NÃO APAGUE",
+//     "price": 0,
+//     "responsible_user_id": 10402999,
+//     "group_id": 0,
+//     "status_id": 73195524,
+//     "pipeline_id": 8933063,
+//     "loss_reason_id": null,
+//     "created_by": 0,
+//     "updated_by": 7421899,
+//     "created_at": 1730486656,
+//     "updated_at": 1735843186,
+//     "closed_at": null,
+//     "closest_task_at": null,
+//     "is_deleted": false,
+//     "custom_fields_values": [
+//       {
+//         "field_id": 1276648,
+//         "field_name": "Recebeu Mensagem",
+//         "field_code": null,
+//         "field_type": "checkbox",
+//         "values": [
+//           {
+//             "value": true
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1271495,
+//         "field_name": "CANAL DE ENTRADA",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "01 - WHATSAPP LITE",
+//             "enum_id": 919467,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1251814,
+//         "field_name": "Marketing",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "00 - INDEFINIDO",
+//             "enum_id": 922465,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1268288,
+//         "field_name": "GPT | Last messages",
+//         "field_code": null,
+//         "field_type": "textarea",
+//         "values": [
+//           {
+//             "value": "É pra pagar\nSe quiser pode colocar meu notebook lá\nNo grupo é só pra avisos\nEu tô falando com ele aq"
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1273751,
+//         "field_name": "Funil",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "ADMINISTRATIVO",
+//             "enum_id": 921395,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1273753,
+//         "field_name": "Tipo de Lead",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "Quente",
+//             "enum_id": 921387,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1274935,
+//         "field_name": "Voz",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "nova",
+//             "enum_id": 922315,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1275209,
+//         "field_name": "Tempo sem retorno",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "6 Dias",
+//             "enum_id": 922557,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1275201,
+//         "field_name": "Agendar - Manual",
+//         "field_code": null,
+//         "field_type": "url",
+//         "values": [
+//           {
+//             "value": "https://forms.kommo.com/rtzcrzv?dp=Q1zaSQHqO-hHArUG1UMtpYOcpL5i8iTu6ibH1PbsjtuzePTd32GOr_oD8YuHOsij"
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1267772,
+//         "field_name": "GPT | Message received",
+//         "field_code": null,
+//         "field_type": "textarea",
+//         "values": [
+//           {
+//             "value": "Olá boa noite, me chamo Douglas"
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1273839,
+//         "field_name": "GPT | Bot running",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "AQUECIMENTO - ASSISTANT | AQUECIMENTO LEAD",
+//             "enum_id": 921731,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1251816,
+//         "field_name": "Motivo Consulta",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "Ortodontia | Invisalign",
+//             "enum_id": 894520,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1280049,
+//         "field_name": "Calendário",
+//         "field_code": null,
+//         "field_type": "url",
+//         "values": [
+//           {
+//             "value": "https://formulariotest.com/03b4b7324c66abc6b124c7d8ff7d4f4d"
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1267762,
+//         "field_name": "GPT | Answer",
+//         "field_code": null,
+//         "field_type": "textarea",
+//         "values": [
+//           {
+//             "value": "Como posso te ajudar mais hoje?"
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1275699,
+//         "field_name": "Etapa",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "INDEFINIDO [QUENTE]",
+//             "enum_id": 923215,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1273845,
+//         "field_name": "GPT | Last Answer",
+//         "field_code": null,
+//         "field_type": "textarea",
+//         "values": [
+//           {
+//             "value": "Olá, Douglas! Boa noite. Que bom te ver por aqui. \n\nGostaria de saber mais sobre algum tratamento específico ou sobre a Clínica Dental Santé? Temos uma equipe especializada e estrutura moderna que fará a diferença na sua atendimento. Estou à disposição para ajudar!"
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1274617,
+//         "field_name": "Last Bot Runned",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "AQUECIMENTO 1/1",
+//             "enum_id": 922041,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1251804,
+//         "field_name": "Dentista",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "Dra. Juliana Leite",
+//             "enum_id": 894424,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1251802,
+//         "field_name": "Data do Agendamento",
+//         "field_code": null,
+//         "field_type": "date_time",
+//         "values": [
+//           {
+//             "value": 1734012000
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1276872,
+//         "field_name": "Last Agendamento",
+//         "field_code": null,
+//         "field_type": "date_time",
+//         "values": [
+//           {
+//             "value": 1733751000
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1251806,
+//         "field_name": "Tipo de Consulta",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "Particular",
+//             "enum_id": 894464,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1278572,
+//         "field_name": "Status do Agendamento",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "Confirmou",
+//             "enum_id": 927122,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1273841,
+//         "field_name": "Data escolhida",
+//         "field_code": null,
+//         "field_type": "text",
+//         "values": [
+//           {
+//             "value": "12/12/2024 11:00"
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1276694,
+//         "field_name": "FUNIL",
+//         "field_code": null,
+//         "field_type": "multiselect",
+//         "values": [
+//           {
+//             "value": "03 - PRÉ-AGENDAMENTO",
+//             "enum_id": 925364,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1273507,
+//         "field_name": "Mensagem",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "24 Horas ( 7 dias )",
+//             "enum_id": 921087,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1268746,
+//         "field_name": "GPT | Sent Audio",
+//         "field_code": null,
+//         "field_type": "checkbox",
+//         "values": [
+//           {
+//             "value": true
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1269532,
+//         "field_name": "Registration Data",
+//         "field_code": null,
+//         "field_type": "textarea",
+//         "values": [
+//           {
+//             "value": "Douglas Augusto; 11/03/2003; Candeias"
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1277048,
+//         "field_name": "Bairro",
+//         "field_code": null,
+//         "field_type": "select",
+//         "values": [
+//           {
+//             "value": "Candeias",
+//             "enum_id": 925828,
+//             "enum_code": null
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1269522,
+//         "field_name": "Scheduling field 1",
+//         "field_code": null,
+//         "field_type": "text",
+//         "values": [
+//           {
+//             "value": "Douglas Augusto"
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1269524,
+//         "field_name": "Scheduling field 2",
+//         "field_code": null,
+//         "field_type": "text",
+//         "values": [
+//           {
+//             "value": "11/03/2003"
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1269526,
+//         "field_name": "Scheduling field 3",
+//         "field_code": null,
+//         "field_type": "text",
+//         "values": [
+//           {
+//             "value": "Candeias"
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1269546,
+//         "field_name": "Return Data",
+//         "field_code": null,
+//         "field_type": "checkbox",
+//         "values": [
+//           {
+//             "value": true
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1251460,
+//         "field_name": "Data de Nascimento",
+//         "field_code": null,
+//         "field_type": "birthday",
+//         "values": [
+//           {
+//             "value": 1047265200
+//           }
+//         ]
+//       },
+//       {
+//         "field_id": 1282147,
+//         "field_name": "BK Funnels ID",
+//         "field_code": null,
+//         "field_type": "text",
+//         "values": [
+//           {
+//             "value": "f881B"
+//           }
+//         ]
+//       }
+//     ],
+//     "score": null,
+//     "account_id": 32000011,
+//     "labor_cost": null,
+//     "_links": {
+//       "self": {
+//         "href": "https://kommoagendamento.kommo.com/api/v4/leads/19030890?query=f881B&page=1&limit=250"
+//       }
+//     },
+//     "_embedded": {
+//       "tags": [],
+//       "companies": []
+//     }
+//   }
+// ]
+
+// const leadFilter = leads.filter(lead => lead.custom_fields_values.some(field => field.field_name === 'BK Funnels ID' && field.values[0].value.includes('f881B1')));
+
+// styled.infodir(leadFilter.length);
+
 import KommoServices from './src/services/kommo/KommoServices.js';
-const kommo = new KommoServices();
-console.log(kommo.listLeads());
+import KommoUtils from './src/utils/KommoUtils.js';
+
+const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
+
+async function test() {
+  const pipelines = await kommo.getPipelines();
+  const utils = new KommoUtils({ pipelines });
+  const bkStage = utils.findStatusByName('BK FUNNELS');
+  styled.infodir(bkStage);
+}
+
+test();

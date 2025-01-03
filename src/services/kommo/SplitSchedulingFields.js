@@ -5,6 +5,7 @@ import { GetCustomFields } from './GetCustomFields.js';
 import { GetUser } from './GetUser.js';
 import { HandlingError } from './HandlingError.js';
 import { UpdateLead } from './UpdateLead.js';
+import KommoUtils from '../../utils/KommoUtils.js';
 
 export const SplitSchedulingFields = async (payload, access_token = null) => {
   // REQUISICAO PARA O KOMMO
@@ -26,13 +27,8 @@ export const SplitSchedulingFields = async (payload, access_token = null) => {
     if (data_field_split.length >= 3) {
       const birth = data_field_split[1];
       const birthField = custom_fields.filter(field => field.name === 'Data de Nascimento')[0];
-      const dateTime = parse(
-        birth,
-        'dd/MM/yyyy',
-        new Date()
-      );
-      const birthMs = dateTime.getTime();
-      const birthTime = Math.round(birthMs / 1000);
+      const kommoUtils = new KommoUtils();
+      const birthTime = kommoUtils.convertDateToMs(birth);
 
       const neighbor = data_field_split[2];
       const neighborField = custom_fields.filter(field => field.name === 'Bairro')[0];

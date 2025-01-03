@@ -8,7 +8,7 @@ services:
     environment:
       - PROJECT_NAME= # Nome do projeto
       - ACCESS_TOKEN= # Token de acesso do Kommo
-      - KOMMO_ACCESS_TOKEN= # Token de acesso do Kommo (EM TESTE)
+      - KOMMO_AUTH= # Token de acesso do Kommo (EM TESTE)
       - KOMMO_URL= # URL do Kommo
       - OPENAI_API_KEY= # Chave de API do OpenAI
       - DB_URL=postgres://DB_USER:DB_PASS@DB_HOST:DB_PORT/DB_NAME # URL de conexão com o banco de dados
