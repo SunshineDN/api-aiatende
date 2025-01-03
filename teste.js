@@ -267,10 +267,14 @@ import styled from './src/utils/log/styledLog.js';
 // console.log(name, datanascimento, dentista, arr);
 
 //Encode the String to Base64
-const string = 'f881B1'
-const encodedString = Buffer.from(string).toString('base64');
-console.log(encodedString);
+// const string = 'f881B1'
+// const encodedString = Buffer.from(string).toString('base64');
+// console.log(encodedString);
 
-//Decode the Base64 encoded String
-const decodedString = Buffer.from(encodedString, 'base64').toString('utf-8');
-console.log(decodedString);
+// //Decode the Base64 encoded String
+// const decodedString = Buffer.from(encodedString, 'base64').toString('utf-8');
+// console.log(decodedString);
+
+import KommoServices from './src/services/kommo/KommoServices.js';
+const kommo = new KommoServices();
+console.log(kommo.listLeads());
