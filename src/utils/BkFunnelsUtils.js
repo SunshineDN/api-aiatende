@@ -18,7 +18,7 @@ export default class BkFunnelsUtils {
           type: 'dentista',
           value: 'Demais Dentistas',
         }
-      } else if (answer === '2 - Dra. Juliana LeiteReabilitação Oral e Estética do SorrisoInvestimento de R$ 120,00') {
+      } else if (answer.includes('Dra. Juliana Leite')) {
         return {
           type: 'dentista',
           value: 'Dra. Juliana Leite',

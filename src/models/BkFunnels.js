@@ -23,10 +23,10 @@ const BkFunnels = sequelize.define('BkFunnels', {
     type: DataTypes.STRING
   },
   objects: {
-    type: DataTypes.ARRAY(DataTypes.JSON),
+    type: DataTypes.JSON,
   },
-  funnelID: {
-    type: DataTypes.ARRAY(DataTypes.STRING),
+  funnelId: {
+    type: DataTypes.STRING,
   }
 }, {
   tableName: 'BkFunnels', // nome da tabela no banco de dados

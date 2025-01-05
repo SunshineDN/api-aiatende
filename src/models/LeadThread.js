@@ -17,7 +17,7 @@ const LeadThread = sequelize.define('LeadThread', {
     allowNull: true,
   }
 }, {
-  tableName: process.env.TABLE_NAME, // nome da tabela no banco de dados
+  tableName: 'lead_threads', // nome da tabela no banco de dados
 });
 
 export default LeadThread;

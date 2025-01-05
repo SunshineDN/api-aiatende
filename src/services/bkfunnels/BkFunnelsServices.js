@@ -1,76 +1,97 @@
 import BkFunnelsRepository from "../../repositories/BkFunnelsRepository.js";
 import BkFunnelsUtils from "../../utils/BkFunnelsUtils.js";
+import styled from "../../utils/log/styledLog.js";
 import KommoServices from "../kommo/KommoServices.js";
 
 export default class BkFunnelsServices {
 
-  static async createUpdateLead(body, res) {
-    const { code } = body;
-    const { type, value } = BkFunnelsUtils.identifyAnswer(body);
+  static async createUpdateLead(body) {
+    try {
+      const { code, funnelId } = body;
+      const codeString = code.toString();
+      const funnelIdString = funnelId.toString();
 
-    if (type === 'not_found') {
-      return { code: 404, response: { message: 'Type not found' } };
-    }
+      const { type, value } = BkFunnelsUtils.identifyAnswer(body);
 
-    const bkFunnelsRepository = new BkFunnelsRepository();
-    const turnoOptions = ['Manhã (8h às 12h)', 'Tarde (14h às 18h)', 'Noite (18h às 20h)', 'Especial (12h às 14h)']
-
-    if (value === turnoOptions[0] || value === turnoOptions[1] || value === turnoOptions[2] || value === turnoOptions[3]) {
-      const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
-      const leads = await kommo.listLeads({ query: code });
-      if (leads.length === 0) {
-        const bkLeadInfo = await bkFunnelsRepository.findByCode(code);
-        const { objects: { name, email, phone, datanascimento }, dentista, procedimento, periodo, turno } = bkLeadInfo;
-        const lead = { name, email, phone, datanascimento, dentista, procedimento, periodo, turno, code };
+      if (type === 'not_found') {
+        styled.error('Type not found');
+        return { code: 404, response: { message: 'Type not found' }, created: false };
       }
-    }
 
-    if (type === 'lead') {
-      const [_, __] = bkFunnelsRepository.findOrCreate({ where: { code } });
-      await bkFunnelsRepository.updateByCode(code, { objects: JSON.stringify(value) });
-      return { code: 200, response: { message: 'BK Funnels Lead Informations has been stored' } };
-    } else {
-      const [_, created] = bkFunnelsRepository.findOrCreate({ where: { code } });
-      if (created) {
-        if (type === 'dentista') {
-          await bkFunnelsRepository.updateByCode(code, { dentista: value });
-          return { code: 200, response: { message: 'BK Funnels Lead created and dentista has been updated' } };
-        } else if (type === 'procedimento') {
-          await bkFunnelsRepository.updateByCode(code, { procedimento: value });
-          return { code: 200, response: { message: 'BK Funnels Lead created and procedimento has been updated' } };
-        } else if (type === 'periodo') {
-          await bkFunnelsRepository.updateByCode(code, { periodo: value });
-          return { code: 200, response: { message: 'BK Funnels Lead created and periodo has been updated' } };
-        } else if (type === 'turno') {
-          await bkFunnelsRepository.updateByCode(code, { turno: value });
-          return { code: 200, response: { message: 'BK Funnels Lead created and turno has been updated' } };
-        } else if (type === 'quests') {
-          await bkFunnelsRepository.updateByCode(code, { quests: [value] });
-          return { code: 200, response: { message: 'BK Funnels Lead created and quests has been updated' } };
+      const bkFunnelsRepository = new BkFunnelsRepository();
+
+      if (type === 'lead') {
+        const [_, created] = await bkFunnelsRepository.findOrCreate({ where: { code: codeString, funnelId: funnelIdString } });
+
+        await bkFunnelsRepository.updateByCode(codeString, { objects: value });
+        styled.success('BK Funnels Lead Informations has been stored');
+        return { code: 200, response: { message: 'BK Funnels Lead Informations has been stored' }, created };
+      }
+
+      const [_, created] = await bkFunnelsRepository.findOrCreate({ where: { code: codeString, funnelId: funnelIdString } });
+      if (type === 'dentista') {
+        await bkFunnelsRepository.updateByCode(codeString, { dentista: value });
+        styled.success('BK Funnels Lead created and dentista has been updated');
+        return { code: 200, response: { message: 'BK Funnels Lead created and dentista has been updated' } };
+
+      } else if (type === 'procedimento') {
+        await bkFunnelsRepository.updateByCode(codeString, { procedimento: value });
+        styled.success('BK Funnels Lead created and procedimento has been updated');
+        return { code: 200, response: { message: 'BK Funnels Lead created and procedimento has been updated' } };
+
+      } else if (type === 'periodo') {
+        await bkFunnelsRepository.updateByCode(codeString, { periodo: value });
+        styled.success('BK Funnels Lead created and periodo has been updated');
+        return { code: 200, response: { message: 'BK Funnels Lead created and periodo has been updated' } };
+
+      } else if (type === 'turno') {
+        const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
+        const leads = await kommo.listLeads({ query: codeString });
+        const bkLeadInfo = await bkFunnelsRepository.findByCode(codeString);
+        const { objects: { name, email, phone, datanascimento }, dentista, procedimento, periodo } = bkLeadInfo;
+        let turno_res;
+        if (!leads || leads?.length === 0) {
+          turno_res = await kommo.createLeadBk({
+            name: name,
+            email: email,
+            phone: phone,
+            datanascimento: datanascimento,
+            dentista: dentista,
+            procedimento: procedimento,
+            periodo: periodo,
+            turno: value,
+            code: codeString
+          });
         } else {
-          return { code: 404, response: { message: 'Type not found' } }
+          turno_res = await kommo.updateLeadBk({
+            id: leads[0].id,
+            dentista: dentista,
+            procedimento: procedimento,
+            periodo: periodo,
+            turno: value,
+          });
         }
+        await bkFunnelsRepository.updateByCode(codeString, { turno: value });
+        styled.success('BK Funnels Lead created and turno has been updated');
+        return { code: 200, response: { message: 'BK Funnels Lead created and turno has been updated', turno_res }, created };
+
+      } else if (type === 'quests') {
+        const { quests } = await bkFunnelsRepository.findByCode(codeString);
+        if (quests) {
+          await bkFunnelsRepository.updateByCode(codeString, { quests: [...quests, value] });
+        } else {
+          await bkFunnelsRepository.updateByCode(codeString, { quests: [value] });
+        }
+        styled.success('BK Funnels Lead created and quests has been updated');
+        return { code: 200, response: { message: 'BK Funnels Lead created and quests has been updated' }, created };
+
       } else {
-        if (type === 'dentista') {
-          await bkFunnelsRepository.updateByCode(code, { dentista: value });
-          return { code: 200, response: { message: 'BK Funnels Lead dentista has been updated' } };
-        } else if (type === 'procedimento') {
-          await bkFunnelsRepository.updateByCode(code, { procedimento: value });
-          return { code: 200, response: { message: 'BK Funnels Lead procedimento has been updated' } };
-        } else if (type === 'periodo') {
-          await bkFunnelsRepository.updateByCode(code, { periodo: value });
-          return { code: 200, response: { message: 'BK Funnels Lead periodo has been updated' } };
-        } else if (type === 'turno') {
-          await bkFunnelsRepository.updateByCode(code, { turno: value });
-          return { code: 200, response: { message: 'BK Funnels Lead turno has been updated' } };
-        } else if (type === 'quests') {
-          const { quests } = await bkFunnelsRepository.findByCode(code);
-          await bkFunnelsRepository.updateByCode(code, { quests: [...quests, value] });
-          return { code: 200, response: { message: 'BK Funnels Lead quests has been updated' } };
-        } else {
-          return { code: 404, response: { message: 'Type not found' } };
-        }
+        styled.error('Type not found when creating BK Funnels Lead');
+        return { code: 404, response: { message: 'Type not found' }, created: false };
+
       }
+    } catch (error) {
+      throw new Error(error);
     }
   }
 };

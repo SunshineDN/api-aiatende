@@ -1165,10 +1165,21 @@ import KommoUtils from './src/utils/KommoUtils.js';
 const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
 
 async function test() {
-  const pipelines = await kommo.getPipelines();
-  const utils = new KommoUtils({ pipelines });
-  const bkStage = utils.findStatusByName('BK FUNNELS');
-  styled.infodir(bkStage);
+  const response = await kommo.createLeadBk({
+    name: 'Douglas Augusto Cabral da Silva',
+    code: 'f881B1',
+    phone: '96724310',
+    datanascimento: '11/03/2003',
+    dentista: 'Dra. Juliana Leite',
+    procedimento: 'Odontopediatria',
+    periodo: 'Nesta Semana (Até Sábado)',
+    turno: 'Tarde (14h às 18h)',
+    email: 'sunshinedn2003@gmail.com',
+  });
+
+  // const response = await kommo.listLeads({ query: '2483698' });
+
+  styled.info(response);
 }
 
 test();

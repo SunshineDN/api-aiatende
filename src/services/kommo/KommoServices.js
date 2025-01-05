@@ -25,7 +25,7 @@ export default class KommoServices {
         }
       };
 
-      const { data: { _embedded: { leads } } } = await axios.request(options);
+      const { data: { _embedded: { leads } = {} } = {} } = await axios.request(options);
       return leads;
     }
 
@@ -74,7 +74,21 @@ export default class KommoServices {
     return pipelines;
   }
 
-  async createLeadBk({ name = '', email = '', phone = '', datanascimento = '', dentista = '', procedimento = '', periodo = '', turno = '', code = '' }) {
+  async createCalendarLink() {
+    const options = {
+      method: 'POST',
+      url: `${this.url}/api/v4/leads/${id}`,
+      headers: {
+        'accept': 'application/json',
+        'Authorization': `Bearer ${this.auth}`
+      },
+      data: {
+
+      }
+    };
+  }
+
+  async createLeadBk({ name = '', email = '', phone = '', datanascimento = '', dentista = '', procedimento = '', periodo = '', turno = '', code = '' } = {}) {
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields(), contacts_custom_fields: await this.getContactsCustomFields(), pipelines: await this.getPipelines() });
 
     const phoneField = kommoUtils.findContactsFieldByName('Telefone');
@@ -98,53 +112,191 @@ export default class KommoServices {
       },
       data: [
         {
-          field_id: status.id,
+          status_id: status.id,
           pipeline_id: status.pipeline_id,
           _embedded: {
             contacts: [
               {
-                name: name,
-                custom_fields_values: [
-                  {
-                    field_id: phoneField.id,
-                    value: phone
-                  },
-                  {
-                    field_id: emailField.id,
-                    value: email
-                  }
-                ]
+                name: '',
+                custom_fields_values: []
               }
             ]
           },
-          custom_fields_values: [
-            {
-              field_id: nascimentoField.id,
-              value: kommoUtils.convertDateToMs(datanascimento)
-            },
-            {
-              field_id: dentistaField.id,
-              value: dentista
-            },
-            {
-              field_id: procedimentoField.id,
-              value: procedimento
-            },
-            {
-              field_id: periodoField.id,
-              value: periodo
-            },
-            {
-              field_id: turnoField.id,
-              value: turno
-            },
-            {
-              field_id: codeField.id,
-              value: code
-            }
-          ]
+          custom_fields_values: []
         }
       ]
     };
+
+    // Adicionar os elementos ao custom_fields_values se houver algum valor
+    if (name) {
+      options.data[0]._embedded.contacts[0].name = name;
+    }
+
+    if (phone) {
+      options.data[0]._embedded.contacts[0].custom_fields_values.push({
+        field_id: phoneField.id,
+        values: [
+          {
+            value: kommoUtils.formatPhone(phone),
+            enum_code: 'WORK'
+          }
+        ]
+      });
+    }
+
+    if (email) {
+      options.data[0]._embedded.contacts[0].custom_fields_values.push({
+        field_id: emailField.id,
+        values: [
+          {
+            value: email,
+            enum_code: 'WORK'
+          }
+        ]
+      });
+    }
+
+    if (datanascimento) {
+      options.data[0].custom_fields_values.push({
+        field_id: nascimentoField.id,
+        values: [
+          {
+            value: kommoUtils.convertDateToMs(datanascimento)
+          }
+        ]
+      });
+    }
+
+    if (dentista) {
+      options.data[0].custom_fields_values.push({
+        field_id: dentistaField.id,
+        values: [
+          {
+            value: dentista
+          }
+        ]
+      });
+    }
+
+    if (procedimento) {
+      options.data[0].custom_fields_values.push({
+        field_id: procedimentoField.id,
+        values: [
+          {
+            value: procedimento
+          }
+        ]
+      });
+    }
+
+    if (periodo) {
+      options.data[0].custom_fields_values.push({
+        field_id: periodoField.id,
+        values: [
+          {
+            value: periodo
+          }
+        ]
+      });
+    }
+
+    if (turno) {
+      options.data[0].custom_fields_values.push({
+        field_id: turnoField.id,
+        values: [
+          {
+            value: turno
+          }
+        ]
+      });
+    }
+
+    if (code) {
+      options.data[0].custom_fields_values.push({
+        field_id: codeField.id,
+        values: [
+          {
+            value: code
+          }
+        ]
+      });
+    }
+
+    const { data } = await axios.request(options);
+    return { code: 201, response: data };
   };
+
+  async updateLeadBk({ id = '', dentista = '', procedimento = '', periodo = '', turno = '' } = {}) {
+    const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields(), contacts_custom_fields: await this.getContactsCustomFields(), pipelines: await this.getPipelines() });
+
+    const dentistaField = kommoUtils.findLeadsFieldByName('Dentista');
+    const procedimentoField = kommoUtils.findLeadsFieldByName('Procedimento');
+    const periodoField = kommoUtils.findLeadsFieldByName('Período');
+    const turnoField = kommoUtils.findLeadsFieldByName('Turno');
+
+    const status = kommoUtils.findStatusByName('BK FUNNELS');
+
+    const options = {
+      method: 'PATCH',
+      url: `${this.url}/api/v4/leads/${id}`,
+      headers: {
+        'accept': 'application/json',
+        'Authorization': `Bearer ${this.auth}`
+      },
+      data: {
+        status_id: status.id,
+        pipeline_id: status.pipeline_id,
+        custom_fields_values: []
+      }
+    };
+
+    // Adicionar os elementos ao custom_fields_values se houver algum valor
+
+    if (dentista) {
+      options.data.custom_fields_values.push({
+        field_id: dentistaField.id,
+        values: [
+          {
+            value: dentista
+          }
+        ]
+      });
+    }
+
+    if (procedimento) {
+      options.data.custom_fields_values.push({
+        field_id: procedimentoField.id,
+        values: [
+          {
+            value: procedimento
+          }
+        ]
+      });
+    }
+
+    if (periodo) {
+      options.data.custom_fields_values.push({
+        field_id: periodoField.id,
+        values: [
+          {
+            value: periodo
+          }
+        ]
+      });
+    }
+
+    if (turno) {
+      options.data.custom_fields_values.push({
+        field_id: turnoField.id,
+        values: [
+          {
+            value: turno
+          }
+        ]
+      });
+    }
+
+    const { data } = await axios.request(options);
+    return { code: 200, response: data };
+  }
 };

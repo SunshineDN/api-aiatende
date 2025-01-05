@@ -20,10 +20,10 @@ export default class BkFunnelsController {
       styled.info('Registrando ou atualizando lead:');
       const { body } = req;
       const status = await BkFunnelsServices.createUpdateLead(body);
-      return res.status(status.code).json(status.response);
+      return res.status(status.code).json({ response: status.response, created: status.created });
     } catch (error) {
       styled.error('Error on registerUpdateLead:');
-      styled.errordir(error);
+      console.error(error);
       res.status(500).json({ error });
     }
   };

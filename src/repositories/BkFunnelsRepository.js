@@ -1,5 +1,5 @@
-import BaseRepository from "./BaseRepository";
-import BkFunnels from "../models/BkFunnels";
+import BaseRepository from "./BaseRepository.js";
+import BkFunnels from "../models/BkFunnels.js";
 
 export default class BkFunnelsRepository extends BaseRepository {
   constructor() {
@@ -11,6 +11,6 @@ export default class BkFunnelsRepository extends BaseRepository {
   }
 
   async updateByCode(code, data) {
-    return await this.update(code, data);
+    return await this.model.update(data, { where: { code } });
   }
 }
