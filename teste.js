@@ -1161,25 +1161,16 @@ import styled from './src/utils/log/styledLog.js';
 
 import KommoServices from './src/services/kommo/KommoServices.js';
 import KommoUtils from './src/utils/KommoUtils.js';
+import StaticUtils from './src/utils/StaticUtils.js';
+import WebCalendarServices from './src/services/web-calendar/WebCalendarServices.js';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 
 const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
 
 async function test() {
-  const response = await kommo.createLeadBk({
-    name: 'Douglas Augusto Cabral da Silva',
-    code: 'f881B1',
-    phone: '96724310',
-    datanascimento: '11/03/2003',
-    dentista: 'Dra. Juliana Leite',
-    procedimento: 'Odontopediatria',
-    periodo: 'Nesta Semana (Até Sábado)',
-    turno: 'Tarde (14h às 18h)',
-    email: 'sunshinedn2003@gmail.com',
-  });
-
-  // const response = await kommo.listLeads({ query: '2483698' });
-
-  styled.info(response);
+  const id = 'MTkwMzA4OTA='
+  const res = await WebCalendarServices.registerDate('Dra. Juliana Leite', '06/01/2025', '11:00', id);
 }
 
 test();

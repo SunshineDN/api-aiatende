@@ -7,6 +7,7 @@ services:
     working_dir: /home/node/app
     environment:
       - PROJECT_NAME= # Nome do projeto
+      - DOMAIN= # Domínio da aplicação
       - ACCESS_TOKEN= # Token de acesso do Kommo
       - KOMMO_AUTH= # Token de acesso do Kommo (EM TESTE)
       - KOMMO_URL= # URL do Kommo

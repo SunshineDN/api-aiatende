@@ -7,7 +7,7 @@ import { CalendarIdValidate } from '../../utils/calendar/CalendarIdValidate.js';
 
 export const UpdateCalendarEvent = async (payload, access_token = null) => {
   let eventData, nameDoctor;
-  const CalendarUtilsClass = new CalendarUtils(payload?.account?.id);
+  const CalendarUtilsClass = new CalendarUtils();
 
   try {
     const user = await GetUser(payload, false, access_token);

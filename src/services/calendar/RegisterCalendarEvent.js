@@ -8,7 +8,7 @@ import { CalendarUtils } from '../../utils/calendar/CalendarUtils.js';
 import { HandlingError } from '../kommo/HandlingError.js';
 
 export const RegisterCalendarEvent = async (payload, access_token = null) => {
-  const CalendarUtilsClass = new CalendarUtils(payload?.account?.id);
+  const CalendarUtilsClass = new CalendarUtils();
 
   try {
     const user = await GetUser(payload, false, access_token);
@@ -65,19 +65,19 @@ export const RegisterCalendarEvent = async (payload, access_token = null) => {
       summary,
       //description,
       start: {
-        dateTime: startDateTime.toISOString(),
+        dateTime: startDateTime,
       },
       end: {
-        dateTime: endDateTime.toISOString(),
+        dateTime: endDateTime,
       },
       //...rest,
     };
     styled.info('Evento:', event);
 
     try {
-      eventData = await CalendarUtilsClass.executeRegisterEvent( CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id), event);
+      eventData = await CalendarUtilsClass.executeRegisterEvent( CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), event);
     } catch {
-      eventData = await CalendarUtilsClass.executeRegisterEvent( CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id), event);
+      eventData = await CalendarUtilsClass.executeRegisterEvent( CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), event);
     }
 
     styled.info('Dados do Evento (eventData):', eventData);

@@ -10,7 +10,7 @@ export const WebListCalendarEvents = async (payload) => {
   try{
     access_token = GetAccessToken()
 
-    const CalendarUtilsClass = new CalendarUtils(payload?.account?.id);
+    const CalendarUtilsClass = new CalendarUtils();
     user = await GetUser(payload, false, access_token);
       
     reason = user?.custom_fields_values?.filter(
@@ -26,9 +26,9 @@ export const WebListCalendarEvents = async (payload) => {
     }
 
     try {
-      return await CalendarUtilsClass.listWebAvailableDate(CalendarIdValidate(nameDoctor, payload?.account?.id));
+      return await CalendarUtilsClass.listWebAvailableDate(CalendarIdValidate(nameDoctor));
     } catch {
-      return await CalendarUtilsClass.listWebAvailableDate(CalendarIdValidate(nameDoctor, payload?.account?.id));
+      return await CalendarUtilsClass.listWebAvailableDate(CalendarIdValidate(nameDoctor));
     }
   }catch(error) {
     if (error.response) {

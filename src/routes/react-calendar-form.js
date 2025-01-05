@@ -2,6 +2,7 @@ import express from 'express';
 import styled from '../utils/log/styledLog.js';
 import CalendarController from '../controllers/CalendarController.js';
 import { DecryptId } from '../utils/crypt/DecryptId.js';
+import WebCalendarController from '../controllers/WebCalendarController.js';
 
 const router = express.Router();
 
@@ -18,5 +19,11 @@ router.use((req, res, next) => {
 router.get('/', CalendarController.index);
 
 router.post('/listEvents', CalendarController.listEventsWeb);
+
+router.post('/default', WebCalendarController.default);
+
+router.post('/choice', WebCalendarController.choice);
+
+router.post('/register', WebCalendarController.register);
 
 export default router;

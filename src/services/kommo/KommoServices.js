@@ -1,5 +1,7 @@
 import axios from "axios";
 import KommoUtils from "../../utils/KommoUtils.js";
+import StaticUtils from "../../utils/StaticUtils.js";
+import styled from "../../utils/log/styledLog.js";
 
 export default class KommoServices {
   constructor({ auth, url }) {
@@ -12,6 +14,71 @@ export default class KommoServices {
       auth: this.auth,
       url: this.url
     }
+  }
+
+  async getLead({ id, withParams = '' } = {}) {
+    let url;
+    if (withParams) {
+      if (withParams === 'contacts') {
+        url = `${this.url}/api/v4/leads/${id}?with=contacts`;
+
+      } else if (withParams === 'catalog_elements') {
+        url = `${this.url}/api/v4/leads/${id}?with=catalog_elements`;
+
+      } else if (withParams === 'is_price_modified_by_robot') {
+        url = `${this.url}/api/v4/leads/${id}?with=is_price_modified_by_robot`;
+
+      } else if (withParams === 'loss_reason') {
+        url = `${this.url}/api/v4/leads/${id}?with=loss_reason`;
+
+      } else if (withParams === 'only_deleted') {
+        url = `${this.url}/api/v4/leads/${id}?with=only_deleted`;
+
+      } else if (withParams === 'source_id') {
+        url = `${this.url}/api/v4/leads/${id}?with=source_id`;
+
+      } else {
+        throw new Error('Invalid withParams');
+      }
+    } else {
+      url = `${this.url}/api/v4/leads/${id}`;
+    }
+
+    const options = {
+      method: 'GET',
+      url,
+      headers: {
+        'accept': 'application/json',
+        'Authorization': `Bearer ${this.auth}`
+      }
+    };
+
+    const { data: leadData } = await axios.request(options);
+
+    if (!withParams) {
+      return leadData;
+    } else {
+      if (withParams === 'contacts') {
+        leadData.contact = await this.getContact(leadData?._embedded?.contacts?.[0]?.id);
+        return leadData;
+      } else {
+        return leadData;
+      }
+    }
+  }
+
+  async getContact(id) {
+    const options = {
+      method: 'GET',
+      url: `${this.url}/api/v4/contacts/${id}`,
+      headers: {
+        'accept': 'application/json',
+        'Authorization': `Bearer ${this.auth}`
+      }
+    };
+
+    const { data } = await axios.request(options);
+    return data;
   }
 
   async listLeads({ query = '' } = {}) {
@@ -74,20 +141,6 @@ export default class KommoServices {
     return pipelines;
   }
 
-  async createCalendarLink() {
-    const options = {
-      method: 'POST',
-      url: `${this.url}/api/v4/leads/${id}`,
-      headers: {
-        'accept': 'application/json',
-        'Authorization': `Bearer ${this.auth}`
-      },
-      data: {
-
-      }
-    };
-  }
-
   async createLeadBk({ name = '', email = '', phone = '', datanascimento = '', dentista = '', procedimento = '', periodo = '', turno = '', code = '' } = {}) {
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields(), contacts_custom_fields: await this.getContactsCustomFields(), pipelines: await this.getPipelines() });
 
@@ -100,6 +153,7 @@ export default class KommoServices {
     const periodoField = kommoUtils.findLeadsFieldByName('Período');
     const turnoField = kommoUtils.findLeadsFieldByName('Turno');
     const codeField = kommoUtils.findLeadsFieldByName('BK Funnels ID');
+    const calendarField = kommoUtils.findLeadsFieldByName('Calendário');
 
     const status = kommoUtils.findStatusByName('BK FUNNELS');
 
@@ -222,11 +276,36 @@ export default class KommoServices {
       });
     }
 
-    const { data } = await axios.request(options);
+    const { data: [res] } = await axios.request(options);
+    styled.success('[KommoServices.createLeadBk] - BK Funnels Lead created');
+    const calendarLink = StaticUtils.calendarLink(res.id);
+    const calendarOptions = {
+      method: 'PATCH',
+      url: `${this.url}/api/v4/leads/${res.id}`,
+      headers: {
+        'accept': 'application/json',
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${this.auth}`
+      },
+      data: {
+        custom_fields_values: [
+          {
+            field_id: calendarField.id,
+            values: [
+              {
+                value: calendarLink
+              }
+            ]
+          }
+        ]
+      }
+    };
+    const { data } = await axios.request(calendarOptions);
+    styled.success('[KommoServices.createLeadBk] - Calendar link added to lead');
     return { code: 201, response: data };
   };
 
-  async updateLeadBk({ id = '', dentista = '', procedimento = '', periodo = '', turno = '' } = {}) {
+  async updateLeadBk({ id, dentista = '', procedimento = '', periodo = '', turno = '' } = {}) {
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields(), contacts_custom_fields: await this.getContactsCustomFields(), pipelines: await this.getPipelines() });
 
     const dentistaField = kommoUtils.findLeadsFieldByName('Dentista');
@@ -241,6 +320,7 @@ export default class KommoServices {
       url: `${this.url}/api/v4/leads/${id}`,
       headers: {
         'accept': 'application/json',
+        'content-type': 'application/json',
         'Authorization': `Bearer ${this.auth}`
       },
       data: {

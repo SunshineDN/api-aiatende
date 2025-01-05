@@ -166,7 +166,7 @@ Considerar que o usuário passou por todas as etapas para fazer o primeiro agend
       const access_token = GetAccessToken();
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
-      const CalendarUtilsClass = new CalendarUtils(req.body.account.id);
+      const CalendarUtilsClass = new CalendarUtils();
 
       const message_received = await GetMessageReceived(req.body, access_token);
 
@@ -185,9 +185,9 @@ Considerar que o usuário passou por todas as etapas para fazer o primeiro agend
       let dates;
 
       try {
-        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado', req.body.account.id));
+        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado'));
       } catch {
-        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado', req.body.account.id));
+        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado'));
       }
 
       let specialist;

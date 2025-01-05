@@ -7,7 +7,7 @@ import { HandlingError } from '../kommo/HandlingError.js';
 
 export const RemoveCalendarEvent = async (payload, access_token = null) => {
   try {
-    const CalendarUtilsClass = new CalendarUtils(payload?.account?.id);
+    const CalendarUtilsClass = new CalendarUtils();
 
     const user = await GetUser(payload, false, access_token);
     const custom_fields = await GetCustomFields(payload, access_token);
@@ -28,10 +28,10 @@ export const RemoveCalendarEvent = async (payload, access_token = null) => {
 
     styled.info('ID do Evento:', eventId?.values[0]?.value);
     try {
-      await CalendarUtilsClass.executeRemoveEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id), eventId?.values[0]?.value);
+      await CalendarUtilsClass.executeRemoveEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), eventId?.values[0]?.value);
     } catch {
       try {
-        await CalendarUtilsClass.executeRemoveEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id), eventId?.values[0]?.value);
+        await CalendarUtilsClass.executeRemoveEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), eventId?.values[0]?.value);
       } catch (error) {
         styled.error('Erro ao remover evento no Google Calendar (2ª tentativa)');
         throw error;

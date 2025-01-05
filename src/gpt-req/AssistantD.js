@@ -46,7 +46,7 @@ class AssistantD {
       const access_token = GetAccessToken();
       const messageReceived = await GetMessageReceived(req.body, access_token);
       const user = await GetUser(req.body, false, access_token);
-      const CalendarUtilsClass = new CalendarUtils(req.body.account.id);
+      const CalendarUtilsClass = new CalendarUtils();
 
       
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
@@ -63,9 +63,9 @@ class AssistantD {
       let dates;
 
       try {
-        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado', req.body.account.id));
+        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado'));
       } catch {
-        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado', req.body.account.id));
+        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado'));
       }
 
       const text = `System message: Adotar Dia da semana, Data e Horário atual são ${weekDayFormatted}, ${date} GMT-3.

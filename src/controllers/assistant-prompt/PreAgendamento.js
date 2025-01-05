@@ -107,7 +107,7 @@ Responda apenas com o ID correspondente da opção, que segue este padrão: "#pa
     styled.function('Prompt | BOT - Pré Agendamento | Verificação de agenda do especialista...');
     try {
       const access_token = GetAccessToken();
-      const CalendarUtilsClass = new CalendarUtils(req.body.account.id);
+      const CalendarUtilsClass = new CalendarUtils();
       // const actual_date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
       // const weekOptions = {
       //   timeZone: 'America/Recife',
@@ -128,9 +128,9 @@ Responda apenas com o ID correspondente da opção, que segue este padrão: "#pa
 
       let dates;
       try {
-        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado', req.body.account.id));
+        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado'));
       } catch {
-        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado', req.body.account.id));
+        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado'));
       }
 
       const text = `Observe a frase a seguir: '${choice_date?.values[0]?.value}'. Capture a data e horário contida na frase e identifique se ela existe como opção na *Agenda Disponível* a seguir:
@@ -198,7 +198,7 @@ Não formate as linhas da resposta solicitada.`;
       const access_token = GetAccessToken();
       const messageReceived = await GetMessageReceived(req.body, access_token);
       const user = await GetUser(req.body, false, access_token);
-      const CalendarUtilsClass = new CalendarUtils(req.body.account.id);
+      const CalendarUtilsClass = new CalendarUtils();
 
       
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
@@ -215,9 +215,9 @@ Não formate as linhas da resposta solicitada.`;
       let dates;
 
       try {
-        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado', req.body.account.id));
+        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado'));
       } catch {
-        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado', req.body.account.id));
+        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado'));
       }
 
       const text = `System message: Adotar Dia da semana, Data e Horário atual são ${weekDayFormatted}, ${date} GMT-3.
