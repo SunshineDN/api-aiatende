@@ -1,6 +1,5 @@
 import styled from "../utils/log/styledLog.js";
-import WebCalendarServices from "../services/web-calendar/WebCalendarServices";
-import StaticUtils from "../utils/StaticUtils";
+import WebCalendarServices from "../services/web-calendar/WebCalendarServices.js";
 
 export default class WebCalendarController {
   static async default(req, res) {
