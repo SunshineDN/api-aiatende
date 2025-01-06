@@ -6,7 +6,7 @@ export default class StaticUtils {
     static calendarLink(id) {
         id = id.toString();
         const encodedString = StaticUtils.encodeString(id);
-        const domain = process.env.DOMAIN || 'https://example.aiatende.dev.br';
+        const domain = process.env.DOMAIN || 'https://teste.aiatende.dev.br';
         return `${domain}/site/calenar/${encodedString}`;
     }
 
