@@ -1,6 +1,4 @@
 import express from 'express';
-import bodyParser from 'body-parser';
-import { decodeKommoURI } from '../middlewares/decodeKommoURI.js';
 import GlobalAssistant from '../gpt-req/GlobalAssistant.js';
 import PromptD from '../gpt-req/PromptD.js';
 import AssistantD from '../gpt-req/AssistantD.js';
@@ -13,11 +11,12 @@ import PostScheduling from '../controllers/assistant-prompt/PosAgendamento.js';
 import Agendamento from '../controllers/assistant-prompt/Agendamento.js';
 import Recepcao from '../controllers/assistant-prompt/Recepcao.js';
 import Qualificado from '../controllers/assistant-prompt/Qualificado.js';
+import kommoMiddleware from '../middlewares/kommoMiddleware.js';
 
 const router = express.Router();
 
-router.use(bodyParser.text({ type: '*/*' }));
-router.use(decodeKommoURI);
+router.use(express.urlencoded({ extended: true }));
+router.use(kommoMiddleware);
 
 router.get('/', (req, res) => {
   res.json({ message: 'Rota de mensagens' });

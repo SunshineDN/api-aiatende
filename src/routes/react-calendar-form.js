@@ -1,17 +1,15 @@
 import express from 'express';
 import styled from '../utils/log/styledLog.js';
 import CalendarController from '../controllers/CalendarController.js';
-import { DecryptId } from '../utils/crypt/DecryptId.js';
 import WebCalendarController from '../controllers/WebCalendarController.js';
 
 const router = express.Router();
 
 router.use(express.json({ type: 'application/json' }));
 
-router.use((req, res, next) => {
+router.use((req, _, next) => {
   styled.middleware('Request Type: ', req.method);
   styled.middleware('Request URL: ', req.originalUrl);
-  req.body.lead_id = DecryptId(req.body.lead_id);
   styled.middlewaredir('Request Body: ', req.body);
   next();
 });

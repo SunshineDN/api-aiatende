@@ -1,12 +1,12 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import Recepcao from '../../../../../controllers/assistant-prompt/Recepcao.js';
-import { decodeKommoURI } from '../../../../../middlewares/decodeKommoURI.js';
+import kommoMiddleware from '../../../../../middlewares/kommoMiddleware.js';
 
 const router = express.Router();
 
-router.use(bodyParser.text({ type: '*/*' }));
-router.use(decodeKommoURI);
+router.use(express.urlencoded({ extended: true }));
+
+router.use(kommoMiddleware);
 
 router.get('/', (req, res) => {
   res.json({ message: 'Rota de requisição de assistente - recepção' });

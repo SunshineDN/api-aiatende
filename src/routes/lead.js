@@ -1,12 +1,11 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import LeadController from '../controllers/LeadController.js';
-import { decodeKommoURI } from '../middlewares/decodeKommoURI.js';
+import kommoMiddleware from '../middlewares/kommoMiddleware.js';
 
 const router = express.Router();
 
-router.use(bodyParser.text({ type: '*/*' }));
-router.use(decodeKommoURI);
+router.use(express.urlencoded({ extended: true }));
+router.use(kommoMiddleware);
 
 router.get('/', LeadController.index);
 

@@ -5,7 +5,6 @@ import kommoWbhkMiddleware from '../middlewares/kommoWbhkMiddleware.js';
 const router = express.Router();
 
 router.use(express.urlencoded({ extended: true }));
-
 router.get('/get', kommoMiddleware, (_, res) => {
   res.send('Rota GET /get');
 });
