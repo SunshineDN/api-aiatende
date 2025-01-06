@@ -1165,12 +1165,14 @@ import StaticUtils from './src/utils/StaticUtils.js';
 import WebCalendarServices from './src/services/web-calendar/WebCalendarServices.js';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat.js';
+import LeadUtils from './src/utils/LeadUtils.js';
 
 const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
 
 async function test() {
   const id = 'MTkwMzA4OTA='
-  const res = await WebCalendarServices.registerDate('Dra. Juliana Leite', '06/01/2025', '11:00', id);
+  const info = await WebCalendarServices.listInitialValues(id);
+  console.dir(info, { depth: null });
 }
 
 test();

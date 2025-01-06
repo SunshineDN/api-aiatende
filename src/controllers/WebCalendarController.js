@@ -2,6 +2,18 @@ import styled from "../utils/log/styledLog.js";
 import WebCalendarServices from "../services/web-calendar/WebCalendarServices.js";
 
 export default class WebCalendarController {
+  static async initial(req, res) {
+    try {
+      const { lead_id } = req.body;
+      const response = await WebCalendarServices.listInitialValues(lead_id);
+      res.status(200).json(response);
+    } catch (error) {
+      styled.error('[WebCalendarController.initial] Erro');
+      console.error(error);
+      res.status(500).json({ message: 'Erro ao processar a requisição' });
+    }
+  }
+
   static async default(req, res) {
     try {
       const { turno, dentista, periodo } = req.body;

@@ -5,6 +5,56 @@ import KommoServices from "../kommo/KommoServices.js";
 import LeadUtils from "../../utils/LeadUtils.js";
 
 export default class WebCalendarServices {
+
+  static async listInitialValues(lead_id) {
+    const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
+    const lead_id_decoded = StaticUtils.decodeString(lead_id);
+    const lead = await kommo.getLead({ id: lead_id_decoded });
+
+    const dentista = LeadUtils.findLeadField({ lead, fieldName: 'Dentista', value: true });
+    const periodo = LeadUtils.findLeadField({ lead, fieldName: 'Período', value: true });
+    const turno = LeadUtils.findLeadField({ lead, fieldName: 'Turno', value: true });
+
+    const calendar = new CalendarUtils();
+    const calendarId = CalendarUtils.idValidate(dentista);
+    const events = await calendar.listAvailableOptions(calendarId);
+    const actualDate = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
+
+    const text = `Considere que você está agendando uma consulta para:
+Dentista: ${dentista}
+Período: ${periodo}
+Turno: ${turno}.
+
+O dia atual é ${actualDate}.
+
+Aqui vai algumas regras:
+- Os turnos de funcionamento são manhã das 8h às 12h, tarde das 13h às 17h e noite das 18h às 20h.
+- Baseado no período, você deve escolher uma data aleatória dentro do período.
+- Você deve pegar apenas uma data.
+- Caso o turno seja diferente de 'Qualquer horário', você deve pegar apenas dois horários disponíveis para o turno escolhido. Se não, você deve pegar os horários disponíveis em cada turno para a data escolhida, sendo um horário o mínimo e seis no máximo.
+- Os horários disponíveis estão no calendário que será enviado.
+- Escolha apenas horários e datas que estão no calendário.
+- Em hipótese alguma, deve-se escolher datas ou horários que não estejam disponíveis no calendário.
+
+Com base nisso, escolha uma data e horários disponíveis para a consulta seguindo as regras acima no calendário abaixo:
+
+${events}
+
+O formato da resposta deve ser um objeto com a data e os horários escolhidos seguindo o padrão a seguir:
+
+{
+  date: '12/12/2024',
+  avaiableOptions: ['08:00', '11:00']
+}
+  
+A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON. (\`\`\`json)`;
+
+
+    const { message } = await OpenAIController.promptMessage(text);
+    const obj = StaticUtils.extractJsonPrompt(message);
+    return { ...obj, dentista, periodo, turno };
+  }
+
   static async listDefaultDate(turno, dentista, periodo) {
     const calendar = new CalendarUtils();
     const calendarId = CalendarUtils.idValidate(dentista);
@@ -96,7 +146,7 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON.`;
     const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
     const lead_id_decoded = StaticUtils.decodeString(lead_id);
     const lead = await kommo.getLead({ id: lead_id_decoded, withParams: 'contacts' });
-    const procedimento = LeadUtils.findLeadField({lead, fieldName: 'Procedimento', value: true});
+    const procedimento = LeadUtils.findLeadField({ lead, fieldName: 'Procedimento', value: true });
     const nome = lead?.contact?.name;
 
     const summary = `${nome} - ${procedimento}`;

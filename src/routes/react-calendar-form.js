@@ -18,6 +18,8 @@ router.get('/', CalendarController.index);
 
 router.post('/listEvents', CalendarController.listEventsWeb);
 
+router.post('/initial', WebCalendarController.initial);
+
 router.post('/default', WebCalendarController.default);
 
 router.post('/choice', WebCalendarController.choice);

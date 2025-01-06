@@ -11,8 +11,16 @@
       "description": "Servidor Local"
     },
     {
-      "url": "https://dentalsante.aiatende.dev.br",
+      "url": "https://dentalsante.aiatende.dev.br/api",
       "description": "Servidor de Produção"
+    },
+    {
+      "url": "https://nelson.aiatende.dev.br/api",
+      "description": "Servidor de Produção do Cliente Nelson Coutinho"
+    },
+    {
+      "url": "https://adrianocamposadvogado.aiatende.dev.br/api",
+      "description": "Servidor de Produção do Cliente Adriano Campos Advogado"
     }
   ],
   "paths": {
