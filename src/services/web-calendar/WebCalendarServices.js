@@ -171,7 +171,8 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON.`;
         timeZone: 'America/Recife',
       },
       summary,
-      description: 'Lead se agendou pelo formulário do site.'
+      description: 'Lead se agendou pelo formulário do site.',
+      visibility: 'public',
     };
 
     // if (email) {
