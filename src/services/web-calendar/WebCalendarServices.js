@@ -172,7 +172,6 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON.`;
       },
       summary,
       description: 'Lead se agendou pelo formulário do site.',
-      visibility: 'public',
     };
 
     // if (email) {
