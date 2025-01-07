@@ -1,5 +1,5 @@
 import express from "express";
-import styled from "../utils/log/styledLog";
+import styled from "../utils/log/styledLog.js";
 
 const router = express.Router();
 
