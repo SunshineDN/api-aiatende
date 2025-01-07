@@ -1170,6 +1170,8 @@ import LeadUtils from './src/utils/LeadUtils.js';
 const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
 
 async function test() {
+  const lead = await kommo.getLead({ id: '19030890', withParams: 'contacts' });
+  console.dir(lead.contact, { depth: null });
 }
 
 test();

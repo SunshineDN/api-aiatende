@@ -3,6 +3,7 @@ import StaticUtils from "../../utils/StaticUtils.js";
 import OpenAIController from "../../controllers/OpenAIController.js";
 import KommoServices from "../kommo/KommoServices.js";
 import LeadUtils from "../../utils/LeadUtils.js";
+import styled from "../../utils/log/styledLog.js";
 
 export default class WebCalendarServices {
 
@@ -148,6 +149,7 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON.`;
     const lead = await kommo.getLead({ id: lead_id_decoded, withParams: 'contacts' });
     const procedimento = LeadUtils.findLeadField({ lead, fieldName: 'Procedimento', value: true });
     const nome = lead?.contact?.name;
+    const email = LeadUtils.findContactField({ contact: lead.contact, fieldName: 'Email', value: true });
 
     const summary = `${nome} - ${procedimento}`;
     const calendar = new CalendarUtils();
@@ -169,8 +171,28 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON.`;
         timeZone: 'America/Recife',
       },
       summary,
-      description: 'Lead se agendou pelo formulário do site.',
+      description: 'Lead se agendou pelo formulário do site.'
     };
+
+    if (email) {
+      const client_name = process.env.CLIENT_NAME;
+      const client_email = process.env.CLIENT_EMAIL;
+      const client_address = process.env.CLIENT_ADDRESS;
+      styled.info('[WebCalendarServices.registerDate] Enviando email com a identificação do cliente');
+      if (client_name && client_email && client_address) {
+        obj.attendees = [
+          {
+            displayName: nome,
+            email,
+          }
+        ];
+        obj.creator = {
+          displayName: client_name,
+          email: client_email
+        };
+        obj.location = client_address;
+      }
+    }
 
     return await calendar.executeRegisterEvent(calendarId, obj);
   }
