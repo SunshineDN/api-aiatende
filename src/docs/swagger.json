@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "API Dental Santé - AI Atende",
+    "title": "API AI Atende - Adriano Campos Advogado",
     "description": "API para integração com o sistema AI Atende",
     "version": "1.0.0"
   },
@@ -9,14 +9,6 @@
     {
       "url": "http://localhost:3000",
       "description": "Servidor Local"
-    },
-    {
-      "url": "https://dentalsante.aiatende.dev.br/api",
-      "description": "Servidor de Produção"
-    },
-    {
-      "url": "https://nelson.aiatende.dev.br/api",
-      "description": "Servidor de Produção do Cliente Nelson Coutinho"
     },
     {
       "url": "https://adrianocamposadvogado.aiatende.dev.br/api",
