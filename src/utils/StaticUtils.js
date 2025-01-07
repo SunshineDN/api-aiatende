@@ -45,6 +45,17 @@ export default class StaticUtils {
 
     static toDateTime(date) {
         dayjs.extend(customParseFormat);
-        return dayjs(date, 'DD/MM/YYYY HH:mm').toDate();
+        const dateFormatted = dayjs(date, 'DD/MM/YYYY HH:mm').toDate();
+        return StaticUtils.changeTimezone(dateFormatted, 'America/Recife');
     }
+
+    static changeTimezone(date, timezone) {
+        var invdate = new Date(date.toLocaleString('pt-BR', {
+          timeZone: timezone
+        }));
+      
+        var diff = date.getTime() - invdate.getTime();
+      
+        return new Date(date.getTime() - diff);
+      }
 }

@@ -1170,9 +1170,6 @@ import LeadUtils from './src/utils/LeadUtils.js';
 const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
 
 async function test() {
-  const id = 'MTkwMzA4OTA='
-  const info = await WebCalendarServices.listInitialValues(id);
-  console.dir(info, { depth: null });
 }
 
 test();
