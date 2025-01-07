@@ -1,7 +1,7 @@
 export default class LeadUtils {
   static findLeadField({ lead, fieldName, value = false } = {}) {
     const { custom_fields_values } = lead;
-    const field = custom_fields_values.filter(field => field.field_name === fieldName)[0] || null;
+    const field = custom_fields_values?.filter(field => field?.field_name === fieldName)[0] || null;
 
     if (!field) {
       return null;
@@ -17,7 +17,7 @@ export default class LeadUtils {
 
   static findContactField({ contact, fieldName, value = false } = {}) {
     const { custom_fields_values } = contact;
-    const field = custom_fields_values.filter(field => field.field_name === fieldName)[0] || null;
+    const field = custom_fields_values?.filter(field => field?.field_name === fieldName)[0] || null;
 
     if (!field) {
       return null;
