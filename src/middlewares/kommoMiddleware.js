@@ -23,9 +23,11 @@ export default function kommoMiddleware(req, _, next) {
     old_pipeline_id,
     status_id,
     pipeline_id,
-    account_id,
-    account_subdomain,
-    account_domain,
+    account: {
+      id: Number(account_id),
+      subdomain: account_subdomain,
+      account_domain,
+    }
   };
 
   styled.middleware('[ Kommo ] Request Method:', req.method);
