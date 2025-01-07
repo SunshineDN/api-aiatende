@@ -13,7 +13,6 @@ export default class WebCalendarServices {
     const lead = await kommo.getLead({ id: lead_id_decoded });
 
     const dentista = LeadUtils.findLeadField({ lead, fieldName: 'Dentista', value: true });
-    const dentistaNome = StaticUtils.getDentistName(dentista);
     const periodo = LeadUtils.findLeadField({ lead, fieldName: 'Período', value: true });
     const turno = LeadUtils.findLeadField({ lead, fieldName: 'Turno', value: true });
 
@@ -27,6 +26,8 @@ export default class WebCalendarServices {
         avaiableOptions: []
       };
     }
+
+    const dentistaNome = StaticUtils.getDentistName(dentista);
 
     const calendar = new CalendarUtils();
     const calendarId = CalendarUtils.idValidate(dentista);

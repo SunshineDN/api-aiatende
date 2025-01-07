@@ -59,11 +59,11 @@ export default class StaticUtils {
     }
 
     static getDentistName(dentist) {
-        if (dentist.includes('Juliana Leite')) {
+        if (dentist?.includes('Juliana Leite')) {
             return 'Dra. Juliana Leite';
-        } else if (dentist.includes('Lucília')) {
+        } else if (dentist?.includes('Lucília')) {
             return 'Odontopediatria'
-        } else if (dentist.includes('Odontopediatria')) {
+        } else if (dentist?.includes('Odontopediatria')) {
             return 'Odontopediatria'
         } else {
             return 'Demais Dentistas'
