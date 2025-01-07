@@ -194,7 +194,6 @@ export default class KommoServices {
     const periodoField = kommoUtils.findLeadsFieldByName('Período');
     const turnoField = kommoUtils.findLeadsFieldByName('Turno');
     const codeField = kommoUtils.findLeadsFieldByName('BK Funnels ID');
-    const calendarField = kommoUtils.findLeadsFieldByName('Calendário');
 
     const status = kommoUtils.findStatusByName('BK FUNNELS');
 
@@ -317,32 +316,8 @@ export default class KommoServices {
       });
     }
 
-    const { data: [res] } = await axios.request(options);
+    const { data } = await axios.request(options);
     styled.success('[KommoServices.createLeadBk] - BK Funnels Lead created');
-    const calendarLink = StaticUtils.calendarLink(res.id);
-    const calendarOptions = {
-      method: 'PATCH',
-      url: `${this.url}/api/v4/leads/${res.id}`,
-      headers: {
-        'accept': 'application/json',
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${this.auth}`
-      },
-      data: {
-        custom_fields_values: [
-          {
-            field_id: calendarField.id,
-            values: [
-              {
-                value: calendarLink
-              }
-            ]
-          }
-        ]
-      }
-    };
-    const { data } = await axios.request(calendarOptions);
-    styled.success('[KommoServices.createLeadBk] - Calendar link added to lead');
     return { code: 201, response: data };
   };
 
