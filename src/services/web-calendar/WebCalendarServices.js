@@ -13,6 +13,7 @@ export default class WebCalendarServices {
     const lead = await kommo.getLead({ id: lead_id_decoded });
 
     const dentista = LeadUtils.findLeadField({ lead, fieldName: 'Dentista', value: true });
+    const dentistaNome = StaticUtils.getDentistName(dentista);
     const periodo = LeadUtils.findLeadField({ lead, fieldName: 'Período', value: true });
     const turno = LeadUtils.findLeadField({ lead, fieldName: 'Turno', value: true });
 
@@ -22,7 +23,7 @@ export default class WebCalendarServices {
     const actualDate = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
 
     const text = `Considere que você está agendando uma consulta para:
-Dentista: ${dentista}
+Dentista: ${dentistaNome}
 Período: ${periodo}
 Turno: ${turno}.
 
@@ -53,7 +54,7 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON. (\`\`\`json)`;
 
     const { message } = await OpenAIController.promptMessage(text);
     const obj = StaticUtils.extractJsonPrompt(message);
-    return { ...obj, dentista, periodo, turno };
+    return { ...obj, dentista: dentistaNome, periodo, turno };
   }
 
   static async listDefaultDate(turno, dentista, periodo) {
@@ -153,7 +154,8 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON.`;
 
     const summary = `${nome} - ${procedimento}`;
     const calendar = new CalendarUtils();
-    const calendarId = CalendarUtils.idValidate(dentista);
+    const dentistaNome = StaticUtils.getDentistName(dentista);
+    const calendarId = CalendarUtils.idValidate(dentistaNome);
 
     const startDateTime = StaticUtils.toDateTime(`${data} ${horario}`);
     startDateTime.setHours(startDateTime.getHours() + 3);

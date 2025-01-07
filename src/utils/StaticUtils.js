@@ -50,11 +50,23 @@ export default class StaticUtils {
 
     static changeTimezone(date, timezone) {
         var invdate = new Date(date.toLocaleString('pt-BR', {
-          timeZone: timezone
+            timeZone: timezone
         }));
-      
+
         var diff = date.getTime() - invdate.getTime();
-      
+
         return new Date(date.getTime() - diff);
-      }
+    }
+
+    static getDentistName(dentist) {
+        if (dentist.includes('Juliana Leite')) {
+            return 'Dra. Juliana Leite';
+        } else if (dentist.includes('Lucília')) {
+            return 'Odontopediatria'
+        } else if (dentist.includes('Odontopediatria')) {
+            return 'Odontopediatria'
+        } else {
+            return 'Demais Dentistas'
+        }
+    }
 }
