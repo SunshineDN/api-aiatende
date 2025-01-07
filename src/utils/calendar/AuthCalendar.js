@@ -7,7 +7,8 @@ export class AuthCalendar {
     return new google.auth.JWT({
       email: service_account.client_email,
       key: service_account.private_key,
-      scopes: ['https://www.googleapis.com/auth/calendar']
+      scopes: ['https://www.googleapis.com/auth/calendar'],
+      subject: 'clinicadentalsante@gmail.com'
     });
   }
 }
