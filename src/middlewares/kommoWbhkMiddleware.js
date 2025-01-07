@@ -15,8 +15,8 @@ export default function kommoWbhkMiddleware(req, _, next) {
 
   req.body = {
     account: {
-      account_id,
-      account_subdomain,
+      id: Number(account_id),
+      subdomain: account_subdomain,
       account_domain,
     },
     author,
