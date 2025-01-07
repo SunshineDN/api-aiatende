@@ -8,9 +8,7 @@ export class AuthCalendar {
       service_account.client_email,
       null,
       service_account.private_key,
-      ['https://www.googleapis.com/auth/calendar'],
-      'clinicadentalsante@gmail.com',
-      service_account.client_id
+      ['https://www.googleapis.com/auth/calendar']
     );
   }
 }
