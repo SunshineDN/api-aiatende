@@ -186,10 +186,6 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON.`;
             email,
           }
         ];
-        obj.creator = {
-          displayName: client_name,
-          email: client_email
-        };
         obj.location = client_address;
       }
     }
