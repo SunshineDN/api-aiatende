@@ -76,11 +76,9 @@ export default class OpenAIController {
   static async generateMessage(info) {
     const { text, leadID, assistant_id } = info;
 
-    const { decode } = require('base-64');
-
     // console.log('Texto recebido do usuário:', text);
 
-    const assistant = decode(assistant_id);
+    const assistant = atob(assistant_id);
 
     try {
       let existThreads = await LeadThread?.findOne({
