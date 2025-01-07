@@ -11,11 +11,12 @@ export default class StaticUtils {
     }
 
     static encodeString(string) {
-        return Buffer.from(string).toString('base64');
+        let base64 = btoa(string);
+        return base64.replace(/=/g, '');
     }
 
     static decodeString(string) {
-        return Buffer.from(string, 'base64').toString('utf-8');
+        return atob(string);
     }
 
     static jsonPromptToString(text) {
