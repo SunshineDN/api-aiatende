@@ -2,6 +2,7 @@ import axios from "axios";
 import KommoUtils from "../../utils/KommoUtils.js";
 import StaticUtils from "../../utils/StaticUtils.js";
 import styled from "../../utils/log/styledLog.js";
+import LeadUtils from "../../utils/LeadUtils.js";
 
 export default class KommoServices {
   constructor({ auth, url }) {
@@ -142,6 +143,14 @@ export default class KommoServices {
   }
 
   async createCalendarLink(id) {
+    const lead = await this.getLead({ id });
+    const calendario = LeadUtils.findLeadField({ lead, fieldName: 'Calendário', value: true });
+
+    if (calendario) {
+      styled.info('[KommoServices.createCalendarLink] - Calendário já criado');
+      return { code: 200, response: { message: 'Calendário já criado' } };
+    }
+
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields() });
     const calendarField = kommoUtils.findLeadsFieldByName('Calendário');
     const calendarLink = StaticUtils.calendarLink(id);
@@ -169,6 +178,7 @@ export default class KommoServices {
     };
 
     const { data } = await axios.request(options);
+    styled.success('[KommoServices.createCalendarLink] - Link do calendário criado com sucesso');
     return { code: 200, response: data };
   }
 
