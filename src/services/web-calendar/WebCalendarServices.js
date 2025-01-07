@@ -17,6 +17,17 @@ export default class WebCalendarServices {
     const periodo = LeadUtils.findLeadField({ lead, fieldName: 'Período', value: true });
     const turno = LeadUtils.findLeadField({ lead, fieldName: 'Turno', value: true });
 
+    if (!dentista || !periodo || !turno) {
+      styled.warning('[WebCalendarServices.listInitialValues] O lead não possui os campos necessários para a execução do serviço.');
+      return {
+        dentista: '',
+        periodo: '',
+        turno: '',
+        date: null,
+        avaiableOptions: []
+      };
+    }
+
     const calendar = new CalendarUtils();
     const calendarId = CalendarUtils.idValidate(dentista);
     const events = await calendar.listAvailableOptions(calendarId);
@@ -29,9 +40,10 @@ Turno: ${turno}.
 
 O dia atual é ${actualDate}.
 
-Aqui vai algumas regras:
+Aqui vão as regras que devem ser obedecidas:
 - Os turnos de funcionamento são manhã das 8h às 12h, tarde das 13h às 17h e noite das 18h às 20h.
 - Baseado no período, você deve escolher uma data aleatória dentro do período.
+- Se o período for 'Próxima semana', você deve escolher uma data aleatória após 7 dias da data atual e antes de 14 dias da data atual.
 - Você deve pegar apenas uma data.
 - Caso o turno seja diferente de 'Qualquer horário', você deve pegar apenas dois horários disponíveis para o turno escolhido. Se não, você deve pegar os horários disponíveis em cada turno para a data escolhida, sendo um horário o mínimo e seis no máximo.
 - Os horários disponíveis estão no calendário que será enviado.
@@ -70,9 +82,10 @@ Turno: ${turno}.
 
 O dia atual é ${actualDate}.
 
-Aqui vai algumas regras:
+Aqui vão as regras que devem ser obedecidas:
 - Os turnos de funcionamento são manhã das 8h às 12h, tarde das 13h às 17h e noite das 18h às 20h.
 - Baseado no período, você deve escolher uma data aleatória dentro do período.
+- Se o período for 'Próxima semana', você deve escolher uma data aleatória após 7 dias da data atual e antes de 14 dias da data atual.
 - Você deve pegar apenas uma data.
 - Caso o turno seja diferente de 'Qualquer horário', você deve pegar apenas dois horários disponíveis para o turno escolhido. Se não, você deve pegar os horários disponíveis em cada turno para a data escolhida, sendo um horário o mínimo e seis no máximo.
 - Os horários disponíveis estão no calendário que será enviado.

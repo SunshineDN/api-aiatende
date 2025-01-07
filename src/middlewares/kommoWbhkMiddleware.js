@@ -1,12 +1,6 @@
 import styled from "../utils/log/styledLog.js";
 
 export default function kommoWbhkMiddleware(req, _, next) {
-  if (req.method === 'GET') {
-    styled.middleware('[ Kommo - Webhook ] Request Method:', req.method);
-    styled.middleware('[ Kommo - Webhook ] Request route:', req.originalUrl);
-    return next();
-  }
-
   const { message, account } = req?.body;
   const account_id = account?.id;
   const account_subdomain = account?.subdomain;
@@ -33,10 +27,10 @@ export default function kommoWbhkMiddleware(req, _, next) {
     attachment,
   };
 
-  styled.middleware('[ Kommo - Webhook ] Request Method:', req.method);
-  styled.middleware('[ Kommo - Webhook ] Request route:', req.originalUrl);
-  styled.middleware('[ Kommo - Webhook ] Request Body:');
+  styled.middleware('\n [ Kommo - Message Received ] Request Method:', req.method);
+  styled.middleware('[ Kommo - Message Received ] Request route:', req.originalUrl);
+  styled.middleware('[ Kommo - Message Received ] Request Body:');
   styled.middlewaredir(req.body);
-  styled.middleware('[ Kommo - Webhook ] ID do lead:', lead_id);
+  styled.middleware('[ Kommo - Message Received ] ID do lead:', lead_id);
   next();
 }

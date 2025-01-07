@@ -141,6 +141,37 @@ export default class KommoServices {
     return pipelines;
   }
 
+  async createCalendarLink(id) {
+    const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields() });
+    const calendarField = kommoUtils.findLeadsFieldByName('Calendário');
+    const calendarLink = StaticUtils.calendarLink(id);
+
+    const options = {
+      method: 'PATCH',
+      url: `${this.url}/api/v4/leads/${id}`,
+      headers: {
+        'accept': 'application/json',
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${this.auth}`
+      },
+      data: {
+        custom_fields_values: [
+          {
+            field_id: calendarField.id,
+            values: [
+              {
+                value: calendarLink
+              }
+            ]
+          }
+        ]
+      }
+    };
+
+    const { data } = await axios.request(options);
+    return { code: 200, response: data };
+  }
+
   async createLeadBk({ name = '', email = '', phone = '', datanascimento = '', dentista = '', procedimento = '', periodo = '', turno = '', code = '' } = {}) {
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields(), contacts_custom_fields: await this.getContactsCustomFields(), pipelines: await this.getPipelines() });
 

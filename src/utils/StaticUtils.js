@@ -7,7 +7,7 @@ export default class StaticUtils {
         id = id.toString();
         const encodedString = StaticUtils.encodeString(id);
         const domain = process.env.DOMAIN || 'https://teste.aiatende.dev.br';
-        return `${domain}/site/calenar/${encodedString}`;
+        return `${domain}/site/calendar/${encodedString}`;
     }
 
     static encodeString(string) {
