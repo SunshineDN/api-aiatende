@@ -1,22 +1,24 @@
 import express from 'express';
 import LeadController from '../controllers/LeadController.js';
 import kommoMiddleware from '../middlewares/kommoMiddleware.js';
+import createLeadMiddleware from '../middlewares/createLeadMiddleware.js';
 
 const router = express.Router();
 
 router.use(express.urlencoded({ extended: true }));
-router.use(kommoMiddleware);
 
-router.get('/', LeadController.index);
+const leadController = new LeadController();
 
-router.post('/data-hora', LeadController.setDataWeek);
+router.get('/', leadController.index);
 
-router.post('/split-fields/data', LeadController.setSplitDataFields);
+router.post('/data-hora', kommoMiddleware, leadController.setDataWeek);
 
-router.post('/split-fields/scheduling', LeadController.setSplitSchedulingFields);
+router.post('/split-fields/data', kommoMiddleware, leadController.setSplitDataFields);
 
-router.post('/add-tel', LeadController.addTelephone);
+router.post('/split-fields/scheduling', kommoMiddleware, leadController.setSplitSchedulingFields);
 
-router.post('/created', LeadController.setCalendarForm);
+router.post('/add-tel', kommoMiddleware, leadController.addTelephone);
+
+router.post('/create/calendar/link', createLeadMiddleware, leadController.setCalendarLink);
 
 export default router;

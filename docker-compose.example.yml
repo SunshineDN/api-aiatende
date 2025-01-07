@@ -6,9 +6,6 @@ services:
     command: "npm run start"
     working_dir: /home/node/app
     environment:
-      - CLIENT_NAME= # Nome do cliente [PARA OS EVENTOS DO GOOGLE CALENDAR]
-      - CLIENT_EMAIL= # E-mail do cliente [PARA OS EVENTOS DO GOOGLE CALENDAR]
-      - CLIENT_ADDRESS= # Endereço do cliente [PARA OS EVENTOS DO GOOGLE CALENDAR]
       - PROJECT_NAME= # Nome do projeto
       - DOMAIN= # Domínio da aplicação
       - ACCESS_TOKEN= # Token de acesso do Kommo

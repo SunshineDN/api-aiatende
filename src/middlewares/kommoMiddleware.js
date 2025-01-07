@@ -30,7 +30,7 @@ export default function kommoMiddleware(req, _, next) {
     }
   };
 
-  styled.middleware('[ Kommo ] Request Method:', req.method);
+  styled.middleware('\n[ Kommo ] Request Method:', req.method);
   styled.middleware('[ Kommo ] Request route:', req.originalUrl);
   styled.middleware('[ Kommo ] Request Body:');
   styled.middlewaredir(req.body);

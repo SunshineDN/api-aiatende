@@ -6,6 +6,7 @@ export default class WebCalendarController {
     try {
       const { lead_id } = req.body;
       const response = await WebCalendarServices.listInitialValues(lead_id);
+      styled.success('[WebCalendarController.initial] Listado horários iniciais com sucesso');
       res.status(200).json(response);
     } catch (error) {
       styled.error('[WebCalendarController.initial] Erro');
@@ -18,6 +19,7 @@ export default class WebCalendarController {
     try {
       const { turno, dentista, periodo } = req.body;
       const response = await WebCalendarServices.listDefaultDate(turno, dentista, periodo);
+      styled.success('[WebCalendarController.default] Listado horários disponíveis com sucesso');
       res.status(200).json(response);
     } catch (error) {
       styled.error('[WebCalendarController.default] Erro');
@@ -30,6 +32,7 @@ export default class WebCalendarController {
     try {
       const { turno, dentista, data } = req.body;
       const response = await WebCalendarServices.listChoiceDate(turno, dentista, data);
+      styled.success('[WebCalendarController.choice] Listado horários disponíveis com data escolhida');
       res.status(200).json(response);
     } catch (error) {
       styled.error('[WebCalendarController.choice] Erro');
@@ -42,6 +45,7 @@ export default class WebCalendarController {
     try {
       const { dentista, data, horario, lead_id } = req.body;
       const response = await WebCalendarServices.registerDate(dentista, data, horario, lead_id);
+      styled.success(`[WebCalendarController.register] Data agendada com sucesso no calendário de: ${dentista} no dia: ${data} às ${horario}`);
       res.status(201).json(response);
     } catch (error) {
       styled.error('[WebCalendarController.register] Erro');

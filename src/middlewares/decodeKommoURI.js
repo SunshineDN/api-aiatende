@@ -120,7 +120,7 @@ const decodeAccoutUri = (uri) => {
 
 export const decodeKommoURI = (req, res, next) => {
   try {
-    styled.middleware('Request method: ', req.method);
+    styled.middleware('\nRequest method: ', req.method);
     styled.middleware('Request URL: ', req.originalUrl);
     if (typeof req.body === 'object') {
       styled.middleware('Request body:');
