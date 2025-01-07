@@ -69,7 +69,6 @@ export default class LeadController {
     try {
       const { body } = req;
       const calendarLinkResponse = await this.kommo.createCalendarLink(body?.lead_id);
-      styled.success('[LeadController.setCalendarLink] Link do calendário criado com sucesso');
       res.status(200).json(calendarLinkResponse);
     } catch (error) {
       styled.error('[LeadController.setCalendarLink] Erro');
