@@ -45,8 +45,7 @@ export default class StaticUtils {
 
     static toDateTime(date) {
         dayjs.extend(customParseFormat);
-        const dateFormatted = dayjs(date, 'DD/MM/YYYY HH:mm').toDate();
-        return StaticUtils.changeTimezone(dateFormatted, 'America/Recife');
+        return dayjs(date, 'DD/MM/YYYY HH:mm').toDate();
     }
 
     static changeTimezone(date, timezone) {

@@ -154,6 +154,7 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON.`;
     const calendarId = CalendarUtils.idValidate(dentista);
 
     const startDateTime = StaticUtils.toDateTime(`${data} ${horario}`);
+    startDateTime.setHours(startDateTime.getHours() + 3);
 
     const endDateTime = new Date(startDateTime);
     endDateTime.setMinutes(endDateTime.getMinutes() + 30);
