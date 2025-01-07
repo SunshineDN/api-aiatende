@@ -1174,4 +1174,8 @@ async function test() {
   console.dir(lead.contact, { depth: null });
 }
 
-test();
+const headers = {
+  'Content-Type': 'application/json'
+}
+
+console.log(headers['Content-Type']);
