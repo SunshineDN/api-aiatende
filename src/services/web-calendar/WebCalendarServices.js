@@ -161,11 +161,9 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON.`;
     const obj = {
       start: {
         dateTime: startDateTime.toISOString(),
-        timeZone: 'America/Recife',
       },
       end: {
         dateTime: endDateTime.toISOString(),
-        timeZone: 'America/Recife',
       },
       summary,
       description: 'Lead se agendou pelo formulário do site.',
