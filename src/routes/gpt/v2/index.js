@@ -25,12 +25,6 @@ import globalPromptRouter from './global/prompt/index.js';
 router.use('/global/assistant', globalAssistenteRouter);
 router.use('/global/prompt', globalPromptRouter);
 
-// Roteamento para as subpastas de /gpt/v2/posagendamento
-import posagendamentoAssistenteRouter from './posagendamento/assistente/index.js';
-import posagendamentoPromptRouter from './posagendamento/prompt/index.js';
-router.use('/posagendamento/assistant', posagendamentoAssistenteRouter);
-router.use('/posagendamento/prompt', posagendamentoPromptRouter);
-
 // Roteamento para as subpastas de /gpt/v2/preagendamento
 import preagendamentoAssistenteRouter from './preagendamento/assistente/index.js';
 import preagendamentoPromptRouter from './preagendamento/prompt/index.js';
