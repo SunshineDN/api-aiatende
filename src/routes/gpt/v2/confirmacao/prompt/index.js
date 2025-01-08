@@ -15,4 +15,6 @@ router.get('/', (req, res) => {
 // BOT CONFIRMAÇÃO
 router.post('/intencao', Confirmacao.intencao);
 
+router.post('/intencao-presenca', Confirmacao.intencao_presenca);
+
 export default router;

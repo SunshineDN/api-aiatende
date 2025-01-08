@@ -13,6 +13,8 @@ router.get('/', (req, res) => {
 });
 
 // BOT CONFIRMAÇÃO
+router.post('/:assistant_id/confirmar-presenca', Confirmacao.confirmar_presenca);
+
 router.post('/:assistant_id/24h-1st-try', Confirmacao._24h_1);
 
 router.post('/:assistant_id/24h-2nd-try', Confirmacao._24h_2);
