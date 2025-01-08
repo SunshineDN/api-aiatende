@@ -48,7 +48,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
       )[0];
       const scheduled_date_value = scheduled_date?.values[0]?.value;
 
-      const text = `System message: 'Retorne apenas uma mensagem para o usuário para a confirmação da sua ida para a clínica no dia: ${scheduled_date_value}. Aqui vai um exemplo de mensagem: "Lembre-se do compromisso da sua consulta odontológica com *DENTISTA* é AMANHÃ
+      const text = `System message: 'Retorne apenas uma mensagem para o usuário para a confirmação da sua ida no dia: ${scheduled_date_value}. Aqui vai um exemplo de mensagem: "Lembre-se que seu compromisso conosco é AMANHÃ
 
 Dia e Hora:
 19/08/2024 às 14:30
@@ -77,7 +77,7 @@ Confirmado?" '`;
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
 
-      const text = `System message: Usuário passou 2 horas sem responder a mensagem anterior, retorne apenas uma mensagem dizendo que é muito importante que ele confirme a presença no dia marcado. Exemplo de mensagem: "Olá, Tudo bem? Ainda não recebemos a confirmação da sua presença na consulta odontológica de amanhã.
+      const text = `System message: Usuário passou 2 horas sem responder a mensagem anterior, retorne apenas uma mensagem dizendo que é muito importante que ele confirme a presença no dia marcado. Exemplo de mensagem: "Olá, Tudo bem? Ainda não recebemos a confirmação da sua presença amanhã.
 Por favor, confirmar o mais rápido possível, Obrigada!
 
 Confirmado?"`;
@@ -110,12 +110,10 @@ Confirmado?"`;
       )[0];
       const scheduled_date_value = scheduled_date?.values[0]?.value;
 
-      const text = `System message: Usuário passou mais 2 horas sem responder a mensagem anterior, retorne apenas uma mensagem pedindo para ele confirmar sua presença para o dia: ${scheduled_date_value}. Exemplo de mensagem: "Gostaria de lembrar que o processo de confirmação da consulta é muito importante. Temos que planejar adequadamente seu atendimento. Por favor, confirme sua presença respondendo agora esta mensagem.
+      const text = `System message: Usuário passou mais 2 horas sem responder a mensagem anterior, retorne apenas uma mensagem pedindo para ele confirmar sua presença para o dia: ${scheduled_date_value}. Exemplo de mensagem: "Gostaria de lembrar que o processo de confirmação da sua presença é muito importante. Temos que nos planejar adequadamente. Por favor, confirme sua presença respondendo agora esta mensagem.
 
 Dia e Hora:
 19/08/2024 às 14:30
-
-Local: Av. Bernardo Vieira de Melo, 2418. Piedade, Jaboatão dos Guararapes - PE. (Próximo ao Banco Bradesco)
 
 Confirmado?"`;
 
@@ -139,12 +137,11 @@ Confirmado?"`;
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;
 
-      const text = `System message: Usuário confirmou e a consulta dele será *HOJE*. Retorne apenas uma mensagem pedindo para ele confirmar a presença. Exemplo de mensagem: "É *HOJE* sua consulta odontológica!
+      const text = `System message: Usuário confirmou a mensagem anterior e a presença dele será *HOJE*. Retorne apenas uma mensagem pedindo para ele confirmar a presença. Exemplo de mensagem: "É *HOJE*!
 
 Por favor, confirme agora sua presença.
 
 Dia e hora:
-
 19/08/2024 às 14:00
 
 Ok?"`;
