@@ -4632,7 +4632,7 @@
         }
       }
     },
-    "/gpt/v2/confirmacao/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/24h-2st-try": {
+    "/gpt/v2/confirmacao/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/24h-2nd-try": {
       "post": {
         "summary": "Confirmação - Assistente - Esteira de Confirmação 24 horas - 2ª Tentativa",
         "description": "Envia mensagem do assistente para o lead",
@@ -4719,7 +4719,7 @@
         }
       }
     },
-    "/gpt/v2/confirmacao/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/24h-3st-try": {
+    "/gpt/v2/confirmacao/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/24h-3rd-try": {
       "post": {
         "summary": "Confirmação - Assistente - Esteira de Confirmação 24 horas - 3ª Tentativa",
         "description": "Envia mensagem do assistente para o lead",
@@ -4893,7 +4893,7 @@
         }
       }
     },
-    "/gpt/v2/confirmacao/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/3h-2st-try": {
+    "/gpt/v2/confirmacao/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/3h-2nd-try": {
       "post": {
         "summary": "Confirmação - Assistente - Esteira de Confirmação 3 horas - 2ª Tentativa",
         "description": "Envia mensagem do assistente para o lead",
