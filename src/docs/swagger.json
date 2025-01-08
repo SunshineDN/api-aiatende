@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "API Dental Santé - AI Atende",
+    "title": "API AI Atende - Adriano Campos Advogado",
     "description": "API para integração com o sistema AI Atende",
     "version": "1.0.0"
   },
@@ -9,14 +9,6 @@
     {
       "url": "http://localhost:3000",
       "description": "Servidor Local"
-    },
-    {
-      "url": "https://dentalsante.aiatende.dev.br/api",
-      "description": "Servidor de Produção"
-    },
-    {
-      "url": "https://nelson.aiatende.dev.br/api",
-      "description": "Servidor de Produção do Cliente Nelson Coutinho"
     },
     {
       "url": "https://adrianocamposadvogado.aiatende.dev.br/api",
@@ -65,17 +57,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -105,12 +97,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -183,17 +175,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -223,12 +215,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -274,17 +266,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -314,12 +306,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -365,17 +357,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -405,12 +397,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -456,17 +448,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -496,12 +488,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -547,17 +539,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -587,12 +579,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -665,17 +657,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -705,12 +697,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -756,17 +748,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -796,12 +788,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -847,17 +839,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -887,12 +879,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -938,17 +930,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -978,12 +970,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -1056,17 +1048,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -1096,12 +1088,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -1147,17 +1139,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -1187,12 +1179,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -1238,17 +1230,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -1278,12 +1270,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -1329,17 +1321,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -1369,12 +1361,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -1421,17 +1413,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -1461,12 +1453,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -1493,7 +1485,7 @@
         }
       }
     },
-    "/gpt/v2/global/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA": {
+    "/gpt/v2/global/assistant/YXNzdF9kUHY2WUJRbTBlOThFbTFkM2pTSlNhM3Y": {
       "post": {
         "summary": "Global - Assistente",
         "description": "Envia mensagem do assistente para o lead",
@@ -1508,17 +1500,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -1548,12 +1540,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -1580,7 +1572,7 @@
         }
       }
     },
-    
+
     "/gpt/v2/recepcao/prompt/intencao": {
       "post": {
         "summary": "Recepção - Prompt - Intenção",
@@ -1596,17 +1588,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -1636,12 +1628,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -1668,7 +1660,7 @@
         }
       }
     },
-    "/gpt/v2/recepcao/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/indefinido": {
+    "/gpt/v2/recepcao/assistant/YXNzdF9kUHY2WUJRbTBlOThFbTFkM2pTSlNhM3Y/indefinido": {
       "post": {
         "summary": "Recepção - Assistente - Indefinido",
         "description": "Envia mensagem do assistente para o lead",
@@ -1683,17 +1675,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -1723,12 +1715,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -1755,7 +1747,7 @@
         }
       }
     },
-    "/gpt/v2/recepcao/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/nao-qualificado": {
+    "/gpt/v2/recepcao/assistant/YXNzdF9kUHY2WUJRbTBlOThFbTFkM2pTSlNhM3Y/nao-qualificado": {
       "post": {
         "summary": "Recepção - Assistente - Não Qualificado",
         "description": "Envia mensagem do assistente para o lead",
@@ -1770,17 +1762,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -1810,12 +1802,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -1858,17 +1850,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -1898,12 +1890,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -1930,7 +1922,7 @@
         }
       }
     },
-    "/gpt/v2/qualificado/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/qualificado": {
+    "/gpt/v2/qualificado/assistant/YXNzdF9kUHY2WUJRbTBlOThFbTFkM2pTSlNhM3Y/qualificado": {
       "post": {
         "summary": "Qualificado - Assistente - Qualificado",
         "description": "Envia mensagem do assistente para o lead",
@@ -1945,17 +1937,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -1985,12 +1977,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -2017,7 +2009,7 @@
         }
       }
     },
-    "/gpt/v2/qualificado/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/nao-qualificado": {
+    "/gpt/v2/qualificado/assistant/YXNzdF9kUHY2WUJRbTBlOThFbTFkM2pTSlNhM3Y/nao-qualificado": {
       "post": {
         "summary": "Qualificado - Assistente - Qualificado",
         "description": "Envia mensagem do assistente para o lead",
@@ -2032,17 +2024,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -2072,12 +2064,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -2100,1923 +2092,6 @@
             "500": {
               "description": "Internal Server Error"
             }
-          }
-        }
-      }
-    },
-
-    "/gpt/v2/dados/prompt/intencao": {
-      "post": {
-        "summary": "Dados - Prompt - Intenção",
-        "description": "Recebe a intenção do usuário e retorna a resposta da IA",
-        "tags": [
-          "GPT V2 - Dados"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Intenção recebida com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/gpt/v2/dados/prompt/confirma-dados": {
-      "post": {
-        "summary": "Dados - Prompt - Confirmação de Dados",
-        "description": "Recebe a intenção do usuário e retorna a resposta da IA",
-        "tags": [
-          "GPT V2 - Dados"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Intenção recebida com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/gpt/v2/dados/prompt/intencao-especialista": {
-      "post": {
-        "summary": "Dados - Prompt - Intenção Especialista",
-        "description": "Recebe a intenção do usuário e retorna a resposta da IA",
-        "tags": [
-          "GPT V2 - Dados"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Intenção recebida com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/gpt/v2/dados/prompt/indentificar-especialista": {
-      "post": {
-        "summary": "Dados - Prompt - Identificar Especialista",
-        "description": "Recebe a intenção do usuário e retorna a resposta da IA",
-        "tags": [
-          "GPT V2 - Dados"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Intenção recebida com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/gpt/v2/dados/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/previa-dados": {
-      "post": {
-        "summary": "Dados - Assistente - Prévia de Dados",
-        "description": "Envia mensagem do assistente para o lead",
-        "tags": [
-          "GPT V2 - Dados"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Mensagem enviada e recebida com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/gpt/v2/dados/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/dados-cadastrais": {
-      "post": {
-        "summary": "Dados - Assistente - Dados Cadastrais",
-        "description": "Envia mensagem do assistente para o lead",
-        "tags": [
-          "GPT V2 - Dados"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Mensagem enviada e recebida com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/gpt/v2/dados/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/split-dados": {
-      "post": {
-        "summary": "Dados - Assistente - Split de Dados",
-        "description": "Envia mensagem do assistente para o lead",
-        "tags": [
-          "GPT V2 - Dados"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Mensagem enviada e recebida com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/gpt/v2/dados/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/verifica-dados": {
-      "post": {
-        "summary": "Dados - Assistente - Verifica Dados",
-        "description": "Envia mensagem do assistente para o lead",
-        "tags": [
-          "GPT V2 - Dados"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Mensagem enviada e recebida com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/gpt/v2/dados/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/listar-especialidades": {
-      "post": {
-        "summary": "Dados - Assistente - Listar Especialidades",
-        "description": "Envia mensagem do assistente para o lead",
-        "tags": [
-          "GPT V2 - Dados"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Mensagem enviada e recebida com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/gpt/v2/dados/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/verificar-especialista": {
-      "post": {
-        "summary": "Dados - Assistente - Verificar Especialista",
-        "description": "Envia mensagem do assistente para o lead",
-        "tags": [
-          "GPT V2 - Dados"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Mensagem enviada e recebida com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-
-    "/gpt/v2/preagendamento/prompt/intencao": {
-      "post": {
-        "summary": "Pré-agendamento - Prompt - Intenção",
-        "description": "Recebe a intenção do usuário e retorna a resposta da IA",
-        "tags": [
-          "GPT V2 - Pré-agendamento"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Intenção recebida com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/gpt/v2/preagendamento/prompt/verificar-confirmacao": {
-      "post": {
-        "summary": "Pré-agendamento - Prompt - Verificar Confirmação",
-        "description": "Recebe a intenção de confirmação do usuário e retorna a resposta da IA",
-        "tags": [
-          "GPT V2 - Pré-agendamento"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Intenção recebida com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/gpt/v2/preagendamento/prompt/verificar-agenda-especialista": {
-      "post": {
-        "summary": "Pré-agendamento - Prompt - Verificar Agenda Especialista",
-        "description": "Identifica se o especialista está disponível na data e horário escolhidos, capturados no campo 'Data Escolhida'",
-        "tags": [
-          "GPT V2 - Pré-agendamento"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Agenda do especialista verificada com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/gpt/v2/preagendamento/prompt/confirmar-data": {
-      "post": {
-        "summary": "Pré-agendamento - Prompt - Confirmar Data",
-        "description": "Retorna a data de agendamento formatada do campo 'Data Escolhida'",
-        "tags": [
-          "GPT V2 - Pré-agendamento"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Data de agendamento formatada retornada com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/gpt/v2/preagendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/disponibilidade": {
-      "post": {
-        "summary": "Pré-agendamento - Assistente - Disponibilidade",
-        "description": "Envia mensagem do assistente para o lead",
-        "tags": [
-          "GPT V2 - Pré-agendamento"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Mensagem enviada e recebida com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/gpt/v2/preagendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/verificar-datas": {
-      "post": {
-        "summary": "Pré-agendamento - Assistente - Verificar Datas",
-        "description": "Envia mensagem do assistente para o lead",
-        "tags": [
-          "GPT V2 - Pré-agendamento"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Mensagem enviada e recebida com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/gpt/v2/preagendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/confirmacao": {
-      "post": {
-        "summary": "Pré-agendamento - Assistente - Confirmação",
-        "description": "Envia mensagem do assistente para o lead",
-        "tags": [
-          "GPT V2 - Pré-agendamento"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Mensagem enviada e recebida com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-
-    "/gpt/v2/agendamento/prompt/intencao": {
-      "post": {
-        "summary": "Agendamento - Prompt - Intenção",
-        "description": "Recebe a intenção do usuário e retorna a resposta da IA",
-        "tags": [
-          "GPT V2 - Agendamento"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Intenção recebida com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/gpt/v2/agendamento/prompt/verificar-confirmacao": {
-      "post": {
-        "summary": "Agendamento - Prompt - Verificar Confirmação",
-        "description": "Recebe a intenção de confirmação do usuário e retorna a resposta da IA",
-        "tags": [
-          "GPT V2 - Agendamento"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Intenção recebida com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/gpt/v2/agendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/form-join": {
-      "post": {
-        "summary": "Agendamento - Assistente - Formulário de Cadastro",
-        "description": "Envia mensagem do assistente para o lead",
-        "tags": [
-          "GPT V2 - Agendamento"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Mensagem enviada e recebida com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/gpt/v2/agendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/disponibilidade-horario": {
-      "post": {
-        "summary": "Agendamento - Assistente - Disponibilidade de Horário",
-        "description": "Envia mensagem do assistente para o lead",
-        "tags": [
-          "GPT V2 - Agendamento"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Mensagem enviada e recebida com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/gpt/v2/agendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/verificar-datas": {
-      "post": {
-        "summary": "Agendamento - Assistente - Verificar Datas",
-        "description": "Envia mensagem do assistente para o lead",
-        "tags": [
-          "GPT V2 - Agendamento"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Mensagem enviada e recebida com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -4037,17 +2112,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -4077,12 +2152,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -4124,17 +2199,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -4164,12 +2239,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -4196,7 +2271,7 @@
         }
       }
     },
-    "/gpt/v2/posagendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/confirmar-presenca": {
+    "/gpt/v2/posagendamento/assistant/YXNzdF9sTm50S051T3pQOWdYNzV4NmxPczJlRVM/confirmar-presenca": {
       "post": {
         "summary": "Pós-agendamento - Assistente - Confirmar Presença",
         "description": "Envia mensagem do assistente para o lead",
@@ -4211,17 +2286,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -4251,12 +2326,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -4283,7 +2358,7 @@
         }
       }
     },
-    "/gpt/v2/posagendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/notificar-falta": {
+    "/gpt/v2/posagendamento/assistant/YXNzdF9sTm50S051T3pQOWdYNzV4NmxPczJlRVM/notificar-falta": {
       "post": {
         "summary": "Pós-agendamento - Assistente - Notificar Falta",
         "description": "Envia mensagem do assistente para o lead",
@@ -4298,17 +2373,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -4338,12 +2413,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -4370,7 +2445,7 @@
         }
       }
     },
-    "/gpt/v2/posagendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/iniciar-reagendamento": {
+    "/gpt/v2/posagendamento/assistant/YXNzdF9sTm50S051T3pQOWdYNzV4NmxPczJlRVM/iniciar-reagendamento": {
       "post": {
         "summary": "Pós-agendamento - Assistente - Iniciar Reagendamento",
         "description": "Envia mensagem do assistente para o lead",
@@ -4385,17 +2460,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -4425,12 +2500,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -4473,17 +2548,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -4513,12 +2588,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -4545,7 +2620,7 @@
         }
       }
     },
-    "/gpt/v2/confirmacao/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/24h-1st-try": {
+    "/gpt/v2/confirmacao/assistant/YXNzdF9sTm50S051T3pQOWdYNzV4NmxPczJlRVM/24h-1st-try": {
       "post": {
         "summary": "Confirmação - Assistente - Esteira de Confirmação 24 horas - 1ª Tentativa",
         "description": "Envia mensagem do assistente para o lead",
@@ -4560,17 +2635,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -4600,12 +2675,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -4647,17 +2722,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -4687,12 +2762,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -4734,17 +2809,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -4774,12 +2849,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -4806,7 +2881,7 @@
         }
       }
     },
-    "/gpt/v2/confirmacao/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/3h-1st-try": {
+    "/gpt/v2/confirmacao/assistant/YXNzdF9sTm50S051T3pQOWdYNzV4NmxPczJlRVM/3h-1st-try": {
       "post": {
         "summary": "Confirmação - Assistente - Esteira de Confirmação 3 horas - 1ª Tentativa",
         "description": "Envia mensagem do assistente para o lead",
@@ -4821,17 +2896,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -4861,12 +2936,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -4908,17 +2983,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -4948,274 +3023,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Mensagem enviada e recebida com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    
-    "/gpt/v2/cutucada/prompt/intencao": {
-      "post": {
-        "summary": "Cutucada - Prompt - Intenção",
-        "description": "Recebe a intenção do usuário e retorna a resposta da IA",
-        "tags": [
-          "GPT V2 - Bônus - Cutucada"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Intenção recebida com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/gpt/v2/cutucada/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/gerar-perguntas": {
-      "post": {
-        "summary": "Cutucada - Assistente - Gerar Perguntas",
-        "description": "Envia mensagem do assistente para o lead",
-        "tags": [
-          "GPT V2 - Bônus - Cutucada"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
-                    "description": "Subdomínio da conta"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Mensagem enviada e recebida com sucesso"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/gpt/v2/cutucada/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/assistente": {
-      "post": {
-        "summary": "Cutucada - Assistente - Assistente",
-        "description": "Envia mensagem do assistente para o lead",
-        "tags": [
-          "GPT V2 - Bônus - Cutucada"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "leads[add][0][id]": {
-                    "type": "string",
-                    "example": "19030890",
-                    "description": "ID do lead"
-                  },
-                  "leads[add][0][status_id]": {
-                    "type": "string",
-                    "example": "73195524",
-                    "description": "ID do status do lead"
-                  },
-                  "leads[add][0][pipeline_id]": {
-                    "type": "string",
-                    "example": "8933063",
-                    "description": "ID do pipeline do lead"
-                  },
-                  "leads[status][0][id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_status_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "leads[status][0][old_pipeline_id]": {
-                    "type": "string",
-                    "default": "",
-                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
-                  },
-                  "account[id]": {
-                    "type": "string",
-                    "example": "32000011",
-                    "description": "ID da conta"
-                  },
-                  "account[subdomain]": {
-                    "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -5243,12 +3056,12 @@
       }
     },
 
-    "/teste": {
+    "/gpt/v2/cutucada/prompt/intencao": {
       "post": {
-        "summary": "Testar middleware",
-        "description": "Caminho para verificar se o middleware de autenticação está funcionando",
+        "summary": "Cutucada - Prompt - Intenção",
+        "description": "Recebe a intenção do usuário e retorna a resposta da IA",
         "tags": [
-          "Teste"
+          "GPT V2 - Bônus - Cutucada"
         ],
         "requestBody": {
           "content": {
@@ -5258,17 +3071,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "878244",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "78658599",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "10254811",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -5298,12 +3111,274 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "33981183",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "adrianocamposadvogado",
+                    "description": "Subdomínio da conta"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Intenção recebida com sucesso"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/gpt/v2/cutucada/assistant/YXNzdF9kUHY2WUJRbTBlOThFbTFkM2pTSlNhM3Y/gerar-perguntas": {
+      "post": {
+        "summary": "Cutucada - Assistente - Gerar Perguntas",
+        "description": "Envia mensagem do assistente para o lead",
+        "tags": [
+          "GPT V2 - Bônus - Cutucada"
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "leads[add][0][id]": {
+                    "type": "string",
+                    "example": "878244",
+                    "description": "ID do lead"
+                  },
+                  "leads[add][0][status_id]": {
+                    "type": "string",
+                    "example": "78658599",
+                    "description": "ID do status do lead"
+                  },
+                  "leads[add][0][pipeline_id]": {
+                    "type": "string",
+                    "example": "10254811",
+                    "description": "ID do pipeline do lead"
+                  },
+                  "leads[status][0][id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do lead (Quando executado via movimentação de status)"
+                  },
+                  "leads[status][0][status_id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do status do lead (Quando executado via movimentação de status)"
+                  },
+                  "leads[status][0][pipeline_id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
+                  },
+                  "leads[status][0][old_status_id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
+                  },
+                  "leads[status][0][old_pipeline_id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
+                  },
+                  "account[id]": {
+                    "type": "string",
+                    "example": "33981183",
+                    "description": "ID da conta"
+                  },
+                  "account[subdomain]": {
+                    "type": "string",
+                    "example": "adrianocamposadvogado",
+                    "description": "Subdomínio da conta"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Mensagem enviada e recebida com sucesso"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/gpt/v2/cutucada/assistant/YXNzdF9kUHY2WUJRbTBlOThFbTFkM2pTSlNhM3Y/assistente": {
+      "post": {
+        "summary": "Cutucada - Assistente - Assistente",
+        "description": "Envia mensagem do assistente para o lead",
+        "tags": [
+          "GPT V2 - Bônus - Cutucada"
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "leads[add][0][id]": {
+                    "type": "string",
+                    "example": "878244",
+                    "description": "ID do lead"
+                  },
+                  "leads[add][0][status_id]": {
+                    "type": "string",
+                    "example": "78658599",
+                    "description": "ID do status do lead"
+                  },
+                  "leads[add][0][pipeline_id]": {
+                    "type": "string",
+                    "example": "10254811",
+                    "description": "ID do pipeline do lead"
+                  },
+                  "leads[status][0][id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do lead (Quando executado via movimentação de status)"
+                  },
+                  "leads[status][0][status_id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do status do lead (Quando executado via movimentação de status)"
+                  },
+                  "leads[status][0][pipeline_id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
+                  },
+                  "leads[status][0][old_status_id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
+                  },
+                  "leads[status][0][old_pipeline_id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
+                  },
+                  "account[id]": {
+                    "type": "string",
+                    "example": "33981183",
+                    "description": "ID da conta"
+                  },
+                  "account[subdomain]": {
+                    "type": "string",
+                    "example": "adrianocamposadvogado",
+                    "description": "Subdomínio da conta"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Mensagem enviada e recebida com sucesso"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    
+    "/teste": {
+      "post": {
+        "summary": "Testar middleware",
+        "description": "Caminho para verificar se o middleware de autenticação está funcionando",
+        "tags": [
+          "Teste"
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "leads[add][0][id]": {
+                    "type": "string",
+                    "example": "878244",
+                    "description": "ID do lead"
+                  },
+                  "leads[add][0][status_id]": {
+                    "type": "string",
+                    "example": "78658599",
+                    "description": "ID do status do lead"
+                  },
+                  "leads[add][0][pipeline_id]": {
+                    "type": "string",
+                    "example": "10254811",
+                    "description": "ID do pipeline do lead"
+                  },
+                  "leads[status][0][id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do lead (Quando executado via movimentação de status)"
+                  },
+                  "leads[status][0][status_id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do status do lead (Quando executado via movimentação de status)"
+                  },
+                  "leads[status][0][pipeline_id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
+                  },
+                  "leads[status][0][old_status_id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
+                  },
+                  "leads[status][0][old_pipeline_id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
+                  },
+                  "account[id]": {
+                    "type": "string",
+                    "example": "33981183",
+                    "description": "ID da conta"
+                  },
+                  "account[subdomain]": {
+                    "type": "string",
+                    "example": "adrianocamposadvogado",
                     "description": "Subdomínio da conta"
                   }
                 },
