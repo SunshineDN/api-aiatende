@@ -16,7 +16,7 @@ export default class Confirmacao {
       const answer = await GetAnswer(req.body, access_token);
       const message_received = await GetMessageReceived(req.body, access_token);
 
-      const text = `Analise a mensagem da clínica: ${answer} e veja em quais das situações abaixo encaixa a intenção da resposta do usuário: '${message_received}'.
+      const text = `Analise a mensagem a seguir: ${answer} e veja em quais das situações abaixo encaixa a intenção da resposta do usuário: '${message_received}'.
 
 #Confirmou: Usuário confirmou a presença.
 

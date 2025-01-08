@@ -15,9 +15,8 @@ export default class Cutucada {
       const message_received = await GetMessageReceived(req.body, access_token);
       const answer = await GetAnswer(req.body, access_token);
 
-      const text = `Aja como um analista de marketing experiente e veja se mensagem de pergunta da clínica: ${answer} e a resposta do usuário: '${message_received}'.
-
-Para identifique em qual das situações abaixo melhor se encaixa a intenção do usuário nesta troca de mensagem:
+      const text = `Aja como um analista de marketing experiente e veja a seguinte mensagem: '${answer}'. E analise a resposta do usuário: '${message_received}'.
+Identifique em qual das situações abaixo melhor se encaixa a intenção do usuário:
 
 #Perdido: Se o usuário estiver com intenção de encerrar a conversa, ou não quer continuar falando.
 
@@ -28,7 +27,6 @@ Para identifique em qual das situações abaixo melhor se encaixa a intenção d
 #Geral: os demais assuntos.
 
 Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra:" Exemplo: #Geral'`;
-
       await Communicator.prompt(req, res, text);
     } catch (error) {
       styled.error(`Erro ao enviar prompt: ${error.message}`);
@@ -46,10 +44,9 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
 
       const text = `O usuário está há algum tempo sem responder, faça uma pergunta para o usuário para ele retomar a conversa, aqui vai alguns exemplos: 'Vamos continuar?', 'Estou te aguardando', 'Continua ai?', 'Ainda interessado?'
 
-Observe a resposta anterior da clínica: '${answer}'
+Observe a mensagem enviada anteriormente para este usuário: '${answer}'
 
-Pode utilizar alguns dos exemplos, mas tente produzir sempre mensagens novas. Retorne apenas a pergunta para o usuário.`;
-
+Pode utilizar alguns dos exemplos, mas tente produzir sempre mensagens inovadoras. Retorne apenas a pergunta para o usuário.`;
       await Communicator.prompt(req, res, text);
     } catch (error) {
       styled.error(`Erro ao enviar prompt: ${error.message}`);

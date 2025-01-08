@@ -20,9 +20,9 @@ export default class PosAgendamento {
 Analise a mensagem: '${answer}' e veja em quais das situações abaixo encaixa a intenção para a resposta: '${messageReceived}'.
 #Confirmação: A resposta tem intenção de confirmar ou continuar com o agendamento.
 
-#Reagendar: Caso a resposta tenha a intenção de marcar a consulta ou data agendada para outra data.
+#Reagendar: Caso a resposta tenha a intenção de marcar ou data agendada para outra data.
 
-#Desmarcar: Caso a resposta tenha intenção de desmarcar a consulta.
+#Desmarcar: Caso a resposta tenha intenção de desmarcar.
 
 #Geral: Não condiz com os demais cenários.
 
