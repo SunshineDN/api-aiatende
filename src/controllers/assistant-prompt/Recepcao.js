@@ -107,12 +107,12 @@ Avaliar a opção adequada para a resposta do usuário:
 
 1) Se a intenção do usuário for vender ou oferecer produto ou serviços, conduza com uma resposta semelhante à do exemplo:
 'Muito obrigado pelo seu interesse! 
-Segue nosso e-mail: *contato@caa.com.br*
+Segue nosso e-mail: *contato@dentalsante.com.br*
 Estamos direcionando o seu atendimento ao nosso setor administrativo e financeiro.
 Em breve, te responderão!'
 
 2) Se a intenção do usuário de se candidatar alguma vaga disponível, conduza com uma resposta semelhante à do exemplo:
-'Muito obrigado pelo seu interesse! Segue nosso e-mail: *selecao@caa.com.br*
+'Muito obrigado pelo seu interesse! Segue nosso e-mail: *selecao@dentalsante.com.br*
 Estamos direcionando o seu atendimento ao setor de Gestão de Pessoas.
 Em breve, te responderão!'
 
