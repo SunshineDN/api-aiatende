@@ -4,6 +4,7 @@ import { GetAnswer } from '../../services/kommo/GetAnswer.js';
 import { GetMessageReceived } from '../../services/kommo/GetMessageReceived.js';
 import { GetUser } from '../../services/kommo/GetUser.js';
 import { Communicator } from '../../utils/assistant-prompt/Communicator.js';
+import { DifDates } from '../../utils/DifDates.js';
 
 export default class PosAgendamento {
 
@@ -42,7 +43,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
       const message_received = await GetMessageReceived(req.body, access_token);
       const answer = await GetAnswer(req.body, access_token);
 
-      const text = `Aqui está a mensagem da clínica: '${answer}', baseada nela, analise a reposta do usuário: '${message_received}'.
+      const text = `Confira a mensagem a seguir: '${answer}'. Agora analise a reposta do usuário: '${message_received}'.
 Verifique abaixo qual das intenções mais se encaixa com a resposta do usuário.
 
 #Reagendar: Caso o usuário queira dar continuidade em reagendamento.
@@ -52,7 +53,6 @@ Verifique abaixo qual das intenções mais se encaixa com a resposta do usuário
 #Geral: Se não for nenhum dos cenários anteriores.
 
 Retorne apenas o ID da intencão antecedido do #, por exemplo: #Geral`;
-
       await Communicator.prompt(req, res, text);
     } catch (error) {
       styled.error(`Erro ao enviar prompt: ${error.message}`);
@@ -111,7 +111,7 @@ User message: '${message_received}'`;
       const scheduleDate = user?.custom_fields_values?.filter(field => field.field_name === 'Event Start')[0];
       const scheduleDateValue = scheduleDate?.values[0]?.value;
 
-      const DifDates = require('../../utils/DifDates');
+      // const DifDates = require('../../utils/DifDates');
 
       const { diferencaDias, diferencaHoras } = DifDates(scheduleDateValue);
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
