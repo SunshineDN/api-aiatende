@@ -31,6 +31,7 @@ export default class DateUtils {
   }
 
   static dateTimeToSeconds(date) {
+    dayjs.extend(customParseFormat);
     return Math.round(dayjs(date, 'DD/MM/YYYY HH:mm').valueOf() / 1000);
   }
 }

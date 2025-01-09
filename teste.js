@@ -1176,8 +1176,13 @@ async function test() {
   // console.log(status);
 
   // console.log(DateUtils.dateTimeToSeconds('12/12/2024 11:00'));
-  const res = await kommo.listLeads({ query: '+558196724310', first_created: true});
-  console.dir(res[0], { depth: null });
+  // const res = await kommo.listLeads({ query: '+558196724310', first_created: true});
+  // console.dir(res[0], { depth: null });
+  
+  // const res = await WebCalendarServices.registerDate('Dra. Juliana Leite', '15/01/2025', '08:00', 'MTkwMzA4OTA');
+  
+  const res = DateUtils.dateTimeToSeconds('15/01/2025 08:00');
+  console.dir(res, { depth: null });
 }
 
 test();
