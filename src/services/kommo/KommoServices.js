@@ -369,6 +369,7 @@ export default class KommoServices {
     const procedimentoField = kommoUtils.findLeadsFieldByName('Procedimento');
     const periodoField = kommoUtils.findLeadsFieldByName('Período');
     const turnoField = kommoUtils.findLeadsFieldByName('Turno');
+    const calendarField = kommoUtils.findLeadsFieldByName('Calendário');
 
     const status = kommoUtils.findStatusByName('PRÉ-AGENDAMENTO');
 
@@ -383,7 +384,16 @@ export default class KommoServices {
       data: {
         status_id: status.id,
         pipeline_id: status.pipeline_id,
-        custom_fields_values: []
+        custom_fields_values: [
+          {
+            field_id: calendarField.id,
+            values: [
+              {
+                value: StaticUtils.calendarLink(id)
+              }
+            ]
+          }
+        ]
       }
     };
 
