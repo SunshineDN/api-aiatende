@@ -35,6 +35,10 @@ export default class DateUtils {
 
   static dateTimeToSeconds(date) {
     dayjs.extend(customParseFormat);
-    return Math.round(dayjs(date, 'DD/MM/YYYY HH:mm').valueOf() / 1000);
+    // Converte a data para pt-br e retorna em segundos
+    const dateFormatted = dayjs(date, 'DD/MM/YYYY HH:mm').toDate();
+    return Math.round(dateFormatted.valueOf() / 1000);
+
+    // return Math.round(dayjs(date, 'DD/MM/YYYY HH:mm').valueOf() / 1000);
   }
 }
