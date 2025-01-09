@@ -1,6 +1,9 @@
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 import styled from './log/styledLog.js';
+import 'dayjs/locale/pt-br.js';
+
+dayjs.locale('pt-br');
 
 export default class DateUtils {
   static convertDateToMs(dateString) {
