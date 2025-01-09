@@ -123,4 +123,8 @@ export default class KommoUtils {
     // Retornar o número formatado
     return `+55${ddd}${newNumber.substring(0, 4)}${newNumber.substring(4)}`;
   }
+
+  dateTimeToSeconds(date) {
+    return Math.round(dayjs(date, 'DD/MM/YYYY HH:mm').valueOf() / 1000) + 10800;
+  }
 }

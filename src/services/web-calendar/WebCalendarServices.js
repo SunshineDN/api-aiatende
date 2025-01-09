@@ -175,7 +175,7 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON.`;
         field_id: dataAgendamento.id,
         values: [
           {
-            value: DateUtils.dateTimeToSeconds(`${data} ${horario}`),
+            value: kommoUtils.dateTimeToSeconds(`${data} ${horario}`),
           }
         ]
       }
