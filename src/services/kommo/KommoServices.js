@@ -180,18 +180,11 @@ export default class KommoServices {
     return pipelines;
   }
 
-  async createCalendarLink(id) {
+  async webhookCreate(id, { calendar = false, created_at = false } = {}) {
     const lead = await this.getLead({ id });
-    const calendario = LeadUtils.findLeadField({ lead, fieldName: 'Calendário', value: true });
-
-    if (calendario) {
-      styled.info('[KommoServices.createCalendarLink] - Calendário já criado');
-      return { code: 200, response: { message: 'Calendário já criado' } };
-    }
-
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields() });
-    const calendarField = kommoUtils.findLeadsFieldByName('Calendário');
-    const calendarLink = StaticUtils.calendarLink(id);
+    const calendario = LeadUtils.findLeadField({ lead, fieldName: 'Calendário', value: true });
+    const criacao = LeadUtils.findLeadField({ lead, fieldName: 'Data de Criação', value: true });
 
     const options = {
       method: 'PATCH',
@@ -202,21 +195,50 @@ export default class KommoServices {
         'Authorization': `Bearer ${this.auth}`
       },
       data: {
-        custom_fields_values: [
-          {
-            field_id: calendarField.id,
-            values: [
-              {
-                value: calendarLink
-              }
-            ]
-          }
-        ]
+        custom_fields_values: []
       }
     };
 
+    if (calendar) {
+      if (!calendario) {
+        const calendarField = kommoUtils.findLeadsFieldByName('Calendário');
+        const calendarLink = StaticUtils.calendarLink(id);
+
+        options.data.custom_fields_values.push({
+          field_id: calendarField.id,
+          values: [
+            {
+              value: calendarLink
+            }
+          ]
+        });
+      } else {
+        styled.warning('[KommoServices.webhookCreate] - Calendário já existe no Lead');
+      }
+    }
+
+    if (created_at) {
+      if (!criacao) {
+        const createdAtField = kommoUtils.findLeadsFieldByName('Data de Criação');
+        let createdAt = lead?.created_at;
+        if (!createdAt) {
+          createdAt = new Date().getTime() / 1000;
+        }
+        options.data.custom_fields_values.push({
+          field_id: createdAtField.id,
+          values: [
+            {
+              value: createdAt
+            }
+          ]
+        });
+      } else {
+        styled.warning('[KommoServices.webhookCreate] - Data de Criação já existe no Lead');
+      }
+    }
+
     const { data } = await axios.request(options);
-    styled.success('[KommoServices.createCalendarLink] - Link do calendário criado com sucesso');
+    styled.success('[KommoServices.webhookCreate] - Webhook Geral de criação de leads executado');
     return { code: 200, response: data };
   }
 

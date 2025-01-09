@@ -1,6 +1,6 @@
 import styled from "../utils/log/styledLog.js";
 
-export default function kommoWbhkMiddleware(req, _, next) {
+export default function messageReceivedMiddleware(req, _, next) {
   const { message, account } = req?.body;
   const account_id = account?.id;
   const account_subdomain = account?.subdomain;
