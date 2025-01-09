@@ -68,6 +68,35 @@ export default class KommoServices {
     }
   }
 
+  async updateLead({ id, status_id = '', pipeline_id = '', custom_fields_values = [] } = {}) {
+    const options = {
+      method: 'PATCH',
+      url: `${this.url}/api/v4/leads/${id}`,
+      headers: {
+        'accept': 'application/json',
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${this.auth}`
+      },
+      data: {}
+    };
+
+    if (status_id) {
+      options.data.status_id = status_id;
+    }
+
+    if (pipeline_id) {
+      options.data.pipeline_id = pipeline_id;
+    }
+
+    if (custom_fields_values.length) {
+      options.data.custom_fields_values = custom_fields_values;
+    }
+
+    const { data } = await axios.request(options);
+    styled.success('[KommoServices.updateLead] - Lead updated');
+    return data;
+  }
+
   async getContact(id) {
     const options = {
       method: 'GET',
@@ -195,7 +224,7 @@ export default class KommoServices {
     const turnoField = kommoUtils.findLeadsFieldByName('Turno');
     const codeField = kommoUtils.findLeadsFieldByName('BK Funnels ID');
 
-    const status = kommoUtils.findStatusByName('BK FUNNELS');
+    const status = kommoUtils.findStatusByName('PRÉ-AGENDAMENTO');
 
     const options = {
       method: 'POST',
@@ -251,14 +280,17 @@ export default class KommoServices {
     }
 
     if (datanascimento) {
-      options.data[0].custom_fields_values.push({
-        field_id: nascimentoField.id,
-        values: [
-          {
-            value: kommoUtils.convertDateToMs(datanascimento)
-          }
-        ]
-      });
+      const validDate = kommoUtils.convertDateToMs(StaticUtils.normalizeDate(datanascimento));
+      if (validDate) {
+        options.data[0].custom_fields_values.push({
+          field_id: nascimentoField.id,
+          values: [
+            {
+              value: validDate
+            }
+          ]
+        });
+      }
     }
 
     if (dentista) {

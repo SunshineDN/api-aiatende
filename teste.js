@@ -1166,16 +1166,16 @@ import WebCalendarServices from './src/services/web-calendar/WebCalendarServices
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 import LeadUtils from './src/utils/LeadUtils.js';
+import DateUtils from './src/utils/DateUtils.js';
 
 const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
 
 async function test() {
-  const lead = await kommo.getLead({ id: '19030890', withParams: 'contacts' });
-  console.dir(lead.contact, { depth: null });
+  const kommoUtils = new KommoUtils({ pipelines: await kommo.getPipelines() });
+  const status = await kommoUtils.findStatusByCode('03 - PRÉ-AGENDAMENTO', 142)
+  console.log(status);
+
+  console.log(DateUtils.dateTimeToSeconds('12/12/2024 11:00'));
 }
 
-const headers = {
-  'Content-Type': 'application/json'
-}
-
-console.log(headers['Content-Type']);
+test();

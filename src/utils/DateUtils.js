@@ -29,4 +29,8 @@ export default class DateUtils {
     styled.warning('Data inválida ou formato desconhecido:', dateString);
     return null;
   }
+
+  static dateTimeToSeconds(date) {
+    return Math.round(dayjs(date, 'DD/MM/YYYY HH:mm').valueOf() / 1000);
+  }
 }

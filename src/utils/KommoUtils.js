@@ -8,6 +8,20 @@ export default class KommoUtils {
     this.pipelines = pipelines;
   }
 
+  findPipelineByName(name) {
+    return this.pipelines.filter(pipeline => pipeline.name === name)[0] || null;
+  }
+
+  findStatusByCode(pipelineName, code) {
+    const pipeline = this.findPipelineByName(pipelineName);
+    if (!pipeline) {
+      return null;
+    }
+
+    const statuses = pipeline._embedded.statuses;
+    return statuses.filter(status => status.id === code)[0] || null;
+  }
+
   findStatusByName(name) {
     const statuses = this.pipelines.map(pipeline => pipeline._embedded.statuses).flat();
     return statuses.filter(status => status.name === name)[0] || null;
@@ -51,7 +65,7 @@ export default class KommoUtils {
       }
     }
 
-    return 'Invalid Date';
+    return null;
   }
 
   formatPhone(phone) {
