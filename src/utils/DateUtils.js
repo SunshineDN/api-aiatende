@@ -1,6 +1,9 @@
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 import styled from './log/styledLog.js';
+import 'dayjs/locale/pt-br.js';
+
+dayjs.locale('pt-br');
 
 export default class DateUtils {
   static convertDateToMs(dateString) {
@@ -28,5 +31,10 @@ export default class DateUtils {
     // Caso nenhuma correspondência seja encontrada
     styled.warning('Data inválida ou formato desconhecido:', dateString);
     return null;
+  }
+
+  static dateTimeToSeconds(date) {
+    dayjs.extend(customParseFormat);
+    return Math.round(dayjs(date, 'DD/MM/YYYY HH:mm').valueOf() / 1000);
   }
 }

@@ -1,5 +1,6 @@
 import BkFunnelsRepository from "../../repositories/BkFunnelsRepository.js";
 import BkFunnelsUtils from "../../utils/BkFunnelsUtils.js";
+import KommoUtils from "../../utils/KommoUtils.js";
 import styled from "../../utils/log/styledLog.js";
 import KommoServices from "../kommo/KommoServices.js";
 
@@ -45,10 +46,13 @@ export default class BkFunnelsServices {
         return { code: 200, response: { message: 'BK Funnels Lead created and periodo has been updated' } };
 
       } else if (type === 'turno') {
+        const kommoUtils = new KommoUtils();
         const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
-        const leads = await kommo.listLeads({ query: codeString });
         const bkLeadInfo = await bkFunnelsRepository.findByCode(codeString);
+        
         const { objects: { name, email, phone, datanascimento }, dentista, procedimento, periodo } = bkLeadInfo;
+
+        const leads = await kommo.listLeads({ query: kommoUtils.formatPhone(phone), first_created: true });
         let turno_res;
         if (!leads || leads?.length === 0) {
           turno_res = await kommo.createLeadBk({

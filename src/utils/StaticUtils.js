@@ -70,4 +70,21 @@ export default class StaticUtils {
             return 'Demais Dentistas'
         }
     }
+
+    static normalizeDate(dateString) {
+        const match = dateString.match(/^(\d{1,2})\D?(\d{1,2})\D?(\d{2,4})$/);
+        const finalYearDigits = new Date().getFullYear().toString().slice(-2);
+
+        if (match) {
+            let [_, day, month, year] = match;
+
+            if (year.length === 2) {
+                year = parseInt(year, 10) <= finalYearDigits ? '20' + year : '19' + year;
+            }
+
+            return `${day.padStart(2, '0')}/${month.padStart(2, '0')}/${year}`;
+        }
+
+        return null;
+    }
 }

@@ -4,6 +4,8 @@ import OpenAIController from "../../controllers/OpenAIController.js";
 import KommoServices from "../kommo/KommoServices.js";
 import LeadUtils from "../../utils/LeadUtils.js";
 import styled from "../../utils/log/styledLog.js";
+import KommoUtils from "../../utils/KommoUtils.js";
+import DateUtils from "../../utils/DateUtils.js";
 
 export default class WebCalendarServices {
 
@@ -160,11 +162,34 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON.`;
 
   static async registerDate(dentista, data, horario, lead_id) {
     const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
+    const kommoUtils = new KommoUtils({ pipelines: await kommo.getPipelines(), leads_custom_fields: await kommo.getLeadsCustomFields() });
+
     const lead_id_decoded = StaticUtils.decodeString(lead_id);
     const lead = await kommo.getLead({ id: lead_id_decoded, withParams: 'contacts' });
+
+    const dataAgendamento = await kommoUtils.findLeadsFieldByName('Data do Agendamento');
+    const closedWon = await kommoUtils.findStatusByCode('03 - PRÉ-AGENDAMENTO', 142);
+
+    const custom_fields = [
+      {
+        field_id: dataAgendamento.id,
+        values: [
+          {
+            value: kommoUtils.dateTimeToSeconds(`${data} ${horario}`),
+          }
+        ]
+      }
+    ]
+
+    await kommo.updateLead({
+      id: lead_id_decoded,
+      status_id: closedWon.id,
+      pipeline_id: closedWon.pipeline_id,
+      custom_fields_values: custom_fields
+    });
+
     const procedimento = LeadUtils.findLeadField({ lead, fieldName: 'Procedimento', value: true });
     const nome = lead?.contact?.name;
-    // const email = LeadUtils.findContactField({ contact: lead.contact, fieldName: 'Email', value: true });
 
     const summary = `${nome} - ${procedimento}`;
     const calendar = new CalendarUtils();
@@ -189,26 +214,6 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON.`;
       summary,
       description: 'Lead se agendou pelo formulário do site.',
     };
-
-    // if (email) {
-    //   const client_name = process.env.CLIENT_NAME;
-    //   const client_email = process.env.CLIENT_EMAIL;
-    //   const client_address = process.env.CLIENT_ADDRESS;
-    //   styled.info('[WebCalendarServices.registerDate] Enviando email com a identificação do cliente');
-    //   if (client_name && client_email && client_address) {
-    //     obj.attendees = [
-    //       {
-    //         displayName: nome,
-    //         email,
-    //       }
-    //     ];
-    //     obj.creator = {
-    //       displayName: client_name,
-    //       email: client_email
-    //     };
-    //     obj.location = client_address;
-    //   }
-    // }
 
     return await calendar.executeRegisterEvent(calendarId, obj);
   }
