@@ -35,10 +35,9 @@ export default class DateUtils {
 
   static dateTimeToSeconds(date) {
     dayjs.extend(customParseFormat);
-    // Converte a data para pt-br e retorna em segundos
-    const dateFormatted = dayjs(date, 'DD/MM/YYYY HH:mm').toDate();
-    return Math.round(dateFormatted.valueOf() / 1000);
-
+    // Vamos converter a data para timezone do Brasil e retorna em segundos
+    const dateParsed = dayjs(date, 'DD/MM/YYYY HH:mm').locale('pt-br');
+    return dateParsed.unix();
     // return Math.round(dayjs(date, 'DD/MM/YYYY HH:mm').valueOf() / 1000);
   }
 }
