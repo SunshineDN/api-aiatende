@@ -1171,11 +1171,13 @@ import DateUtils from './src/utils/DateUtils.js';
 const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
 
 async function test() {
-  const kommoUtils = new KommoUtils({ pipelines: await kommo.getPipelines() });
-  const status = await kommoUtils.findStatusByCode('03 - PRÉ-AGENDAMENTO', 142)
-  console.log(status);
+  // const kommoUtils = new KommoUtils({ pipelines: await kommo.getPipelines() });
+  // const status = await kommoUtils.findStatusByCode('03 - PRÉ-AGENDAMENTO', 142)
+  // console.log(status);
 
-  console.log(DateUtils.dateTimeToSeconds('12/12/2024 11:00'));
+  // console.log(DateUtils.dateTimeToSeconds('12/12/2024 11:00'));
+  const res = await kommo.listLeads({ query: '+558196724310', first_created: true});
+  console.dir(res[0], { depth: null });
 }
 
 test();

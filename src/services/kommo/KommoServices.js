@@ -111,7 +111,7 @@ export default class KommoServices {
     return data;
   }
 
-  async listLeads({ query = '' } = {}) {
+  async listLeads({ query = '', first_created = false } = {}) {
     if (query) {
       const options = {
         method: 'GET',
@@ -123,6 +123,15 @@ export default class KommoServices {
       };
 
       const { data: { _embedded: { leads } = {} } = {} } = await axios.request(options);
+
+      if (leads.length > 1) {
+        if (first_created) {
+          return [leads.sort((a, b) => a.created_at - b.created_at)[0]];
+        } else {
+          return leads;
+        }
+      }
+
       return leads;
     }
 
@@ -361,7 +370,7 @@ export default class KommoServices {
     const periodoField = kommoUtils.findLeadsFieldByName('Período');
     const turnoField = kommoUtils.findLeadsFieldByName('Turno');
 
-    const status = kommoUtils.findStatusByName('BK FUNNELS');
+    const status = kommoUtils.findStatusByName('PRÉ-AGENDAMENTO');
 
     const options = {
       method: 'PATCH',
