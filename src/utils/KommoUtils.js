@@ -125,6 +125,7 @@ export default class KommoUtils {
   }
 
   dateTimeToSeconds(date) {
+    dayjs.extend(customParseFormat);
     return Math.round(dayjs(date, 'DD/MM/YYYY HH:mm').valueOf() / 1000) + 10800;
   }
 }
