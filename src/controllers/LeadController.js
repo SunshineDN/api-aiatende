@@ -65,13 +65,13 @@ export default class LeadController {
     }
   }
 
-  async setCalendarLink(req, res) {
+  async webhookCreate(req, res) {
     try {
       const { body } = req;
-      const calendarLinkResponse = await this.kommo.createCalendarLink(body?.lead_id);
+      const calendarLinkResponse = await this.kommo.webhookCreate(body?.lead_id, { calendar: true, created_at: true });
       res.status(200).json(calendarLinkResponse);
     } catch (error) {
-      styled.error('[LeadController.setCalendarLink] Erro');
+      styled.error('[LeadController.webhookCreate] Erro');
       console.error(error);
       res.status(500).json({ message: 'Erro ao processar a requisição' });
     }

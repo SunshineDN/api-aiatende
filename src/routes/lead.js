@@ -19,6 +19,6 @@ router.post('/split-fields/scheduling', kommoMiddleware, leadController.setSplit
 
 router.post('/add-tel', kommoMiddleware, leadController.addTelephone);
 
-router.post('/create/calendar/link', createLeadMiddleware, leadController.setCalendarLink);
+router.post('/webhook/create', createLeadMiddleware, leadController.webhookCreate);
 
 export default router;
