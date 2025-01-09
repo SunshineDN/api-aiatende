@@ -14,7 +14,7 @@ export default class LeadController {
     this.setSplitDataFields = this.setSplitDataFields.bind(this);
     this.setSplitSchedulingFields = this.setSplitSchedulingFields.bind(this);
     this.addTelephone = this.addTelephone.bind(this);
-    this.setCalendarLink = this.setCalendarLink.bind(this);
+    this.webhookCreate = this.webhookCreate.bind(this);
   }
 
   async index(req, res) {
