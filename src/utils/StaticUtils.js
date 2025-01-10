@@ -3,6 +3,22 @@ import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 import styled from "./log/styledLog.js";
 
 export default class StaticUtils {
+    static async processarMensagem({ text = '', attachment = {}, lead_id } = {}) {
+        let conteudo;
+
+        if (attachment && attachment?.type === 'voice' || attachment?.type === 'audio') {
+            conteudo = await StaticUtils.transcreverAudio(attachment?.link, lead_id);
+        } else {
+            conteudo = text;
+        }
+
+        return conteudo;
+    }
+
+    static async transcreverAudio(link, id) {
+        
+    }
+
     static calendarLink(id) {
         id = id.toString();
         const encodedString = StaticUtils.encodeString(id);

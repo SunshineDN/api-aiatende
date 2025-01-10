@@ -1159,6 +1159,30 @@ import styled from './src/utils/log/styledLog.js';
 
 // styled.infodir(leadFilter.length);
 
+// function atualizarMensagens(campoDeString, novaMensagem) {
+//   // Verifica se o campo já tem mensagens
+//   let mensagens = campoDeString ? campoDeString.split('\n') : [];
+
+//   // Adiciona a nova mensagem ao array
+//   mensagens.push(novaMensagem);
+
+//   // Mantém apenas as últimas 3 mensagens
+//   if (mensagens.length > 3) {
+//     mensagens.shift();
+//   }
+
+//   // Converte o array de volta para uma string com '\n'
+//   return mensagens.join('\n');
+// }
+
+// function substituirEmojis(mensagem, textoPadrao = '[emoji]') {
+//   // Expressão regular para capturar emojis
+//   const regexEmoji = /[\p{Emoji_Presentation}\p{Emoji}\uFE0F]/gu;
+
+//   // Substituir emojis pelo texto padrão
+//   return mensagem.replace(regexEmoji, textoPadrao);
+// }
+
 import KommoServices from './src/services/kommo/KommoServices.js';
 import KommoUtils from './src/utils/KommoUtils.js';
 import StaticUtils from './src/utils/StaticUtils.js';
@@ -1178,11 +1202,15 @@ async function test() {
   // console.log(DateUtils.dateTimeToSeconds('12/12/2024 11:00'));
   // const res = await kommo.listLeads({ query: '+558196724310', first_created: true});
   // console.dir(res[0], { depth: null });
-  
+
   // const res = await WebCalendarServices.registerDate('Dra. Juliana Leite', '15/01/2025', '08:00', 'MTkwMzA4OTA');
-  
-  const res = DateUtils.dateTimeToSeconds('15/01/2025 08:00');
-  console.dir(res, { depth: null });
+
+  // const res = DateUtils.dateTimeToSeconds('15/01/2025 08:00');
+  // console.dir(res, { depth: null });
+  // Exemplo de uso
+  const file_name = 'audio.mp3';
+  const extension = file_name.split('.').pop();
+  console.log(extension)
 }
 
 test();
