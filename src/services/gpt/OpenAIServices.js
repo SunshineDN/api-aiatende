@@ -1,27 +1,28 @@
-import OpenAI from 'openai';
+import OpenAIUtils from '../../utils/OpenAIUtils.js';
+import styled from '../../utils/log/styledLog.js';
 
 export default class OpenAIServices {
-  constructor() {
-    this.openai = new OpenAI(process.env.OPENAI_API_KEY);
-  }
 
-  async transcriptAudio(attachment, lead_id) {
+  async transcribeAudio(link, file_name) {
     try {
+      const openaiUtils = new OpenAIUtils();
+
       styled.info('Downloading audio...');
-      await downloadAudio(fileObj);
-      styled.success('Success\n'.green.bold);
+      await openaiUtils.downloadFile(link, file_name);
+      styled.success('Success\n');
 
       styled.info('Transcribing audio...');
-      const transcription = await transcribeAudio(fileObj);
-      styled.success('Success\n'.green.bold);
+      const transcription = await openaiUtils.transcribeAudio(file_name);
+      styled.success('Success\n');
 
       styled.info('Deleting temporary file...');
-      await deleteTempFile(fileObj);
-      styled.success('Success\n'.green.bold);
+      await openaiUtils.deleteTempFile(file_name);
+      styled.success('Success\n');
 
       return transcription;
     } catch (error) {
-      styled.error('Erro ao gravar audio no armazenamento:', error);
+      styled.error('Erro ao gravar audio no armazenamento:');
+      console.error(error);
       throw new Error(error);
     }
   }

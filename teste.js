@@ -1195,13 +1195,15 @@ import DateUtils from './src/utils/DateUtils.js';
 const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
 
 async function test({ text = '', attachment = {}, lead_id } = {}) {
-  if (attachment && attachment?.type === 'voice' || attachment?.type === 'audio') {
-    // conteudo = await StaticUtils.transcreverAudio(attachment?.link, lead_id);
-    console.log(attachment);
-  } else {
-    // conteudo = text;
-    console.log(text);
+  if (Object.keys(attachment).length > 0) {
+    if (attachment?.type === 'voice' || attachment?.type === 'audio') {
+      console.log('AUDIO ou VOZ');
+      return;
+    } else {
+      text = '[anexo]';
+    }
   }
+  console.log(text)
   // const file_name = 'audio.mp3';
   // const extension = file_name.split('.').pop();
   // console.log(extension)
@@ -1210,10 +1212,10 @@ async function test({ text = '', attachment = {}, lead_id } = {}) {
 const payload = {
   text: 'Olá, tudo bem?',
   attachment: {
-    type: 'text',
-    link: 'https://api.kommo.com/voice/1234567890'
+    type: 'audio',
+    url: 'https://www.google.com.br/audio.mp3'
   },
   lead_id: 19030890
 }
 
-test({ lead_id: payload.lead_id, text: payload.text, attachment: payload.attachment });
+test({ lead_id: payload.lead_id, text: payload.text, attachment: payload?.attachment });

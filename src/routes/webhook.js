@@ -1,15 +1,14 @@
 import express from 'express';
-import WebhookMiddlewares from '../middlewares/WebhookMiddlewares.js';
-import LeadController from '../controllers/LeadController';
+import WebhookMiddleware from '../middlewares/WebhookMiddleware.js';
+import KommoWebhookController from '../controllers/KommoWebhookController.js';
 
 const router = express.Router();
+const webhookController = new KommoWebhookController();
 
 router.use(express.urlencoded({ extended: true }));
 
-const leadController = new LeadController();
+router.post('/create', WebhookMiddleware.createLead, webhookController.created);
 
-router.post('/create', WebhookMiddlewares.createLead, leadController.webhookCreate);
+router.post('/message-received', WebhookMiddleware.messageReceived, webhookController.messageReceived);
 
-router.post('/message-received', WebhookMiddlewares.messageReceived, )
-
-
+export default router;

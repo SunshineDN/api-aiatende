@@ -1,7 +1,8 @@
-import KommoUtils from "../../utils/KommoUtils";
-import LeadUtils from "../../utils/LeadUtils";
-import styled from "../../utils/log/styledLog";
-import KommoServices from "./KommoServices";
+import KommoUtils from "../../utils/KommoUtils.js";
+import LeadUtils from "../../utils/LeadUtils.js";
+import styled from "../../utils/log/styledLog.js";
+import OpenAIServices from "../gpt/OpenAIServices.js";
+import KommoServices from "./KommoServices.js";
 
 export default class KommoWebhookServices extends KommoServices {
   constructor() {
@@ -72,13 +73,24 @@ export default class KommoWebhookServices extends KommoServices {
     return { code: 200, response: data };
   }
 
-  async messageReceived(payload) {
+  async messageReceived({ lead_id, attachment = {}, text = '' } = {}) {
     styled.function('[KommoWebhookServices.messageReceived]');
+    const openaiServices = new OpenAIServices();
+    let novaMensagem = text;
 
-    // const processarMensagem = 
+    if (Object.keys(attachment).length > 0) {
+      if (attachment?.type === 'voice' || attachment?.type === 'audio') {
+        const extension = attachment?.file_name.split('.').pop();
+        const file_name = `${lead_id}.${extension}`;
+        text = await openaiServices.transcribeAudio(attachment?.link, file_name);
+        
+      } else {
+        text = '[anexo]';
+      }
+    }
 
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields() });
-    const lead = await this.getLead({ id: payload?.lead_id });
+    const lead = await this.getLead({ id: lead_id });
 
     const lastMessages = kommoUtils.findLeadsFieldByName('GPT | Last messages');
 
@@ -104,7 +116,7 @@ export default class KommoWebhookServices extends KommoServices {
       },
     ]
 
-    await this.updateLead({id: payload?.lead_id, custom_fields_values});
+    await this.updateLead({ id: lead_id, custom_fields_values });
 
     styled.info('Preenchido mensagem do lead:', message);
   }

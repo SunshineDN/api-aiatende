@@ -1,4 +1,4 @@
-export default class WebhookMiddlewares {
+export default class WebhookMiddleware {
   static createLead(req, _, next) {
     /* {
       "account": {
