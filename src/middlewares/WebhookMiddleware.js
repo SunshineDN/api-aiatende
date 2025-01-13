@@ -1,3 +1,5 @@
+import styled from "../utils/log/styledLog.js";
+
 export default class WebhookMiddleware {
   static createLead(req, _, next) {
     /* {
