@@ -18,25 +18,14 @@ export default class KommoWebhookServices extends KommoServices {
     const calendario = LeadUtils.findLeadField({ lead, fieldName: 'Calendário', value: true });
     const criacao = LeadUtils.findLeadField({ lead, fieldName: 'Data de Criação', value: true });
 
-    const options = {
-      method: 'PATCH',
-      url: `${this.url}/api/v4/leads/${id}`,
-      headers: {
-        'accept': 'application/json',
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${this.auth}`
-      },
-      data: {
-        custom_fields_values: []
-      }
-    };
+    const custom_fields_values = [];
 
     if (calendar) {
       if (!calendario) {
         const calendarField = kommoUtils.findLeadsFieldByName('Calendário');
         const calendarLink = StaticUtils.calendarLink(id);
 
-        options.data.custom_fields_values.push({
+        custom_fields_values.push({
           field_id: calendarField.id,
           values: [
             {
@@ -56,7 +45,7 @@ export default class KommoWebhookServices extends KommoServices {
         if (!createdAt) {
           createdAt = new Date().getTime() / 1000;
         }
-        options.data.custom_fields_values.push({
+        custom_fields_values.push({
           field_id: createdAtField.id,
           values: [
             {
@@ -69,9 +58,9 @@ export default class KommoWebhookServices extends KommoServices {
       }
     }
 
-    const { data } = await axios.request(options);
+    const res = await this.updateLead({ id, custom_fields_values });
     styled.success('[KommoServices.webhookCreate] - Webhook Geral de criação de leads executado');
-    return { code: 200, response: data };
+    return { code: 200, response: res };
   }
 
   async messageReceived({ lead_id, attachment = {}, text = '' } = {}) {
@@ -117,8 +106,8 @@ export default class KommoWebhookServices extends KommoServices {
       },
     ]
 
-    await this.updateLead({ id: lead_id, custom_fields_values });
-
+    const res = await this.updateLead({ id: lead_id, custom_fields_values });
     styled.info('Preenchido mensagem do lead:', message);
+    return { code: 200, response: res };
   }
 }
