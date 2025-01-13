@@ -7,7 +7,7 @@ export default class StaticUtils {
         let conteudo;
 
         if (attachment && attachment?.type === 'voice' || attachment?.type === 'audio') {
-            conteudo = await StaticUtils.transcreverAudio(attachment?.link, lead_id);
+            conteudo = await StaticUtils.transcreverAudio(attachment, lead_id);
         } else {
             conteudo = text;
         }
@@ -15,7 +15,7 @@ export default class StaticUtils {
         return conteudo;
     }
 
-    static async transcreverAudio(link, id) {
+    static async transcreverAudio(attachment, id) {
         
     }
 
