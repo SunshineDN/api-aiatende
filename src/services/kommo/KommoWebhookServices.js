@@ -34,7 +34,7 @@ export default class KommoWebhookServices extends KommoServices {
           ]
         });
       } else {
-        styled.warning('[KommoServices.webhookCreate] - Calendário já existe no Lead');
+        styled.warning('[KommoServices.createLead] - Calendário já existe no Lead');
       }
     }
 
@@ -43,7 +43,7 @@ export default class KommoWebhookServices extends KommoServices {
         const createdAtField = kommoUtils.findLeadsFieldByName('Data de Criação');
         let createdAt = lead?.created_at;
         if (!createdAt) {
-          createdAt = new Date().getTime() / 1000;
+          createdAt = Math.round(new Date().getTime() / 1000);
         }
         custom_fields_values.push({
           field_id: createdAtField.id,
@@ -54,12 +54,12 @@ export default class KommoWebhookServices extends KommoServices {
           ]
         });
       } else {
-        styled.warning('[KommoServices.webhookCreate] - Data de Criação já existe no Lead');
+        styled.warning('[KommoServices.createLead] - Data de Criação já existe no Lead');
       }
     }
 
     const res = await this.updateLead({ id, custom_fields_values });
-    styled.success('[KommoServices.webhookCreate] - Webhook Geral de criação de leads executado');
+    styled.success('[KommoServices.createLead] - Webhook Geral de criação de leads executado');
     return { code: 200, response: res };
   }
 
