@@ -6,8 +6,8 @@ import OpenAIServices from "../gpt/OpenAIServices.js";
 import KommoServices from "./KommoServices.js";
 
 export default class KommoWebhookServices extends KommoServices {
-  constructor() {
-    super({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
+  constructor({ auth, url }) {
+    super({ auth, url });
   }
 
   async createLead(id, { calendar = false, created_at = false } = {}) {
@@ -107,7 +107,7 @@ export default class KommoWebhookServices extends KommoServices {
     ]
 
     const res = await this.updateLead({ id: lead_id, custom_fields_values });
-    styled.info('Preenchido mensagem do lead:', message);
+    styled.success('Preenchido mensagem do lead:', send_message);
     return { code: 200, response: res };
   }
 }

@@ -3,7 +3,7 @@ import styled from "../utils/log/styledLog.js";
 
 export default class KommoWebhookController {
   constructor() {
-    this.kommo = new KommoWebhookServices();
+    this.kommo = new KommoWebhookServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
     this.created = this.created.bind(this);
     this.messageReceived = this.messageReceived.bind(this);
   }

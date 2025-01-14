@@ -1,45 +1,12 @@
-
 import styled from '../../utils/log/styledLog.js';
-import { GetAccessToken } from '../../services/kommo/GetAccessToken.js';
-import { GetAnswer } from '../../services/kommo/GetAnswer.js';
-import { GetMessageReceived } from '../../services/kommo/GetMessageReceived.js';
-import { Communicator } from '../../utils/assistant-prompt/Communicator.js';
+import RecepcaoServices from '../../services/openaiIntegration/RecepcaoServices.js';
 
 export default class Recepcao {
 
   //Prompt
   static async intencao(req, res) {
-    styled.function('Prompt | BOT - Recepção | Intenção...');
     try {
-      const access_token = GetAccessToken();
-
-      const message_received = await GetMessageReceived(req.body, access_token);
-      const answer = await GetAnswer(req.body, access_token);
-
-      const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
-      const weekOptions = {
-        timeZone: 'America/Recife',
-        weekday: 'long'
-      };
-      const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
-      const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
-
-      const text = `Considere que você esteja analisando a intenção de uma frase digitada por um usuário em um chatbot. Dia de Semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife (GMT-3). Analise a mensagem da clínica (se houver): '${answer}' e veja em quais das situações abaixo se encaixa a intenção da mensagem do usuário: '${message_received}'.
-
-#Saudacao: Para usuário realizando a Saudação (ex: Oi, Olá, Bom dia, Boa noite, Tudo bem? etc).
-
-#ClienteAntigo: Para usuário que já é cliente antigo e queira conversar sobre algum assunto.
-
-#Informacao: Para usuário buscando mais informações ou valores.
-
-#Agendamento: Para usuário com intenção clara de marcar uma consulta inicial.
-
-#Profissional: Para usuário interessados em emprego ou em vender produtos ou serviços.
-
-#Geral: Para os demais assuntos.
-
-Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra" Exemplo: #Agendamento'`;
-      await Communicator.prompt(req, res, text);
+      
     } catch (error) {
       styled.error(`Erro ao enviar prompt: ${error.message}`);
       res.status(500).send('Erro ao enviar prompt');
