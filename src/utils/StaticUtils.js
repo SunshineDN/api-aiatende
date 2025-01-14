@@ -16,7 +16,13 @@ export default class StaticUtils {
     }
 
     static async transcreverAudio(attachment, id) {
-        
+
+    }
+
+    static substituirEmojis(mensagem) {
+        const regexEmoji = /[\p{Emoji_Presentation}\p{Emoji}\uFE0F]/gu;
+
+        return mensagem.replace(regexEmoji, '[emoji]');
     }
 
     static calendarLink(id) {
