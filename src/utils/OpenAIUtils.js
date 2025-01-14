@@ -2,6 +2,7 @@ import axios from 'axios';
 import path from 'path';
 import fs from 'fs';
 import styled from './log/styledLog.js';
+import OpenAI from 'openai';
 
 export default class OpenAIUtils {
   constructor() {
