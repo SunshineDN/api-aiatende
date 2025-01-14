@@ -72,10 +72,10 @@ export default class KommoWebhookServices extends KommoServices {
       if (attachment?.type === 'voice' || attachment?.type === 'audio') {
         const extension = attachment?.file_name.split('.').pop();
         const file_name = `${lead_id}.${extension}`;
-        text = await openaiServices.transcribeAudio(attachment?.link, file_name);
+        novaMensagem = await openaiServices.transcribeAudio(attachment?.link, file_name);
         
       } else {
-        text = '[anexo]';
+        novaMensagem = '[anexo]';
       }
     }
 
@@ -87,7 +87,7 @@ export default class KommoWebhookServices extends KommoServices {
     const leadMessage = LeadUtils.findLeadField({ lead, fieldName: 'GPT | Last messages', value: true });
     const message = leadMessage ? leadMessage.split('\n') : [];
 
-    message.push(novaMensagem);
+    message.push(StaticUtils.substituirEmojis(novaMensagem));
 
     if (message.length > 3) {
       message.shift();

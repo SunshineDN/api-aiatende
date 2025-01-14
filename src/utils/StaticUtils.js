@@ -3,20 +3,10 @@ import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 import styled from "./log/styledLog.js";
 
 export default class StaticUtils {
-    static async processarMensagem({ text = '', attachment = {}, lead_id } = {}) {
-        let conteudo;
+    static substituirEmojis(mensagem) {
+        const regexEmoji = /[\p{Emoji_Presentation}\p{Emoji}\uFE0F]/gu;
 
-        if (attachment && attachment?.type === 'voice' || attachment?.type === 'audio') {
-            conteudo = await StaticUtils.transcreverAudio(attachment, lead_id);
-        } else {
-            conteudo = text;
-        }
-
-        return conteudo;
-    }
-
-    static async transcreverAudio(attachment, id) {
-        
+        return mensagem.replace(regexEmoji, '[emoji]');
     }
 
     static calendarLink(id) {

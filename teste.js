@@ -1196,17 +1196,17 @@ const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env
 
 async function test() {
   const messages = 'olá\ncomo vai?\nTudo bem?';
-  const novaMensagem = 'Tudo ótimo e você?';
+  const novaMensagem = 'Tudo ótimo e você? 🐈';
 
   const text = messages ? messages.split('\n') : [];
-  text.push(novaMensagem);
+  text.push(StaticUtils.substituirEmojis(novaMensagem));
   if (text.length > 3) {
     text.shift();
   }
 
   const message_send = text.join('\n');
 
-  console.log(typeof message_send);
+  console.log(message_send);
 }
 
 test();
