@@ -1,6 +1,7 @@
 import KommoUtils from "../../utils/KommoUtils.js";
 import LeadUtils from "../../utils/LeadUtils.js";
 import styled from "../../utils/log/styledLog.js";
+import StaticUtils from "../../utils/StaticUtils.js";
 import OpenAIServices from "../gpt/OpenAIServices.js";
 import KommoServices from "./KommoServices.js";
 
@@ -17,25 +18,14 @@ export default class KommoWebhookServices extends KommoServices {
     const calendario = LeadUtils.findLeadField({ lead, fieldName: 'Calendário', value: true });
     const criacao = LeadUtils.findLeadField({ lead, fieldName: 'Data de Criação', value: true });
 
-    const options = {
-      method: 'PATCH',
-      url: `${this.url}/api/v4/leads/${id}`,
-      headers: {
-        'accept': 'application/json',
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${this.auth}`
-      },
-      data: {
-        custom_fields_values: []
-      }
-    };
+    const custom_fields_values = [];
 
     if (calendar) {
       if (!calendario) {
         const calendarField = kommoUtils.findLeadsFieldByName('Calendário');
         const calendarLink = StaticUtils.calendarLink(id);
 
-        options.data.custom_fields_values.push({
+        custom_fields_values.push({
           field_id: calendarField.id,
           values: [
             {
@@ -44,7 +34,7 @@ export default class KommoWebhookServices extends KommoServices {
           ]
         });
       } else {
-        styled.warning('[KommoServices.webhookCreate] - Calendário já existe no Lead');
+        styled.warning('[KommoServices.createLead] - Calendário já existe no Lead');
       }
     }
 
@@ -53,9 +43,9 @@ export default class KommoWebhookServices extends KommoServices {
         const createdAtField = kommoUtils.findLeadsFieldByName('Data de Criação');
         let createdAt = lead?.created_at;
         if (!createdAt) {
-          createdAt = new Date().getTime() / 1000;
+          createdAt = Math.round(new Date().getTime() / 1000);
         }
-        options.data.custom_fields_values.push({
+        custom_fields_values.push({
           field_id: createdAtField.id,
           values: [
             {
@@ -64,13 +54,13 @@ export default class KommoWebhookServices extends KommoServices {
           ]
         });
       } else {
-        styled.warning('[KommoServices.webhookCreate] - Data de Criação já existe no Lead');
+        styled.warning('[KommoServices.createLead] - Data de Criação já existe no Lead');
       }
     }
 
-    const { data } = await axios.request(options);
-    styled.success('[KommoServices.webhookCreate] - Webhook Geral de criação de leads executado');
-    return { code: 200, response: data };
+    const res = await this.updateLead({ id, custom_fields_values });
+    styled.success('[KommoServices.createLead] - Webhook Geral de criação de leads executado');
+    return { code: 200, response: res };
   }
 
   async messageReceived({ lead_id, attachment = {}, text = '' } = {}) {
@@ -103,21 +93,21 @@ export default class KommoWebhookServices extends KommoServices {
       message.shift();
     }
 
-    message.join('\n');
+    const send_message = message.join('\n');
 
     const custom_fields_values = [
       {
         field_id: lastMessages.id,
         values: [
           {
-            value: message
+            value: send_message
           }
         ]
       },
     ]
 
-    await this.updateLead({ id: lead_id, custom_fields_values });
-
+    const res = await this.updateLead({ id: lead_id, custom_fields_values });
     styled.info('Preenchido mensagem do lead:', message);
+    return { code: 200, response: res };
   }
 }
