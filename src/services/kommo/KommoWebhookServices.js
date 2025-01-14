@@ -93,14 +93,14 @@ export default class KommoWebhookServices extends KommoServices {
       message.shift();
     }
 
-    message.join('\n');
+    const send_message = message.join('\n');
 
     const custom_fields_values = [
       {
         field_id: lastMessages.id,
         values: [
           {
-            value: message
+            value: send_message
           }
         ]
       },

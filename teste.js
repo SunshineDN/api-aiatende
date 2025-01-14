@@ -1194,28 +1194,19 @@ import DateUtils from './src/utils/DateUtils.js';
 
 const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
 
-async function test({ text = '', attachment = {}, lead_id } = {}) {
-  if (Object.keys(attachment).length > 0) {
-    if (attachment?.type === 'voice' || attachment?.type === 'audio') {
-      console.log('AUDIO ou VOZ');
-      return;
-    } else {
-      text = '[anexo]';
-    }
+async function test() {
+  const messages = 'olá\ncomo vai?\nTudo bem?';
+  const novaMensagem = 'Tudo ótimo e você?';
+
+  const text = messages ? messages.split('\n') : [];
+  text.push(novaMensagem);
+  if (text.length > 3) {
+    text.shift();
   }
-  console.log(text)
-  // const file_name = 'audio.mp3';
-  // const extension = file_name.split('.').pop();
-  // console.log(extension)
+
+  const message_send = text.join('\n');
+
+  console.log(typeof message_send);
 }
 
-const payload = {
-  text: 'Olá, tudo bem?',
-  attachment: {
-    type: 'audio',
-    url: 'https://www.google.com.br/audio.mp3'
-  },
-  lead_id: 19030890
-}
-
-test({ lead_id: payload.lead_id, text: payload.text, attachment: payload?.attachment });
+test();
