@@ -2,6 +2,7 @@ import axios from 'axios';
 import path from 'path';
 import fs from 'fs';
 import styled from './log/styledLog.js';
+import OpenAI from 'openai';
 
 export default class OpenAIUtils {
   constructor() {
@@ -49,7 +50,7 @@ export default class OpenAIUtils {
 
     const file = fs.createReadStream(filePath);
 
-    const transcription = await openai.audio.transcriptions.create({
+    const transcription = await this.openai.audio.transcriptions.create({
       file: file,
       model: 'whisper-1',
     });
