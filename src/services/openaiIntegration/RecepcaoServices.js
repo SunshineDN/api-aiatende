@@ -53,14 +53,12 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
   }
 
   //Assistente
-  async indefinido(assistant_url) {
-    styled.function('Assistant | BOT - Recepção | Indefinido...');
+  async indefinido(assistant_id) {
     try {
-      const access_token = GetAccessToken();
-      const { lead_id: leadID } = req.body;
-      const { assistant_id } = req.params;
+      styled.function('[RecepcaoServices.indefinido] Recepção | Indefinido...');
+      const lead = await this.kommo.getLead({ id: this.lead_id });
 
-      const message_received = await GetMessageReceived(req.body, access_token);
+      const message_received = await LeadUtils.findLeadField({ lead, fieldName: 'GPT | Message Received', value: true });
 
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
       const weekOptions = {
@@ -77,12 +75,13 @@ Recebendo um usuário novo. Inicie a conversa perguntando o seu nome, caso já t
 User message: '${message_received}'`;
 
       const data = {
-        leadID,
+        leadID: this.lead_id,
         text,
         assistant_id,
       };
 
-      await Communicator.assistant(req, res, data);
+      const response = await this.openaiIntegrationUtils.assistant(this.lead_id, data);
+      return { code: 200, message: 'Mensagem enviada com sucesso', response };
     } catch (error) {
       styled.error(`Erro ao enviar mensagem para a assistente: ${error.message}`);
       res.status(500).send('Erro ao enviar mensagem para a assistente');

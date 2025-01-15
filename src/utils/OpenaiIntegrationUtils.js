@@ -7,10 +7,9 @@ export default class OpenaiIntegrationUtils {
     this.kommoOpenaiServices = new KommoOpenaiServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
   }
 
-  async assistant(lead_id, data) {
+  async assistant(lead_id, text, assistant_id) {
     styled.function('[OpenaiIntegrationUtils.assistant] Enviando para o assistente GPT...');
-    styled.info('[OpenaiIntegrationUtils.assistant] Mensagem enviada para o assistente:', data.text);
-
+    styled.info('[OpenaiIntegrationUtils.assistant] Mensagem enviada para o assistente:', text);
     const { message } = await OpenAIController.generateMessage(data);
 
     styled.success('[OpenaiIntegrationUtils.assistant] Resposta recebida do assistente:', message);
