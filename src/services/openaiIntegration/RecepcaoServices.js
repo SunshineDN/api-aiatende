@@ -48,13 +48,45 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
     } catch (error) {
       styled.error(`[RecepcaoServices.intencao] Erro ao enviar mensagem para o assistente`);
       await this.kommo.sendErrorLog({ lead_id, error: `[RecepcaoServices.intencao] ${error?.message}` });
-      throw new Error(error)
+      throw new Error(error);
     }
   }
 
   //Assistente
   async indefinido(assistant_url) {
+    styled.function('Assistant | BOT - Recepção | Indefinido...');
+    try {
+      const access_token = GetAccessToken();
+      const { lead_id: leadID } = req.body;
+      const { assistant_id } = req.params;
 
+      const message_received = await GetMessageReceived(req.body, access_token);
+
+      const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
+      const weekOptions = {
+        timeZone: 'America/Recife',
+        weekday: 'long'
+      };
+      const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
+      const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
+
+      const text = `System message: 'Adote a informação, dia de semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife (GMT-3).
+
+Recebendo um usuário novo. Inicie a conversa perguntando o seu nome, caso já tenha o seu nome utilize, pois demonstra maior proximidade, e na sequência entenda os seus interesses e as suas dúvidas.'  
+
+User message: '${message_received}'`;
+
+      const data = {
+        leadID,
+        text,
+        assistant_id,
+      };
+
+      await Communicator.assistant(req, res, data);
+    } catch (error) {
+      styled.error(`Erro ao enviar mensagem para a assistente: ${error.message}`);
+      res.status(500).send('Erro ao enviar mensagem para a assistente');
+    }
   }
 
 }

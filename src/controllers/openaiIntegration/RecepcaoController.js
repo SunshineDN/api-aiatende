@@ -6,48 +6,20 @@ export default class Recepcao {
   //Prompt
   static async intencao(req, res) {
     try {
-      
+      const { lead_id } = req.body;
+      const recepcaoServices = new RecepcaoServices(lead_id);
+      const response = await recepcaoServices.intencao();
+      return res.status(response.code).send(response);
+
     } catch (error) {
-      styled.error(`Erro ao enviar prompt: ${error.message}`);
-      res.status(500).send('Erro ao enviar prompt');
+      console.error(error);
+      return res.status(500).send({ message: 'Erro ao enviar prompt', error: error.message });
     }
   }
 
   //Assistente
   static async indefinido(req, res) {
-    styled.function('Assistant | BOT - Recepção | Indefinido...');
-    try {
-      const access_token = GetAccessToken();
-      const { lead_id: leadID } = req.body;
-      const { assistant_id } = req.params;
-
-      const message_received = await GetMessageReceived(req.body, access_token);
-
-      const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
-      const weekOptions = {
-        timeZone: 'America/Recife',
-        weekday: 'long'
-      };
-      const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
-      const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
-
-      const text = `System message: 'Adote a informação, dia de semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife (GMT-3).
-
-Recebendo um usuário novo. Inicie a conversa perguntando o seu nome, caso já tenha o seu nome utilize, pois demonstra maior proximidade, e na sequência entenda os seus interesses e as suas dúvidas.'  
-
-User message: '${message_received}'`;
-
-      const data = {
-        leadID,
-        text,
-        assistant_id,
-      };
-
-      await Communicator.assistant(req, res, data);
-    } catch (error) {
-      styled.error(`Erro ao enviar mensagem para a assistente: ${error.message}`);
-      res.status(500).send('Erro ao enviar mensagem para a assistente');
-    }
+    
   }
 
   //Assistente
