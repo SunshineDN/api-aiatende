@@ -60,7 +60,7 @@ export default class OpenaiIntegrationServices extends KommoServices {
     styled.info('[OpenaiIntegrationServices.assistant] Mensagem enviada para o assistente:', text);
 
     const data = {
-      leadId: lead_id,
+      leadID: lead_id,
       text,
       assistantId: assistant_id
     }
@@ -69,7 +69,11 @@ export default class OpenaiIntegrationServices extends KommoServices {
 
     styled.success('[OpenaiIntegrationServices.assistant] Resposta recebida do assistente:', message);
 
-    return await this.#sendMessage({ lead_id, message });
+    const updated = await this.#sendMessage({ lead_id, message });
+    return {
+      generated_message: message,
+      updated
+    }
   }
 
   async prompt(lead_id, text) {
@@ -80,6 +84,10 @@ export default class OpenaiIntegrationServices extends KommoServices {
 
     styled.success('[OpenaiIntegrationServices.prompt] Resposta recebida do prompt:', message);
 
-    return await this.#sendMessage({ lead_id, message });
+    const updated = await this.#sendMessage({ lead_id, message });
+    return {
+      generated_message: message,
+      updated
+    }
   }
 };

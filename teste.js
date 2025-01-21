@@ -1183,6 +1183,7 @@ import styled from './src/utils/log/styledLog.js';
 //   return mensagem.replace(regexEmoji, textoPadrao);
 // }
 
+import RecepcaoServices from './src/services/openaiIntegration/RecepcaoServices.js';
 import KommoServices from './src/services/kommo/KommoServices.js';
 import KommoUtils from './src/utils/KommoUtils.js';
 import StaticUtils from './src/utils/StaticUtils.js';
@@ -1197,8 +1198,11 @@ import DateUtils from './src/utils/DateUtils.js';
 
 // DENTAL SANTE
 const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
+const recepcaoServices = new RecepcaoServices(19030890);
 
 async function test() {
+  const response = recepcaoServices.nao_qualificado('YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA');
+  console.dir(response, { depth: null });
 }
 
 test();
