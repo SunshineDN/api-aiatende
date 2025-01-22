@@ -14,7 +14,7 @@ export default class RecepcaoServices {
       styled.function('[RecepcaoServices.intencao] Recepção | Intenção...');
       const lead = await this.kommo.getLead({ id: this.lead_id });
 
-      const message_received = await LeadUtils.findLeadField({ lead, fieldName: 'GPT | Message Received', value: true });
+      const message_received = await LeadUtils.findLeadField({ lead, fieldName: 'GPT | Message received', value: true });
       const answer = await LeadUtils.findLeadField({ lead, fieldName: 'GPT | Answer', value: true });
 
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
@@ -47,7 +47,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
     } catch (error) {
       styled.error(`[RecepcaoServices.intencao] Erro ao enviar mensagem para o prompt`);
       await this.kommo.sendErrorLog({ lead_id: this.lead_id, error: `[RecepcaoServices.intencao] ${error?.message}` });
-      throw new Error(error);
+      throw error;
     }
   }
 
@@ -57,7 +57,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
       styled.function('[RecepcaoServices.indefinido] Recepção | Indefinido...');
       const lead = await this.kommo.getLead({ id: this.lead_id });
 
-      const message_received = await LeadUtils.findLeadField({ lead, fieldName: 'GPT | Message Received', value: true });
+      const message_received = await LeadUtils.findLeadField({ lead, fieldName: 'GPT | Message received', value: true });
 
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
       const weekOptions = {
@@ -79,15 +79,16 @@ User message: '${message_received}'`;
     } catch (error) {
       styled.error(`[RecepcaoServices.indefinido] Erro ao enviar mensagem para o assistente`);
       await this.kommo.sendErrorLog({ lead_id: this.lead_id, error: `[RecepcaoServices.indefinido] ${error?.message}` });
-      throw new Error(error);
+      throw error;
     }
   }
 
   async nao_qualificado(assistant_id) {
     try {
+      styled.function('[RecepcaoServices.nao_qualificado] Recepção | Não Qualificado...');
       const lead = await this.kommo.getLead({ id: this.lead_id });
 
-      const message_received = await LeadUtils.findLeadField({ lead, fieldName: 'GPT | Message Received', value: true });
+      const message_received = await LeadUtils.findLeadField({ lead, fieldName: 'GPT | Message received', value: true });
 
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
       const weekOptions = {
@@ -135,7 +136,7 @@ User message: '${message_received}'`;
     } catch (error) {
       styled.error(`[RecepcaoServices.nao_qualificado] Erro ao enviar mensagem para o assistente`);
       await this.kommo.sendErrorLog({ lead_id: this.lead_id, error: `[RecepcaoServices.nao_qualificado] ${error?.message}` });
-      throw new Error(error);
+      throw error;
     }
   }
 }

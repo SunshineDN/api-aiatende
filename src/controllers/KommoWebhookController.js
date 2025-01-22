@@ -23,7 +23,7 @@ export default class KommoWebhookController {
   async messageReceived(req, res) {
     try {
       const { body } = req;
-      const response = await this.kommo.messageReceived({ lead_id: body?.lead_id, attachment: body?.attachment, text: body?.text });
+      const response = await this.kommo.messageReceived(body);
       res.status(200).json(response);
     } catch (error) {
       styled.error('[KommoWebhookController.messageReceived] Erro');

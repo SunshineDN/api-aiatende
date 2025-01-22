@@ -36,11 +36,10 @@ export default class Recepcao {
 
   //Assistente
   static async nao_qualificado(req, res) {
-    styled.function('Assistant | BOT - Recepção | Não Qualificado...');
     try {
-      const { lead_id: leadID } = req.body;
+      const { lead_id } = req.body;
       const { assistant_id } = req.params;
-      const recepcaoServices = new RecepcaoServices(leadID);
+      const recepcaoServices = new RecepcaoServices(lead_id);
       const response = await recepcaoServices.nao_qualificado(assistant_id);
       return res.status(response.code).send(response);
       

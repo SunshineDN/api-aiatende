@@ -1201,8 +1201,20 @@ const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env
 const recepcaoServices = new RecepcaoServices(19030890);
 
 async function test() {
-  const response = recepcaoServices.nao_qualificado('YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA');
-  console.dir(response, { depth: null });
+  const text = 'https://a.com'
+  const text2 = 'asda.ssd/asdw 123'
+  const text3 = 'https://'
+  const text4 = 'http://'
+  const text5 = 'sim'
+  const text6 = 'nao'
+  const text7 = 'issomsms'
+  console.log(StaticUtils.isUrl(text));
+  console.log(StaticUtils.isUrl(text2));
+  console.log(StaticUtils.isUrl(text3));
+  console.log(StaticUtils.isUrl(text4));
+  console.log(StaticUtils.isUrl(text5));
+  console.log(StaticUtils.isUrl(text6));
+  console.log(StaticUtils.isUrl(text7));
 }
 
 test();

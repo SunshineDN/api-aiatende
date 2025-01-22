@@ -62,7 +62,7 @@ export default class OpenaiIntegrationServices extends KommoServices {
     const data = {
       leadID: lead_id,
       text,
-      assistantId: assistant_id
+      assistant_id
     }
 
     const { message } = await OpenAIController.generateMessage(data);

@@ -4,6 +4,7 @@ import styled from "../../utils/log/styledLog.js";
 import StaticUtils from "../../utils/StaticUtils.js";
 import OpenAIServices from "../gpt/OpenAIServices.js";
 import KommoServices from "./KommoServices.js";
+import LeadMessagesRepository from "../../repositories/LeadMessagesRepository.js";
 
 export default class KommoWebhookServices extends KommoServices {
   constructor({ auth, url }) {
@@ -63,37 +64,47 @@ export default class KommoWebhookServices extends KommoServices {
     return { code: 200, response: res };
   }
 
-  async messageReceived({ lead_id, attachment = {}, text = '' } = {}) {
+  async messageReceived(obj) {
+    //{ lead_id, attachment = {}, text = '' } = {}
     styled.function('[KommoWebhookServices.messageReceived]');
-    const openaiServices = new OpenAIServices();
-    let novaMensagem = text;
+    const { lead_id } = obj;
+    const { attachment = {}, text = '' } = obj.message;
+    const leadMessageRepository = new LeadMessagesRepository();
 
+    const send_at = obj?.message?.created_at;
+    const repeated = await leadMessageRepository.verifySendDate(lead_id, send_at);
+
+    if (repeated) {
+      styled.warning('[KommoWebhookServices.messageReceived] - Mensagem repetida');
+      return { code: 200, response: { repeated: true } };
+    }
+
+    const openaiServices = new OpenAIServices();
+    obj.message.lead_message = StaticUtils.isUrl(text) ? '[url]' : StaticUtils.substituirEmojis(text);
+    
     if (Object.keys(attachment).length > 0) {
       if (attachment?.type === 'voice' || attachment?.type === 'audio') {
         const extension = attachment?.file_name.split('.').pop();
         const file_name = `${lead_id}.${extension}`;
-        novaMensagem = await openaiServices.transcribeAudio(attachment?.link, file_name);
-        
+        obj.message.lead_message = await openaiServices.transcribeAudio(attachment?.link, file_name);
+
       } else {
-        novaMensagem = '[anexo]';
+        obj.message.lead_message = '[anexo]';
+
       }
     }
+    
+    await leadMessageRepository.verifyAndUpdate(lead_id, obj.message);
 
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields() });
-    const lead = await this.getLead({ id: lead_id });
-
+    // const lead = await this.getLead({ id: lead_id });
+    
     const lastMessages = kommoUtils.findLeadsFieldByName('GPT | Last messages');
 
-    const leadMessage = LeadUtils.findLeadField({ lead, fieldName: 'GPT | Last messages', value: true });
-    const message = leadMessage ? leadMessage.split('\n') : [];
+    const lead_messages = await leadMessageRepository.getLastMessages(lead_id) || [];
+    // const leadMessage = LeadUtils.findLeadField({ lead, fieldName: 'GPT | Last messages', value: true });
 
-    message.push(StaticUtils.substituirEmojis(novaMensagem));
-
-    if (message.length > 3) {
-      message.shift();
-    }
-
-    const send_message = message.join('\n');
+    const send_message = lead_messages.join('\n');
 
     const custom_fields_values = [
       {
