@@ -93,29 +93,23 @@ export default class KommoWebhookServices extends KommoServices {
 
       }
     }
-    
+
     await leadMessageRepository.verifyAndUpdate(lead_id, obj.message);
+    const lead_messages = await leadMessageRepository.getLastMessages(lead_id);
 
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields() });
-    // const lead = await this.getLead({ id: lead_id });
-    
     const lastMessages = kommoUtils.findLeadsFieldByName('GPT | Last messages');
-
-    const lead_messages = await leadMessageRepository.getLastMessages(lead_id) || [];
-    // const leadMessage = LeadUtils.findLeadField({ lead, fieldName: 'GPT | Last messages', value: true });
-
-    const send_message = lead_messages.join('\n');
 
     const custom_fields_values = [
       {
         field_id: lastMessages.id,
         values: [
           {
-            value: send_message
+            value: lead_messages
           }
         ]
       },
-    ]
+    ];
 
     const res = await this.updateLead({ id: lead_id, custom_fields_values });
     styled.success('Preenchido mensagem do lead:', send_message);

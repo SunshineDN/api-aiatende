@@ -42,6 +42,7 @@ export default class LeadMessagesRepository extends BaseRepository {
     const lead_messages = lead_message.messages;
     if (!lead_messages || !lead_messages.length) return [];
 
-    return lead_messages.slice(-limit).map(msg => msg.lead_message);
+    const messages = lead_messages.slice(-limit).map(msg => msg.lead_message);
+    return messages.join('\n');
   }
 }
