@@ -11,6 +11,10 @@
       "description": "Servidor Local"
     },
     {
+      "url": "https://teste.aiatende.dev.br/api",
+      "description": "Servidor Local"
+    },
+    {
       "url": "https://dentalsante.aiatende.dev.br/api",
       "description": "Servidor de Produção"
     },
