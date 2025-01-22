@@ -22,6 +22,8 @@ export const colors = {
   lightCyan: '\x1b[96m',
   white: '\x1b[97m',
   orange: '\x1b[38;5;208m',
+  yellow: '\x1b[38;5;226m',
+  bgYellow: '\x1b[48;5;226m',
   bgOrange: '\x1b[48;5;208m',
   bgBlack: '\x1b[40m',
   bgRed: '\x1b[41m',

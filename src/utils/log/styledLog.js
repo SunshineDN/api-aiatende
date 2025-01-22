@@ -118,6 +118,11 @@ export default class styledLog {
     console.log(`${styledLog.prefix()} ${styledJson}`);
   }
 
+  // Console debug for database logging
+  static db(msg) {
+    console.log(`\n${styledLog.prefix()}${colors.bgYellow}${colors.white}${colors.bold}   \u{26C1}   ${colors.reset}${colors.yellow}${colors.bold} DATABASE: ${colors.reset}${colors.yellow}${msg}${colors.reset}\n`);
+  }
+
   static test(...data) {
     let message = data.join(' ');
     const messageArray = message
