@@ -29,7 +29,7 @@ export default class RecepcaoServices {
 
 #Saudacao: Para usuário realizando a Saudação (ex: Oi, Olá, Bom dia, Boa noite, Tudo bem? etc).
 
-#ClienteAntigo: Para usuário que já é cliente antigo e queira conversar sobre algum assunto.
+#ClienteAntigo: Para usuário que já é cliente antigo e queira conversar sobre algum assunto, ou para o usuário que já que já tinha algum tipo de histórico de conversa anteriormente.
 
 #Informacao: Para usuário buscando mais informações ou valores.
 
