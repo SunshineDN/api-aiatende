@@ -29,7 +29,7 @@ export default class WebCalendarServices {
       };
     }
 
-    const dentistaNome = StaticUtils.getDentistName(dentista);
+    const dentistaNome = StaticUtils.getCalendarName(dentista);
 
     const calendar = new CalendarUtils();
     const calendarId = CalendarUtils.idValidate(dentista);
@@ -193,7 +193,7 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON.`;
 
     const summary = `${nome} - ${procedimento}`;
     const calendar = new CalendarUtils();
-    const dentistaNome = StaticUtils.getDentistName(dentista);
+    const dentistaNome = StaticUtils.getCalendarName(dentista);
     const calendarId = CalendarUtils.idValidate(dentistaNome);
 
     const startDateTime = StaticUtils.toDateTime(`${data} ${horario}`);

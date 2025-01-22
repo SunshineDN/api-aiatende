@@ -76,7 +76,7 @@ export default class StaticUtils {
         return new Date(date.getTime() - diff);
     }
 
-    static getDentistName(dentist) {
+    static getCalendarName(dentist) {
         if (dentist?.includes('Juliana Leite')) {
             return 'Dra. Juliana Leite';
         } else if (dentist?.includes('Lucília')) {
