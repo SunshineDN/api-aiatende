@@ -15,7 +15,7 @@ export default class StaticUtils {
     }
 
     static substituirEmojis(mensagem) {
-        const regexEmoji = /[\p{Emoji_Presentation}\p{Emoji}\uFE0F]/gu;
+        const regexEmoji = /[\p{Extended_Pictographic}]/gu;
 
         return mensagem.replace(regexEmoji, '[emoji]');
     }

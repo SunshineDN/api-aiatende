@@ -1207,14 +1207,14 @@ async function test() {
   const text4 = 'http://'
   const text5 = 'sim'
   const text6 = 'nao'
-  const text7 = 'issomsms'
-  console.log(StaticUtils.isUrl(text));
-  console.log(StaticUtils.isUrl(text2));
-  console.log(StaticUtils.isUrl(text3));
-  console.log(StaticUtils.isUrl(text4));
-  console.log(StaticUtils.isUrl(text5));
-  console.log(StaticUtils.isUrl(text6));
-  console.log(StaticUtils.isUrl(text7));
+  const text7 = 'Sim :3 confirmo para às 9:00 da manhã ✅❌✅🆗⚠️🤣🌙😂🐈💬👍😂🌙🤣'
+  console.log(StaticUtils.substituirEmojis(text));
+  console.log(StaticUtils.substituirEmojis(text2));
+  console.log(StaticUtils.substituirEmojis(text3));
+  console.log(StaticUtils.substituirEmojis(text4));
+  console.log(StaticUtils.substituirEmojis(text5));
+  console.log(StaticUtils.substituirEmojis(text6));
+  console.log(StaticUtils.substituirEmojis(text7));
 }
 
 test();
