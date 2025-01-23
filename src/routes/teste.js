@@ -1,8 +1,9 @@
 import express from 'express';
 import kommoMiddleware from '../middlewares/kommoMiddleware.js';
-import messageReceivedMiddleware from '../middlewares/messageReceivedMiddleware.js';
+import WebhookMiddleware from '../middlewares/WebhookMiddleware.js';
 
 const router = express.Router();
+
 
 router.use(express.urlencoded({ extended: true }));
 router.get('/get', kommoMiddleware, (_, res) => {
@@ -13,7 +14,7 @@ router.post('/', kommoMiddleware, (req, res) => {
   res.json(req.body);
 });
 
-router.post('/webhook',messageReceivedMiddleware, (req, res) => {
+router.post('/webhook',WebhookMiddleware.messageReceived, (req, res) => {
   res.json(req.body);
 });
 
