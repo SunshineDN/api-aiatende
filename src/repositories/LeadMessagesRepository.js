@@ -37,10 +37,10 @@ export default class LeadMessagesRepository extends BaseRepository {
 
   async getLastMessages(lead_id, limit = 3) {
     const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
-    if (!lead_message) return [];
+    if (!lead_message) return '';
 
     const lead_messages = lead_message.messages;
-    if (!lead_messages || !lead_messages.length) return [];
+    if (!lead_messages || !lead_messages.length) return '';
 
     const messages = lead_messages.slice(-limit).map(msg => msg.lead_message);
     return messages.join('\n');

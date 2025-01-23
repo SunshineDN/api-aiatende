@@ -43,4 +43,10 @@ import recepcaoPromptRouter from './recepcao/prompt/index.js';
 router.use('/recepcao/assistant', recepcaoAssistenteRouter);
 router.use('/recepcao/prompt', recepcaoPromptRouter);
 
+// Roteamento para as subpastas de /gpt/v2/reaquecimento
+import reaquecimentoAssistenteRouter from './reaquecimento/assistente/index.js';
+import reaquecimentoPromptRouter from './reaquecimento/prompt/index.js';
+router.use('/reaquecimento/assistant', reaquecimentoAssistenteRouter);
+router.use('/reaquecimento/prompt', reaquecimentoPromptRouter);
+
 export default router;
