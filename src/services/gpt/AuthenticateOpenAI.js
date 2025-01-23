@@ -1,6 +1,3 @@
-require('dotenv').config();
-const OpenAI = require('openai');
+import OpenAI from 'openai';
 
-const openai = new OpenAI(process.env.OPENAI_API_KEY);
-
-module.exports = openai;
+export const openai = new OpenAI(process.env.OPENAI_API_KEY);

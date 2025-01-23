@@ -1,17 +1,16 @@
-const express = require('express');
+import express from 'express';
+import styled from '../utils/log/styledLog.js';
+import CalendarController from '../controllers/CalendarController.js';
+import WebCalendarController from '../controllers/WebCalendarController.js';
+
 const router = express.Router();
-const CalendarController = require('../controllers/CalendarController');
-const decryptId = require('../utils/crypt/DecryptId');
-const styled = require('../utils/log/styledLog');
 
 router.use(express.json({ type: 'application/json' }));
 
-router.use((req, res, next) => {
-  styled.info('Time: ', Date.now());
-  styled.info('Request Type: ', req.method);
-  styled.info('Request URL: ', req.originalUrl);
-  req.body.lead_id = decryptId(req.body.lead_id);
-  styled.info('Request Body: ', req.body);
+router.use((req, _, next) => {
+  styled.middleware('Request Type: ', req.method);
+  styled.middleware('Request URL: ', req.originalUrl);
+  styled.middlewaredir('Request Body: ', req.body);
   next();
 });
 
@@ -19,4 +18,12 @@ router.get('/', CalendarController.index);
 
 router.post('/listEvents', CalendarController.listEventsWeb);
 
-module.exports = router;
+router.post('/initial', WebCalendarController.initial);
+
+router.post('/default', WebCalendarController.default);
+
+router.post('/choice', WebCalendarController.choice);
+
+router.post('/register', WebCalendarController.register);
+
+export default router;

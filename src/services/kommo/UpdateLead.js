@@ -1,9 +1,9 @@
-const axios = require('axios');
-const GetAccessToken = require('./GetAccessToken');
-const HandlingError = require('./HandlingError');
-const styled = require('../../utils/log/styledLog');
+import axios from 'axios';
+import styled from '../../utils/log/styledLog.js';
+import { GetAccessToken } from './GetAccessToken.js';
+import { HandlingError } from './HandlingError.js';
 
-const UpdateLead = async (payload, data, access_token = null) => {
+export const UpdateLead = async (payload, data, access_token = null) => {
   // console.log('Função UpdateLead');
   // console.log('Payload:', payload);
   // Example = {
@@ -20,7 +20,7 @@ const UpdateLead = async (payload, data, access_token = null) => {
   const domain = `https://${subdomain}.kommo.com`;
   try {
     if (!access_token) {
-      access_token = await GetAccessToken(payload);
+      access_token = GetAccessToken()
     }
     
     const options = {
@@ -45,5 +45,3 @@ const UpdateLead = async (payload, data, access_token = null) => {
     throw new Error('Erro no UpdateLead');
   }
 };
-
-module.exports = UpdateLead;

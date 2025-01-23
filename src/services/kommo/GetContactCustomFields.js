@@ -1,16 +1,16 @@
-const axios = require('axios');
-const GetAccessToken = require('./GetAccessToken');
-const HandlingError = require('./HandlingError');
-const styled = require('../../utils/log/styledLog');
+import axios from 'axios';
+import styled from '../../utils/log/styledLog.js';
+import { GetAccessToken } from './GetAccessToken.js';
+import { HandlingError } from './HandlingError.js';
 
-const GetContactCustomFields = async (payload, access_token = null) => {
+export const GetContactCustomFields = async (payload, access_token = null) => {
   // console.log('Função GetContactCustomFields!');
 
   const { account: { account_domain: domain } } = payload;
   try {
     let custom_fields;
     if (!access_token) {
-      access_token = await GetAccessToken(payload);
+      access_token = GetAccessToken()
     }
     
     try {
@@ -41,5 +41,3 @@ const GetContactCustomFields = async (payload, access_token = null) => {
     throw new Error('Erro no GetContactCustomFields');
   }
 };
-
-module.exports = GetContactCustomFields;

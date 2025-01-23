@@ -1,14 +1,14 @@
-require('dotenv').config();
-const OpenAIController = require('../controllers/OpenAIController');
-const GetAccessToken = require('../services/kommo/GetAccessToken');
-const GetAnswer = require('../services/kommo/GetAnswer');
-const GetMessageReceived = require('../services/kommo/GetMessageReceived');
-const GetUser = require('../services/kommo/GetUser');
-const SendLog = require('../services/kommo/SendLog');
-const SendMessage = require('../services/kommo/SendMessage');
-const SetActualDateHour = require('../services/kommo/SetActualDateHour');
-const CalendarIdValidate = require('../utils/calendar/CalendarIdValidate');
-const CalendarUtils = require('../utils/calendar/CalendarUtils');
+
+const OpenAIController = require('../controllers/OpenAIController.js');
+const GetAccessToken = require('../services/kommo/GetAccessToken.js');
+const GetAnswer = require('../services/kommo/GetAnswer.js');
+const GetMessageReceived = require('../services/kommo/GetMessageReceived.js');
+const GetUser = require('../services/kommo/GetUser.js');
+const SendLog = require('../services/kommo/SendLog.js');
+const SendMessage = require('../services/kommo/SendMessage.js');
+const SetActualDateHour = require('../services/kommo/SetActualDateHour.js');
+const CalendarIdValidate = require('../utils/calendar/CalendarIdValidate.js');
+const CalendarUtils = require('../utils/calendar/CalendarUtils.js');
 
 
 class PromptD {
@@ -29,7 +29,7 @@ class PromptD {
     let access_token;
     try {
       console.log('Enviando prompt...');
-      access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      access_token = GetAccessToken();
       const { message } = await OpenAIController.promptMessage(text);
       console.log('Mensagem enviada para o prompt:', text);
       await SendMessage(req.body, false, message, access_token);
@@ -47,7 +47,7 @@ class PromptD {
   async d_intencao(req, res) {
     console.log('Verificando intenção | Intenção do usuário...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const answer = await GetAnswer(req.body, access_token);
       const message_received = await GetMessageReceived(req.body, access_token);
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
@@ -95,7 +95,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
   async d_verificar_confirmacao(req, res) {
     console.log('Verificando confirmação | Confirmação de datas...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const answer = await GetAnswer(req.body, access_token);
       const message_received = await GetMessageReceived(req.body, access_token);
 
@@ -137,7 +137,7 @@ Responda apenas com o ID correspondente da opção, que segue este padrão: "#pa
   async d_confirmar_data(req, res) {
     console.log('Confirmando data | Confirmação de datas...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
 
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
       const weekOptions = {
@@ -175,8 +175,8 @@ Não formate as linhas da resposta solicitada.`;
   async d_verificar_agenda_especialista(req, res) {
     console.log('Verificando agenda do especialista | Agenda do especialista...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
-      const CalendarUtilsClass = new CalendarUtils(req.body.account.id);
+      const access_token = GetAccessToken();
+      const CalendarUtilsClass = new CalendarUtils();
       // const actual_date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
       // const weekOptions = {
       //   timeZone: 'America/Recife',
@@ -197,9 +197,9 @@ Não formate as linhas da resposta solicitada.`;
 
       let dates;
       try {
-        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado', req.body.account.id));
+        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado'));
       } catch {
-        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado', req.body.account.id));
+        dates = await CalendarUtilsClass.listAvailableDate(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não encontrado'));
       }
 
       const text = `Observe a frase a seguir: '${choice_date?.values[0]?.value}'. Capture a data e horário contida na frase e identifique se ela existe como opção na *Agenda Disponível* a seguir:

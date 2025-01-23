@@ -1,3 +1,5 @@
+# Exemplo de arquivo docker-compose.yml
+# Altere todos os valores que estão com # para os valores do seu projeto
 services:
   dental_sante_database:
     image: postgres:16
@@ -17,8 +19,13 @@ services:
     command: "npm run start"
     working_dir: /home/node/app
     environment:
-      - TABLE_NAME=lead_threads # Altere o nome da tabela
-      - DB_URL=postgres://DB_USER:DB_PASS@DB_HOST:DB_PORT/DB_NAME # Altere as informações de conexão com o banco de dados
+      - PROJECT_NAME= # Nome do projeto
+      - DOMAIN= # Domínio da aplicação
+      - ACCESS_TOKEN= # Token de acesso do Kommo
+      - KOMMO_AUTH= # Token de acesso do Kommo (EM TESTE)
+      - KOMMO_URL= # URL do Kommo
+      - OPENAI_API_KEY= # Chave de API do OpenAI
+      - DB_URL=postgres://DB_USER:DB_PASS@DB_HOST:DB_PORT/DB_NAME # URL de conexão com o banco de dados
     expose:
       - "PORT" # Altere para a porta que deseja expor
     ports:

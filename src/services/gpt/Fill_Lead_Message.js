@@ -1,15 +1,15 @@
-const styled = require('../../utils/log/styledLog');
-const GetAccessToken = require('../kommo/GetAccessToken');
-const GetCustomFields = require('../kommo/GetCustomFields');
-const GetUser = require('../kommo/GetUser');
-const UpdateLead = require('../kommo/UpdateLead');
+import styled from '../../utils/log/styledLog.js';
+import { GetAccessToken } from '../kommo/GetAccessToken.js';
+import { GetCustomFields } from '../kommo/GetCustomFields.js';
+import { GetUser } from '../kommo/GetUser.js';
+import { UpdateLead } from '../kommo/UpdateLead.js';
 
-const Fill_Lead_Message = async (payload, message_obj, access_token = null) => {
+export const Fill_Lead_Message = async (payload, message_obj, access_token = null) => {
   styled.function('Função Fill_Lead_Message');
   let lastMessages, message, str,log;
   try {
     if (!access_token) {
-      access_token = await GetAccessToken(payload);
+      access_token = GetAccessToken()
     }
 
     const user = await GetUser(payload, false, access_token);
@@ -79,5 +79,3 @@ ${str}`;
     throw error;
   }
 };
-
-module.exports = Fill_Lead_Message;

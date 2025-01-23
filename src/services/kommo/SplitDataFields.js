@@ -1,16 +1,16 @@
-const styled = require('../../utils/log/styledLog');
-const GetAccessToken = require('./GetAccessToken');
-const GetCustomFields = require('./GetCustomFields');
-const GetUser = require('./GetUser');
-const HandlingError = require('./HandlingError');
-const UpdateLead = require('./UpdateLead');
+import styled from '../../utils/log/styledLog.js';
+import { GetAccessToken } from './GetAccessToken.js';
+import { GetCustomFields } from './GetCustomFields.js';
+import { GetUser } from './GetUser.js';
+import { HandlingError } from './HandlingError.js';
+import { UpdateLead } from './UpdateLead.js';
 
-const SplitDataFields = async (payload, access_token = null) => {
+export const SplitDataFields = async (payload, access_token = null) => {
   // REQUISICAO PARA O KOMMO
   try {
     // console.log('Função SplitDataFields');
     if (!access_token) {
-      access_token = await GetAccessToken(payload);
+      access_token = GetAccessToken()
     }
     const user = await GetUser(payload, false, access_token);
     const custom_fields = await GetCustomFields(payload, access_token);
@@ -118,5 +118,3 @@ const SplitDataFields = async (payload, access_token = null) => {
     throw new Error('Erro no SplitDataFields');
   }
 };
-
-module.exports = SplitDataFields;

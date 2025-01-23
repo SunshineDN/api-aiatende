@@ -1,14 +1,14 @@
-const styled = require('../../utils/log/styledLog');
-const GetAccessToken = require('./GetAccessToken');
-const GetCustomFields = require('./GetCustomFields');
-const GetUser = require('./GetUser');
-const HandlingError = require('./HandlingError');
-const UpdateLead = require('./UpdateLead');
+import styled from '../../utils/log/styledLog.js';
+import { GetAccessToken } from './GetAccessToken.js';
+import { GetCustomFields } from './GetCustomFields.js';
+import { GetUser } from './GetUser.js';
+import { HandlingError } from './HandlingError.js';
+import { UpdateLead } from './UpdateLead.js';
 
-const SetNameFromContact = async (payload, access_token = null) => {
+export const SetNameFromContact = async (payload, access_token = null) => {
   try {
     if (!access_token) {
-      access_token = await GetAccessToken(payload);
+      access_token = GetAccessToken()
     }
 
     const user = await GetUser(payload, true, access_token);
@@ -41,5 +41,3 @@ const SetNameFromContact = async (payload, access_token = null) => {
     throw new Error('Erro no SetNameFromContact');
   }
 };
-
-module.exports = SetNameFromContact;

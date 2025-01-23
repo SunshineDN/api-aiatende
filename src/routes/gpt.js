@@ -1,24 +1,24 @@
-const express = require('express');
+import express from 'express';
+import GptController from '../controllers/GptController.js';
+import kommoMiddleware from '../middlewares/kommoMiddleware.js';
+import messageReceivedMiddleware from '../middlewares/messageReceivedMiddleware.js';
+
 const router = express.Router();
-const GptController = require('../controllers/GptController');
-const decodeKommoURI = require('../middlewares/decodeKommoURI');
-const bodyParser = require('body-parser');
 
-router.use(bodyParser.text({ type: '*/*' }));
-router.use(decodeKommoURI);
+router.use(express.urlencoded({ extended: true }));
 
-router.get('/', GptController.index);
+router.get('/', kommoMiddleware, GptController.index);
 
-router.post('/prompt', GptController.messageToPrompt);
+router.post('/prompt', kommoMiddleware, GptController.messageToPrompt);
 
-router.post('/:assistant_id/message', GptController.messageToAssistant);
+router.post('/:assistant_id/message', kommoMiddleware, GptController.messageToAssistant);
 
-router.post('/transcribe', GptController.transcribeMessage);
+router.post('/transcribe', messageReceivedMiddleware, GptController.transcribeMessage);
 
-router.post('/delete-thread', GptController.deleteThread);
+router.post('/delete-thread', kommoMiddleware, GptController.deleteThread);
 
-router.post('/audio-to-text', GptController.transcribeMessage);
+router.post('/audio-to-text', kommoMiddleware, GptController.transcribeMessage);
 
-router.post('/text-to-audio', GptController.sendAudioFromGpt);
+router.post('/text-to-audio', kommoMiddleware, GptController.sendAudioFromGpt);
 
-module.exports = router;
+export default router;

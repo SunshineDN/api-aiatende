@@ -1,4 +1,4 @@
-function getFileNameFromUrl(url, lead_id) {
+export function getFileNameFromUrl(url, lead_id) {
   const matches = url.match(/\/([^/?#]+)$/);
   if (matches) {
     const fileName = matches[1];
@@ -14,5 +14,3 @@ function getFileNameFromUrl(url, lead_id) {
     }
   }
 }
-
-module.exports = getFileNameFromUrl;

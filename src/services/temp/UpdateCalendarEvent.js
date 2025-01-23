@@ -1,12 +1,12 @@
 const axios = require('axios');
-const GetAccessToken = require('../kommo/GetAccessToken');
-const GetUser = require('../kommo/GetUser');
-const HandlingError = require('../kommo/HandlingError');
+const GetAccessToken = require('../kommo/GetAccessToken.js');
+const GetUser = require('../kommo/GetUser.js');
+const HandlingError = require('../kommo/HandlingError.js');
 
 const UpdateCalendarEvent = async (payload, access_token = null) => {
   try {
     if (!access_token) {
-      access_token = await GetAccessToken(payload);
+      access_token = GetAccessToken()
     }
     const user = await GetUser(payload, false, access_token);
 

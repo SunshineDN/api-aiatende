@@ -1,16 +1,16 @@
-const CalendarIdValidate = require('../../utils/calendar/CalendarIdValidate');
-const HandlingError = require('../kommo/HandlingError');
-const GetUser = require('../kommo/GetUser');
-const CalendarUtils = require('../../utils/calendar/CalendarUtils');
-const GetAccessToken = require('../kommo/GetAccessToken');
-const styled = require('../../utils/log/styledLog');
+import styled from '../../utils/log/styledLog.js';
+import { CalendarIdValidate } from '../../utils/calendar/CalendarIdValidate.js';
+import { HandlingError } from '../kommo/HandlingError.js';
+import { GetUser } from '../kommo/GetUser.js';
+import { GetAccessToken } from '../kommo/GetAccessToken.js';
+import { CalendarUtils } from '../../utils/calendar/CalendarUtils.js';
 
-const WebListCalendarEvents = async (payload) => {
+export const WebListCalendarEvents = async (payload) => {
   let access_token, user, reason, nameDoctor;
   try{
-    access_token = await GetAccessToken(payload);
+    access_token = GetAccessToken()
 
-    const CalendarUtilsClass = new CalendarUtils(payload?.account?.id);
+    const CalendarUtilsClass = new CalendarUtils();
     user = await GetUser(payload, false, access_token);
       
     reason = user?.custom_fields_values?.filter(
@@ -26,9 +26,9 @@ const WebListCalendarEvents = async (payload) => {
     }
 
     try {
-      return await CalendarUtilsClass.listWebAvailableDate(CalendarIdValidate(nameDoctor, payload?.account?.id));
+      return await CalendarUtilsClass.listWebAvailableDate(CalendarIdValidate(nameDoctor));
     } catch {
-      return await CalendarUtilsClass.listWebAvailableDate(CalendarIdValidate(nameDoctor, payload?.account?.id));
+      return await CalendarUtilsClass.listWebAvailableDate(CalendarIdValidate(nameDoctor));
     }
   }catch(error) {
     if (error.response) {
@@ -50,8 +50,6 @@ const WebListCalendarEvents = async (payload) => {
         `Erro ao listar eventos no Google Calendar: ${error.message}`
       );
     }
-    throw new Error('Erro no WebListCalendarEventss');
+    throw new Error('Erro no WebListCalendarEvents');
   }
 };
-
-module.exports = WebListCalendarEvents;

@@ -1,0 +1,48 @@
+import BaseRepository from "./BaseRepository.js";
+import LeadMessages from "../models/LeadMessages.js";
+import styled from "../utils/log/styledLog.js";
+
+export default class LeadMessagesRepository extends BaseRepository {
+  constructor() {
+    super(LeadMessages);
+  }
+
+  async verifySendDate(lead_id, seconds) {
+    const message = await this.findOne({ where: { id: Number(lead_id) } });
+    if (!message) return false;
+
+    const messages = message.messages;
+    if (!messages || !messages.length) return false;
+
+    const repeated_messages = messages.filter((msg) => {
+      return (Number(msg.created_at) === Number(seconds));
+    });
+
+    return (repeated_messages.length > 0);
+  }
+
+  async verifyAndUpdate(lead_id, message) {
+    const [create, _] = await this.findOrCreate({ where: { id: Number(lead_id) } });
+
+    if (create.messages) {
+      await this.update(Number(lead_id), { messages: [...create.messages, message] });
+      styled.success('[LeadMessagesRepository.verifyAndUpdate] - Mensagem adicionada ao Lead EXISTENTE');
+    } else {
+      await this.update(Number(lead_id), { messages: [message] });
+      styled.success('[LeadMessagesRepository.verifyAndUpdate] - Mensagem adicionada ao Lead NOVO');
+    }
+
+    return;
+  }
+
+  async getLastMessages(lead_id, limit = 3) {
+    const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
+    if (!lead_message) return [];
+
+    const lead_messages = lead_message.messages;
+    if (!lead_messages || !lead_messages.length) return [];
+
+    const messages = lead_messages.slice(-limit).map(msg => msg.lead_message);
+    return messages.join('\n');
+  }
+}

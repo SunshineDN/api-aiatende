@@ -1,13 +1,13 @@
-const styled = require('../../utils/log/styledLog');
-const GetAccessToken = require('./GetAccessToken');
-const GetCustomFields = require('./GetCustomFields');
-const HandlingError = require('./HandlingError');
-const UpdateLead = require('./UpdateLead');
+import styled from '../../utils/log/styledLog.js';
+import { GetAccessToken } from './GetAccessToken.js';
+import { GetCustomFields } from './GetCustomFields.js';
+import { HandlingError } from './HandlingError.js';
+import { UpdateLead } from './UpdateLead.js';
 
-const SetActualDateHour = async (payload, access_token = null) => {
+export const SetActualDateHour = async (payload, access_token = null) => {
   try {
     if (!access_token) {
-      access_token = await GetAccessToken(payload);
+      access_token = GetAccessToken()
     }
 
     const custom_fields = await GetCustomFields(payload, access_token);
@@ -48,5 +48,3 @@ const SetActualDateHour = async (payload, access_token = null) => {
     throw new Error('Erro no SetActualDataHour');
   }
 };
-
-module.exports = SetActualDateHour;

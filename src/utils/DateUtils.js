@@ -1,9 +1,13 @@
-const dayjs = require('dayjs');
-const customParseFormat = require('dayjs/plugin/customParseFormat.js');
-dayjs.extend(customParseFormat);
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat.js';
+import styled from './log/styledLog.js';
+import 'dayjs/locale/pt-br.js';
 
-module.exports = class DateUtils {
-  static formatDateToMs(dateString) {
+dayjs.locale('pt-br');
+
+export default class DateUtils {
+  static convertDateToMs(dateString) {
+    dayjs.extend(customParseFormat);
     // Regex para identificar padrões comuns de datas
     const datePatterns = [
       { regex: /^(\d{4})-(\d{2})-(\d{2})$/, format: 'YYYY-MM-DD' },
@@ -25,7 +29,12 @@ module.exports = class DateUtils {
     }
 
     // Caso nenhuma correspondência seja encontrada
-    console.warn('Data inválida ou formato desconhecido:', dateString);
+    styled.warning('Data inválida ou formato desconhecido:', dateString);
     return null;
   }
-};
+
+  static dateTimeToSeconds(date) {
+    dayjs.extend(customParseFormat);
+    return Math.round(dayjs(date, 'DD/MM/YYYY HH:mm').valueOf() / 1000);
+  }
+}

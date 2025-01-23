@@ -1,14 +1,14 @@
-const { parse } = require('date-fns');
-const CalendarIdValidate = require('../../utils/calendar/CalendarIdValidate');
-const GetCustomFields = require('../kommo/GetCustomFields');
-const UpdateLead = require('../kommo/UpdateLead');
-const HandlingError = require('../kommo/HandlingError');
-const GetUser = require('../kommo/GetUser');
-const CalendarUtils = require('../../utils/calendar/CalendarUtils');
-const styled = require('../../utils/log/styledLog');
+import { parse } from 'date-fns';
+import styled from '../../utils/log/styledLog.js';
+import { CalendarIdValidate } from '../../utils/calendar/CalendarIdValidate.js';
+import { GetCustomFields } from '../kommo/GetCustomFields.js';
+import { UpdateLead } from '../kommo/UpdateLead.js';
+import { GetUser } from '../kommo/GetUser.js';
+import { CalendarUtils } from '../../utils/calendar/CalendarUtils.js';
+import { HandlingError } from '../kommo/HandlingError.js';
 
-const RegisterCalendarEvent = async (payload, access_token = null) => {
-  const CalendarUtilsClass = new CalendarUtils(payload?.account?.id);
+export const RegisterCalendarEvent = async (payload, access_token = null) => {
+  const CalendarUtilsClass = new CalendarUtils();
 
   try {
     const user = await GetUser(payload, false, access_token);
@@ -65,19 +65,19 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
       summary,
       //description,
       start: {
-        dateTime: startDateTime.toISOString(),
+        dateTime: startDateTime,
       },
       end: {
-        dateTime: endDateTime.toISOString(),
+        dateTime: endDateTime,
       },
       //...rest,
     };
     styled.info('Evento:', event);
 
     try {
-      eventData = await CalendarUtilsClass.executeRegisterEvent( CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id), event);
+      eventData = await CalendarUtilsClass.executeRegisterEvent( CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), event);
     } catch {
-      eventData = await CalendarUtilsClass.executeRegisterEvent( CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id), event);
+      eventData = await CalendarUtilsClass.executeRegisterEvent( CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), event);
     }
 
     styled.info('Dados do Evento (eventData):', eventData);
@@ -137,5 +137,3 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
     throw new Error(`erro no RegisterCalendarEvent: ${error}`);
   }
 };
-
-module.exports = RegisterCalendarEvent;

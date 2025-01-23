@@ -1,14 +1,15 @@
-const axios = require('axios');
-const fs = require('fs');
-const styled = require('../../utils/log/styledLog');
+import axios from 'axios';
+import fs from 'fs';
+import styled from '../../utils/log/styledLog.js';
 
-const downloadAudio = async (file) => {
+export const downloadAudio = async ({ link, file_name }) => {
   try {
-    const response = await axios.get(file.url, {
-      responseType: 'stream'
+    const response = await axios.get(link, {
+      responseType: 'stream',
+      timeout: 30000,
     });
 
-    const filePath = `./public/files/${file.name}.${file.extension}`;
+    const filePath = `./public/files/${file_name}`;
     const writer = fs.createWriteStream(filePath);
     response.data.pipe(writer);
 
@@ -28,9 +29,9 @@ const downloadAudio = async (file) => {
   }
 };
 
-const deleteTempFile = async (file) => {
+export const deleteTempFile = async (file_name) => {
   try {
-    const filePath = `./public/files/${file.name}.${file.extension}`;
+    const filePath = `./public/files/${file_name}`;
     if (!fs.existsSync(filePath)) {
       styled.warning(`Arquivo não encontrado para exclusão: ${filePath}`);
       return;
@@ -42,9 +43,4 @@ const deleteTempFile = async (file) => {
     styled.error('Erro ao deletar o arquivo temporário:', error);
     throw new Error(`Erro ao deletar o arquivo temporário: ${error.message}`);
   }
-};
-
-module.exports = {
-  downloadAudio,
-  deleteTempFile
 };

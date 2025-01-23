@@ -1,33 +1,34 @@
-const GetAccessToken = require('./GetAccessToken');
-const GetCustomFields = require('./GetCustomFields');
-const GetUser = require('./GetUser');
-const HandlingError = require('./HandlingError');
-const UpdateLead = require('./UpdateLead');
-const styled = require('../../utils/log/styledLog');
-const DateUtils = require('../../utils/DateUtils');
+import { parse } from 'date-fns';
+import styled from '../../utils/log/styledLog.js';
+import { GetAccessToken } from './GetAccessToken.js';
+import { GetCustomFields } from './GetCustomFields.js';
+import { GetUser } from './GetUser.js';
+import { HandlingError } from './HandlingError.js';
+import { UpdateLead } from './UpdateLead.js';
+import KommoUtils from '../../utils/KommoUtils.js';
 
-const SplitSchedulingFields = async (payload, access_token = null) => {
+export const SplitSchedulingFields = async (payload, access_token = null) => {
   // REQUISICAO PARA O KOMMO
   try {
     // console.log('Função SplitSchedulingFields');
     if (!access_token) {
-      access_token = await GetAccessToken(payload);
+      access_token = GetAccessToken()
     }
     const user = await GetUser(payload, false, access_token);
     const custom_fields = await GetCustomFields(payload, access_token);
 
     const dataField = user?.custom_fields_values?.filter(field => field.field_name === 'Registration Data')[0];
     const dataFieldValues = dataField?.values[0]?.value;
-    const data_field_split_symbol = dataFieldValues.split('; ');
-    const data_field_split = data_field_split_symbol.map((value) => value.replace(';', ''));
+    const data_field_split_symbol = dataFieldValues.split(';');
+    const data_field_split = data_field_split_symbol.map((value) => value.trim());
     const fields_names = data_field_split.map((_, index) => `Scheduling field ${index + 1}`);
     let custom_fields_values = [];
 
     if (data_field_split.length >= 3) {
       const birth = String(data_field_split[1]);
       const birthField = custom_fields.filter(field => field.name === 'Data de Nascimento')[0];
-      const birthMs = DateUtils.formatDateToMs(birth);
-      const birthTime = Math.round(birthMs / 1000);
+      const kommoUtils = new KommoUtils();
+      const birthTime = kommoUtils.convertDateToMs(birth);
 
       const neighbor = data_field_split[2];
       const neighborField = custom_fields.filter(field => field.name === 'Bairro')[0];
@@ -170,5 +171,3 @@ const SplitSchedulingFields = async (payload, access_token = null) => {
     throw new Error('Erro no SplitSchedulingFields');
   }
 };
-
-module.exports = SplitSchedulingFields;

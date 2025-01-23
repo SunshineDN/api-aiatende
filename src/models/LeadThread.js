@@ -1,6 +1,5 @@
-require('dotenv').config();
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database'); // ajuste o caminho para o seu arquivo de configuração do Sequelize
+import { DataTypes } from 'sequelize';
+import { sequelize } from '../config/db.js';
 
 const LeadThread = sequelize.define('LeadThread', {
   leadID: {
@@ -18,7 +17,7 @@ const LeadThread = sequelize.define('LeadThread', {
     allowNull: true,
   }
 }, {
-  tableName: process.env.TABLE_NAME, // nome da tabela no banco de dados
+  tableName: 'lead_threads', // nome da tabela no banco de dados
 });
 
-module.exports = LeadThread;
+export default LeadThread;

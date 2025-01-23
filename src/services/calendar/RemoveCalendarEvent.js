@@ -1,14 +1,13 @@
-const CalendarIdValidate = require('../../utils/calendar/CalendarIdValidate');
-const GetCustomFields = require('../kommo/GetCustomFields');
-const UpdateLead = require('../kommo/UpdateLead');
-const HandlingError = require('../kommo/HandlingError');
-const GetUser = require('../kommo/GetUser');
-const CalendarUtils = require('../../utils/calendar/CalendarUtils');
-const styled = require('../../utils/log/styledLog');
+import styled from '../../utils/log/styledLog.js';
+import { CalendarIdValidate } from '../../utils/calendar/CalendarIdValidate.js';
+import { GetCustomFields } from '../kommo/GetCustomFields.js';
+import { UpdateLead } from '../kommo/UpdateLead.js';
+import { GetUser } from '../kommo/GetUser.js';
+import { HandlingError } from '../kommo/HandlingError.js';
 
-const RemoveCalendarEvent = async (payload, access_token = null) => {
+export const RemoveCalendarEvent = async (payload, access_token = null) => {
   try {
-    const CalendarUtilsClass = new CalendarUtils(payload?.account?.id);
+    const CalendarUtilsClass = new CalendarUtils();
 
     const user = await GetUser(payload, false, access_token);
     const custom_fields = await GetCustomFields(payload, access_token);
@@ -29,10 +28,10 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
 
     styled.info('ID do Evento:', eventId?.values[0]?.value);
     try {
-      await CalendarUtilsClass.executeRemoveEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id), eventId?.values[0]?.value);
+      await CalendarUtilsClass.executeRemoveEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), eventId?.values[0]?.value);
     } catch {
       try {
-        await CalendarUtilsClass.executeRemoveEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado', payload?.account?.id), eventId?.values[0]?.value);
+        await CalendarUtilsClass.executeRemoveEvent(CalendarIdValidate(nameDoctor?.values[0]?.value || 'Não Encontrado'), eventId?.values[0]?.value);
       } catch (error) {
         styled.error('Erro ao remover evento no Google Calendar (2ª tentativa)');
         throw error;
@@ -105,4 +104,3 @@ const RemoveCalendarEvent = async (payload, access_token = null) => {
     throw new Error('Erro no RemoveCalendarEvent');
   };
 };
-module.exports = RemoveCalendarEvent;

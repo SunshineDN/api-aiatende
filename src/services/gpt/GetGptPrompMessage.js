@@ -1,17 +1,16 @@
-// const axios = require('axios');
-const GetCustomFields = require('../kommo/GetCustomFields');
-const UpdateLead = require('../kommo/UpdateLead');
-const GetAccessToken = require('../kommo/GetAccessToken');
-const GetUser = require('../kommo/GetUser');
-const OpenAIController = require('../../controllers/OpenAIController');
-const styled = require('../../utils/log/styledLog');
+import styled from '../../utils/log/styledLog.js';
+import OpenAIController from '../../controllers/OpenAIController.js';
+import { GetAccessToken } from '../kommo/GetAccessToken.js';
+import { GetCustomFields } from '../kommo/GetCustomFields.js';
+import { GetUser } from '../kommo/GetUser.js';
+import { UpdateLead } from '../kommo/UpdateLead.js';
 
-const GetGptPromptMessage = async (payload, access_token = null) => {
+export const GetGptPromptMessage = async (payload, access_token = null) => {
   styled.info('Função GetGptPromptMessage');
   let log, onOff;
   try {
     if (!access_token) {
-      access_token = await GetAccessToken(payload);
+      access_token = GetAccessToken()
     }
     const user = await GetUser(payload, false, access_token);
     const custom_fields = await GetCustomFields(payload, access_token);
@@ -94,5 +93,3 @@ const GetGptPromptMessage = async (payload, access_token = null) => {
     throw error;
   }
 };
-
-module.exports = GetGptPromptMessage;

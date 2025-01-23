@@ -1,25 +1,11 @@
-const CalendarId = require('../../config/calendarId');
-const styled = require('../log/styledLog');
+import { CalendarId } from '../../config/calendarId.js';
 
-const CalendarIdValidate = (condition = null, account_id) => {
-  styled.info('Account ID (CalendarIdValidate): ', account_id);
-  if (account_id === 32000011) {
-    if(condition === 'Dra. Juliana Leite'){
-      return CalendarId.dental_sante.juliana;
-    }else if (condition === 'Dra. Lucília Miranda') {
-      return CalendarId.dental_sante.odontopediatria;
-    }else {
-      return CalendarId.dental_sante.dentistas;
-    }
-  } else if (account_id === 31205035) {
-    if(condition === 'Dra. Juliana Leite'){
-      return CalendarId.ai_atende.juliana;
-    }else if (condition === 'Dra. Lucília Miranda') {
-      return CalendarId.ai_atende.odontopediatria;
-    }else {
-      return CalendarId.ai_atende.dentistas;
-    }
+export const CalendarIdValidate = (condition = null) => {
+  if (condition.includes('Juliana Leite')) {
+    return CalendarId.juliana;
+  } else if (condition.includes('Lucília Miranda') || condition.includes('Odontopediatria')) {
+    return CalendarId.odontopediatria;
+  } else {
+    return CalendarId.dentistas;
   }
 };
-
-module.exports= CalendarIdValidate;

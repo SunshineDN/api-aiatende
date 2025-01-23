@@ -1,12 +1,12 @@
-const updateLead = require('./UpdateLead');
-const getCustomFields = require('./GetCustomFields');
-const HandlingError = require('./HandlingError');
-const encryptId = require('../../utils/crypt/EncryptId');
-const styled = require('../../utils/log/styledLog');
+import styled from '../../utils/log/styledLog.js';
+import { UpdateLead } from './UpdateLead.js';
+import { GetCustomFields } from './GetCustomFields.js';
+import { HandlingError } from './HandlingError.js';
+import { EncryptId } from '../../utils/crypt/EncryptId.js';
 
-const SetCalendarFormService = async (payload, access_token) => {
+export const SetCalendarFormService = async (payload, access_token) => {
   try {
-    const custom_fields = await getCustomFields(payload, access_token);
+    const custom_fields = await GetCustomFields(payload, access_token);
     const calendar_form = custom_fields?.filter(
       (field) => field.name === 'Calendário'
     )[0];
@@ -17,14 +17,14 @@ const SetCalendarFormService = async (payload, access_token) => {
           'field_id': calendar_form?.id,
           'values': [
             {
-              'value': 'https://formulariotest.com/' + encryptId(payload?.lead_id),
+              'value': 'https://formulariotest.com/' + EncryptId(payload?.lead_id),
             }
           ]
         }
       ]
     };
 
-    await updateLead(payload, reqBody, access_token);
+    await UpdateLead(payload, reqBody, access_token);
   } catch (error) {
     styled.error('Error on SetCalendarFormService:', error);
     if (error.response) {
@@ -35,5 +35,3 @@ const SetCalendarFormService = async (payload, access_token) => {
     throw new Error('Erro no SetCalendarFormService');
   }
 };
-
-module.exports = SetCalendarFormService;

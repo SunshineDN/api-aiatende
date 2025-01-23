@@ -1,23 +1,22 @@
-const express = require('express');
-const router = express.Router();
-const decodeKommoURI = require('../middlewares/decodeKommoURI');
-const bodyParser = require('body-parser');
-const GlobalAssistant = require('../gpt-req/GlobalAssistant');
-const PromptC = require('../gpt-req/PromptC');
-const AssistantC = require('../gpt-req/AssistantC');
-const PromptD = require('../gpt-req/PromptD');
-const AssistantD = require('../gpt-req/AssistantD');
-const PostScheduling = require('../gpt-req/PostScheduling');
-const Agendamento = require('../gpt-req/Agendamento');
-const Recepcao = require('../gpt-req/Recepcao');
-const Qualificado = require('../gpt-req/Qualificado');
-const Cutucada = require('../gpt-req/Cutucada');
-const EsteiraConfirm = require('../gpt-req/EsteiraConfirm');
-const Repescagem = require('../gpt-req/Repescagem');
-const AgendamentoVoz = require('../gpt-req/AgendamentoVoz');
+import express from 'express';
+import GlobalAssistant from '../gpt-req/GlobalAssistant.js';
+import PromptD from '../gpt-req/PromptD.js';
+import AssistantD from '../gpt-req/AssistantD.js';
+import Cutucada from '../gpt-req/Cutucada.js';
+import EsteiraConfirm from '../gpt-req/EsteiraConfirm.js';
+import Repescagem from '../gpt-req/Repescagem.js';
+import AgendamentoVoz from '../gpt-req/AgendamentoVoz.js';
+import Dados from '../controllers/assistant-prompt/Dados.js';
+import PostScheduling from '../controllers/assistant-prompt/PosAgendamento.js';
+import Agendamento from '../controllers/assistant-prompt/Agendamento.js';
+import Recepcao from '../controllers/assistant-prompt/Recepcao.js';
+import Qualificado from '../controllers/assistant-prompt/Qualificado.js';
+import kommoMiddleware from '../middlewares/kommoMiddleware.js';
 
-router.use(bodyParser.text({ type: '*/*' }));
-router.use(decodeKommoURI);
+const router = express.Router();
+
+router.use(express.urlencoded({ extended: true }));
+router.use(kommoMiddleware);
 
 router.get('/', (req, res) => {
   res.json({ message: 'Rota de mensagens' });
@@ -27,25 +26,25 @@ router.post('/assistant/:assistant_id/only_assistant', GlobalAssistant.only_assi
 
 // BOT C: DADOS
 
-router.post('/prompt/c_intencao', PromptC.c_intencao);
+router.post('/prompt/dados/intencao', Dados.intencao);
 
-router.post('/prompt/c_confirma_dados', PromptC.c_confirma_dados);
+router.post('/prompt/dados/confirma_dados', Dados.confirma_dados);
 
-router.post('/prompt/c_intencao_especialista', PromptC.c_intencao_especialista);
+router.post('/prompt/dados/intencao_especialista', Dados.intencao_especialista);
 
-router.post('/prompt/c_identificar_especialista', PromptC.c_identificar_especialista);
+router.post('/prompt/dados/identificar_especialista', Dados.identificar_especialista);
 
-router.post('/assistant/:assistant_id/c_previa_dados', AssistantC.c_previa_dados);
+router.post('/assistant/:assistant_id/dados/previa_dados', Dados.previa_dados);
 
-router.post('/assistant/:assistant_id/c_dados_cadastrais', AssistantC.c_dados_cadastrais);
+router.post('/assistant/:assistant_id/dados/dados_cadastrais', Dados.dados_cadastrais);
 
-router.post('/assistant/:assistant_id/c_split_dados', AssistantC.c_split_dados);
+router.post('/assistant/:assistant_id/dados/split_dados', Dados.split_dados);
 
-router.post('/assistant/:assistant_id/c_verifica_dados', AssistantC.c_verifica_dados);
+router.post('/assistant/:assistant_id/dados/verifica_dados', Dados.verifica_dados);
 
-router.post('/assistant/:assistant_id/c_listar_especialidades', AssistantC.c_listar_especialidades);
+router.post('/assistant/:assistant_id/dados/listar_especialidades', Dados.listar_especialidades);
 
-router.post('/assistant/:assistant_id/c_verificar_especialista', AssistantC.c_verificar_especialista);
+router.post('/assistant/:assistant_id/dados/verificar_especialista', Dados.verificar_especialista);
 
 // BOT PRÉ-AGENDAMENTO
 
@@ -81,13 +80,13 @@ router.post('/assistant/:assistant_id/post-scheduling/notify-no-show', PostSched
 
 router.post('/assistant/:assistant_id/agendamento/form_join', Agendamento.form_join);
 
-router.post('/assistant/:assistant_id/agendamento/disponibilidade', Agendamento.assistant_disponibilidade_horario);
+router.post('/assistant/:assistant_id/agendamento/disponibilidade', Agendamento.disponibilidade_horario);
 
-router.post('/prompt/agendamento/intencao', Agendamento.prompt_intencao);
+router.post('/prompt/agendamento/intencao', Agendamento.intencao);
 
-router.post('/assistant/:assistant_id/agendamento/verificar_datas', Agendamento.assistant_verificar_datas);
+router.post('/assistant/:assistant_id/agendamento/verificar_datas', Agendamento.verificar_datas);
 
-router.post('/prompt/agendamento/verificar_confirmacao', Agendamento.prompt_verificar_confirmacao);
+router.post('/prompt/agendamento/verificar_confirmacao', Agendamento.verificar_confirmacao);
 
 // BOT RECEPÇÃO
 
@@ -139,4 +138,4 @@ router.post('/assistant/:assistant_id/repescagem/congelado', Repescagem.congelad
 
 router.post('/assistant/:assistant_id/agendamento/voz', AgendamentoVoz.voice_schedule);
 
-module.exports = router;
+export default router;

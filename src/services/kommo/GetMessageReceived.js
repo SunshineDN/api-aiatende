@@ -1,11 +1,11 @@
-const GetAccessToken = require('./GetAccessToken');
-const GetUser = require('./GetUser');
+import { GetAccessToken } from './GetAccessToken.js';
+import { GetUser } from './GetUser.js';
 
-const GetMessageReceived = async (payload, access_token = null) => {
+export const GetMessageReceived = async (payload, access_token = null) => {
   // console.log('Função GetMessageReceived!');
   try {
     if (!access_token) {
-      access_token = await GetAccessToken(payload);
+      access_token = GetAccessToken()
     }
     const user = await GetUser(payload, false, access_token);
     const message_received = user?.custom_fields_values?.filter(field => field.field_name === 'GPT | Message received')[0];
@@ -14,5 +14,3 @@ const GetMessageReceived = async (payload, access_token = null) => {
     throw new Error(`Erro ao buscar mensagem recebida: ${error.message}`);
   }
 };
-
-module.exports = GetMessageReceived;

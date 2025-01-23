@@ -1,9 +1,9 @@
-require('dotenv').config();
-const OpenAIController = require('../controllers/OpenAIController');
-const GetAccessToken = require('../services/kommo/GetAccessToken');
-const GetMessageReceived = require('../services/kommo/GetMessageReceived');
-const SendLog = require('../services/kommo/SendLog');
-const SendMessage = require('../services/kommo/SendMessage');
+
+const OpenAIController = require('../controllers/OpenAIController.js');
+const GetAccessToken = require('../services/kommo/GetAccessToken.js');
+const GetMessageReceived = require('../services/kommo/GetMessageReceived.js');
+const SendLog = require('../services/kommo/SendLog.js');
+const SendMessage = require('../services/kommo/SendMessage.js');
 
 
 class GlobalAssistant {
@@ -16,7 +16,7 @@ class GlobalAssistant {
     let access_token;
     try {
       console.log('Enviando para o assistente GPT...');
-      access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      access_token = GetAccessToken();
       console.log('Mensagem enviada para o assistente:', data.text);
       const { message } = await OpenAIController.generateMessage(data);
       console.log('Resposta recebida do assistente:', message);
@@ -32,7 +32,7 @@ class GlobalAssistant {
   async only_assistant(req, res) {
     console.log('Recebendo requisição de assistente | Only Assistant (Apenas Assistente)...');
     try {
-      const access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       const message_received = await GetMessageReceived(req.body, access_token);
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;

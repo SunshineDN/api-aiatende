@@ -1,15 +1,15 @@
 const axios = require('axios');
-const GetAccessToken = require('../kommo/GetAccessToken');
-const GetUser = require('../kommo/GetUser');
-const GetCustomFields = require('../kommo/GetCustomFields');
-const UpdateLead = require('../kommo/UpdateLead');
-const HandlingError = require('../kommo/HandlingError');
+const GetAccessToken = require('../kommo/GetAccessToken.js');
+const GetUser = require('../kommo/GetUser.js');
+const GetCustomFields = require('../kommo/GetCustomFields.js');
+const UpdateLead = require('../kommo/UpdateLead.js');
+const HandlingError = require('../kommo/HandlingError.js');
 
 const RegisterCalendarEvent = async (payload, access_token = null) => {
   console.log('Função RegisterCalendarEvent');
   try {
     if (!access_token) {
-      access_token = await GetAccessToken(payload);
+      access_token = GetAccessToken()
     }
 
     const user = await GetUser(payload, false, access_token);

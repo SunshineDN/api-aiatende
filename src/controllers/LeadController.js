@@ -1,21 +1,31 @@
-const GetAccessToken = require('../services/kommo/GetAccessToken');
-// const HandlingError = require('../services/kommo/HandlingError');
-// const TokenizeTest = require('../services/kommo/TokenizeTest');
-const SetActualDateHour = require('../services/kommo/SetActualDateHour');
-const SplitDataFields = require('../services/kommo/SplitDataFields');
-const SplitSchedulingFields = require('../services/kommo/SplitSchedulingFields');
-const AddTelephoneService = require('../services/kommo/AddTelephoneService');
-const SetCalendarFormService = require('../services/kommo/SetCalendarForm');
+import { GetAccessToken } from '../services/kommo/GetAccessToken.js';
+import { SetActualDateHour } from '../services/kommo/SetActualDateHour.js';
+import { SplitDataFields } from '../services/kommo/SplitDataFields.js';
+import { SplitSchedulingFields } from '../services/kommo/SplitSchedulingFields.js';
+import { AddTelephoneService } from '../services/kommo/AddTelephoneService.js';
+import KommoServices from '../services/kommo/KommoServices.js';
+import styled from '../utils/log/styledLog.js';
 
-class LeadController {
+export default class LeadController {
+  constructor() {
+    this.kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
+    this.index = this.index.bind(this);
+    this.setDataWeek = this.setDataWeek.bind(this);
+    this.setSplitDataFields = this.setSplitDataFields.bind(this);
+    this.setSplitSchedulingFields = this.setSplitSchedulingFields.bind(this);
+    this.addTelephone = this.addTelephone.bind(this);
+    this.webhookCreate = this.webhookCreate.bind(this);
+  }
+
   async index(req, res) {
     res.send('Hello World');
   }
 
   async setDataWeek(req, res) {
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       await SetActualDateHour(req.body, access_token);
+      res.status(200).json({ message: 'Data setted' });
     } catch (error) {
       console.error('Error on setDataWeek:', error);
       res.status(500).json({ error });
@@ -24,8 +34,9 @@ class LeadController {
 
   async setSplitDataFields(req, res) {
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       await SplitDataFields(req.body, access_token);
+      res.status(200).json({ message: 'Data setted' });
     } catch (error) {
       console.error('Error on setSplitDataFields:', error);
       res.status(500).json({ error });
@@ -34,8 +45,9 @@ class LeadController {
 
   async setSplitSchedulingFields(req, res) {
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       await SplitSchedulingFields(req.body, access_token);
+      res.status(200).json({ message: 'Data setted' });
     } catch (error) {
       console.error('Error on setSplitSchedulingFields:', error);
       res.status(500).json({ error });
@@ -44,23 +56,24 @@ class LeadController {
 
   async addTelephone(req, res) {
     try {
-      const access_token = await GetAccessToken(req.body);
+      const access_token = GetAccessToken();
       await AddTelephoneService(req.body, access_token);
+      res.status(200).json({ message: 'Data setted' });
     } catch (error) {
       console.error('Error on setSplitSchedulingFields:', error);
       res.status(500).json({ error });
     }
   }
 
-  async setCalendarForm(req, res) {
+  async webhookCreate(req, res) {
     try {
-      const access_token = await GetAccessToken(req.body);
-      await SetCalendarFormService(req.body, access_token);
+      const { body } = req;
+      const calendarLinkResponse = await this.kommo.webhookCreate(body?.lead_id, { calendar: true, created_at: true });
+      res.status(200).json(calendarLinkResponse);
     } catch (error) {
-      console.error('Error on setCalendarForm:', error);
-      res.status(500).json({ error });
+      styled.error('[LeadController.webhookCreate] Erro');
+      console.error(error);
+      res.status(500).json({ message: 'Erro ao processar a requisição' });
     }
   }
 };
-
-module.exports = new LeadController();

@@ -1,4 +1,4 @@
-const styled = require('../utils/log/styledLog');
+import styled from '../utils/log/styledLog.js';
 
 function subdividirPropriedades(obj) {
   const newObj = {};
@@ -46,7 +46,7 @@ const decodeLeadURI = (uri) => {
   const { leads, account } = props;
   const lead_id = leads?.status?.[0]?.id || leads?.add?.[0]?.id;
   const old_status_id = leads?.status?.[0]?.old_status_id || leads?.add?.[0]?.old_status_id;
-  const old_pipeline_id = leads?.status?.[0]?.old_pipeline_id || leads?.add?.[0]?.old_pipeline_id;  
+  const old_pipeline_id = leads?.status?.[0]?.old_pipeline_id || leads?.add?.[0]?.old_pipeline_id;
   const status_id = leads?.status?.[0]?.status_id || leads?.add?.[0]?.status_id;
   const pipeline_id = leads?.status?.[0]?.pipeline_id || leads?.add?.[0]?.pipeline_id;
   const account_id = account?.id;
@@ -118,27 +118,36 @@ const decodeAccoutUri = (uri) => {
   };
 };
 
-module.exports = (req, res, next) => {
-  styled.middleware('Request method: ', req.method);
-  styled.middleware('Request URL: ', req.originalUrl);
-  styled.middleware('Request body: ', req.body);
-  if (req.method === 'GET') {
-    return next();
-  }
+export const decodeKommoURI = (req, res, next) => {
+  try {
+    styled.middleware('\nRequest method: ', req.method);
+    styled.middleware('Request URL: ', req.originalUrl);
+    if (typeof req.body === 'object') {
+      styled.middleware('Request body:');
+      styled.middlewaredir(req.body);
+    } else {
+      styled.middleware('Request body: ', req.body);
+    }
 
-  if (!req.body) {
-    styled.warning('Body is required');
-    return res.status(400).json({ error: 'Body is required' });
-  }
+    if (req.method === 'GET') {
+      return next();
+    } else if (!req.body) {
+      styled.warning('Body is required');
+      return res.status(400).json({ error: 'Body is required' });
+    }
 
-  let decoded;
-  if (req.body?.startsWith('account')) {
-    decoded = decodeAccoutUri(req.body);
-  } else {
-    decoded = decodeLeadURI(req.body);
+    let decoded;
+    if (req?.body?.startsWith('account')) {
+      decoded = decodeAccoutUri(req.body);
+    } else {
+      decoded = decodeLeadURI(req.body);
+    }
+    styled.middleware('Request Lead ID:', decoded.lead_id);
+    // console.log('Decoded: ', decoded);
+    req.body = decoded;
+    next();
+  } catch (error) {
+    styled.error('Error on decodeKommoURI:', error);
+    return res.status(500).json({ error });
   }
-  styled.middleware('Request Lead ID:', decoded.lead_id);
-  // console.log('Decoded: ', decoded);
-  req.body = decoded;
-  next();
 };

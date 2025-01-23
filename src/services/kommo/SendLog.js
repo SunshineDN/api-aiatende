@@ -1,13 +1,13 @@
-const GetCustomFields = require('./GetCustomFields');
-const UpdateLead = require('./UpdateLead');
-const GetAccessToken = require('./GetAccessToken');
-const HandlingError = require('./HandlingError');
-const styled = require('../../utils/log/styledLog');
+import styled from '../../utils/log/styledLog.js';
+import { GetCustomFields } from './GetCustomFields.js';
+import { UpdateLead } from './UpdateLead.js';
+import { GetAccessToken } from './GetAccessToken.js';
+import { HandlingError } from './HandlingError.js';
 
-const SendLog = async (payload, message, access_token = null) => {
+export const SendLog = async (payload, message, access_token = null) => {
   try {
     if (!access_token) {
-      access_token = await GetAccessToken(payload);
+      access_token = GetAccessToken()
     }
 
     const custom_fields = await GetCustomFields(payload, access_token);
@@ -39,5 +39,3 @@ const SendLog = async (payload, message, access_token = null) => {
     throw new Error('Erro no SendLog');
   }
 };
-
-module.exports = SendLog;

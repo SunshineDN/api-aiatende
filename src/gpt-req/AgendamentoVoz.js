@@ -1,11 +1,11 @@
-require('dotenv').config();
-const OpenAIController = require('../controllers/OpenAIController');
-const GetAccessToken = require('../services/kommo/GetAccessToken');
-const GetMessageReceived = require('../services/kommo/GetMessageReceived');
-const LeadQuery = require('../services/kommo/LeadQuery');
-const SendLog = require('../services/kommo/SendLog');
-const SendMessage = require('../services/kommo/SendMessage');
-const FormatTelephone = require('../utils/FormatTelephone');
+
+const OpenAIController = require('../controllers/OpenAIController.js');
+const GetAccessToken = require('../services/kommo/GetAccessToken.js');
+const GetMessageReceived = require('../services/kommo/GetMessageReceived.js');
+const LeadQuery = require('../services/kommo/LeadQuery.js');
+const SendLog = require('../services/kommo/SendLog.js');
+const SendMessage = require('../services/kommo/SendMessage.js');
+const FormatTelephone = require('../utils/FormatTelephone.js');
 
 class AgendamentoVoz {
   constructor() {
@@ -18,7 +18,7 @@ class AgendamentoVoz {
     let access_token;
     try {
       console.log('Enviando para o assistente GPT...');
-      access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      access_token = GetAccessToken();
       console.log('Mensagem enviada para o assistente:', data.text);
       const { message } = await OpenAIController.generateMessage(data);
       console.log('Resposta recebida do assistente:', message);
@@ -35,7 +35,7 @@ class AgendamentoVoz {
     let access_token;
     try {
       console.log('Enviando prompt...');
-      access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      access_token = GetAccessToken();
       console.log('Mensagem enviada para o prompt:', text);
       const { message } = await OpenAIController.promptMessage(text);
       console.log('Resposta recebida do prompt:', message);
@@ -54,7 +54,7 @@ class AgendamentoVoz {
     try {
       // const { lead_id: leadID } = req.body;
       // const { assistant_id } = req.params;
-      access_token = process.env.ACCESS_TOKEN || await GetAccessToken(req.body);
+      access_token = GetAccessToken();
       const message_received = await GetMessageReceived(req.body);
       const prompt_text = `Analise a mensagema recebida: ${message_received}. Agora retire apenas os dados desejados a seguir, em ordem: Nome, bairro, data de nascimento, dentista, data do agendamento (Data e hora), motivo da consulta e telefone. Os dados devem estar em ordem seguindo o padrão chave: valor, separados por ponto e vírgula ( ; ) e na mesma linha, sem pular para a próima linha ou conter o código ( \n ). Caso esteja faltando algum dado retorne 'null'. O campo dentista deve ter o Doutor ou Doutora abreviado para Dr. ou Dra. e em seguida o nome do dentista.
 

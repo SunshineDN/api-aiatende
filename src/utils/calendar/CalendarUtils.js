@@ -1,10 +1,11 @@
-const { google } = require('googleapis');
-const AuthCalendar = require('./AuthCalendar');
-const styled = require('../log/styledLog');
+import { google } from 'googleapis';
+import styled from '../log/styledLog.js';
+import { AuthCalendar } from './AuthCalendar.js';
+import { CalendarId } from '../../config/calendarId.js';
 
-class CalendarUtils {
-  constructor(account_id) {
-    this.authorization = AuthCalendar.authenticate(account_id);
+export class CalendarUtils {
+  constructor() {
+    this.authorization = AuthCalendar.authenticate();
   };
 
   async executeListEvents(calendarId) {
@@ -71,14 +72,14 @@ class CalendarUtils {
         calendar.events.insert(
           {
             calendarId,
-            resource: eventObj,
+            resource: eventObj, // { eventSummary, startDateTime, endDateTime, description }
           },
           (err, result) => {
             if (err) {
               styled.error('Erro ao adicionar evento:', err);
               reject(new Error('Erro ao adicionar evento'));
             }
-            styled.info('Evento adicionado:', result.data.htmlLink);
+            styled.success('Evento adicionado:', result.data.htmlLink);
             resolve(result.data);
           }
         );
@@ -262,27 +263,27 @@ class CalendarUtils {
               availableIntervals.forEach(interval => {
                 let weekday = '';
                 switch (dayOfWeek) {
-                case 1:
-                  weekday = 'Segunda-feira';
-                  break;
-                case 2:
-                  weekday = 'Terça-feira';
-                  break;
-                case 3:
-                  weekday = 'Quarta-feira';
-                  break;
-                case 4:
-                  weekday = 'Quinta-feira';
-                  break;
-                case 5:
-                  weekday = 'Sexta-feira';
-                  break;
-                case 6:
-                  weekday = 'Sábado';
-                  break;
-                case 0:
-                  weekday = 'Domingo';
-                  break;
+                  case 1:
+                    weekday = 'Segunda-feira';
+                    break;
+                  case 2:
+                    weekday = 'Terça-feira';
+                    break;
+                  case 3:
+                    weekday = 'Quarta-feira';
+                    break;
+                  case 4:
+                    weekday = 'Quinta-feira';
+                    break;
+                  case 5:
+                    weekday = 'Sexta-feira';
+                    break;
+                  case 6:
+                    weekday = 'Sábado';
+                    break;
+                  case 0:
+                    weekday = 'Domingo';
+                    break;
                 }
                 availableTimes.push(`${weekday} - ${interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[0]} ${interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[1]}`);
               });
@@ -450,6 +451,144 @@ class CalendarUtils {
     });
     return await calendar_return;
   }
-}
 
-module.exports = CalendarUtils;
+  async listAvailableOptions(calendarId) {
+    const calendar_return = new Promise((resolve, reject) => {
+      this.authorization.authorize((err) => {
+        if (err) {
+          styled.error('Erro na autenticação:', err);
+          reject('Erro na autenticação');
+          return;
+        }
+        const calendar = google.calendar({ version: 'v3', auth: this.authorization });
+        calendar.events.list(
+          {
+            calendarId: calendarId,
+            timeMin: new Date().toISOString(),
+            maxResults: 600,
+            singleEvents: true,
+            orderBy: 'startTime',
+          },
+          (err, result) => {
+            if (err) {
+              styled.error('Erro ao listar eventos do calendário:', err);
+              reject(new Error('Erro ao listar eventos do calendário'));
+              return;
+            }
+            const events = result.data.items;
+            const availableTimes = [];
+
+            // Função para adicionar intervalos de 30 minutos
+            const addIntervals = (start, end, intervals) => {
+              let current = new Date(start);
+              while (current < end) {
+                let next = new Date(current);
+                next.setMinutes(current.getMinutes() + 30);
+                if (next <= end) {
+                  intervals.push({ start: new Date(current), end: new Date(next) });
+                }
+                current = next;
+              }
+            };
+
+            // Função para verificar a disponibilidade dos intervalos
+            const isAvailable = (interval, events) => {
+              for (let event of events) {
+                const eventStart = new Date(event.start.dateTime);
+                const eventEnd = new Date(event.end.dateTime);
+                if ((interval.start >= eventStart && interval.start < eventEnd) ||
+                  (interval.end > eventStart && interval.end <= eventEnd)) {
+                  return false;
+                }
+              }
+              return true;
+            };
+
+            // Função para obter os intervalos disponíveis para um determinado dia
+            const getAvailableIntervalsForDay = (dayStart, dayEnd, events) => {
+              const intervals = [];
+              addIntervals(dayStart, dayEnd, intervals);
+              return intervals.filter(interval => isAvailable(interval, events));
+            };
+
+            // Loop para cada dia da semana
+            // const daysOfWeek = [1, 2, 3, 4, 5, 6, 0]; // Domingo é 0, Sábado é 6
+            const dataHoraBrasil = new Date();
+            const now = new Date(dataHoraBrasil.getTime() + (dataHoraBrasil.getTimezoneOffset() * 60000));
+            const daysToCheck = 31; // Por exemplo, verificar 30 dias a partir de hoje
+
+            for (let i = 0; i < daysToCheck; i++) {
+              const currentDate = new Date(now);
+              currentDate.setDate(now.getDate() + i);
+              const dayOfWeek = currentDate.getDay();
+
+              let dayStart = new Date(currentDate);
+              let dayEnd = new Date(currentDate);
+
+              if (dayOfWeek >= 1 && dayOfWeek <= 5) { // Segunda a Sexta
+                // Setar o horário atual para o início do dia
+                if (i === 0) {
+                  let currentMinutes = currentDate.getMinutes();
+                  let currentHours = currentDate.getHours();
+
+                  if (currentHours < 8) {
+                    currentHours = 11;
+                    currentMinutes = 0;
+                  } else {
+                    if (currentMinutes < 30) {
+                      currentMinutes = 30;
+                    } else {
+                      currentMinutes = 0;
+                      currentHours++;
+                    }
+                  }
+                  dayStart.setHours(currentHours + 6, currentMinutes, 0, 0);
+                } else {
+                  dayStart.setHours(11, 0, 0, 0);
+                };
+                dayEnd.setHours(23, 0, 0, 0);
+              } else if (dayOfWeek === 6) { // Sábado
+                dayStart.setHours(11, 0, 0, 0);
+                dayEnd.setHours(16, 0, 0, 0);
+              } else {
+                continue; // Ignorar domingos
+              }
+
+              const dayEvents = events.filter(event => {
+                const eventStart = new Date(event.start.dateTime);
+                return eventStart.toDateString() === currentDate.toDateString();
+              });
+
+              const availableIntervals = getAvailableIntervalsForDay(dayStart, dayEnd, dayEvents);
+              availableIntervals.forEach(interval => {
+                availableTimes.push(`${interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[0]} ${interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[1]}`);
+              });
+            }
+
+            if (availableTimes.length) {
+              let string = '';
+              availableTimes.forEach(interval => {
+                string += `${interval}; `;
+              });
+              resolve(string.trim());
+            } else {
+              reject(new Error('Nenhum intervalo disponível encontrado.'));
+            }
+          }
+        );
+        styled.success('Eventos listados com sucesso!');
+      });
+    });
+    return await calendar_return;
+  }
+
+  static idValidate(condition) {
+    if (condition.includes('Juliana Leite')) {
+      return CalendarId.juliana;
+    } else if (condition.includes('Lucília Miranda')) {
+      return CalendarId.odontopediatria;
+    } else {
+      return CalendarId.dentistas;
+    }
+  }
+}

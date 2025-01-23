@@ -1,21 +1,13 @@
-require('dotenv').config();
-const crypto = require('crypto');
-const styled = require('../log/styledLog');
+import { inflate } from 'pako';
+import styled from '../log/styledLog.js';
 
-const DecryptId = (id) => {
+export const DecryptId = (compressedID) => {
   try {
-    const decipher = crypto.createDecipheriv(
-      'aes-256-cbc',
-      Buffer.from(process.env.CRYPTO_KEY),
-      Buffer.from(process.env.CRYPTO_IV)
-    );
-    let decrypted = decipher.update(id, 'hex', 'utf8');
-    decrypted += decipher.final('utf8');
-    return decrypted;
+    const compressed = Uint8Array.from(atob(compressedID), char => char.charCodeAt(0));
+    const originalID = inflate(compressed, { to: 'string' });
+    return originalID;
   } catch (error) {
     styled.error('Error on DecryptId:', error);
     throw new Error('Error on DecryptId');
   }
 };
-
-module.exports = DecryptId;

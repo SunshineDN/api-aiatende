@@ -1,18 +1,17 @@
-// const axios = require('axios');
-const GetAccessToken = require('../kommo/GetAccessToken');
-const GetCustomFields = require('../kommo/GetCustomFields');
-const GetUser = require('../kommo/GetUser');
-const UpdateLead = require('../kommo/UpdateLead');
-const OpenAIController = require('../../controllers/OpenAIController');
-const HandlingError = require('../kommo/HandlingError');
-const Fill_Lead_Message = require('./Fill_Lead_Message');
-const styled = require('../../utils/log/styledLog');
+import styled from '../../utils/log/styledLog.js';
+import OpenAIController from '../../controllers/OpenAIController.js';
+import { GetAccessToken } from '../kommo/GetAccessToken.js';
+import { GetCustomFields } from '../kommo/GetCustomFields.js';
+import { UpdateLead } from '../kommo/UpdateLead.js';
+import { GetUser } from '../kommo/GetUser.js';
+import { Fill_Lead_Message } from './Fill_Lead_Message.js';
+import { HandlingError } from '../kommo/HandlingError.js';
 
-const SpeechToText = async (payload, access_token = null) => {
+export const SpeechToText = async (payload, access_token = null) => {
   // console.log('Função SpeechToText');
   try {
     if (!access_token) {
-      access_token = await GetAccessToken(payload);
+      access_token = GetAccessToken()
     }
 
     const user = await GetUser(payload, false, access_token);
@@ -101,5 +100,3 @@ const SpeechToText = async (payload, access_token = null) => {
     throw new Error('Erro no SpeechToText');
   }
 };
-
-module.exports = SpeechToText;

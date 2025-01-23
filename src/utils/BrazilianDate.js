@@ -1,4 +1,4 @@
-class BrazilianDate {
+export default class BrazilianDate {
   static getLocalDate() {
     const date = new Date();
     const options = {
@@ -41,5 +41,3 @@ class BrazilianDate {
     return weekDayFormatted;
   }
 }
-
-module.exports = BrazilianDate;

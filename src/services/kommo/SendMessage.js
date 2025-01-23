@@ -1,10 +1,8 @@
-// const TextToSpeech = require('../gpt/TextToSpeech');
-const styled = require('../../utils/log/styledLog');
-const GetCustomFields = require('./GetCustomFields');
-// const GetUser = require('./GetUser');
-const UpdateLead = require('./UpdateLead');
+import styled from '../../utils/log/styledLog.js';
+import { GetCustomFields } from './GetCustomFields.js';
+import { UpdateLead } from './UpdateLead.js';
 
-const SendMessage = async (body, audio, message, access_token) => {
+export const SendMessage = async (body, audio, message, access_token) => {
   try {
     // const user = await GetUser(body, false, access_token);
     
@@ -51,5 +49,3 @@ const SendMessage = async (body, audio, message, access_token) => {
     throw new Error('Erro no SendMessage:', error);
   }
 };
-
-module.exports = SendMessage;
