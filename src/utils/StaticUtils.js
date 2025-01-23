@@ -3,8 +3,19 @@ import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 import styled from "./log/styledLog.js";
 
 export default class StaticUtils {
+    static isUrl(text) {
+        const regex = new RegExp(
+            '^(https?:\\/\\/)' + // Deve começar com http:// ou https://
+            '([a-zA-Z\\d]([a-zA-Z\\d-]*[a-zA-Z\\d])*(\\.[a-zA-Z]{2,})?|localhost)?' + // Domínio válido ou localhost (opcional após o protocolo)
+            '(\\:\\d+)?' + // Porta (opcional)
+            '(\\/.*)?$', // Caminho (opcional)
+            'i' // Ignore case
+        );
+        return regex.test(text);
+    }
+
     static substituirEmojis(mensagem) {
-        const regexEmoji = /[\p{Emoji_Presentation}\p{Emoji}\uFE0F]/gu;
+        const regexEmoji = /[\p{Extended_Pictographic}]/gu;
 
         return mensagem.replace(regexEmoji, '[emoji]');
     }
@@ -65,7 +76,7 @@ export default class StaticUtils {
         return new Date(date.getTime() - diff);
     }
 
-    static getDentistName(dentist) {
+    static getCalendarName(dentist) {
         if (dentist?.includes('Juliana Leite')) {
             return 'Dra. Juliana Leite';
         } else if (dentist?.includes('Lucília')) {

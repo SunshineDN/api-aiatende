@@ -1,5 +1,5 @@
 import express from 'express';
-import Recepcao from '../../../../../controllers/assistant-prompt/Recepcao.js';
+import RecepcaoController from '../../../../../controllers/openaiIntegration/RecepcaoController.js';
 import kommoMiddleware from '../../../../../middlewares/kommoMiddleware.js';
 
 const router = express.Router();
@@ -13,8 +13,8 @@ router.get('/', (req, res) => {
 });
 
 // BOT RECEPÇÃO
-router.post('/:assistant_id/indefinido', Recepcao.indefinido);
+router.post('/:assistant_id/indefinido', RecepcaoController.indefinido);
 
-router.post('/:assistant_id/nao-qualificado', Recepcao.nao_qualificado);
+router.post('/:assistant_id/nao-qualificado', RecepcaoController.nao_qualificado);
 
 export default router;

@@ -133,23 +133,25 @@ export default class WebhookMiddleware {
     const { add: [{ id: message_id, chat_id, talk_id, contact_id, text, created_at, attachment, entity_type, element_id: lead_id, entity_id, author, origin }] } = message;
 
     req.body = {
+      lead_id,
       account: {
         id: account_id,
         subdomain: account_subdomain,
         account_domain,
       },
-      author,
-      contact_id,
-      chat_id,
-      created_at,
-      entity_id,
-      entity_type,
-      lead_id,
-      message_id,
-      origin,
-      talk_id,
-      text,
-      attachment,
+      message: {
+        author,
+        chat_id,
+        created_at,
+        entity_id,
+        entity_type,
+        contact_id,
+        message_id,
+        origin,
+        talk_id,
+        text,
+        attachment,
+      }
     };
 
     styled.middleware('\n [ Kommo - Message Received ] Request Method:', req.method);

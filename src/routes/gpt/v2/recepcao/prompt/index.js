@@ -1,6 +1,6 @@
 import express from 'express';
 
-import Recepcao from '../../../../../controllers/assistant-prompt/Recepcao.js';
+import RecepcaoController from '../../../../../controllers/openaiIntegration/RecepcaoController.js';
 import kommoMiddleware from '../../../../../middlewares/kommoMiddleware.js';
 
 const router = express.Router();
@@ -14,6 +14,6 @@ router.get('/', (req, res) => {
 });
 
 // BOT RECEPÇÃO
-router.post('/intencao', Recepcao.intencao);
+router.post('/intencao', RecepcaoController.intencao);
 
 export default router;

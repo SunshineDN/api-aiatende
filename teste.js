@@ -1183,6 +1183,7 @@ import styled from './src/utils/log/styledLog.js';
 //   return mensagem.replace(regexEmoji, textoPadrao);
 // }
 
+import RecepcaoServices from './src/services/openaiIntegration/RecepcaoServices.js';
 import KommoServices from './src/services/kommo/KommoServices.js';
 import KommoUtils from './src/utils/KommoUtils.js';
 import StaticUtils from './src/utils/StaticUtils.js';
@@ -1192,11 +1193,28 @@ import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 import LeadUtils from './src/utils/LeadUtils.js';
 import DateUtils from './src/utils/DateUtils.js';
 
-const kommo = new KommoServices({ auth: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjU3MTBhYzI1OGRiYzE5YjMwOGJiOTJjNGQwNWRkNDcyYjAzNTY0MDM5MzUzYTg2OGZmNDU2MGYxM2U3OGRhNDMwNzA1ZTI1MmE5ZDA1ZjkxIn0.eyJhdWQiOiI5OTIzYzhiMi1jNDYzLTQ0MGQtYTcxMS0wMTIwZWZhNGMzYmIiLCJqdGkiOiI1NzEwYWMyNThkYmMxOWIzMDhiYjkyYzRkMDVkZDQ3MmIwMzU2NDAzOTM1M2E4NjhmZjQ1NjBmMTNlNzhkYTQzMDcwNWUyNTJhOWQwNWY5MSIsImlhdCI6MTczNjgxNzQyNSwibmJmIjoxNzM2ODE3NDI1LCJleHAiOjE3Njk4MTc2MDAsInN1YiI6Ijc0MjE4OTkiLCJncmFudF90eXBlIjoiIiwiYWNjb3VudF9pZCI6MzM5ODExODMsImJhc2VfZG9tYWluIjoia29tbW8uY29tIiwidmVyc2lvbiI6Miwic2NvcGVzIjpbImNybSIsImZpbGVzIiwiZmlsZXNfZGVsZXRlIiwibm90aWZpY2F0aW9ucyIsInB1c2hfbm90aWZpY2F0aW9ucyJdLCJoYXNoX3V1aWQiOiJlMzE4MzllYi03MWU1LTQyMDctOGQ0YS1iZWVjZTI3MTg0MTgiLCJhcGlfZG9tYWluIjoiYXBpLWMua29tbW8uY29tIn0.Idtrl_UJp1uHQHfvb8denAWxhASFVY8ju2fZ3hxwmMofCuKXbj8LXPOW92p9XkGgy2azs_IzzprhMjm1yJ_QMtnu71FtfRDE8o55FkfDBeflXH9SaAzhmQ65WmXvpnrwTsrfnbjeCNacPb0m6YQBKezqdS9XtzCw0Ptt_f0Pab7qpLZRuzso7p21zD0HkdGRt5U8ttADaMb-YgKHRnDZKtKEA4BVQWh1R6uvHe2bC4onceyQAiQo_FaKrH1C2w7_kP7ZkfleDhVHLeevjP38qYUeKGsUkfEiyPZgPIFy_MPRfKRnPInDB70K_sbXHjklZ8eQAQgr6Vi2MrOoVFyuwQ', url: 'https://adrianocamposadvogado.kommo.com' });
+// ADRIANO
+// const kommo = new KommoServices({ auth: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjU3MTBhYzI1OGRiYzE5YjMwOGJiOTJjNGQwNWRkNDcyYjAzNTY0MDM5MzUzYTg2OGZmNDU2MGYxM2U3OGRhNDMwNzA1ZTI1MmE5ZDA1ZjkxIn0.eyJhdWQiOiI5OTIzYzhiMi1jNDYzLTQ0MGQtYTcxMS0wMTIwZWZhNGMzYmIiLCJqdGkiOiI1NzEwYWMyNThkYmMxOWIzMDhiYjkyYzRkMDVkZDQ3MmIwMzU2NDAzOTM1M2E4NjhmZjQ1NjBmMTNlNzhkYTQzMDcwNWUyNTJhOWQwNWY5MSIsImlhdCI6MTczNjgxNzQyNSwibmJmIjoxNzM2ODE3NDI1LCJleHAiOjE3Njk4MTc2MDAsInN1YiI6Ijc0MjE4OTkiLCJncmFudF90eXBlIjoiIiwiYWNjb3VudF9pZCI6MzM5ODExODMsImJhc2VfZG9tYWluIjoia29tbW8uY29tIiwidmVyc2lvbiI6Miwic2NvcGVzIjpbImNybSIsImZpbGVzIiwiZmlsZXNfZGVsZXRlIiwibm90aWZpY2F0aW9ucyIsInB1c2hfbm90aWZpY2F0aW9ucyJdLCJoYXNoX3V1aWQiOiJlMzE4MzllYi03MWU1LTQyMDctOGQ0YS1iZWVjZTI3MTg0MTgiLCJhcGlfZG9tYWluIjoiYXBpLWMua29tbW8uY29tIn0.Idtrl_UJp1uHQHfvb8denAWxhASFVY8ju2fZ3hxwmMofCuKXbj8LXPOW92p9XkGgy2azs_IzzprhMjm1yJ_QMtnu71FtfRDE8o55FkfDBeflXH9SaAzhmQ65WmXvpnrwTsrfnbjeCNacPb0m6YQBKezqdS9XtzCw0Ptt_f0Pab7qpLZRuzso7p21zD0HkdGRt5U8ttADaMb-YgKHRnDZKtKEA4BVQWh1R6uvHe2bC4onceyQAiQo_FaKrH1C2w7_kP7ZkfleDhVHLeevjP38qYUeKGsUkfEiyPZgPIFy_MPRfKRnPInDB70K_sbXHjklZ8eQAQgr6Vi2MrOoVFyuwQ', url: 'https://adrianocamposadvogado.kommo.com' });
+
+// DENTAL SANTE
+const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
+const recepcaoServices = new RecepcaoServices(19030890);
 
 async function test() {
-  const lead = await kommo.getLead({ id: 878244, withParams: 'contacts' })
-  console.dir(lead, { depth: null });
+  const text = 'https://a.com'
+  const text2 = 'asda.ssd/asdw 123'
+  const text3 = 'https://'
+  const text4 = 'http://'
+  const text5 = 'sim'
+  const text6 = 'nao'
+  const text7 = 'Sim :3 confirmo para às 9:00 da manhã ✅❌✅🆗⚠️🤣🌙😂🐈💬👍😂🌙🤣'
+  console.log(StaticUtils.substituirEmojis(text));
+  console.log(StaticUtils.substituirEmojis(text2));
+  console.log(StaticUtils.substituirEmojis(text3));
+  console.log(StaticUtils.substituirEmojis(text4));
+  console.log(StaticUtils.substituirEmojis(text5));
+  console.log(StaticUtils.substituirEmojis(text6));
+  console.log(StaticUtils.substituirEmojis(text7));
 }
 
 test();

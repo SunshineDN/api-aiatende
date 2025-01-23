@@ -63,7 +63,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
 
   //Assistente
   static async confirmar_presenca(req, res) {
-    styled.function('Assistente | BOT - PÓS AGENDAMENTO | Confirmar Vinda...');
+    styled.function('Assistente | BOT - CONFIRMAÇÃO | Confirmar Vinda...');
     try {
       const { lead_id: leadID } = req.body;
       const { assistant_id } = req.params;

@@ -1,20 +1,21 @@
-
+import OpenaiIntegrationServices from './OpenaiIntegrationServices.js';
+import LeadUtils from '../../utils/LeadUtils.js';
 import styled from '../../utils/log/styledLog.js';
-import { GetAccessToken } from '../../services/kommo/GetAccessToken.js';
-import { GetAnswer } from '../../services/kommo/GetAnswer.js';
-import { GetMessageReceived } from '../../services/kommo/GetMessageReceived.js';
-import { Communicator } from '../../utils/assistant-prompt/Communicator.js';
 
-export default class Recepcao {
+export default class RecepcaoServices {
+  constructor(lead_id) {
+    this.lead_id = lead_id;
+    this.kommo = new OpenaiIntegrationServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
+  }
 
   //Prompt
-  static async intencao(req, res) {
-    styled.function('Prompt | BOT - Recepção | Intenção...');
+  async intencao() {
     try {
-      const access_token = GetAccessToken();
+      styled.function('[RecepcaoServices.intencao] Recepção | Intenção...');
+      const lead = await this.kommo.getLead({ id: this.lead_id });
 
-      const message_received = await GetMessageReceived(req.body, access_token);
-      const answer = await GetAnswer(req.body, access_token);
+      const message_received = await LeadUtils.findLeadField({ lead, fieldName: 'GPT | Message received', value: true });
+      const answer = await LeadUtils.findLeadField({ lead, fieldName: 'GPT | Answer', value: true });
 
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
       const weekOptions = {
@@ -28,7 +29,7 @@ export default class Recepcao {
 
 #Saudacao: Para usuário realizando a Saudação (ex: Oi, Olá, Bom dia, Boa noite, Tudo bem? etc).
 
-#ClienteAntigo: Para usuário que já é cliente antigo e queira conversar sobre algum assunto.
+#ClienteAntigo: Para usuário que já é cliente antigo e queira conversar sobre algum assunto, ou para o usuário que já que já tinha algum tipo de histórico de conversa anteriormente.
 
 #Informacao: Para usuário buscando mais informações ou valores.
 
@@ -39,22 +40,24 @@ export default class Recepcao {
 #Geral: Para os demais assuntos.
 
 Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra" Exemplo: #Agendamento'`;
-      await Communicator.prompt(req, res, text);
+
+      const response = await this.kommo.prompt(this.lead_id, text);
+      return { code: 200, message: 'Prompt enviado com sucesso', ...response };
+
     } catch (error) {
-      styled.error(`Erro ao enviar prompt: ${error.message}`);
-      res.status(500).send('Erro ao enviar prompt');
+      styled.error(`[RecepcaoServices.intencao] Erro ao enviar mensagem para o prompt`);
+      await this.kommo.sendErrorLog({ lead_id: this.lead_id, error: `[RecepcaoServices.intencao] ${error?.message}` });
+      throw error;
     }
   }
 
   //Assistente
-  static async indefinido(req, res) {
-    styled.function('Assistant | BOT - Recepção | Indefinido...');
+  async indefinido(assistant_id) {
     try {
-      const access_token = GetAccessToken();
-      const { lead_id: leadID } = req.body;
-      const { assistant_id } = req.params;
+      styled.function('[RecepcaoServices.indefinido] Recepção | Indefinido...');
+      const lead = await this.kommo.getLead({ id: this.lead_id });
 
-      const message_received = await GetMessageReceived(req.body, access_token);
+      const message_received = await LeadUtils.findLeadField({ lead, fieldName: 'GPT | Message received', value: true });
 
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
       const weekOptions = {
@@ -70,27 +73,22 @@ Recebendo um usuário novo. Inicie a conversa perguntando o seu nome, caso já t
 
 User message: '${message_received}'`;
 
-      const data = {
-        leadID,
-        text,
-        assistant_id,
-      };
+      const response = await this.kommo.assistant(this.lead_id, text, assistant_id);
+      return { code: 200, message: 'Mensagem do assistente enviada com sucesso', ...response };
 
-      await Communicator.assistant(req, res, data);
     } catch (error) {
-      styled.error(`Erro ao enviar mensagem para a assistente: ${error.message}`);
-      res.status(500).send('Erro ao enviar mensagem para a assistente');
+      styled.error(`[RecepcaoServices.indefinido] Erro ao enviar mensagem para o assistente`);
+      await this.kommo.sendErrorLog({ lead_id: this.lead_id, error: `[RecepcaoServices.indefinido] ${error?.message}` });
+      throw error;
     }
   }
 
-  //Assistente
-  static async nao_qualificado(req, res) {
-    styled.function('Assistant | BOT - Recepção | Não Qualificado...');
+  async nao_qualificado(assistant_id) {
     try {
-      const access_token = GetAccessToken();
-      const message_received = await GetMessageReceived(req.body, access_token);
-      const { lead_id: leadID } = req.body;
-      const { assistant_id } = req.params;
+      styled.function('[RecepcaoServices.nao_qualificado] Recepção | Não Qualificado...');
+      const lead = await this.kommo.getLead({ id: this.lead_id });
+
+      const message_received = await LeadUtils.findLeadField({ lead, fieldName: 'GPT | Message received', value: true });
 
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
       const weekOptions = {
@@ -100,8 +98,7 @@ User message: '${message_received}'`;
       const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
       const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
 
-      const text = `System message:
-"Adote a informação, dia de semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife (GMT-3).
+      const text = `System message: "Adote a informação, dia de semana, data, hora, local e fuso horário atual são: ${weekDayFormatted}, ${date}, Recife (GMT-3).
 
 Resposta do usuário: ${message_received}
 
@@ -109,12 +106,12 @@ Avaliar a opção adequada para a resposta do usuário:
 
 1) Se a intenção do usuário for vender ou oferecer produto ou serviços, conduza com uma resposta semelhante à do exemplo:
 'Muito obrigado pelo seu interesse! 
-Segue nosso e-mail: *contato@caa.com.br*
+Segue nosso e-mail: *contato@dentalsante.com.br*
 Estamos direcionando o seu atendimento ao nosso setor administrativo e financeiro.
 Em breve, te responderão!'
 
 2) Se a intenção do usuário de se candidatar alguma vaga disponível, conduza com uma resposta semelhante à do exemplo:
-'Muito obrigado pelo seu interesse! Segue nosso e-mail: *selecao@caa.com.br*
+'Muito obrigado pelo seu interesse! Segue nosso e-mail: *selecao@dentalsante.com.br*
 Estamos direcionando o seu atendimento ao setor de Gestão de Pessoas.
 Em breve, te responderão!'
 
@@ -124,23 +121,21 @@ Em breve, te responderão!'
 *(81) 3094-0020*'
 
 4) Se for algum usuário que tenha entrado por engano, conduza com uma resposta semelhante à do exemplo:
-'Somos a *CAA*, estamos sempre à disposição. Quando quiser estamos de portas aberta.'
+'Somos a *Clínica Odontológica Dental Santé*, estamos sempre à disposição. Quando quiser estamos de portas aberta.'
 
-5) Se for algum usuário que queira deixar algum feedback positivo ou negativo, conduza com uma resposta semelhante à do exemplo:\
+5) Se for algum usuário que queira deixar algum feedback positivo ou negativo, conduza com uma resposta semelhante à do exemplo:
 'Agradecemos pelo seu Feedback. Suas Sugestões, Elogios ou Reclamações são informadas diretamente à nossa Diretoria.'
 
 6) Se não for nenhuma das opções acima, então receba como usuário novo. Inicie a conversa perguntando o seu nome para demonstrar proximidade, e na sequência entender os seus interesses e as suas dúvidas."`;
 
-      const data = {
-        leadID,
-        text,
-        assistant_id,
-      };
 
-      await Communicator.assistant(req, res, data);
+      const response = await this.kommo.assistant(this.lead_id, text, assistant_id);
+      return { code: 200, message: 'Mensagem do assistente enviada com sucesso', ...response };
+
     } catch (error) {
-      styled.error(`Erro ao enviar mensagem para a assistente: ${error.message}`);
-      res.status(500).send('Erro ao enviar mensagem para a assistente');
+      styled.error(`[RecepcaoServices.nao_qualificado] Erro ao enviar mensagem para o assistente`);
+      await this.kommo.sendErrorLog({ lead_id: this.lead_id, error: `[RecepcaoServices.nao_qualificado] ${error?.message}` });
+      throw error;
     }
   }
 }

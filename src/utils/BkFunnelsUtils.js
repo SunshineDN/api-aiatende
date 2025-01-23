@@ -26,7 +26,7 @@ export default class BkFunnelsUtils {
       } else if (answer === '3 - OdontopediatriaConsulta de Crianças até 12 anosInvestimento de R$ 99,00') {
         return {
           type: 'dentista',
-          value: 'Odontopediatria',
+          value: 'Dra. Lucília Miranda',
         }
       } else if (answer === 'Odontopediatria') {
         return {
