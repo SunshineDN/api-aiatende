@@ -246,7 +246,7 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON.`;
       custom_fields_values: custom_fields
     });
 
-    await OpenAIController.generateMessage({ leadID: lead_id_decoded, text: `O agendamento foi realizado com sucesso para o dia ${data} às ${horario}.`, assistant_id: process.env.OPENAI_ASSISTANT_ID });
+    // await OpenAIController.generateMessage({ leadID: lead_id_decoded, text: `O agendamento foi realizado com sucesso para o dia ${data} às ${horario}.`, assistant_id: process.env.OPENAI_ASSISTANT_ID });
 
     return registerEvent;
   }
