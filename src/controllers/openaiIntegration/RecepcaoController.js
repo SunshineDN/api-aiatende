@@ -3,7 +3,6 @@ import RecepcaoServices from '../../services/openaiIntegration/RecepcaoServices.
 
 export default class RecepcaoController {
 
-  //Prompt
   static async intencao(req, res) {
     try {
       const { lead_id } = req.body;
@@ -18,7 +17,6 @@ export default class RecepcaoController {
     }
   }
 
-  //Assistente
   static async indefinido(req, res) {
     try {
       const { lead_id } = req.body;
@@ -30,11 +28,10 @@ export default class RecepcaoController {
     } catch (error) {
       styled.error(`[RecepcaoController.indefinido] Erro ao enviar mensagem para a assistente: ${error?.message}`);
       console.error(error);
-      return res.status(500).send({ message: 'Erro ao enviar prompt', error: error?.message });
+      return res.status(500).send({ message: 'Erro ao enviar mensagem para a assistente', error: error?.message });
     }
   }
 
-  //Assistente
   static async nao_qualificado(req, res) {
     try {
       const { lead_id } = req.body;
@@ -46,7 +43,7 @@ export default class RecepcaoController {
     } catch (error) {
       styled.error(`[RecepcaoController.nao_qualificado] Erro ao enviar mensagem para a assistente: ${error?.message}`);
       console.error(error);
-      return res.status(500).send({ message: 'Erro ao enviar prompt', error: error?.message });
+      return res.status(500).send({ message: 'Erro ao enviar mensagem para a assistente', error: error?.message });
     }
   }
 }
