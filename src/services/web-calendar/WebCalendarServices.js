@@ -201,6 +201,7 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON.`;
     const eventIdField = await kommoUtils.findLeadsFieldByName('Event ID');
     const eventLinkField = await kommoUtils.findLeadsFieldByName('Event Link');
     const eventSummaryField = await kommoUtils.findLeadsFieldByName('Event Summary');
+    const eventStartField = await kommoUtils.findLeadsFieldByName('Event Start');
 
     const closedWon = await kommoUtils.findStatusByCode('03 - PRÉ-AGENDAMENTO', 142);
 
@@ -236,6 +237,14 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON.`;
             value: registerEvent.summary,
           }
         ]
+      },
+      {
+        field_id: eventStartField.id,
+        values: [
+          {
+            value: `${data} ${horario}`,
+          }
+        ]
       }
     ]
 
@@ -246,7 +255,7 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON.`;
       custom_fields_values: custom_fields
     });
 
-    await OpenAIController.generateMessage({ leadID: lead_id_decoded, text: `O agendamento foi realizado com sucesso para o dia ${data} às ${horario}.`, assistant_id: process.env.OPENAI_ASSISTANT_ID });
+    // await OpenAIController.generateMessage({ leadID: lead_id_decoded, text: `O agendamento foi realizado com sucesso para o dia ${data} às ${horario}.`, assistant_id: process.env.OPENAI_ASSISTANT_ID });
 
     return registerEvent;
   }
