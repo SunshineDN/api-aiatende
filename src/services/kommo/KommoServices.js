@@ -384,15 +384,20 @@ export default class KommoServices {
     return { code: 201, response: data };
   };
 
-  async updateLeadBk({ id, dentista = '', procedimento = '', periodo = '', turno = '' } = {}) {
+  async updateLeadBk({ id, datanascimento = '', dentista = '', procedimento = '', periodo = '', turno = '', code = '' } = {}) {
+    if (!id) {
+      throw new Error('Lead ID is required');
+    }
+
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields(), contacts_custom_fields: await this.getContactsCustomFields(), pipelines: await this.getPipelines() });
 
+    const nascimentoField = kommoUtils.findLeadsFieldByName('Data de Nascimento');
     const dentistaField = kommoUtils.findLeadsFieldByName('Dentista');
     const procedimentoField = kommoUtils.findLeadsFieldByName('Procedimento');
     const periodoField = kommoUtils.findLeadsFieldByName('Período');
     const turnoField = kommoUtils.findLeadsFieldByName('Turno');
-    const calendarField = kommoUtils.findLeadsFieldByName('Calendário');
-
+    const codeField = kommoUtils.findLeadsFieldByName('BK Funnels ID');
+    
     const status = kommoUtils.findStatusByName('PRÉ-AGENDAMENTO');
 
     const options = {
@@ -406,20 +411,25 @@ export default class KommoServices {
       data: {
         status_id: status.id,
         pipeline_id: status.pipeline_id,
-        custom_fields_values: [
-          {
-            field_id: calendarField.id,
-            values: [
-              {
-                value: StaticUtils.calendarLink(id)
-              }
-            ]
-          }
-        ]
+        custom_fields_values: []
       }
     };
 
     // Adicionar os elementos ao custom_fields_values se houver algum valor
+
+    if (datanascimento) {
+      const validDate = kommoUtils.convertDateToMs(StaticUtils.normalizeDate(datanascimento));
+      if (validDate) {
+        options.data.custom_fields_values.push({
+          field_id: nascimentoField.id,
+          values: [
+            {
+              value: validDate
+            }
+          ]
+        });
+      }
+    }
 
     if (dentista) {
       options.data.custom_fields_values.push({
@@ -460,6 +470,17 @@ export default class KommoServices {
         values: [
           {
             value: turno
+          }
+        ]
+      });
+    }
+
+    if (code) {
+      options.data.custom_fields_values.push({
+        field_id: codeField.id,
+        values: [
+          {
+            value: code
           }
         ]
       });
