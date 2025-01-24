@@ -5,8 +5,7 @@ import KommoServices from "../kommo/KommoServices.js";
 import LeadUtils from "../../utils/LeadUtils.js";
 import styled from "../../utils/log/styledLog.js";
 import KommoUtils from "../../utils/KommoUtils.js";
-import DateUtils from "../../utils/DateUtils.js";
-
+                                              
 export default class WebCalendarServices {
 
   static async listInitialValues(lead_id) {
@@ -254,8 +253,6 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON.`;
       pipeline_id: closedWon.pipeline_id,
       custom_fields_values: custom_fields
     });
-
-    // await OpenAIController.generateMessage({ leadID: lead_id_decoded, text: `O agendamento foi realizado com sucesso para o dia ${data} às ${horario}.`, assistant_id: process.env.OPENAI_ASSISTANT_ID });
 
     return registerEvent;
   }

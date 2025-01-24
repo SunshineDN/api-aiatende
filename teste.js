@@ -1202,9 +1202,12 @@ const kommoUtils = new KommoUtils();
 const recepcaoServices = new RecepcaoServices(19030890);
 
 async function test() {
-  const datanascimento = '11032003'
-  const dateSeconds = DateUtils.convertDateToMs(StaticUtils.normalizeDate(datanascimento))
-  console.log(dateSeconds)
+  const form = process.env.FORM || '';
+  if (form) {
+    console.log('Form:', form);
+  } else {
+    console.log('Form não informado');
+  }
 }
 
 test();
