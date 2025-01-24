@@ -55,23 +55,25 @@ export default class BkFunnelsServices {
       let turno_res;
       if (!leads || leads?.length === 0) {
         turno_res = await kommo.createLeadBk({
-          name: name,
-          email: email,
-          phone: phone,
-          datanascimento: datanascimento,
-          dentista: dentista,
-          procedimento: procedimento,
-          periodo: periodo,
+          name,
+          email,
+          phone,
+          datanascimento,
+          dentista,
+          procedimento,
+          periodo,
           turno: value,
           code: codeString
         });
       } else {
         turno_res = await kommo.updateLeadBk({
           id: leads[0].id,
-          dentista: dentista,
-          procedimento: procedimento,
-          periodo: periodo,
+          datanascimento,
+          dentista,
+          procedimento,
+          periodo,
           turno: value,
+          code: codeString
         });
       }
       await bkFunnelsRepository.updateByCode(codeString, { turno: value });
