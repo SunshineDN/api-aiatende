@@ -201,6 +201,7 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON.`;
     const eventIdField = await kommoUtils.findLeadsFieldByName('Event ID');
     const eventLinkField = await kommoUtils.findLeadsFieldByName('Event Link');
     const eventSummaryField = await kommoUtils.findLeadsFieldByName('Event Summary');
+    const eventStartField = await kommoUtils.findLeadsFieldByName('Event Start');
 
     const closedWon = await kommoUtils.findStatusByCode('03 - PRÉ-AGENDAMENTO', 142);
 
@@ -234,6 +235,14 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON.`;
         values: [
           {
             value: registerEvent.summary,
+          }
+        ]
+      },
+      {
+        field_id: eventStartField.id,
+        values: [
+          {
+            value: `${data} ${horario}`,
           }
         ]
       }
