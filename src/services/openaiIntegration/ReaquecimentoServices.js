@@ -1,5 +1,6 @@
 import LeadMessagesRepository from '../../repositories/LeadMessagesRepository.js';
 import OpenaiIntegrationServices from './OpenaiIntegrationServices.js';
+import styled from '../../utils/log/styledLog.js';
 
 export default class ReaquecimentoServices {
   constructor(lead_id) {
