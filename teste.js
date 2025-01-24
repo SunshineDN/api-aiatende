@@ -1198,23 +1198,16 @@ import DateUtils from './src/utils/DateUtils.js';
 
 // DENTAL SANTE
 const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
+const kommoUtils = new KommoUtils();
 const recepcaoServices = new RecepcaoServices(19030890);
 
 async function test() {
-  const text = 'https://a.com'
-  const text2 = 'asda.ssd/asdw 123'
-  const text3 = 'https://'
-  const text4 = 'http://'
-  const text5 = 'sim'
-  const text6 = 'nao'
-  const text7 = 'Sim :3 confirmo para às 9:00 da manhã ✅❌✅🆗⚠️🤣🌙😂🐈💬👍😂🌙🤣'
-  console.log(StaticUtils.substituirEmojis(text));
-  console.log(StaticUtils.substituirEmojis(text2));
-  console.log(StaticUtils.substituirEmojis(text3));
-  console.log(StaticUtils.substituirEmojis(text4));
-  console.log(StaticUtils.substituirEmojis(text5));
-  console.log(StaticUtils.substituirEmojis(text6));
-  console.log(StaticUtils.substituirEmojis(text7));
+  const form = process.env.FORM || '';
+  if (form) {
+    console.log('Form:', form);
+  } else {
+    console.log('Form não informado');
+  }
 }
 
 test();

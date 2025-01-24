@@ -49,4 +49,10 @@ import reaquecimentoPromptRouter from './reaquecimento/prompt/index.js';
 router.use('/reaquecimento/assistant', reaquecimentoAssistenteRouter);
 router.use('/reaquecimento/prompt', reaquecimentoPromptRouter);
 
+// Roteamento para as subpastas de /gpt/v2/agendamento
+import agendamentoAssistenteRouter from './agendamento/assistente/index.js';
+import agendamentoPromptRouter from './agendamento/prompt/index.js';
+router.use('/agendamento/assistant', agendamentoAssistenteRouter);
+router.use('/agendamento/prompt', agendamentoPromptRouter);
+
 export default router;

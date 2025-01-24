@@ -2109,6 +2109,181 @@
       }
     },
 
+    "/gpt/v2/agendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/form": {
+      "post": {
+        "summary": "Agendamento - Assistente - Form",
+        "description": "Envia mensagem do assistente para o lead",
+        "tags": [
+          "GPT V2 - _Agendamento"
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "leads[add][0][id]": {
+                    "type": "string",
+                    "example": "19030890",
+                    "description": "ID do lead"
+                  },
+                  "leads[add][0][status_id]": {
+                    "type": "string",
+                    "example": "73195524",
+                    "description": "ID do status do lead"
+                  },
+                  "leads[add][0][pipeline_id]": {
+                    "type": "string",
+                    "example": "8933063",
+                    "description": "ID do pipeline do lead"
+                  },
+                  "leads[status][0][id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do lead (Quando executado via movimentação de status)"
+                  },
+                  "leads[status][0][status_id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do status do lead (Quando executado via movimentação de status)"
+                  },
+                  "leads[status][0][pipeline_id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
+                  },
+                  "leads[status][0][old_status_id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
+                  },
+                  "leads[status][0][old_pipeline_id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
+                  },
+                  "account[id]": {
+                    "type": "string",
+                    "example": "32000011",
+                    "description": "ID da conta"
+                  },
+                  "account[subdomain]": {
+                    "type": "string",
+                    "example": "kommoagendamento",
+                    "description": "Subdomínio da conta"
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Mensagem enviada e recebida com sucesso"
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "403": {
+              "description": "Forbidden"
+            },
+            "404": {
+              "description": "Not Found"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      }
+    },
+    "/gpt/v2/agendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/calendar": {
+      "post": {
+        "summary": "Agendamento - Assistente - Calendar",
+        "description": "Envia mensagem do assistente para o lead",
+        "tags": [
+          "GPT V2 - _Agendamento"
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "leads[add][0][id]": {
+                    "type": "string",
+                    "example": "19030890",
+                    "description": "ID do lead"
+                  },
+                  "leads[add][0][status_id]": {
+                    "type": "string",
+                    "example": "73195524",
+                    "description": "ID do status do lead"
+                  },
+                  "leads[add][0][pipeline_id]": {
+                    "type": "string",
+                    "example": "8933063",
+                    "description": "ID do pipeline do lead"
+                  },
+                  "leads[status][0][id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do lead (Quando executado via movimentação de status)"
+                  },
+                  "leads[status][0][status_id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do status do lead (Quando executado via movimentação de status)"
+                  },
+                  "leads[status][0][pipeline_id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do pipeline do lead (Quando executado via movimentação de status)"
+                  },
+                  "leads[status][0][old_status_id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do status antigo do lead (Quando executado via movimentação de status)"
+                  },
+                  "leads[status][0][old_pipeline_id]": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ID do pipeline antigo do lead (Quando executado via movimentação de status)"
+                  },
+                  "account[id]": {
+                    "type": "string",
+                    "example": "32000011",
+                    "description": "ID da conta"
+                  },
+                  "account[subdomain]": {
+                    "type": "string",
+                    "example": "kommoagendamento",
+                    "description": "Subdomínio da conta"
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Mensagem enviada e recebida com sucesso"
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "403": {
+              "description": "Forbidden"
+            },
+            "404": {
+              "description": "Not Found"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      }
+    },
+
     "/gpt/v2/dados/prompt/intencao": {
       "post": {
         "summary": "Dados - Prompt - Intenção",
@@ -3590,12 +3765,12 @@
       }
     },
 
-    "/gpt/v2/agendamento/prompt/intencao": {
+    "/gpt/v2/_agendamento/prompt/intencao": {
       "post": {
         "summary": "Agendamento - Prompt - Intenção",
         "description": "Recebe a intenção do usuário e retorna a resposta da IA",
         "tags": [
-          "GPT V2 - Agendamento"
+          "GPT V2 - _Agendamento"
         ],
         "requestBody": {
           "content": {
@@ -3677,12 +3852,12 @@
         }
       }
     },
-    "/gpt/v2/agendamento/prompt/verificar-confirmacao": {
+    "/gpt/v2/_agendamento/prompt/verificar-confirmacao": {
       "post": {
         "summary": "Agendamento - Prompt - Verificar Confirmação",
         "description": "Recebe a intenção de confirmação do usuário e retorna a resposta da IA",
         "tags": [
-          "GPT V2 - Agendamento"
+          "GPT V2 - _Agendamento"
         ],
         "requestBody": {
           "content": {
@@ -3764,12 +3939,12 @@
         }
       }
     },
-    "/gpt/v2/agendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/form-join": {
+    "/gpt/v2/_agendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/form-join": {
       "post": {
         "summary": "Agendamento - Assistente - Formulário de Cadastro",
         "description": "Envia mensagem do assistente para o lead",
         "tags": [
-          "GPT V2 - Agendamento"
+          "GPT V2 - _Agendamento"
         ],
         "requestBody": {
           "content": {
@@ -3851,12 +4026,12 @@
         }
       }
     },
-    "/gpt/v2/agendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/disponibilidade-horario": {
+    "/gpt/v2/_agendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/disponibilidade-horario": {
       "post": {
         "summary": "Agendamento - Assistente - Disponibilidade de Horário",
         "description": "Envia mensagem do assistente para o lead",
         "tags": [
-          "GPT V2 - Agendamento"
+          "GPT V2 - _Agendamento"
         ],
         "requestBody": {
           "content": {
@@ -3938,12 +4113,12 @@
         }
       }
     },
-    "/gpt/v2/agendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/verificar-datas": {
+    "/gpt/v2/_agendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/verificar-datas": {
       "post": {
         "summary": "Agendamento - Assistente - Verificar Datas",
         "description": "Envia mensagem do assistente para o lead",
         "tags": [
-          "GPT V2 - Agendamento"
+          "GPT V2 - _Agendamento"
         ],
         "requestBody": {
           "content": {

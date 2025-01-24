@@ -28,7 +28,7 @@ export default class ReaquecimentoController {
     } catch (error) {
       styled.error(`[ReaquecimentoController.frio] Erro ao enviar mensagem para a assistente: ${error?.message}`);
       console.error(error);
-      return res.status(500).send({ message: 'Erro ao enviar prompt', error: error?.message });
+      return res.status(500).send({ message: 'Erro ao enviar mensagem para a assistente', error: error?.message });
     }
   }
 
@@ -43,7 +43,7 @@ export default class ReaquecimentoController {
     } catch (error) {
       styled.error(`[ReaquecimentoController.congelado] Erro ao enviar mensagem para a assistente: ${error?.message}`);
       console.error(error);
-      return res.status(500).send({ message: 'Erro ao enviar prompt', error: error?.message });
+      return res.status(500).send({ message: 'Erro ao enviar mensagem para a assistente', error: error?.message });
     }
   }
 }

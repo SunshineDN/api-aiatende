@@ -26,6 +26,7 @@ services:
       - KOMMO_URL= # URL do Kommo
       - OPENAI_API_KEY= # Chave de API do OpenAI
       - DB_URL=postgres://DB_USER:DB_PASS@DB_HOST:DB_PORT/DB_NAME # URL de conexão com o banco de dados
+      - FORM= # Formulário de Funil/Cadastro/Order Bump/Checkout
     expose:
       - "PORT" # Altere para a porta que deseja expor
     ports:
