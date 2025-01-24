@@ -3,6 +3,7 @@ import KommoUtils from "../../utils/KommoUtils.js";
 import StaticUtils from "../../utils/StaticUtils.js";
 import styled from "../../utils/log/styledLog.js";
 import LeadUtils from "../../utils/LeadUtils.js";
+import DateUtils from "../../utils/DateUtils.js";
 
 export default class KommoServices {
   constructor({ auth, url }) {
@@ -418,7 +419,7 @@ export default class KommoServices {
     // Adicionar os elementos ao custom_fields_values se houver algum valor
 
     if (datanascimento) {
-      const validDate = kommoUtils.convertDateToMs(StaticUtils.normalizeDate(datanascimento));
+      const validDate = DateUtils.convertDateToMs(StaticUtils.normalizeDate(datanascimento)) / 1000;
       if (validDate) {
         options.data.custom_fields_values.push({
           field_id: nascimentoField.id,

@@ -1198,9 +1198,13 @@ import DateUtils from './src/utils/DateUtils.js';
 
 // DENTAL SANTE
 const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
+const kommoUtils = new KommoUtils();
 const recepcaoServices = new RecepcaoServices(19030890);
 
 async function test() {
+  const datanascimento = '11032003'
+  const dateSeconds = DateUtils.convertDateToMs(StaticUtils.normalizeDate(datanascimento))
+  console.log(dateSeconds)
 }
 
 test();
