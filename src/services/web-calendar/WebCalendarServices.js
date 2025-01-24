@@ -162,31 +162,9 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON.`;
 
   static async registerDate(dentista, data, horario, lead_id) {
     const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
-    const kommoUtils = new KommoUtils({ pipelines: await kommo.getPipelines(), leads_custom_fields: await kommo.getLeadsCustomFields() });
 
     const lead_id_decoded = StaticUtils.decodeString(lead_id);
     const lead = await kommo.getLead({ id: lead_id_decoded, withParams: 'contacts' });
-
-    const dataAgendamento = await kommoUtils.findLeadsFieldByName('Data do Agendamento');
-    const closedWon = await kommoUtils.findStatusByCode('03 - PRÉ-AGENDAMENTO', 142);
-
-    const custom_fields = [
-      {
-        field_id: dataAgendamento.id,
-        values: [
-          {
-            value: kommoUtils.dateTimeToSeconds(`${data} ${horario}`),
-          }
-        ]
-      }
-    ]
-
-    await kommo.updateLead({
-      id: lead_id_decoded,
-      status_id: closedWon.id,
-      pipeline_id: closedWon.pipeline_id,
-      custom_fields_values: custom_fields
-    });
 
     const procedimento = LeadUtils.findLeadField({ lead, fieldName: 'Procedimento', value: true });
     const nome = lead?.contact?.name;
@@ -215,6 +193,57 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON.`;
       description: 'Lead se agendou pelo formulário do site.',
     };
 
-    return await calendar.executeRegisterEvent(calendarId, obj);
+    const registerEvent = await calendar.executeRegisterEvent(calendarId, obj);
+
+    const kommoUtils = new KommoUtils({ pipelines: await kommo.getPipelines(), leads_custom_fields: await kommo.getLeadsCustomFields() });
+
+    const dataAgendamento = await kommoUtils.findLeadsFieldByName('Data do Agendamento');
+    const eventIdField = await kommoUtils.findLeadsFieldByName('Event ID');
+    const eventLinkField = await kommoUtils.findLeadsFieldByName('Event Link');
+    const eventSummaryField = await kommoUtils.findLeadsFieldByName('Event Summary');
+
+    const closedWon = await kommoUtils.findStatusByCode('03 - PRÉ-AGENDAMENTO', 142);
+
+    const custom_fields = [
+      {
+        field_id: dataAgendamento.id,
+        values: [
+          {
+            value: kommoUtils.dateTimeToSeconds(`${data} ${horario}`),
+          }
+        ]
+      },
+      {
+        field_id: eventIdField.id,
+        values: [
+          {
+            value: registerEvent.id,
+          }
+        ]
+      },
+      {
+        field_id: eventLinkField.id,
+        values: [
+          {
+            value: registerEvent.htmlLink,
+          }
+        ]
+      },
+      {
+        field_id: eventSummaryField.id,
+        values: [
+          {
+            value: registerEvent.summary,
+          }
+        ]
+      }
+    ]
+
+    await kommo.updateLead({
+      id: lead_id_decoded,
+      status_id: closedWon.id,
+      pipeline_id: closedWon.pipeline_id,
+      custom_fields_values: custom_fields
+    });
   }
 }
