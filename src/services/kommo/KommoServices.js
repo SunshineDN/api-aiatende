@@ -419,7 +419,7 @@ export default class KommoServices {
     // Adicionar os elementos ao custom_fields_values se houver algum valor
 
     if (datanascimento) {
-      const validDate = DateUtils.convertDateToMs(StaticUtils.normalizeDate(datanascimento)) / 1000;
+      const validDate = (DateUtils.convertDateToMs(StaticUtils.normalizeDate(datanascimento)) / 1000) + 86400;
       if (validDate) {
         options.data.custom_fields_values.push({
           field_id: nascimentoField.id,
