@@ -51,11 +51,11 @@ export default class OpenAIController {
           }
         });
         styled.success('Thread created in OpenAI');
-        styled.success(newThread);
+        styled.successdir(newThread);
 
         styled.info('Updating threadID in database');
-        let newArrayAssistans = existThreads.assistant_id;
-        let newArrayThreads = existThreads.threadID;
+        let newArrayAssistans = existThreads.assistant_id || [];
+        let newArrayThreads = existThreads.threadID || [];
 
         await LeadThread.update({
           threadID: [...newArrayThreads, newThread.id],
