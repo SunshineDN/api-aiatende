@@ -38,8 +38,6 @@ export default class QualificadoServices {
 
 #Agendamento: Para usuário com intenção clara de marcar uma consulta inicial (exemplo: sim, agendar, marcar, consulta).
 
-#Profissional: Para usuário interessados em emprego ou apresentação de produtos ou serviços.
-
 #Geral: Para os demais assuntos.
 
 #1mes: Para usuário que ainda não pretendem agendar agora, mas tem a intenção de agendar no futuro.
