@@ -73,7 +73,7 @@ export default class LeadMessagesRepository extends BaseRepository {
     if (!messages.length) return null;
 
     return {
-      last_messages: messages.slice(-3).map(msg => msg.lead_message).join('\n'),
+      last_messages: lead_messages.slice(-3).map(msg => msg.lead_message).join('\n'),
       recent_messages: messages.map(msg => msg.lead_message).join('\n')
     };
   }
