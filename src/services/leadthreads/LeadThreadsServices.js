@@ -1,5 +1,5 @@
 import OpenAI from "openai";
-import LeadThreadRepository from "../../repositories/LeadThreadRepository";
+import LeadThreadRepository from "../../repositories/LeadThreadRepository.js";
 
 export default class LeadThreadsServices {
   constructor(lead_id) {
