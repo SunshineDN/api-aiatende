@@ -17,7 +17,7 @@ export default class AgendamentoServices {
 
       const form = process.env.FORM || '';
 
-      const lead_message = await this.leadMessagesRepository.getLastMessages(this.lead_id);
+      const lead_message = await this.leadMessagesRepository.getRecentMessages(this.lead_id);
       let text;
 
       if (form) {
@@ -49,7 +49,7 @@ Instruções: "Ao finalizar a resposta do usuário, você deve lembrar o usuári
 
       const calendario = LeadUtils.findLeadField({ lead, fieldName: 'Calendário', value: true });
 
-      const lead_message = await this.leadMessagesRepository.getLastMessages(this.lead_id);
+      const lead_message = await this.leadMessagesRepository.getRecentMessages(this.lead_id);
       let text;
 
       if (calendario) {
