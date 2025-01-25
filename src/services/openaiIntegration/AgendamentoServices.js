@@ -23,7 +23,7 @@ export default class AgendamentoServices {
       if (form) {
         text = `Mensagens do usuário: "${lead_message}".
 
-Instruções: "SEMPRE e somente enquanto aparecer esta instrução específica, ao finalizar a resposta, você deve enviar o link para cadastro de forma explícita para que o usuário possa agendar uma consulta. O link para cadastro é: ${form}. Insira somente o link direto para agendar consulta, sem adicionar nenhum texto ou botão adicional.".`;
+Instruções: "SEMPRE e somente enquanto aparecer esta instrução específica, ao finalizar a resposta, você deve enviar o link para cadastro de forma explícita para que o usuário possa agendar uma consulta. O link para cadastro é: ${form}. Insira somente o link direto para agendar consulta, sem adicionar nenhum texto, botão adicional ou encurtador.".`;
       } else {
         text = `Mensagens do usuário: "${lead_message}".
 
@@ -55,7 +55,7 @@ Instruções: "SEMPRE e somente enquanto aparecer esta instrução específica, 
       if (calendario) {
         text = `Mensagens do usuário: "${lead_message}".
 
-Instruções: "SEMPRE e somente enquanto aparecer esta instrução específica, ao finalizar a resposta, você deve enviar o link para acessar o calendário de forma explícita para que o usuário possa agendar uma consulta. O link para acessar o calendário é: ${calendario}. Insira somente o link direto para agendar consulta, sem adicionar nenhum texto ou botão adicional.".`;
+Instruções: "SEMPRE e somente enquanto aparecer esta instrução específica, ao finalizar a resposta, você deve enviar o link para acessar o calendário de forma explícita para que o usuário possa agendar uma consulta. O link para acessar o calendário é: ${calendario}. Insira somente o link direto para agendar consulta, sem adicionar nenhum texto, botão adicional ou encurtador.".`;
       } else {
         text = `Mensagens do usuário: "${lead_message}".
 
