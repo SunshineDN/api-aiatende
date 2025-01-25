@@ -1204,7 +1204,7 @@ const kommoUtils = new KommoUtils();
 const recepcaoServices = new RecepcaoServices(19030890);
 
 async function test() {
-  // const leadThreadRepository = new LeadThreadRepository();
+  const leadThreadRepository = new LeadThreadRepository();
 
   // const lead = await leadThreadRepository.findById(19030890);
 

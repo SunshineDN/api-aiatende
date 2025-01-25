@@ -81,7 +81,7 @@ export default class KommoWebhookServices extends KommoServices {
 
     const openaiServices = new OpenAIServices();
     obj.message.lead_message = StaticUtils.isUrl(text) ? '[url]' : StaticUtils.substituirEmojis(text);
-    
+
     if (Object.keys(attachment).length > 0) {
       if (attachment?.type === 'voice' || attachment?.type === 'audio') {
         const extension = attachment?.file_name.split('.').pop();
@@ -95,20 +95,30 @@ export default class KommoWebhookServices extends KommoServices {
     }
 
     await leadMessageRepository.verifyAndUpdate(lead_id, obj.message);
-    const lead_messages = await leadMessageRepository.getLastMessages(lead_id);
+    // const lead_messages = await leadMessageRepository.getLastMessages(lead_id);
+    const { last_messages, recent_messages } = await leadMessageRepository.getLastAndRecentMessages(lead_id);
 
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields() });
     const lastMessages = kommoUtils.findLeadsFieldByName('GPT | Last messages');
+    const message_received = kommoUtils.findLeadsFieldByName('GPT | Message received');
 
     const custom_fields_values = [
       {
         field_id: lastMessages.id,
         values: [
           {
-            value: lead_messages
+            value: last_messages
           }
         ]
       },
+      {
+        field_id: message_received.id,
+        values: [
+          {
+            value: recent_messages
+          }
+        ]
+      }
     ];
 
     const res = await this.updateLead({ id: lead_id, custom_fields_values });
