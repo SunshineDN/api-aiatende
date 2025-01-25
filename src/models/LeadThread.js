@@ -15,7 +15,11 @@ const LeadThread = sequelize.define('LeadThread', {
   assistant_id: {
     type: DataTypes.ARRAY(DataTypes.STRING),
     allowNull: true,
-  }
+  },
+  lastTimestamp: {
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
 }, {
   tableName: 'lead_threads', // nome da tabela no banco de dados
 });
