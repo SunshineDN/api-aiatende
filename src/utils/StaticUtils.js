@@ -3,6 +3,10 @@ import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 import styled from "./log/styledLog.js";
 
 export default class StaticUtils {
+    static async sleep(seconds = 1) {
+        return new Promise(resolve => setTimeout(resolve, seconds * 1000));
+    }
+
     static isUrl(text) {
         const regex = new RegExp(
             '^(https?:\\/\\/)' + // Deve começar com http:// ou https://

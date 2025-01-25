@@ -4,6 +4,7 @@ import KommoUtils from '../../utils/KommoUtils.js';
 import KommoServices from '../kommo/KommoServices.js';
 import LeadThreadRepository from '../../repositories/LeadThreadRepository.js';
 import LeadUtils from '../../utils/LeadUtils.js';
+import StaticUtils from '../../utils/StaticUtils.js';
 
 export default class OpenaiIntegrationServices extends KommoServices {
   constructor({ auth, url }) {
@@ -70,6 +71,7 @@ export default class OpenaiIntegrationServices extends KommoServices {
     const lead = await this.getLead({ id: lead_id });
     const message_received = LeadUtils.findLeadField({ lead, fieldName: 'GPT | Message received' });
     if (message_received) {
+      StaticUtils.sleep(2);
       await this.updateLead({ id: lead_id, custom_fields_values: [{ field_id: message_received.field_id, values: [{ value: '' }] }] });
     }
 
