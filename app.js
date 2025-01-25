@@ -10,6 +10,7 @@ import leadRouter from './src/routes/lead.js';
 import calendarWebRouter from './src/routes/react-calendar-form.js';
 import detectContent from './src/routes/detect-content.js';
 import webhook from './src/routes/webhook.js';
+import leadThreads from './src/routes/leadthreads.js';
 import teste from './src/routes/teste.js';
 
 const app = express();
@@ -25,6 +26,7 @@ app.use('/lead', leadRouter);
 app.use('/web/calendar', calendarWebRouter);
 app.use('/content', detectContent);
 app.use('/webhook', webhook);
+app.use('/lead-threads', leadThreads);
 app.use('/teste', teste);
 
 app.use((_, res) => {
