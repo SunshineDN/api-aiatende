@@ -60,4 +60,21 @@ export default class LeadMessagesRepository extends BaseRepository {
 
     return messages.map(msg => msg.lead_message).join('\n');
   }
+
+  async getLastAndRecentMessages(lead_id) {
+    const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
+    if (!lead_message) return null;
+
+    const lead_messages = lead_message.messages;
+    if (!lead_messages || !lead_messages.length) return null;
+
+    const last_timestamp = await new LeadThreadRepository().getLastTimestamp(lead_id);
+    const messages = lead_messages.filter(msg => new Date(Number(msg.created_at) * 1000) > last_timestamp);
+    if (!messages.length) return null;
+
+    return {
+      last_messages: messages.slice(-3).map(msg => msg.lead_message).join('\n'),
+      recent_messages: messages.map(msg => msg.lead_message).join('\n')
+    };
+  }
 }
