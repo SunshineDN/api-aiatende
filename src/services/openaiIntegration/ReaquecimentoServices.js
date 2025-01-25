@@ -16,7 +16,7 @@ export default class ReaquecimentoServices {
       styled.function('[ReaquecimentoServices.intencao] Recepção | Intenção...');
       const lead = await this.openaiintegrationservices.getLead({ id: this.lead_id });
 
-      const lead_message = await this.leadMessagesRepository.getLastMessages(this.lead_id);
+      const lead_message = await this.leadMessagesRepository.getRecentMessages(this.lead_id);
       const answer = await LeadUtils.findLeadField({ lead, fieldName: 'GPT | Answer', value: true });
 
       const text = `Considere que você esteja analisando a intenção da resposta de um usuário em um chatbot. Analise a mensagem da clínica: '${answer}', e veja em quais das situações abaixo se encaixa a intenção da mensagem do usuário: '${lead_message}'.

@@ -2,6 +2,7 @@ import styled from '../../utils/log/styledLog.js';
 import OpenAIController from '../../controllers/OpenAIController.js';
 import KommoUtils from '../../utils/KommoUtils.js';
 import KommoServices from '../kommo/KommoServices.js';
+import LeadThreadRepository from '../../repositories/LeadThreadRepository.js';
 
 export default class OpenaiIntegrationServices extends KommoServices {
   constructor({ auth, url }) {
@@ -65,6 +66,7 @@ export default class OpenaiIntegrationServices extends KommoServices {
       assistant_id
     }
 
+    await new LeadThreadRepository().updateLastTimestamp(lead_id);
     const { message } = await OpenAIController.generateMessage(data);
 
     styled.success('[OpenaiIntegrationServices.assistant] Resposta recebida do assistente:', message);
