@@ -15,4 +15,12 @@ export default class LeadThreadRepository extends BaseRepository {
     const [create, _] = await this.findOrCreate({ where: { leadID: Number(lead_id) } });
     return create?.lastTimestamp || null;
   }
+
+  async findThreads(lead_id) {
+    return await this.findOne({ where: { leadID: Number(lead_id) } });
+  }
+
+  async deleteThreads(lead_id) {
+    await this.delete({ where: { leadID: Number(lead_id) } });
+  }
 }
