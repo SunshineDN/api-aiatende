@@ -122,7 +122,8 @@ export default class KommoWebhookServices extends KommoServices {
     ];
 
     const res = await this.updateLead({ id: lead_id, custom_fields_values });
-    styled.success('Preenchido mensagem do lead:', lead_messages);
+    styled.success('[KommoWebhookServices.messageReceived] - Mensagens recentes: ', recent_messages);
+    styled.success('[KommoWebhookServices.messageReceived] - Últimas mensagens: ', last_messages);
     return { code: 200, response: res };
   }
 }
