@@ -23,11 +23,11 @@ export default class AgendamentoServices {
       if (form) {
         text = `Mensagens do usuário: "${lead_message}".
 
-Instruções: "SEMPRE, ao finalizar a resposta, você deve enviar o link para cadastro de forma explícita para que o usuário possa agendar uma consulta. O link para cadastro é: ${form}. Insira somente o link direto para agendar consulta, sem adicionar nenhum texto ou botão adicional.".`;
+Instruções: "SEMPRE e somente enquanto aparecer esta instrução específica, ao finalizar a resposta, você deve enviar o link para cadastro de forma explícita para que o usuário possa agendar uma consulta. O link para cadastro é: ${form}. Insira somente o link direto para agendar consulta, sem adicionar nenhum texto ou botão adicional.".`;
       } else {
         text = `Mensagens do usuário: "${lead_message}".
 
-Instruções: "SEMPRE, ao finalizar a resposta, você deve lembrar o usuário de acessar o link para cadastro que foi enviado anteriormente para que o usuário possa agendar uma consulta."`;
+Instruções: "SEMPRE e somente enquanto aparecer esta instrução específica, ao finalizar a resposta, você deve lembrar o usuário de acessar o link para cadastro que foi enviado anteriormente para que o usuário possa agendar uma consulta."`;
       }
 
       const response = await this.openaiintegrationservices.assistant(this.lead_id, text, assistant_id);
@@ -55,11 +55,11 @@ Instruções: "SEMPRE, ao finalizar a resposta, você deve lembrar o usuário de
       if (calendario) {
         text = `Mensagens do usuário: "${lead_message}".
 
-Instruções: "SEMPRE, ao finalizar a resposta, você deve enviar o link para acessar o calendário de forma explícita para que o usuário possa agendar uma consulta. O link para acessar o calendário é: ${calendario}. Insira somente o link direto para agendar consulta, sem adicionar nenhum texto ou botão adicional.".`;
+Instruções: "SEMPRE e somente enquanto aparecer esta instrução específica, ao finalizar a resposta, você deve enviar o link para acessar o calendário de forma explícita para que o usuário possa agendar uma consulta. O link para acessar o calendário é: ${calendario}. Insira somente o link direto para agendar consulta, sem adicionar nenhum texto ou botão adicional.".`;
       } else {
         text = `Mensagens do usuário: "${lead_message}".
 
-Instruções: "SEMPRE, ao finalizar a resposta, você deve lembrar o usuário de acessar o link para acessar o calendário que foi enviado anteriormente para que o usuário possa agendar uma consulta."`;
+Instruções: "SEMPRE e somente enquanto aparecer esta instrução específica, ao finalizar a resposta, você deve lembrar o usuário de acessar o link para acessar o calendário que foi enviado anteriormente para que o usuário possa agendar uma consulta."`;
       }
       const response = await this.openaiintegrationservices.assistant(this.lead_id, text, assistant_id);
       return { code: 200, message: 'Mensagem do assistente enviada com sucesso', ...response };
