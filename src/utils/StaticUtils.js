@@ -18,6 +18,15 @@ export default class StaticUtils {
         return regex.test(text);
     }
 
+    static substituteEmojisAnswer(message) {
+        const regexEmoji = /[\p{Extended_Pictographic}]/gu;
+
+        const removeEmoji = message.replace(regexEmoji, '').trim();
+
+        //remover 2 ou mais espaços mas ignorar quebras de linha
+        return removeEmoji.replace(/ {2,}/g, ' ');
+    }
+
     static substituirEmojis(mensagem) {
         const regexEmoji = /[\p{Extended_Pictographic}]/gu;
 

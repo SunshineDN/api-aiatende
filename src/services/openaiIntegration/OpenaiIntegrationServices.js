@@ -79,8 +79,7 @@ export default class OpenaiIntegrationServices extends KommoServices {
     const { message } = await OpenAIController.generateMessage(data);
 
     styled.success('[OpenaiIntegrationServices.assistant] Resposta recebida do assistente:', message);
-
-    const updated = await this.#sendMessage({ lead_id, message });
+    const updated = await this.#sendMessage({ lead_id, message: StaticUtils.substituteEmojisAnswer(message) });
     return {
       generated_message: message,
       updated
