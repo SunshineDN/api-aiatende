@@ -16,4 +16,6 @@ router.get('/', (req, res) => {
 // BOT CUTUCADA
 router.post('/intencao', Cutucada.intencao);
 
+router.post('/gerar-perguntas', Cutucada.gerar_perguntas);
+
 export default router;

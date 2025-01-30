@@ -14,8 +14,6 @@ router.get('/', (req, res) => {
 });
 
 // BOT CUTUCADA
-router.post('/:assistant_id/gerar-perguntas', Cutucada.gerar_perguntas);
-
 router.post('/:assistant_id/assistente', Cutucada.assistente);
 
 export default router;
