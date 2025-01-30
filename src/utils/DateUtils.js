@@ -37,4 +37,12 @@ export default class DateUtils {
     dayjs.extend(customParseFormat);
     return Math.round(dayjs(date, 'DD/MM/YYYY HH:mm').valueOf() / 1000);
   }
+
+  static changeTimezone(date, ianatz) {
+    const invdate = new Date(date.toLocaleString('en-US', { timeZone: ianatz }));
+
+    const diff = date.getTime() - invdate.getTime();
+
+    return new Date(date.getTime() - diff);
+  }
 }

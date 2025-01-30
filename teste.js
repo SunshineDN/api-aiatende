@@ -1231,8 +1231,14 @@ async function test() {
   // }
   // console.log('Mensagem recebida apagada com sucesso');
 
-  const arr = [];
-  console.log(!!arr.length);
+  const date1 = new Date("2025-01-30T17:42:10.534Z");
+  // date1.setMilliseconds(date1.getMilliseconds() - 1000);
+  const date2 = new Date(1738269730 * 1000 + 1000);
+  date2.setHours(date2.getHours() - 3);
+
+  console.log(date1);
+  console.log(date2);
+  console.log(date2 > date1);
 }
 
 test();

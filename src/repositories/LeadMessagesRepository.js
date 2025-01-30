@@ -88,13 +88,15 @@ export default class LeadMessagesRepository extends BaseRepository {
     if (!lead_message?.messages?.length) return null;
 
     const last_timestamp = await new LeadThreadRepository().getLastTimestamp(Number(lead_id));
-    const threshold_timestamp = new Date(last_timestamp.getTime() - 500);
+    last_timestamp?.setMilliseconds(last_timestamp.getMilliseconds() - 1000);
 
     const messages = lead_message.messages;
     const recent_messages = [];
 
     for (const msg of messages) {
-      if (new Date(Number(msg.created_at) * 1000) > threshold_timestamp) {
+      const created_at = new Date(Number(msg.created_at) * 1000);
+      created_at.setHours(created_at.getHours() - 3);
+      if (created_at > last_timestamp) {
         recent_messages.push(msg.lead_message);
       }
     }
