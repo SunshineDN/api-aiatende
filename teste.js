@@ -1241,12 +1241,8 @@ async function test() {
   // }
   // console.log('Mensagem recebida apagada com sucesso');
 
-  const text = `Sim, aplicamos o Invisalign na Clínica Dental Santé! 🌟 Este aparelho é transparente, confortável e alinha os dentes de forma discreta. A Dra. Liana Mavigner é a especialista que realiza esse tratamento.
-
-Gostaria de agendar uma consulta inicial gratuita para saber mais? 😊`;
-
-  const substituirEmojis = StaticUtils.substituteEmojisAnswer(text);
-  console.log(substituirEmojis);
+  const messages = await new LeadMessagesRepository().getLastAndRecentMessages(19030890);
+  console.log(messages);
 }
 
 test();
