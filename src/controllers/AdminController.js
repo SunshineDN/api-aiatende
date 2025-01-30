@@ -1,5 +1,5 @@
 import AdminServices from "../services/admin/AdminServices.js";
-import styled from "../utils/log/styledLog";
+import styled from "../utils/log/styledLog.js";
 
 export default class AdminController {
   static async getLeadMessages(req, res) {
