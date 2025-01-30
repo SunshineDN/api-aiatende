@@ -98,6 +98,11 @@ export default class BkFunnelsUtils {
           type: 'periodo',
           value: 'Próxima Semana (A partir de Segunda)',
         }
+      } else if (answer === 'Escolha sua data') {
+        return {
+          type: 'periodo',
+          value: 'Escolha sua data',
+        }
       } else if (answer === 'Manhã (8h às 12h)') {
         return {
           type: 'turno',
