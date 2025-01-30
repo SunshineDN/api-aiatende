@@ -55,7 +55,7 @@ export default class LeadMessagesRepository extends BaseRepository {
     if (!lead_messages || !lead_messages.length) return '';
 
     const last_timestamp = await new LeadThreadRepository().getLastTimestamp(lead_id);
-    
+
     let messages = lead_messages;
     if (last_timestamp) {
       messages = lead_messages.filter(msg => new Date(Number(msg.created_at) * 1000) > last_timestamp);
@@ -66,20 +66,41 @@ export default class LeadMessagesRepository extends BaseRepository {
     return messages.map(msg => msg.lead_message).join('\n');
   }
 
+  // async getLastAndRecentMessages(lead_id) {
+  //   const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
+  //   if (!lead_message) return null;
+
+  //   const lead_messages = lead_message.messages;
+  //   if (!lead_messages || !lead_messages.length) return null;
+
+  //   const last_timestamp = await new LeadThreadRepository().getLastTimestamp(Number(lead_id));
+  //   const messages = lead_messages.filter(msg => new Date(Number(msg.created_at) * 1000) > last_timestamp);
+  //   if (!messages.length) return null;
+
+  //   return {
+  //     last_messages: lead_messages.slice(-3).map(msg => msg.lead_message).join('\n'),
+  //     recent_messages: messages.map(msg => msg.lead_message).join('\n')
+  //   };
+  // }
+
   async getLastAndRecentMessages(lead_id) {
     const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
-    if (!lead_message) return null;
+    if (!lead_message?.messages?.length) return null;
 
-    const lead_messages = lead_message.messages;
-    if (!lead_messages || !lead_messages.length) return null;
+    const last_timestamp = await new LeadThreadRepository().getLastTimestamp(Number(lead_id));
 
-    const last_timestamp = await new LeadThreadRepository().getLastTimestamp(lead_id);
-    const messages = lead_messages.filter(msg => new Date(Number(msg.created_at) * 1000) > last_timestamp);
-    if (!messages.length) return null;
+    const messages = lead_message.messages;
+    const recent_messages = [];
+
+    for (const msg of messages) {
+      if (new Date(Number(msg.created_at) * 1000) > last_timestamp) {
+        recent_messages.push(msg.lead_message);
+      }
+    }
 
     return {
-      last_messages: lead_messages.slice(-3).map(msg => msg.lead_message).join('\n'),
-      recent_messages: messages.map(msg => msg.lead_message).join('\n')
+      last_messages: messages.slice(-3).map(msg => msg.lead_message).join('\n'),
+      recent_messages: recent_messages.join('\n') || null
     };
   }
 }

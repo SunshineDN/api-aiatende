@@ -1224,12 +1224,15 @@ async function test() {
   // const recentMessages = await leadMessageRepository.getRecentMessages(19030890);
   // console.log(recentMessages ? recentMessages : 'Nenhuma mensagem encontrada');
 
-  const lead = await kommo.getLead({ id: 19030890 });
-  const message_received = LeadUtils.findLeadField({ lead, fieldName: 'GPT | Message received' });
-  if (message_received) {
-    await kommo.updateLead({ id: 19030890, custom_fields_values: [{ field_id: message_received.field_id, values: [{ value: '' }] }] });
-  }
-  console.log('Mensagem recebida apagada com sucesso');
+  // const lead = await kommo.getLead({ id: 19030890 });
+  // const message_received = LeadUtils.findLeadField({ lead, fieldName: 'GPT | Message received' });
+  // if (message_received) {
+  //   await kommo.updateLead({ id: 19030890, custom_fields_values: [{ field_id: message_received.field_id, values: [{ value: '' }] }] });
+  // }
+  // console.log('Mensagem recebida apagada com sucesso');
+
+  const arr = [];
+  console.log(!!arr.length);
 }
 
 test();
