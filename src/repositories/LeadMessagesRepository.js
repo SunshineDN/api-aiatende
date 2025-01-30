@@ -93,7 +93,7 @@ export default class LeadMessagesRepository extends BaseRepository {
     const recent_messages = [];
 
     for (const msg of messages) {
-      if (new Date(Number(msg.created_at) * 1000) > last_timestamp) {
+      if (new Date((Number(msg.created_at) + 500) * 1000) > last_timestamp) {
         recent_messages.push(msg.lead_message);
       }
     }
