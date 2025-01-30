@@ -4,6 +4,7 @@ import { GetCustomFields } from '../kommo/GetCustomFields.js';
 import { UpdateLead } from '../kommo/UpdateLead.js';
 import { GetUser } from '../kommo/GetUser.js';
 import { HandlingError } from '../kommo/HandlingError.js';
+import { CalendarUtils } from '../../utils/calendar/CalendarUtils.js';
 
 export const RemoveCalendarEvent = async (payload, access_token = null) => {
   try {
