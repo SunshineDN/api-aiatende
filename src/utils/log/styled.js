@@ -1,7 +1,7 @@
 // import { createRequire } from 'module';
 import { colors } from './colors.js';
 import BrazilianDate from '../BrazilianDate.js';
-import packageJson from '../../../package.json' assert { type: "json" };
+import packageJson from '../../../package.json' with { type: "json" };
 
 export default class styled {
 
