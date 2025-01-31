@@ -73,17 +73,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -113,12 +113,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -191,17 +191,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -231,12 +231,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -282,17 +282,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -322,12 +322,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -373,17 +373,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -413,12 +413,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -464,17 +464,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -504,12 +504,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -555,17 +555,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -595,12 +595,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -673,17 +673,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -713,12 +713,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -764,17 +764,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -804,12 +804,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -855,17 +855,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -895,12 +895,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -946,17 +946,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -986,12 +986,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -1064,17 +1064,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -1104,12 +1104,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -1155,17 +1155,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -1195,12 +1195,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -1246,17 +1246,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -1286,12 +1286,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -1337,17 +1337,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -1377,12 +1377,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 },
@@ -1429,17 +1429,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -1469,12 +1469,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -1501,7 +1501,7 @@
         }
       }
     },
-    "/gpt/v2/global/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA": {
+    "/gpt/v2/global/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4": {
       "post": {
         "summary": "Global - Assistente",
         "description": "Envia mensagem do assistente para o lead",
@@ -1516,17 +1516,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -1556,12 +1556,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -1604,17 +1604,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -1644,12 +1644,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -1676,7 +1676,7 @@
         }
       }
     },
-    "/gpt/v2/recepcao/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/indefinido": {
+    "/gpt/v2/recepcao/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/indefinido": {
       "post": {
         "summary": "Recepção - Assistente - Indefinido",
         "description": "Envia mensagem do assistente para o lead",
@@ -1691,17 +1691,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -1731,12 +1731,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -1763,7 +1763,7 @@
         }
       }
     },
-    "/gpt/v2/recepcao/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/nao-qualificado": {
+    "/gpt/v2/recepcao/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/nao-qualificado": {
       "post": {
         "summary": "Recepção - Assistente - Não Qualificado",
         "description": "Envia mensagem do assistente para o lead",
@@ -1778,17 +1778,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -1818,12 +1818,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -1866,17 +1866,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -1906,12 +1906,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -1938,7 +1938,7 @@
         }
       }
     },
-    "/gpt/v2/qualificado/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/qualificado": {
+    "/gpt/v2/qualificado/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/qualificado": {
       "post": {
         "summary": "Qualificado - Assistente - Qualificado",
         "description": "Envia mensagem do assistente para o lead",
@@ -1953,17 +1953,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -1993,12 +1993,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -2025,7 +2025,7 @@
         }
       }
     },
-    "/gpt/v2/qualificado/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/nao-qualificado": {
+    "/gpt/v2/qualificado/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/nao-qualificado": {
       "post": {
         "summary": "Qualificado - Assistente - Qualificado",
         "description": "Envia mensagem do assistente para o lead",
@@ -2040,17 +2040,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -2080,12 +2080,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -2113,7 +2113,7 @@
       }
     },
 
-    "/gpt/v2/agendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/form": {
+    "/gpt/v2/agendamento/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/form": {
       "post": {
         "summary": "Agendamento - Assistente - Form",
         "description": "Envia mensagem do assistente para o lead",
@@ -2128,17 +2128,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -2168,12 +2168,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -2200,7 +2200,7 @@
         }
       }
     },
-    "/gpt/v2/agendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/calendar": {
+    "/gpt/v2/agendamento/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/calendar": {
       "post": {
         "summary": "Agendamento - Assistente - Calendar",
         "description": "Envia mensagem do assistente para o lead",
@@ -2215,17 +2215,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -2255,12 +2255,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -2303,17 +2303,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -2343,12 +2343,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -2390,17 +2390,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -2430,12 +2430,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -2477,17 +2477,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -2517,12 +2517,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -2564,17 +2564,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -2604,12 +2604,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -2636,7 +2636,7 @@
         }
       }
     },
-    "/gpt/v2/dados/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/previa-dados": {
+    "/gpt/v2/dados/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/previa-dados": {
       "post": {
         "summary": "Dados - Assistente - Prévia de Dados",
         "description": "Envia mensagem do assistente para o lead",
@@ -2651,17 +2651,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -2691,12 +2691,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -2723,7 +2723,7 @@
         }
       }
     },
-    "/gpt/v2/dados/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/dados-cadastrais": {
+    "/gpt/v2/dados/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/dados-cadastrais": {
       "post": {
         "summary": "Dados - Assistente - Dados Cadastrais",
         "description": "Envia mensagem do assistente para o lead",
@@ -2738,17 +2738,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -2778,12 +2778,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -2810,7 +2810,7 @@
         }
       }
     },
-    "/gpt/v2/dados/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/split-dados": {
+    "/gpt/v2/dados/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/split-dados": {
       "post": {
         "summary": "Dados - Assistente - Split de Dados",
         "description": "Envia mensagem do assistente para o lead",
@@ -2825,17 +2825,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -2865,12 +2865,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -2897,7 +2897,7 @@
         }
       }
     },
-    "/gpt/v2/dados/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/verifica-dados": {
+    "/gpt/v2/dados/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/verifica-dados": {
       "post": {
         "summary": "Dados - Assistente - Verifica Dados",
         "description": "Envia mensagem do assistente para o lead",
@@ -2912,17 +2912,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -2952,12 +2952,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -2984,7 +2984,7 @@
         }
       }
     },
-    "/gpt/v2/dados/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/listar-especialidades": {
+    "/gpt/v2/dados/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/listar-especialidades": {
       "post": {
         "summary": "Dados - Assistente - Listar Especialidades",
         "description": "Envia mensagem do assistente para o lead",
@@ -2999,17 +2999,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -3039,12 +3039,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -3071,7 +3071,7 @@
         }
       }
     },
-    "/gpt/v2/dados/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/verificar-especialista": {
+    "/gpt/v2/dados/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/verificar-especialista": {
       "post": {
         "summary": "Dados - Assistente - Verificar Especialista",
         "description": "Envia mensagem do assistente para o lead",
@@ -3086,17 +3086,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -3126,12 +3126,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -3174,17 +3174,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -3214,12 +3214,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -3261,17 +3261,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -3301,12 +3301,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -3348,17 +3348,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -3388,12 +3388,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -3435,17 +3435,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -3475,12 +3475,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -3507,7 +3507,7 @@
         }
       }
     },
-    "/gpt/v2/preagendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/disponibilidade": {
+    "/gpt/v2/preagendamento/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/disponibilidade": {
       "post": {
         "summary": "Pré-agendamento - Assistente - Disponibilidade",
         "description": "Envia mensagem do assistente para o lead",
@@ -3522,17 +3522,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -3562,12 +3562,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -3594,7 +3594,7 @@
         }
       }
     },
-    "/gpt/v2/preagendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/verificar-datas": {
+    "/gpt/v2/preagendamento/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/verificar-datas": {
       "post": {
         "summary": "Pré-agendamento - Assistente - Verificar Datas",
         "description": "Envia mensagem do assistente para o lead",
@@ -3609,17 +3609,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -3649,12 +3649,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -3681,7 +3681,7 @@
         }
       }
     },
-    "/gpt/v2/preagendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/confirmacao": {
+    "/gpt/v2/preagendamento/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/confirmacao": {
       "post": {
         "summary": "Pré-agendamento - Assistente - Confirmação",
         "description": "Envia mensagem do assistente para o lead",
@@ -3696,17 +3696,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -3736,12 +3736,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -3784,17 +3784,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -3824,12 +3824,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -3871,17 +3871,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -3911,12 +3911,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -3943,7 +3943,7 @@
         }
       }
     },
-    "/gpt/v2/_agendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/form-join": {
+    "/gpt/v2/_agendamento/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/form-join": {
       "post": {
         "summary": "Agendamento - Assistente - Formulário de Cadastro",
         "description": "Envia mensagem do assistente para o lead",
@@ -3958,17 +3958,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -3998,12 +3998,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -4030,7 +4030,7 @@
         }
       }
     },
-    "/gpt/v2/_agendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/disponibilidade-horario": {
+    "/gpt/v2/_agendamento/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/disponibilidade-horario": {
       "post": {
         "summary": "Agendamento - Assistente - Disponibilidade de Horário",
         "description": "Envia mensagem do assistente para o lead",
@@ -4045,17 +4045,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -4085,12 +4085,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -4117,7 +4117,7 @@
         }
       }
     },
-    "/gpt/v2/_agendamento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/verificar-datas": {
+    "/gpt/v2/_agendamento/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/verificar-datas": {
       "post": {
         "summary": "Agendamento - Assistente - Verificar Datas",
         "description": "Envia mensagem do assistente para o lead",
@@ -4132,17 +4132,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -4172,12 +4172,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -4220,17 +4220,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -4260,12 +4260,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -4307,17 +4307,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -4347,12 +4347,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -4379,7 +4379,7 @@
         }
       }
     },
-    "/gpt/v2/confirmacao/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/confirmar-presenca": {
+    "/gpt/v2/confirmacao/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/confirmar-presenca": {
       "post": {
         "summary": "Confirmação - Assistente - Esteira de Confirmação 24 horas - 1ª Tentativa",
         "description": "Envia mensagem do assistente para o lead",
@@ -4394,17 +4394,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -4434,12 +4434,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -4466,7 +4466,7 @@
         }
       }
     },
-    "/gpt/v2/confirmacao/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/24h-1st-try": {
+    "/gpt/v2/confirmacao/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/24h-1st-try": {
       "post": {
         "summary": "Confirmação - Assistente - Esteira de Confirmação 24 horas - 1ª Tentativa",
         "description": "Envia mensagem do assistente para o lead",
@@ -4481,17 +4481,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -4521,12 +4521,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -4553,7 +4553,7 @@
         }
       }
     },
-    "/gpt/v2/confirmacao/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/24h-2nd-try": {
+    "/gpt/v2/confirmacao/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/24h-2nd-try": {
       "post": {
         "summary": "Confirmação - Assistente - Esteira de Confirmação 24 horas - 2ª Tentativa",
         "description": "Envia mensagem do assistente para o lead",
@@ -4568,17 +4568,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -4608,12 +4608,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -4640,7 +4640,7 @@
         }
       }
     },
-    "/gpt/v2/confirmacao/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/24h-3rd-try": {
+    "/gpt/v2/confirmacao/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/24h-3rd-try": {
       "post": {
         "summary": "Confirmação - Assistente - Esteira de Confirmação 24 horas - 3ª Tentativa",
         "description": "Envia mensagem do assistente para o lead",
@@ -4655,17 +4655,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -4695,12 +4695,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -4727,7 +4727,7 @@
         }
       }
     },
-    "/gpt/v2/confirmacao/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/3h-1st-try": {
+    "/gpt/v2/confirmacao/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/3h-1st-try": {
       "post": {
         "summary": "Confirmação - Assistente - Esteira de Confirmação 3 horas - 1ª Tentativa",
         "description": "Envia mensagem do assistente para o lead",
@@ -4742,17 +4742,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -4782,12 +4782,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -4814,7 +4814,7 @@
         }
       }
     },
-    "/gpt/v2/confirmacao/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/3h-2nd-try": {
+    "/gpt/v2/confirmacao/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/3h-2nd-try": {
       "post": {
         "summary": "Confirmação - Assistente - Esteira de Confirmação 3 horas - 2ª Tentativa",
         "description": "Envia mensagem do assistente para o lead",
@@ -4829,17 +4829,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -4869,12 +4869,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -4917,17 +4917,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -4957,12 +4957,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -4989,7 +4989,7 @@
         }
       }
     },
-    "/gpt/v2/reaquecimento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/frio": {
+    "/gpt/v2/reaquecimento/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/frio": {
       "post": {
         "summary": "Reaquecimento - Assistente - Esteira de Reaquecimento - Frio",
         "description": "Envia mensagem do assistente para o lead",
@@ -5004,17 +5004,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -5044,12 +5044,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -5076,7 +5076,7 @@
         }
       }
     },
-    "/gpt/v2/reaquecimento/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/congelado": {
+    "/gpt/v2/reaquecimento/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/congelado": {
       "post": {
         "summary": "Reaquecimento - Assistente - Esteira de Reaquecimento - Congelado",
         "description": "Envia mensagem do assistente para o lead",
@@ -5091,17 +5091,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -5131,12 +5131,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -5179,17 +5179,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -5219,12 +5219,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -5251,7 +5251,7 @@
         }
       }
     },
-    "/gpt/v2/cutucada/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/gerar-perguntas": {
+    "/gpt/v2/cutucada/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/gerar-perguntas": {
       "post": {
         "summary": "Cutucada - Assistente - Gerar Perguntas",
         "description": "Envia mensagem do assistente para o lead",
@@ -5266,17 +5266,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -5306,12 +5306,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -5338,7 +5338,7 @@
         }
       }
     },
-    "/gpt/v2/cutucada/assistant/YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA/assistente": {
+    "/gpt/v2/cutucada/assistant/YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4/assistente": {
       "post": {
         "summary": "Cutucada - Assistente - Assistente",
         "description": "Envia mensagem do assistente para o lead",
@@ -5353,17 +5353,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -5393,12 +5393,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 }
@@ -5441,17 +5441,17 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "19030890",
+                    "example": "22404815",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
                     "type": "string",
-                    "example": "73195524",
+                    "example": "70753059",
                     "description": "ID do status do lead"
                   },
                   "leads[add][0][pipeline_id]": {
                     "type": "string",
-                    "example": "8933063",
+                    "example": "9089899",
                     "description": "ID do pipeline do lead"
                   },
                   "leads[status][0][id]": {
@@ -5481,12 +5481,12 @@
                   },
                   "account[id]": {
                     "type": "string",
-                    "example": "32000011",
+                    "example": "31205035",
                     "description": "ID da conta"
                   },
                   "account[subdomain]": {
                     "type": "string",
-                    "example": "kommoagendamento",
+                    "example": "aiatende",
                     "description": "Subdomínio da conta"
                   }
                 },
