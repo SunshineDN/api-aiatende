@@ -8,7 +8,7 @@ export class Communicator {
     let access_token;
     try {
       styled.info('Enviando para o assistente GPT...');
-      access_token = process.env.ACCESS_TOKEN;
+      access_token = process.env.KOMMO_AUTH;
       styled.info('Mensagem enviada para o assistente:', data.text);
       const { message } = await OpenAIController.generateMessage(data);
       styled.success('Resposta recebida do assistente:', message);
@@ -25,7 +25,7 @@ export class Communicator {
     let access_token;
     try {
       styled.info('Enviando prompt...');
-      access_token = process.env.ACCESS_TOKEN;
+      access_token = process.env.KOMMO_AUTH;
       styled.info('Mensagem enviada para o prompt:', text);
       const { message } = await OpenAIController.promptMessage(text);
       styled.success('Resposta recebida do prompt:', message);
