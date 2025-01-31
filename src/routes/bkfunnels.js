@@ -1,6 +1,6 @@
 import express from 'express';
 import BkFunnelsController from '../controllers/BkFunnelsController.js';
-import styled from '../utils/log/styledLog.js';
+import styled from '../utils/log/styled.js';
 const router = express.Router();
 
 router.use(express.json());

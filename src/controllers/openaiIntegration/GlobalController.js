@@ -1,4 +1,4 @@
-import styled from '../../utils/log/styledLog.js';
+import styled from '../../utils/log/styled.js';
 import GlobalServices from '../../services/openaiIntegration/GlobalServices.js';
 
 export default class GlobalController {

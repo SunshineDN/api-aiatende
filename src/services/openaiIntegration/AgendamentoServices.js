@@ -1,6 +1,6 @@
 import LeadMessagesRepository from '../../repositories/LeadMessagesRepository.js';
 import OpenaiIntegrationServices from './OpenaiIntegrationServices.js';
-import styled from '../../utils/log/styledLog.js';
+import styled from '../../utils/log/styled.js';
 import LeadUtils from '../../utils/LeadUtils.js';
 
 export default class AgendamentoServices {

@@ -1,6 +1,6 @@
 import OpenaiIntegrationServices from './OpenaiIntegrationServices.js';
 import LeadUtils from '../../utils/LeadUtils.js';
-import styled from '../../utils/log/styledLog.js';
+import styled from '../../utils/log/styled.js';
 import LeadMessagesRepository from '../../repositories/LeadMessagesRepository.js';
 
 export default class QualificadoServices {

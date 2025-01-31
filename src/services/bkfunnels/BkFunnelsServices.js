@@ -1,7 +1,7 @@
 import BkFunnelsRepository from "../../repositories/BkFunnelsRepository.js";
 import BkFunnelsUtils from "../../utils/BkFunnelsUtils.js";
 import KommoUtils from "../../utils/KommoUtils.js";
-import styled from "../../utils/log/styledLog.js";
+import styled from "../../utils/log/styled.js";
 import KommoServices from "../kommo/KommoServices.js";
 
 export default class BkFunnelsServices {

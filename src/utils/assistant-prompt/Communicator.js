@@ -1,4 +1,4 @@
-import styled from '../log/styledLog.js';
+import styled from '../log/styled.js';
 import OpenAIController from '../../controllers/OpenAIController.js';
 import { SendLog } from '../../services/kommo/SendLog.js';
 import { SendMessage } from '../../services/kommo/SendMessage.js';

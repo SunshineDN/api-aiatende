@@ -1,5 +1,5 @@
 import axios from 'axios';
-import styled from '../../utils/log/styledLog.js';
+import styled from '../../utils/log/styled.js';
 import { GetCustomFields } from './GetCustomFields.js';
 import { GetContactCustomFields } from './GetContactCustomFields.js';
 

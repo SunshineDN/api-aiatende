@@ -1,7 +1,7 @@
 import BaseRepository from "./BaseRepository.js";
 import LeadThreadRepository from "./LeadThreadRepository.js";
 import LeadMessages from "../models/LeadMessages.js";
-import styled from "../utils/log/styledLog.js";
+import styled from "../utils/log/styled.js";
 
 export default class LeadMessagesRepository extends BaseRepository {
   constructor() {

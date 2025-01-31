@@ -1,4 +1,4 @@
-import styled from '../../utils/log/styledLog.js';
+import styled from '../../utils/log/styled.js';
 import QualificadoServices from '../../services/openaiIntegration/QualificadoServices.js';
 
 export default class QualificadoController {

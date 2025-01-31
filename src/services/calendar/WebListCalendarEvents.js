@@ -1,4 +1,4 @@
-import styled from '../../utils/log/styledLog.js';
+import styled from '../../utils/log/styled.js';
 import { CalendarIdValidate } from '../../utils/calendar/CalendarIdValidate.js';
 import { HandlingError } from '../kommo/HandlingError.js';
 import { GetUser } from '../kommo/GetUser.js';

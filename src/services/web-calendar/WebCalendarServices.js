@@ -3,7 +3,7 @@ import StaticUtils from "../../utils/StaticUtils.js";
 import OpenAIController from "../../controllers/OpenAIController.js";
 import KommoServices from "../kommo/KommoServices.js";
 import LeadUtils from "../../utils/LeadUtils.js";
-import styled from "../../utils/log/styledLog.js";
+import styled from "../../utils/log/styled.js";
 import KommoUtils from "../../utils/KommoUtils.js";
                                               
 export default class WebCalendarServices {

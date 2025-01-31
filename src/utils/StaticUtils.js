@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import customParseFormat from 'dayjs/plugin/customParseFormat.js';
-import styled from "./log/styledLog.js";
+import styled from "./log/styled.js";
 
 export default class StaticUtils {
     static async sleep(seconds = 1) {

@@ -1,7 +1,7 @@
 import axios from "axios";
 import KommoUtils from "../../utils/KommoUtils.js";
 import StaticUtils from "../../utils/StaticUtils.js";
-import styled from "../../utils/log/styledLog.js";
+import styled from "../../utils/log/styled.js";
 import LeadUtils from "../../utils/LeadUtils.js";
 import DateUtils from "../../utils/DateUtils.js";
 

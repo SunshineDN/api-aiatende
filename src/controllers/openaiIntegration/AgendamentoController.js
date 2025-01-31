@@ -1,4 +1,4 @@
-import styled from '../../utils/log/styledLog.js';
+import styled from '../../utils/log/styled.js';
 import AgendamentoServices from '../../services/openaiIntegration/AgendamentoServices.js';
 
 export default class AgendamentoController {

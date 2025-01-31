@@ -1,5 +1,5 @@
 import { parse } from 'date-fns';
-import styled from '../../utils/log/styledLog.js';
+import styled from '../../utils/log/styled.js';
 import { HandlingError } from '../kommo/HandlingError.js';
 import { GetUser } from '../kommo/GetUser.js';
 import { CalendarUtils } from '../../utils/calendar/CalendarUtils.js';

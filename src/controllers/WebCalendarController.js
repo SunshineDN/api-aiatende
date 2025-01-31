@@ -1,4 +1,4 @@
-import styled from "../utils/log/styledLog.js";
+import styled from "../utils/log/styled.js";
 import WebCalendarServices from "../services/web-calendar/WebCalendarServices.js";
 
 export default class WebCalendarController {

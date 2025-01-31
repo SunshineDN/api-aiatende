@@ -1,5 +1,5 @@
 import app from './app.js';
-import styled from './src/utils/log/styledLog.js';
+import styled from './src/utils/log/styled.js';
 import { sequelize } from './src/config/db.js';
 
 const PORT = process.env.PORT || 3000;

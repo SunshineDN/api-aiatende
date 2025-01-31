@@ -4,7 +4,7 @@ import { SplitDataFields } from '../services/kommo/SplitDataFields.js';
 import { SplitSchedulingFields } from '../services/kommo/SplitSchedulingFields.js';
 import { AddTelephoneService } from '../services/kommo/AddTelephoneService.js';
 import KommoServices from '../services/kommo/KommoServices.js';
-import styled from '../utils/log/styledLog.js';
+import styled from '../utils/log/styled.js';
 
 export default class LeadController {
   constructor() {

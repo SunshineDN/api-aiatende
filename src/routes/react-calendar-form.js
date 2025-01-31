@@ -1,5 +1,5 @@
 import express from 'express';
-import styled from '../utils/log/styledLog.js';
+import styled from '../utils/log/styled.js';
 import CalendarController from '../controllers/CalendarController.js';
 import WebCalendarController from '../controllers/WebCalendarController.js';
 

@@ -1,5 +1,5 @@
 import KommoWebhookServices from "../services/kommo/KommoWebhookServices.js";
-import styled from "../utils/log/styledLog.js";
+import styled from "../utils/log/styled.js";
 
 export default class KommoWebhookController {
   constructor() {

@@ -1,4 +1,4 @@
-import styled from "../utils/log/styledLog.js";
+import styled from "../utils/log/styled.js";
 
 export default function kommoMiddleware(req, _, next) {
   if (req.method === 'GET') {

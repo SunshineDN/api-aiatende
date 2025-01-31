@@ -1,4 +1,4 @@
-import styled from '../../utils/log/styledLog.js';
+import styled from '../../utils/log/styled.js';
 import { FormatTelephone } from '../../utils/FormatTelephone.js';
 import { GetContactCustomFields } from './GetContactCustomFields.js';
 import { GetUser } from './GetUser.js';

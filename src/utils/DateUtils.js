@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat.js';
-import styled from './log/styledLog.js';
+import styled from './log/styled.js';
 import 'dayjs/locale/pt-br.js';
 
 dayjs.locale('pt-br');

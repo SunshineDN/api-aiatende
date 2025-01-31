@@ -17,7 +17,7 @@
 //   }
 // ];
 
-import styled from './src/utils/log/styledLog.js';
+import styled from './src/utils/log/styled.js';
 
 // const fatherFieldValues = 'Teste1;teste2;teste3;teste4;teste5';
 // const father_field_split = fatherFieldValues.split(';');

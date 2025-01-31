@@ -1,4 +1,4 @@
-import styled from "../utils/log/styledLog.js";
+import styled from "../utils/log/styled.js";
 import BkFunnelsServices from "../services/bkfunnels/BkFunnelsServices.js";
 
 export default class BkFunnelsController {

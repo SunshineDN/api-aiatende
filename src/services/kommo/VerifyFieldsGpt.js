@@ -1,4 +1,4 @@
-import styled from '../../utils/log/styledLog.js';
+import styled from '../../utils/log/styled.js';
 import { GetAccessToken } from './GetAccessToken.js';
 import { GetCustomFields } from './GetCustomFields.js';
 

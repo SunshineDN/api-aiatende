@@ -1,6 +1,6 @@
 import KommoUtils from "../../utils/KommoUtils.js";
 import LeadUtils from "../../utils/LeadUtils.js";
-import styled from "../../utils/log/styledLog.js";
+import styled from "../../utils/log/styled.js";
 import StaticUtils from "../../utils/StaticUtils.js";
 import OpenAIServices from "../gpt/OpenAIServices.js";
 import KommoServices from "./KommoServices.js";

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import fs from 'fs';
-import styled from '../../utils/log/styledLog.js';
+import styled from '../../utils/log/styled.js';
 
 export const downloadAudio = async ({ link, file_name }) => {
   try {

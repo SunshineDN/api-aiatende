@@ -1,5 +1,5 @@
 import LeadThreadsServices from "../services/leadthreads/LeadThreadsServices.js";
-import styled from "../utils/log/styledLog.js";
+import styled from "../utils/log/styled.js";
 
 export default class LeadThreadsController {
 

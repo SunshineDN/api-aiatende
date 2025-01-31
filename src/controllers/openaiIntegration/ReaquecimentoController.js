@@ -1,4 +1,4 @@
-import styled from '../../utils/log/styledLog.js';
+import styled from '../../utils/log/styled.js';
 import ReaquecimentoServices from '../../services/openaiIntegration/ReaquecimentoServices.js';
 
 export default class ReaquecimentoController {

@@ -41,6 +41,6 @@ export default class AdminServices {
 
   async executeDeleteLeadBkFunnels() {
     const bkFunnelsRepository = new BkFunnelsRepository();
-    return await bkFunnelsRepository.delete({ where: { leadID: Number(this.#lead_id) } });
+    return await bkFunnelsRepository.delete({ where: { code: this.#lead_id } });
   }
 }
