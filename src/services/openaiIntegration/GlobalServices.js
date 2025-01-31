@@ -13,7 +13,8 @@ export default class GlobalServices {
   async prompt() {
     try {
       styled.function('[GlobalServices.prompt] Global | Prompt...');
-      const lead_messages = await this.leadMessagesRepository.getRecentMessages(this.lead_id);
+      const { recent_messages, last_messages } = await this.leadMessagesRepository.getLastAndRecentMessages(this.lead_id, 1);
+      const lead_messages = recent_messages || last_messages;
       const response = await this.openaiintegrationservices.prompt(this.lead_id, lead_messages);
       return { code: 200, message: 'Prompt enviado com sucesso', ...response };
 
@@ -28,7 +29,9 @@ export default class GlobalServices {
   async assistente(assistant_id) {
     try {
       styled.function('[GlobalServices.assistente] Global | Assistente...');
-      const lead_messages = await this.leadMessagesRepository.getRecentMessages(this.lead_id);
+
+      const { recent_messages, last_messages } = await this.leadMessagesRepository.getLastAndRecentMessages(this.lead_id, 1);
+      const lead_messages = recent_messages || last_messages;
       const response = await this.openaiintegrationservices.assistant(this.lead_id, lead_messages, assistant_id);
       return { code: 200, message: 'Mensagem do assistente enviada com sucesso', ...response };
 

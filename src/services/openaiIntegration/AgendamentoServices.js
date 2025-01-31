@@ -17,15 +17,17 @@ export default class AgendamentoServices {
 
       const form = process.env.FORM || '';
 
-      const lead_message = await this.leadMessagesRepository.getRecentMessages(this.lead_id);
+      const { recent_messages, last_messages } = await this.leadMessagesRepository.getLastAndRecentMessages(this.lead_id, 1);
+      const lead_messages = recent_messages || last_messages;
+
       let text;
 
       if (form) {
-        text = `Mensagens do usuário: "${lead_message}".
+        text = `Mensagens do usuário: "${lead_messages}".
 
 Instruções: "Somente enquanto aparecer esta instrução específica, ao finalizar a resposta, você deve enviar o link para cadastro de forma explícita para que o usuário possa agendar uma consulta. O link para cadastro é: ${form}. Insira somente o link direto para agendar consulta, sem adicionar nenhum texto, botão adicional ou encurtador.".`;
       } else {
-        text = `Mensagens do usuário: "${lead_message}".
+        text = `Mensagens do usuário: "${lead_messages}".
 
 Instruções: "Somente enquanto aparecer esta instrução específica, ao finalizar a resposta, você deve lembrar o usuário de acessar o link para cadastro que foi enviado anteriormente para que o usuário possa agendar uma consulta."`;
       }
@@ -49,15 +51,17 @@ Instruções: "Somente enquanto aparecer esta instrução específica, ao finali
 
       const calendario = LeadUtils.findLeadField({ lead, fieldName: 'Calendário', value: true });
 
-      const lead_message = await this.leadMessagesRepository.getRecentMessages(this.lead_id);
+      const { recent_messages, last_messages } = await this.leadMessagesRepository.getLastAndRecentMessages(this.lead_id, 1);
+      const lead_messages = recent_messages || last_messages;
+
       let text;
 
       if (calendario) {
-        text = `Mensagens do usuário: "${lead_message}".
+        text = `Mensagens do usuário: "${lead_messages}".
 
 Instruções: "Somente enquanto aparecer esta instrução específica, ao finalizar a resposta, você deve enviar o link para acessar o calendário de forma explícita para que o usuário possa agendar uma consulta. O link para acessar o calendário é: ${calendario}. Insira somente o link direto para agendar consulta, sem adicionar nenhum texto, botão adicional ou encurtador.".`;
       } else {
-        text = `Mensagens do usuário: "${lead_message}".
+        text = `Mensagens do usuário: "${lead_messages}".
 
 Instruções: "Somente enquanto aparecer esta instrução específica, ao finalizar a resposta, você deve lembrar o usuário de acessar o link para acessar o calendário que foi enviado anteriormente para que o usuário possa agendar uma consulta."`;
       }

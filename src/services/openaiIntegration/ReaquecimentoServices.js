@@ -16,10 +16,12 @@ export default class ReaquecimentoServices {
       styled.function('[ReaquecimentoServices.intencao] Recepção | Intenção...');
       const lead = await this.openaiintegrationservices.getLead({ id: this.lead_id });
 
-      const lead_message = await this.leadMessagesRepository.getRecentMessages(this.lead_id);
+      const { recent_messages, last_messages } = await this.leadMessagesRepository.getLastAndRecentMessages(this.lead_id, 1);
+      const lead_messages = recent_messages || last_messages;
+      
       const answer = await LeadUtils.findLeadField({ lead, fieldName: 'GPT | Answer', value: true });
 
-      const text = `Considere que você esteja analisando a intenção da resposta de um usuário em um chatbot. Analise a mensagem da clínica: '${answer}', e veja em quais das situações abaixo se encaixa a intenção da mensagem do usuário: '${lead_message}'.
+      const text = `Considere que você esteja analisando a intenção da resposta de um usuário em um chatbot. Analise a mensagem da clínica: '${answer}', e veja em quais das situações abaixo se encaixa a intenção da mensagem do usuário: '${lead_messages}'.
 
 #Perdido: Para usuário que não quer mais receber mensagens, não quer mais contato ou não deseja mais informações.
 

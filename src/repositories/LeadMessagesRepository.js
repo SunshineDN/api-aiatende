@@ -65,7 +65,7 @@ export default class LeadMessagesRepository extends BaseRepository {
     return recent_messages.join('\n') || null
   }
 
-  async getLastAndRecentMessages(lead_id) {
+  async getLastAndRecentMessages(lead_id, limit = 3) {
     const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
     if (!lead_message?.messages?.length) return null;
 
@@ -83,7 +83,7 @@ export default class LeadMessagesRepository extends BaseRepository {
     }
 
     return {
-      last_messages: messages.slice(-3).map(msg => msg.lead_message).join('\n'),
+      last_messages: messages.slice(-limit).map(msg => msg.lead_message).join('\n'),
       recent_messages: recent_messages.join('\n') || null
     };
   }
