@@ -382,6 +382,22 @@ export default class KommoServices {
 
     const { data } = await axios.request(options);
     styled.success('[KommoServices.createLeadBk] - BK Funnels Lead created');
+
+    const calendarioField = kommoUtils.findLeadsFieldByName('Calendário');
+    
+    const custom_fields_values = [
+      {
+        field_id: calendarioField.id,
+        values: [
+          {
+            value: StaticUtils.calendarLink(data[0].id)
+          }
+        ]
+      }
+    ];
+
+    await this.updateLead({ id: data[0].id, custom_fields_values });
+
     return { code: 201, response: data };
   };
 
@@ -398,6 +414,7 @@ export default class KommoServices {
     const periodoField = kommoUtils.findLeadsFieldByName('Período');
     const turnoField = kommoUtils.findLeadsFieldByName('Turno');
     const codeField = kommoUtils.findLeadsFieldByName('BK Funnels ID');
+    const calendarioField = kommoUtils.findLeadsFieldByName('Calendário');
     
     const status = kommoUtils.findStatusByName('PRÉ-AGENDAMENTO');
 
@@ -412,7 +429,16 @@ export default class KommoServices {
       data: {
         status_id: status.id,
         pipeline_id: status.pipeline_id,
-        custom_fields_values: []
+        custom_fields_values: [
+          {
+            field_id: calendarioField.id,
+            values: [
+              {
+                value: StaticUtils.calendarLink(id)
+              }
+            ]
+          }
+        ]
       }
     };
 
