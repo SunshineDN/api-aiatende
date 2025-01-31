@@ -587,6 +587,8 @@ export class CalendarUtils {
       return CalendarId.juliana;
     } else if (condition.includes('Lucília Miranda')) {
       return CalendarId.odontopediatria;
+    } else if (condition.includes('Odontopediatria')) {
+      return CalendarId.odontopediatria;
     } else {
       return CalendarId.dentistas;
     }
