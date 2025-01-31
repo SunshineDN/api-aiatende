@@ -10,7 +10,8 @@ router.use(express.json({ type: 'application/json' }));
 router.use((req, _, next) => {
   styled.middleware('Request Type: ', req.method);
   styled.middleware('Request URL: ', req.originalUrl);
-  styled.middlewaredir('Request Body: ', req.body);
+  styled.middleware('Request Body:');
+  styled.middlewaredir(req.body);
   next();
 });
 
