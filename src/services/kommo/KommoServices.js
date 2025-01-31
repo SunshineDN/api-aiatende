@@ -246,8 +246,8 @@ export default class KommoServices {
   async createLeadBk({ name = '', email = '', phone = '', datanascimento = '', dentista = '', procedimento = '', periodo = '', turno = '', code = '' } = {}) {
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields(), contacts_custom_fields: await this.getContactsCustomFields(), pipelines: await this.getPipelines() });
 
-    const phoneField = kommoUtils.findContactsFieldByName('Telefone');
-    const emailField = kommoUtils.findContactsFieldByName('O email');
+    const phoneField = kommoUtils.findContactsFieldByName('Telefone') || kommoUtils.findContactsFieldByName('Phone');
+    const emailField = kommoUtils.findContactsFieldByName('O email') || kommoUtils.findContactsFieldByName('Email');
 
     const nascimentoField = kommoUtils.findLeadsFieldByName('Data de Nascimento');
     const dentistaField = kommoUtils.findLeadsFieldByName('Dentista');
