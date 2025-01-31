@@ -13,7 +13,7 @@ export default class BkFunnelsUtils {
       }
     } else {
       const { answers: [answer] } = obj;
-      if (answer.includes('Dentista Especialista')) {
+      if (answer.includes('Dentista especialista')) {
         return {
           type: 'dentista',
           value: 'Demais Dentistas',
