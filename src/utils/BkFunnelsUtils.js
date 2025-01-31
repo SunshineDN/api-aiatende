@@ -13,7 +13,7 @@ export default class BkFunnelsUtils {
       }
     } else {
       const { answers: [answer] } = obj;
-      if (answer === '1 - Dentistas EspecialistasExclusivo na Primeira Consulta(novos clientes) Sem Custos') {
+      if (answer.includes('Dentista Especialista')) {
         return {
           type: 'dentista',
           value: 'Demais Dentistas',
@@ -23,7 +23,7 @@ export default class BkFunnelsUtils {
           type: 'dentista',
           value: 'Dra. Juliana Leite',
         }
-      } else if (answer === '3 - OdontopediatriaConsulta de Crianças até 12 anosInvestimento de R$ 99,00') {
+      } else if (answer.includes('Dra. Lucília')) {
         return {
           type: 'dentista',
           value: 'Dra. Lucília Miranda',
@@ -98,10 +98,10 @@ export default class BkFunnelsUtils {
           type: 'periodo',
           value: 'Próxima Semana (A partir de Segunda)',
         }
-      } else if (answer === 'Escolha sua data') {
+      } else if (answer === 'Escolha o dia') {
         return {
           type: 'periodo',
-          value: 'Escolha sua data',
+          value: 'Escolha o dia',
         }
       } else if (answer === 'Manhã (8h às 12h)') {
         return {
@@ -117,11 +117,6 @@ export default class BkFunnelsUtils {
         return {
           type: 'turno',
           value: 'Noite (18h às 20h)'
-        }
-      } else if (answer === 'Especial (12h às 14h)') {
-        return {
-          type: 'turno',
-          value: 'Especial (12h às 14h)',
         }
       } else {
         return {
