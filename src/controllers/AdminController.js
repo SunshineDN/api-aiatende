@@ -4,8 +4,10 @@ import styled from "../utils/log/styledLog.js";
 export default class AdminController {
   static async getLeadMessages(req, res) {
     try {
+      const q_query = req?.query?.q;
+
       const adminServices = new AdminServices(req.params.lead_id);
-      const response = await adminServices.executeGetLeadMessages();
+      const response = await adminServices.executeGetLeadMessages(Number(q_query));
       return res.status(200).json(response);
     } catch (error) {
       styled.error(`[AdminController.getLeadMessages] Erro ao buscar mensagens do lead: ${error?.message}`);

@@ -10,9 +10,11 @@ export default class AdminServices {
   }
 
   // Get all messages from a lead
-  async executeGetLeadMessages() {
+  async executeGetLeadMessages(quantity = 0) {
     const leadMessagesRepository = new LeadMessagesRepository();
-    return await leadMessagesRepository.findById(this.#lead_id);
+    const lead_messages = await leadMessagesRepository.findById(this.#lead_id);
+    if (quantity > 0) lead_messages.messages = lead_messages.messages.slice(-quantity);
+    return lead_messages;
   }
 
   async executeDeleteLeadMessages() {
