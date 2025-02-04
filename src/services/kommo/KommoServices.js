@@ -131,9 +131,13 @@ export default class KommoServices {
         } else {
           return leads;
         }
+      } else {
+        if (first_created) {
+          return leads[0];
+        } else {
+          return leads;
+        }
       }
-
-      return leads;
     }
 
     return [];
@@ -384,7 +388,7 @@ export default class KommoServices {
     styled.success('[KommoServices.createLeadBk] - BK Funnels Lead created');
 
     const calendarioField = kommoUtils.findLeadsFieldByName('Calendário');
-    
+
     const custom_fields_values = [
       {
         field_id: calendarioField.id,
@@ -415,7 +419,7 @@ export default class KommoServices {
     const turnoField = kommoUtils.findLeadsFieldByName('Turno');
     const codeField = kommoUtils.findLeadsFieldByName('BK Funnels ID');
     const calendarioField = kommoUtils.findLeadsFieldByName('Calendário');
-    
+
     const status = kommoUtils.findStatusByName('PRÉ-AGENDAMENTO');
 
     const options = {

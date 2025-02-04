@@ -5,13 +5,18 @@ import KommoServices from "../kommo/KommoServices.js";
 import LeadUtils from "../../utils/LeadUtils.js";
 import styled from "../../utils/log/styled.js";
 import KommoUtils from "../../utils/KommoUtils.js";
-                                              
-export default class WebCalendarServices {
+import CalendarServices from "../calendar/CalendarServices.js";
 
-  static async listInitialValues(lead_id) {
-    const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
-    const lead_id_decoded = StaticUtils.decodeString(lead_id);
-    const lead = await kommo.getLead({ id: lead_id_decoded });
+export default class WebCalendarServices {
+  #kommo;
+  #promise;
+  constructor(query) {
+    this.#kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
+    this.#promise = StaticUtils.isBase64(query) ? this.#kommo.getLead({ id: StaticUtils.decodeString(query) }) : this.#kommo.listLeads({ query, first_created: true });
+  }
+
+  async listInitialValues() {
+    const lead = await this.#promise;
 
     const dentista = LeadUtils.findLeadField({ lead, fieldName: 'Dentista', value: true });
     const periodo = LeadUtils.findLeadField({ lead, fieldName: 'Período', value: true });
@@ -30,48 +35,55 @@ export default class WebCalendarServices {
 
     const dentistaNome = StaticUtils.getCalendarName(dentista);
 
-    const calendar = new CalendarUtils();
-    const calendarId = CalendarUtils.idValidate(dentista);
-    const events = await calendar.listAvailableOptions(calendarId);
+    // const calendar = new CalendarUtils();
+    // const calendarId = CalendarUtils.idValidate(dentista);
+    // const events = await calendar.listAvailableOptions(calendarId);
+
+    const calendar = new CalendarServices(CalendarUtils.idValidate(dentista));
+    const events = await calendar.listAvailableOptions();
+    return events;
+
     const actualDate = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
 
-    const text = `Considere que você está agendando uma consulta para:
-Dentista: ${dentistaNome}
-Período: ${periodo}
-Turno: ${turno}.
+    console.log(calendarId);
+    console.log(events);
+    const text = `
+Considere que você está agendando uma consulta para:
+- **Dentista:** ${dentistaNome}
+- **Período:** ${periodo}
+- **Turno:** ${turno}
 
-O dia atual é ${actualDate}.
+📅 **Data atual:** ${actualDate}
 
-Aqui vão as regras que devem ser obedecidas:
-- Os turnos de funcionamento são manhã das 8h às 12h, tarde das 13h às 17h e noite das 18h às 20h.
-- Baseado no período, você deve escolher uma data aleatória dentro do período.
-- Se o período for 'Próxima semana', você deve escolher uma data aleatória após 7 dias da data atual e antes de 14 dias da data atual.
-- Você deve pegar apenas uma data.
-- Caso o turno seja diferente de 'Qualquer horário', você deve pegar apenas dois horários disponíveis para o turno escolhido. Se não, você deve pegar os horários disponíveis em cada turno para a data escolhida, sendo um horário o mínimo e seis no máximo.
-- Os horários disponíveis estão no calendário que será enviado.
-- Escolha apenas horários e datas que estão no calendário.
-- Em hipótese alguma, deve-se escolher datas ou horários que não estejam disponíveis no calendário.
+⚠️ **Regras a seguir:**
+- Os turnos são: 
+  - Manhã: 8h - 12h 
+  - Tarde: 13h - 17h 
+  - Noite: 18h - 20h.
+- Para *Próxima semana*, escolha uma data entre 7 e 14 dias a partir de hoje.
+- Se o turno não for 'Qualquer horário', selecione até 2 horários disponíveis para o turno escolhido.
+- Caso contrário, selecione de 1 a 6 horários disponíveis por turno.
+- Os horários devem estar no calendário enviado.
+- **Jamais escolha horários indisponíveis.**
 
-Com base nisso, escolha uma data e horários disponíveis para a consulta seguindo as regras acima no calendário abaixo:
-
+📅 **Calendário de horários disponíveis:**
 ${events}
 
-O formato da resposta deve ser um objeto com a data e os horários escolhidos seguindo o padrão a seguir:
-
+📝 **Formato da resposta (JSON):**
+\`\`\`json
 {
-  date: '12/12/2024',
-  avaiableOptions: ['08:00', '11:00']
+  "date": "12/12/2024",
+  "avaiableOptions": ["08:00", "11:00"]
 }
-  
-A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON. (\`\`\`json)`;
-
+\`\`\`
+`;
 
     const { message } = await OpenAIController.promptMessage(text);
     const obj = StaticUtils.extractJsonPrompt(message);
     return { ...obj, dentista: dentistaNome, periodo, turno };
   }
 
-  static async listDefaultDate(turno, dentista, periodo) {
+  async listDefaultDate(turno, dentista, periodo) {
     const calendar = new CalendarUtils();
     const calendarId = CalendarUtils.idValidate(dentista);
     const events = await calendar.listAvailableOptions(calendarId);
@@ -118,7 +130,7 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON. (\`\`\`json)`;
     return StaticUtils.extractJsonPrompt(message);
   }
 
-  static async listChoiceDate(turno, dentista, data) {
+  async listChoiceDate(turno, dentista, data) {
     const calendar = new CalendarUtils();
     const calendarId = CalendarUtils.idValidate(dentista);
     const events = await calendar.listAvailableOptions(calendarId);
@@ -159,7 +171,7 @@ A RESPOSTA DEVE SER ENVIADA NO FORMATO JSON.`;
     return StaticUtils.extractJsonPrompt(message);
   }
 
-  static async registerDate(dentista, data, horario, lead_id) {
+  async registerDate(dentista, data, horario, lead_id) {
     const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
 
     const lead_id_decoded = StaticUtils.decodeString(lead_id);

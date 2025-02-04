@@ -117,4 +117,54 @@ export default class StaticUtils {
 
         return null;
     }
+
+    static asciiToPhone(ascii) {
+        return ascii.replace(/%28|%29|%20|\+|-/g, "");
+    }
+
+    static formatTelephone(numero) {
+        let string = '';
+
+        if (typeof numero === 'number') {
+            string = numero.toString();
+        } else {
+            string = numero;
+        }
+
+        let newNumber = '';
+        let ddd = '';
+
+        string = string.replace(/[^0-9]/g, '');
+
+        if (string.slice(0, 2) === '55') {
+            string = string.substring(2);
+        }
+
+        if (string.length === 11) {
+            ddd = string.slice(0, 2);
+            newNumber = string.substring(3);
+
+        } else if (string.length === 10) {
+            ddd = string.slice(0, 2);
+            newNumber = string.substring(2);
+
+        } else if (string.length === 9) {
+            ddd = '81';
+            newNumber = string.substring(1);
+
+        } else if (string.length === 8) {
+            ddd = '81';
+            newNumber = string;
+        }
+
+        return `+55${ddd}${newNumber.substring(0, 4)}${newNumber.substring(4)}`;
+    }
+
+    static isBase64(str) {
+        try {
+            return btoa(atob(str)) == str;
+        } catch (err) {
+            return false;
+        }
+    }
 }

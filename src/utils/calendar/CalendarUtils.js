@@ -1,6 +1,6 @@
 import { google } from 'googleapis';
 import styled from '../log/styled.js';
-import { AuthCalendar } from './AuthCalendar.js';
+import AuthCalendar from './AuthCalendar.js';
 import { CalendarId } from '../../config/calendarId.js';
 
 export class CalendarUtils {
