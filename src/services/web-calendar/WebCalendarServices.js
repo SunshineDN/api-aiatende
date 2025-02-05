@@ -13,7 +13,7 @@ export default class WebCalendarServices {
   constructor(query = '') {
     this.#kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
     if (query) {
-      this.#promise = StaticUtils.isBase64(query) ? this.#kommo.getLead({ id: StaticUtils.decodeString(query), withParams: 'contacts' }) : this.#kommo.listLeads({ query, first_created: true, withParams: 'contacts' });
+      this.#promise = StaticUtils.isBase64(query) ? this.#kommo.getLead({ id: StaticUtils.decodeString(query), withParams: 'contacts' }) : this.#kommo.listLeads({ query: StaticUtils.formatTelephone(StaticUtils.asciiToPhone(query)), first_created: true, withParams: 'contacts' });
     }
   }
 
