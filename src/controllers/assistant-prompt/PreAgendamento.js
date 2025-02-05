@@ -123,7 +123,7 @@ Responda apenas com o ID correspondente da opção, que segue este padrão: "#pa
       )[0];
 
       const nameDoctor = user?.custom_fields_values?.filter(
-        (field) => field.field_name === 'Dentista'
+        (field) => field.field_name === 'Profissional'
       )[0];
 
       let dates;
@@ -210,7 +210,7 @@ Não formate as linhas da resposta solicitada.`;
       const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
       
       const nameDoctor = user?.custom_fields_values?.filter(
-        (field) => field.field_name === 'Dentista'
+        (field) => field.field_name === 'Profissional'
       )[0];
       let dates;
 

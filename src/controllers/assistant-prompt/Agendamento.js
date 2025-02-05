@@ -133,7 +133,7 @@ Responda apenas com o ID correspondente da opção, que segue este padrão: "#pa
       const scheduled_date = scheduled_date_field?.values[0]?.value || 'Não informado';
 
       const specialist_field = user?.custom_fields_values?.filter(
-        (field) => field.field_name === 'Dentista'
+        (field) => field.field_name === 'Profissional'
       )[0];
       const specialist = specialist_field?.values[0]?.value || 'Dentistas da Equipe';
 
@@ -180,7 +180,7 @@ Considerar que o usuário passou por todas as etapas para fazer o primeiro agend
 
       const user = await GetUser(req.body, false, access_token);
       const nameDoctor = user?.custom_fields_values?.filter(
-        (field) => field.field_name === 'Dentista'
+        (field) => field.field_name === 'Profissional'
       )[0];
       let dates;
 

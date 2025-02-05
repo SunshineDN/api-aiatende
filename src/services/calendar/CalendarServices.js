@@ -9,21 +9,29 @@ import timezone from "dayjs/plugin/timezone.js";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore.js";
 import isBetween from "dayjs/plugin/isBetween.js";
 
+import 'dayjs/locale/pt-br.js';
+
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(isSameOrBefore);
 dayjs.extend(isBetween);
-
 export default class CalendarServices {
   #calendar_id;
   #calendar;
 
+  /**
+   * @param {string} calendar_id - ID do calendário
+   */
   constructor(calendar_id) {
     this.#calendar_id = calendar_id;
     this.#calendar = google.calendar('v3');
     AuthCalendar.authenticate();
   }
 
+  /**
+   * Retorna as datas e horários disponíveis para agendamento
+   * @returns {Promise<Array<string>>} - Array com as datas e horários disponíveis para agendamento
+   */
   async getAvailableOptions() {
     // const now = dayjs("2025-02-05T10:29:00");
     const now = dayjs();
@@ -105,21 +113,29 @@ export default class CalendarServices {
     return Array.from(availableSlots);
   }
 
-  async createEvent(event) {
-    const { summary, start, end } = event;
-
+  /**
+   * Cria um evento no calendário
+   * @param {object} event - Objeto com as informações do evento a ser criado
+   * @param {string} event.summary - Título do evento
+   * @param {Date} event.start - Data e hora de início do evento
+   * @param {Date} event.end - Data e hora de término do evento
+   * @param {string} [event.description=""] - Descrição do evento
+   * @returns {Promise<object>} - Objeto com as informações do evento criado
+   */
+  async createEvent({ summary, start, end, description = "" }) {
     const response = await this.#calendar.events.insert({
       calendarId: this.#calendar_id,
       requestBody: {
         summary,
         start: {
           dateTime: start.toISOString(),
-          timeZone: "America/Sao_Paulo"
+          timeZone: "America/Recife"
         },
         end: {
           dateTime: end.toISOString(),
-          timeZone: "America/Sao_Paulo"
-        }
+          timeZone: "America/Recife"
+        },
+        description
       }
     });
 
