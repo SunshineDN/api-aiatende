@@ -9,8 +9,6 @@ router.use(kommoMiddleware);
 
 router.get('/', CalendarController.index);
 
-router.post('/listEvents', CalendarController.listEvents);
-
 router.post('/addEvent', CalendarController.addEvent);
 
 router.post('/updateEvent', CalendarController.updateEvent);
