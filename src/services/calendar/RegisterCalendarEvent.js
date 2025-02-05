@@ -24,7 +24,7 @@ export const RegisterCalendarEvent = async (payload, access_token = null) => {
       (field) => field.field_name === 'Event Start'
     )[0];
     const nameDoctor = user?.custom_fields_values?.filter(
-      (field) => field.field_name === 'Dentista'
+      (field) => field.field_name === 'Profissional'
     )[0];
 
     const eventLink = custom_fields?.filter(

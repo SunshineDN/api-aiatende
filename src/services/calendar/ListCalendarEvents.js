@@ -13,7 +13,7 @@ export const ListCalendarEvents = async (payload, access_token = null) => {
     user = await GetUser(payload, false, access_token);
       
     nameDoctor = user?.custom_fields_values?.filter(
-      (field) => field.field_name === 'Dentista'
+      (field) => field.field_name === 'Profissional'
     )[0];
   
     custom_fields = await GetCustomFields(payload, access_token);

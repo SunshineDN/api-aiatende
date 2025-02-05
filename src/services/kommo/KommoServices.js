@@ -112,11 +112,12 @@ export default class KommoServices {
     return data;
   }
 
-  async listLeads({ query = '', first_created = false } = {}) {
+  async listLeads({ query = '', first_created = false, withParams = '' } = {}) {
     if (query) {
+      const url = withParams !== '' ? `${this.url}/api/v4/leads?query=${query}&with=${withParams}` : `${this.url}/api/v4/leads?query=${query}`;
       const options = {
         method: 'GET',
-        url: `${this.url}/api/v4/leads?query=${query}`,
+        url,
         headers: {
           'accept': 'application/json',
           'Authorization': `Bearer ${this.auth}`
@@ -127,13 +128,25 @@ export default class KommoServices {
 
       if (leads?.length > 1) {
         if (first_created) {
-          return [leads.sort((a, b) => a.created_at - b.created_at)[0]];
+          const lead = leads.sort((a, b) => a.created_at - b.created_at)[0];
+          if (withParams === 'contacts') {
+            lead.contact = await this.getContact(lead?._embedded?.contacts?.[0]?.id);
+          }
+          return lead;
+        } else {
+          return leads;
+        }
+      } else {
+        if (first_created) {
+          const lead = leads[0];
+          if (withParams === 'contacts') {
+            lead.contact = await this.getContact(lead?._embedded?.contacts?.[0]?.id);
+          }
+          return lead;
         } else {
           return leads;
         }
       }
-
-      return leads;
     }
 
     return [];
@@ -250,7 +263,7 @@ export default class KommoServices {
     const emailField = kommoUtils.findContactsFieldByName('O email') || kommoUtils.findContactsFieldByName('Email');
 
     const nascimentoField = kommoUtils.findLeadsFieldByName('Data de Nascimento');
-    const dentistaField = kommoUtils.findLeadsFieldByName('Dentista');
+    const dentistaField = kommoUtils.findLeadsFieldByName('Profissional');
     const procedimentoField = kommoUtils.findLeadsFieldByName('Procedimento');
     const periodoField = kommoUtils.findLeadsFieldByName('Período');
     const turnoField = kommoUtils.findLeadsFieldByName('Turno');
@@ -384,7 +397,7 @@ export default class KommoServices {
     styled.success('[KommoServices.createLeadBk] - BK Funnels Lead created');
 
     const calendarioField = kommoUtils.findLeadsFieldByName('Calendário');
-    
+
     const custom_fields_values = [
       {
         field_id: calendarioField.id,
@@ -409,13 +422,13 @@ export default class KommoServices {
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields(), contacts_custom_fields: await this.getContactsCustomFields(), pipelines: await this.getPipelines() });
 
     const nascimentoField = kommoUtils.findLeadsFieldByName('Data de Nascimento');
-    const dentistaField = kommoUtils.findLeadsFieldByName('Dentista');
+    const dentistaField = kommoUtils.findLeadsFieldByName('Profissional');
     const procedimentoField = kommoUtils.findLeadsFieldByName('Procedimento');
     const periodoField = kommoUtils.findLeadsFieldByName('Período');
     const turnoField = kommoUtils.findLeadsFieldByName('Turno');
     const codeField = kommoUtils.findLeadsFieldByName('BK Funnels ID');
     const calendarioField = kommoUtils.findLeadsFieldByName('Calendário');
-    
+
     const status = kommoUtils.findStatusByName('PRÉ-AGENDAMENTO');
 
     const options = {

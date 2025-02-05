@@ -22,7 +22,7 @@ export const RemoveCalendarEvent = async (payload, access_token = null) => {
     const eventFilled = custom_fields?.filter(field => field.name === 'Datas ocupadas')[0];
     const eventAvaiable = custom_fields?.filter(field => field.name === 'Datas disponíveis')[0];
     const nameDoctor = user?.custom_fields_values?.filter(
-      (field) => field.field_name === 'Dentista'
+      (field) => field.field_name === 'Profissional'
     )[0];
 
     styled.info('Deletando evento...');
