@@ -39,8 +39,8 @@ export default class WebCalendarServices {
     // const calendarId = CalendarUtils.idValidate(dentista);
     // const events = await calendar.listAvailableOptions(calendarId);
 
-    const calendar = new CalendarServices(CalendarUtils.idValidate(dentista));
-    const events = await calendar.listAvailableOptions();
+    const calendar = new CalendarServices(CalendarUtils.idValidate(dentistaNome));
+    const events = await calendar.getAvailableOptions();
     return events;
 
     const actualDate = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });

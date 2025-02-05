@@ -14,6 +14,7 @@ export default class AuthCalendar {
         ['https://www.googleapis.com/auth/calendar']
       );
     }
+    google.options({ auth: this.#authInstance });
 
     return this.#authInstance;
   }
