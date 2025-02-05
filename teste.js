@@ -1245,16 +1245,16 @@ async function test() {
   // const response = await new GlobalServices(19030890).assistente("YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA");
   // console.log(response);
 
-  const query = StaticUtils.formatTelephone(StaticUtils.asciiToPhone('%289%29+672-4310'));
-  // const query = "MTkwMzA4OTA=";
+  // const query = StaticUtils.formatTelephone(StaticUtils.asciiToPhone('%289%29+672-4310'));
+  const query = "MTkwMzA4OTA";
 
-  const webCalendarServices = new WebCalendarServices(query);
+  // const webCalendarServices = new WebCalendarServices(query);
   
   // const response = StaticUtils.isBase64(query) ? await kommo.getLead({ id: StaticUtils.decodeString(query) }) : await kommo.listLeads({ query, first_created: true });
   // const response = await webCalendarServices.listInitialValues();
   // const response = await webCalendarServices.getChoiceDate('05/02/2025', 'Qualquer horário', 'Odontopediatria');
-  const response = await webCalendarServices.insertEvent('Dra. Juliana Leite', '05/02/2025', '18:00');
-  console.dir(response, { depth: null });
+  // const response = await webCalendarServices.insertEvent('Dra. Juliana Leite', '05/02/2025', '18:00');
+  // console.dir(response, { depth: null });
   console.log(StaticUtils.isBase64(query));
 }
 

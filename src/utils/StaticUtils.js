@@ -162,7 +162,14 @@ export default class StaticUtils {
 
     static isBase64(str) {
         try {
-            return btoa(atob(str)) == str;
+            if (btoa(atob(str)) === str) {
+                return true;
+            }
+            // Testar novamente adicionando "=" no final
+            if (btoa(atob(str + "=")) === str + "=") {
+                return true;
+            }
+            return false;
         } catch (err) {
             return false;
         }
