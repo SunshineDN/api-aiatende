@@ -17,81 +17,6 @@ export default class WebCalendarServices {
     }
   }
 
-//   async _listInitialValues() {
-//     const lead = await this.#promise;
-
-//     const profissional = LeadUtils.findLeadField({ lead, fieldName: 'Profissional', value: true });
-//     const periodo = LeadUtils.findLeadField({ lead, fieldName: 'Período', value: true });
-//     const turno = LeadUtils.findLeadField({ lead, fieldName: 'Turno', value: true });
-
-//     if (!profissional || !periodo || !turno) {
-//       styled.warning('[WebCalendarServices.listInitialValues] O lead não possui os campos necessários para a execução do serviço.');
-//       return {
-//         profissional: '',
-//         periodo: '',
-//         turno: '',
-//         date: null,
-//         availableOptions: []
-//       };
-//     }
-
-//     const dentistaNome = StaticUtils.getCalendarName(profissional);
-
-//     const calendar = new CalendarServices(CalendarUtils.idValidate(dentistaNome));
-//     const events = await calendar.getAvailableOptions();
-
-//     const actualDate = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
-
-//     const text = `
-// Considere que você está agendando uma consulta para:
-// - **Dentista:** ${profissional}
-// - **Turno:** ${turno}
-// - **Período:** ${periodo}
-
-// 📅 **Data atual (hoje):** ${actualDate}
-
-// ⚠️ **Regras a seguir:**
-// - Se o período for 'Próxima semana', você deve escolher uma data aleatória **disponível no calendário** após 7 dias da data atual e antes de 14 dias da data atual.
-// - Se o período incluir 'Nesta semana', você deve escolher uma data **disponível no calendário** a paritr de hoje e antes de 7 dias da data atual.
-// - Você deve capturar apenas uma data disponível **exclusivamente** dentro do período escolhido.
-// - Você deve capturar **exclusivamente** horários disponíveis.
-// - **Jamais retorne horários de outras datas.**  
-// - Se **não houver horários disponíveis**, retorne "availableOptions": [].  
-// - Os turnos são:
-//   - **Manhã:** 8h - 12h
-//   - **Tarde:** 13h - 17h
-//   - **Noite:** 18h - 20h.
-
-// 📌 **Critérios de seleção:**
-//   - Se um turno específico for escolhido (Manhã, Tarde ou Noite), selecione até 2 horários disponíveis dentro desse turno, somente na data escolhida.
-//   - Se o turno for 'Qualquer horário':
-//     - Selecionar até 2 horários por turno:
-//       - Manhã (8h - 12h): Pegar os 2 primeiros horários disponíveis se houver.
-//       - Tarde (13h - 17h): Pegar os 2 primeiros horários disponíveis se houver.
-//       - Noite (18h - 20h): Pegar os 2 primeiros horários disponíveis se houver.
-//       - Totalizar no máximo 6 horários no retorno.
-//     - **Caso não haja horários disponíveis em algum turno, esse turno fica vazio no retorno.**
-
-// 📅 **Calendário de horários disponíveis:**
-// [${events}]
-
-// 📌 **Atenção:** **não existir no calendário de horários disponíveis**, **retorne um array vazio** para "availableOptions".
-
-// 📝 **EXEMPLO do Formato da resposta (JSON):**
-// \`\`\`json
-// {
-//   "date": "12/12/2024",
-//   "availableOptions": ["08:00", "11:00"]
-// }
-// \`\`\`
-// `;
-
-//     styled.info('Prompt para lista de valores iniciais:', text);
-//     const { message } = await OpenAIController.promptMessage(text);
-//     const obj = StaticUtils.extractJsonPrompt(message);
-//     return { ...obj, profissional: dentistaNome, turno };
-//   }
-
   async listInitialValues() {
     const lead = await this.#promise;
 
@@ -211,12 +136,12 @@ Considere que você está agendando uma consulta para:
   async insertEvent(profissional, data, horario) {
     const lead = await this.#promise;
 
-    const procedimento = LeadUtils.findLeadField({ lead, fieldName: 'Procedimento', value: true });
+    const service = LeadUtils.findLeadField({ lead, fieldName: 'Serviço', value: true });
     const agendamento = LeadUtils.findLeadField({ lead, fieldName: 'Data do Agendamento', value: true });
 
     const nome = lead?.contact?.name;
 
-    const summary = `${nome} - ${procedimento}`;
+    const summary = `${nome} - ${service}`;
     const dentistaNome = StaticUtils.getCalendarName(profissional);
 
     const calendarId = CalendarUtils.idValidate(dentistaNome);

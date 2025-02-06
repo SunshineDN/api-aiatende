@@ -582,15 +582,19 @@ export class CalendarUtils {
     return await calendar_return;
   }
 
-  static idValidate(condition) {
-    if (condition.includes('Juliana Leite')) {
-      return CalendarId.juliana;
-    } else if (condition.includes('Lucília Miranda')) {
-      return CalendarId.odontopediatria;
-    } else if (condition.includes('Odontopediatria')) {
-      return CalendarId.odontopediatria;
-    } else {
-      return CalendarId.dentistas;
+  static idValidate(condition = '') {
+    const mapping = {
+      'Juliana Leite': CalendarId.juliana,
+      'Lucília Miranda': CalendarId.odontopediatria,
+      'Odontopediatria': CalendarId.odontopediatria,
+    };
+
+    for (const key in mapping) {
+      if (condition.includes(key)) {
+        return mapping[key];
+      }
     }
+
+    return CalendarId.dentistas;
   }
 }

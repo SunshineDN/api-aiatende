@@ -45,4 +45,9 @@ export default class DateUtils {
 
     return new Date(date.getTime() - diff);
   }
+
+  static secondsToDatetime(seconds) {
+    // Retornar a data no tipo Date
+    return new Date(seconds * 1000);
+  }
 }

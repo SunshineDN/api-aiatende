@@ -256,7 +256,7 @@ export default class KommoServices {
     return { code: 200, response: data };
   }
 
-  async createLeadBk({ name = '', email = '', phone = '', datanascimento = '', dentista = '', procedimento = '', periodo = '', turno = '', code = '' } = {}) {
+  async createLeadBk({ name = '', email = '', phone = '', datanascimento = '', dentista = '', service = '', periodo = '', turno = '', code = '' } = {}) {
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields(), contacts_custom_fields: await this.getContactsCustomFields(), pipelines: await this.getPipelines() });
 
     const phoneField = kommoUtils.findContactsFieldByName('Telefone') || kommoUtils.findContactsFieldByName('Phone');
@@ -264,7 +264,7 @@ export default class KommoServices {
 
     const nascimentoField = kommoUtils.findLeadsFieldByName('Data de Nascimento');
     const dentistaField = kommoUtils.findLeadsFieldByName('Profissional');
-    const procedimentoField = kommoUtils.findLeadsFieldByName('Procedimento');
+    const serviceField = kommoUtils.findLeadsFieldByName('Serviço');
     const periodoField = kommoUtils.findLeadsFieldByName('Período');
     const turnoField = kommoUtils.findLeadsFieldByName('Turno');
     const codeField = kommoUtils.findLeadsFieldByName('BK Funnels ID');
@@ -349,12 +349,12 @@ export default class KommoServices {
       });
     }
 
-    if (procedimento) {
+    if (service) {
       options.data[0].custom_fields_values.push({
-        field_id: procedimentoField.id,
+        field_id: serviceField.id,
         values: [
           {
-            value: procedimento
+            value: service
           }
         ]
       });
@@ -414,7 +414,7 @@ export default class KommoServices {
     return { code: 201, response: data };
   };
 
-  async updateLeadBk({ id, datanascimento = '', dentista = '', procedimento = '', periodo = '', turno = '', code = '' } = {}) {
+  async updateLeadBk({ id, datanascimento = '', dentista = '', service = '', periodo = '', turno = '', code = '' } = {}) {
     if (!id) {
       throw new Error('Lead ID is required');
     }
@@ -423,7 +423,7 @@ export default class KommoServices {
 
     const nascimentoField = kommoUtils.findLeadsFieldByName('Data de Nascimento');
     const dentistaField = kommoUtils.findLeadsFieldByName('Profissional');
-    const procedimentoField = kommoUtils.findLeadsFieldByName('Procedimento');
+    const serviceField = kommoUtils.findLeadsFieldByName('Serviço');
     const periodoField = kommoUtils.findLeadsFieldByName('Período');
     const turnoField = kommoUtils.findLeadsFieldByName('Turno');
     const codeField = kommoUtils.findLeadsFieldByName('BK Funnels ID');
@@ -482,12 +482,12 @@ export default class KommoServices {
       });
     }
 
-    if (procedimento) {
+    if (service) {
       options.data.custom_fields_values.push({
-        field_id: procedimentoField.id,
+        field_id: serviceField.id,
         values: [
           {
-            value: procedimento
+            value: service
           }
         ]
       });

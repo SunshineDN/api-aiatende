@@ -60,7 +60,7 @@ export default class BkFunnelsServices {
           phone,
           datanascimento,
           dentista,
-          procedimento,
+          service: procedimento,
           periodo,
           turno: value,
           code: codeString
@@ -70,7 +70,7 @@ export default class BkFunnelsServices {
           id: leads[0].id,
           datanascimento,
           dentista,
-          procedimento,
+          service: procedimento,
           periodo,
           turno: value,
           code: codeString
