@@ -167,8 +167,9 @@ ${events}
     const eventLinkField = await kommoUtils.findLeadsFieldByName('Event Link');
     const eventSummaryField = await kommoUtils.findLeadsFieldByName('Event Summary');
     const eventStartField = await kommoUtils.findLeadsFieldByName('Event Start');
-    const whenScheduled = await kommoUtils.findLeadsFieldByName('Quando foi agendado');
-    const lastScheduled = await kommoUtils.findLeadsFieldByName('Último agendamento');
+    const whenScheduledField = await kommoUtils.findLeadsFieldByName('Quando foi agendado');
+    const lastScheduledField = await kommoUtils.findLeadsFieldByName('Último agendamento');
+    const scheduledStatusField = await kommoUtils.findLeadsFieldByName('Status do Agendamento');
 
     const closedWon = await kommoUtils.findStatusByCode('03 - PRÉ-AGENDAMENTO', 142);
 
@@ -214,7 +215,7 @@ ${events}
         ]
       },
       {
-        field_id: whenScheduled.id,
+        field_id: whenScheduledField.id,
         values: [
           {
             value: kommoUtils.dateTimeToSeconds(new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' })),
@@ -222,10 +223,18 @@ ${events}
         ]
       },
       {
-        field_id: lastScheduled.id,
+        field_id: lastScheduledField.id,
         values: [
           {
-            value: agendamento ? kommoUtils.dateTimeToSeconds(`${data} ${horario}`) : kommoUtils.dateTimeToSeconds(new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' }))
+            value: agendamento ? agendamento : kommoUtils.dateTimeToSeconds(`${data} ${horario}`)
+          }
+        ]
+      },
+      {
+        field_id: scheduledStatusField.id,
+        values: [
+          {
+            value: 'Agendou'
           }
         ]
       }
