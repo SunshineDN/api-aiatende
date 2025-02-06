@@ -53,7 +53,7 @@ export default class StaticUtils {
         /* ```json
     {
       "date": "08/01/2025",
-      "avaiableOptions": ["11:00", "11:30"]
+      "availableOptions": ["11:00", "11:30"]
     }
     ``` */
 

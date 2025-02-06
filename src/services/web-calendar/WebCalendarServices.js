@@ -20,22 +20,22 @@ export default class WebCalendarServices {
   async listInitialValues() {
     const lead = await this.#promise;
 
-    const dentista = LeadUtils.findLeadField({ lead, fieldName: 'Profissional', value: true });
+    const profissional = LeadUtils.findLeadField({ lead, fieldName: 'Profissional', value: true });
     const periodo = LeadUtils.findLeadField({ lead, fieldName: 'Período', value: true });
     const turno = LeadUtils.findLeadField({ lead, fieldName: 'Turno', value: true });
 
-    if (!dentista || !periodo || !turno) {
+    if (!profissional || !periodo || !turno) {
       styled.warning('[WebCalendarServices.listInitialValues] O lead não possui os campos necessários para a execução do serviço.');
       return {
-        dentista: '',
+        profissional: '',
         periodo: '',
         turno: '',
         date: null,
-        avaiableOptions: []
+        availableOptions: []
       };
     }
 
-    const dentistaNome = StaticUtils.getCalendarName(dentista);
+    const dentistaNome = StaticUtils.getCalendarName(profissional);
 
     const calendar = new CalendarServices(CalendarUtils.idValidate(dentistaNome));
     const events = await calendar.getAvailableOptions();
@@ -44,7 +44,7 @@ export default class WebCalendarServices {
 
     const text = `
 Considere que você está agendando uma consulta para:
-- **Dentista:** ${dentista}
+- **Dentista:** ${profissional}
 - **Turno:** ${turno}
 - **Período:** ${periodo}
 
@@ -73,40 +73,50 @@ ${events}
 \`\`\`json
 {
   "date": "12/12/2024",
-  "avaiableOptions": ["08:00", "11:00"]
+  "availableOptions": ["08:00", "11:00"]
 }
 \`\`\`
 `;
     console.log(text);
     const { message } = await OpenAIController.promptMessage(text);
     const obj = StaticUtils.extractJsonPrompt(message);
-    return { ...obj, dentista: dentistaNome, turno };
+    return { ...obj, profissional: dentistaNome, turno };
   }
 
-  async getChoiceDate(data, turno, dentista) {
+  async getChoiceDate(data, turno, profissional) {
     const actualDate = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
 
-    const calendar = new CalendarServices(CalendarUtils.idValidate(dentista));
-    const events = await calendar.getAvailableOptions();
+    const calendar = new CalendarServices(CalendarUtils.idValidate(profissional));
+    const events = await calendar.getChoiceDate(data);
 
     const text = `
 Considere que você está agendando uma consulta para:
-- **Dentista:** ${dentista}
+- **Dentista:** ${profissional}
 - **Turno:** ${turno}
 - **Data escolhida:** ${data}
 
 📅 **Data atual:** ${actualDate}
 
 ⚠️ **Regras a seguir:**
-- Você deve capturar **exclusivamente** horários disponíveis **exatamente na data escolhida**.  
-- **Jamais retorne horários de outras datas.**  
-- Se **não houver horários disponíveis na data escolhida**, retorne "availableOptions": [].  
+
+- Você deve capturar exclusivamente horários disponíveis exatamente na data escolhida.
+- Jamais retorne horários de outras datas.
+- Se não houver horários disponíveis na data escolhida, retorne "availableOptions": [].
 - Os turnos são:
-  - **Manhã:** 8h - 12h
-  - **Tarde:** 13h - 17h
-  - **Noite:** 18h - 20h.
-- Se o turno **não for** 'Qualquer horário', selecione **até 2 horários** disponíveis dentro do turno escolhido, **somente na data escolhida**.
-- Se o turno **for** 'Qualquer horário', selecione até **2 opções do turno da manhã, 2 da tarde e 2 da noite**, **somente na data escolhida**.
+  - Manhã: 8h - 12h
+  - Tarde: 13h - 17h
+  - Noite: 18h - 20h
+
+📌 **Critérios de seleção:**
+- Se um turno específico for escolhido (Manhã, Tarde ou Noite), selecione até 2 horários disponíveis dentro desse turno, somente na data escolhida.
+- Se o turno for 'Qualquer horário':
+  - Filtrar apenas os horários da data escolhida (${data}).
+  - Selecionar até 2 horários por turno:
+    - Manhã (8h - 12h): Pegar os 2 primeiros horários disponíveis se houver.
+    - Tarde (13h - 17h): Pegar os 2 primeiros horários disponíveis se houver.
+    - Noite (18h - 20h): Pegar os 2 primeiros horários disponíveis se houver.
+    - Totalizar no máximo 6 horários no retorno.
+    - Caso não haja horários disponíveis em algum turno, esse turno fica vazio no retorno.
 
 📅 **Calendário de horários disponíveis:**
 ${events}
@@ -117,7 +127,7 @@ ${events}
 \`\`\`json
 {
   "date": "12/12/2024",
-  "avaiableOptions": ["08:00", "11:00"]
+  "availableOptions": ["08:00", "11:00"]
 }
 \`\`\`
 `;
@@ -125,10 +135,10 @@ ${events}
     console.log(text);
     const { message } = await OpenAIController.promptMessage(text);
     const obj = StaticUtils.extractJsonPrompt(message);
-    return { ...obj, dentista, turno };
+    return { ...obj, profissional, turno };
   }
 
-  async insertEvent(dentista, data, horario) {
+  async insertEvent(profissional, data, horario) {
     const lead = await this.#promise;
 
     const procedimento = LeadUtils.findLeadField({ lead, fieldName: 'Procedimento', value: true });
@@ -137,7 +147,7 @@ ${events}
     const nome = lead?.contact?.name;
 
     const summary = `${nome} - ${procedimento}`;
-    const dentistaNome = StaticUtils.getCalendarName(dentista);
+    const dentistaNome = StaticUtils.getCalendarName(profissional);
 
     const calendarId = CalendarUtils.idValidate(dentistaNome);
     const calendar = new CalendarServices(calendarId);

@@ -418,21 +418,21 @@ export class CalendarUtils {
                 if (availableTimes.length) {
                   const lastObj = availableTimes[availableTimes.length - 1];
                   if (lastObj.date === interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[0]) {
-                    lastObj.avaiableOptions.push(interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[1]);
+                    lastObj.availableOptions.push(interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[1]);
                   } else {
                     const obj = {
                       date: interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[0],
-                      avaiableOptions: [],
+                      availableOptions: [],
                     };
-                    obj.avaiableOptions.push(interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[1]);
+                    obj.availableOptions.push(interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[1]);
                     availableTimes.push(obj);
                   }
                 } else {
                   const obj = {
                     date: interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[0],
-                    avaiableOptions: [],
+                    availableOptions: [],
                   };
-                  obj.avaiableOptions.push(interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[1]);
+                  obj.availableOptions.push(interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[1]);
                   availableTimes.push(obj);
                 }
 

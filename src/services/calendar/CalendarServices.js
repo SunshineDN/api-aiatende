@@ -8,6 +8,7 @@ import utc from "dayjs/plugin/utc.js";
 import timezone from "dayjs/plugin/timezone.js";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore.js";
 import isBetween from "dayjs/plugin/isBetween.js";
+import customParseFormat from "dayjs/plugin/customParseFormat.js";
 
 import 'dayjs/locale/pt-br.js';
 
@@ -15,6 +16,8 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(isSameOrBefore);
 dayjs.extend(isBetween);
+dayjs.extend(customParseFormat);
+
 export default class CalendarServices {
   #calendar_id;
   #calendar;
@@ -34,7 +37,7 @@ export default class CalendarServices {
    */
   async getAvailableOptions() {
     // const now = dayjs("2025-02-05T10:29:00");
-    const now = dayjs();
+    const now = dayjs().tz("America/Sao_Paulo");
     const startDate = now.startOf("day");
     const endDate = now.add(30, "day").endOf("day");
 
@@ -102,7 +105,7 @@ export default class CalendarServices {
 
       while (slotStart.isSameOrBefore(dayEnd)) {
         if (!eventSlots.some(event => slotStart.isBetween(event.start, event.end, null, "[)"))) {
-          availableSlots.add(slotStart.format("YYYY-MM-DD HH:mm"));
+          availableSlots.add(slotStart.format("DD/MM/YYYY HH:mm"));
         }
         slotStart = slotStart.add(30, "minute");
       }
@@ -111,6 +114,20 @@ export default class CalendarServices {
     }
 
     return Array.from(availableSlots);
+  }
+
+  /**
+   * Verifica se a data escolhida está disponível para agendamento
+   * @param {string} date - Data escolhida
+   * @returns {Promise<Array<string>>} - Retorna true se a data estiver disponível, false caso contrário
+   */
+  async getChoiceDate(date) {
+    const formattedDate = dayjs(date, "DD/MM/YYYY").format("DD/MM/YYYY");
+    styled.info("Formatted date:", formattedDate);
+
+    // Verificar se a data escolhida está disponível
+    const availableOptions = await this.getAvailableOptions();
+    return availableOptions.filter(option => option.startsWith(formattedDate));
   }
 
   /**
