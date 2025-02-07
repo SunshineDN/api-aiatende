@@ -5,7 +5,6 @@ export default class WebCalendarController {
   static async initial(req, res) {
     try {
       const { query } = req.body;
-      styled.info(query);
       const calendar = new WebCalendarServices(query);
       const response = await calendar.listInitialValues();
       styled.success('[WebCalendarController.initial] Listado horários iniciais com sucesso');
