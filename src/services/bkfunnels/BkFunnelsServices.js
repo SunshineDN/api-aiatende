@@ -51,9 +51,9 @@ export default class BkFunnelsServices {
 
       const { objects: { name, email, phone, datanascimento }, dentista, procedimento, periodo } = bkLeadInfo;
 
-      const leads = await kommo.listLeads({ query: kommoUtils.formatPhone(phone), first_created: true });
+      const lead = await kommo.listLeads({ query: kommoUtils.formatPhone(phone), first_created: true });
       let turno_res;
-      if (!leads || leads?.length === 0) {
+      if (!lead || lead?.length === 0) {
         turno_res = await kommo.createLeadBk({
           name,
           email,
@@ -67,7 +67,7 @@ export default class BkFunnelsServices {
         });
       } else {
         turno_res = await kommo.updateLeadBk({
-          id: leads[0].id,
+          id: lead.id,
           datanascimento,
           dentista,
           service: procedimento,
