@@ -124,7 +124,7 @@ export default class KommoUtils {
     return `+55${ddd}${newNumber.substring(0, 4)}${newNumber.substring(4)}`;
   }
 
-  dateTimeToSeconds(date) {
+  dateStringToSeconds(date) {
     dayjs.extend(customParseFormat);
     return Math.round(dayjs(date, 'DD/MM/YYYY HH:mm').valueOf() / 1000) + 10800;
   }

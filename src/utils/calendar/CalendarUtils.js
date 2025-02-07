@@ -582,15 +582,24 @@ export class CalendarUtils {
     return await calendar_return;
   }
 
-  static idValidate(condition) {
-    if (condition.includes('Juliana Leite')) {
-      return CalendarId.juliana;
-    } else if (condition.includes('Lucília Miranda')) {
-      return CalendarId.odontopediatria;
-    } else if (condition.includes('Odontopediatria')) {
-      return CalendarId.odontopediatria;
-    } else {
-      return CalendarId.dentistas;
+  /**
+   * Valida o nome do profissional para retornar o id do calendário correspondente
+   * @param {string} condition - Nome do profissional ou condição para validar o calendário
+   * @returns {string} - Id do calendário
+   */
+  static idValidate(condition = '') {
+    const mapping = {
+      'Juliana Leite': CalendarId.juliana,
+      'Lucília Miranda': CalendarId.odontopediatria,
+      'Odontopediatria': CalendarId.odontopediatria,
+    };
+
+    for (const key in mapping) {
+      if (condition.includes(key)) {
+        return mapping[key];
+      }
     }
+
+    return CalendarId.dentistas;
   }
 }

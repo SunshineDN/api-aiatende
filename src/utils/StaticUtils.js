@@ -168,4 +168,25 @@ export default class StaticUtils {
             return false;
         }
     }
+
+    /**
+     * Retorna o nome do profissional de acordo com a condição informada
+     * @param {string} condition - Condição para retornar o nome do profissional
+     * @returns {string} - Nome do profissional
+     */
+    static getProfissionalName(condition = '') {
+        const mapping = {
+            'Juliana Leite': 'Dra. Juliana Leite',
+            'Lucília Miranda': 'Dra. Lucília Miranda',
+            'Odontopediatria': 'Dra. Lucília Miranda',
+        };
+
+        for (const key in mapping) {
+            if (condition.includes(key)) {
+                return mapping[key];
+            }
+        }
+
+        return 'Demais Dentistas';
+    }
 }

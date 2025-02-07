@@ -100,4 +100,30 @@ export default class OpenaiIntegrationServices extends KommoServices {
       updated
     }
   }
+
+  static async assistantWithoutSending(lead_id, text, assistant_id) {
+    styled.function('[OpenaiIntegrationServices.assistantWithoutSending] Enviando para o assistente GPT...');
+    styled.info('[OpenaiIntegrationServices.assistantWithoutSending] Mensagem enviada para o assistente:', text);
+
+    const data = {
+      leadID: lead_id,
+      text,
+      assistant_id
+    }
+
+    const { message } = await OpenAIController.generateMessage(data);
+
+    styled.success('[OpenaiIntegrationServices.assistantWithoutSending] Resposta recebida do assistente:', message);
+    return message;
+  }
+
+  static async promptWithoutSending(text) {
+    styled.function('[OpenaiIntegrationServices.promptWithoutSending] Enviando prompt...');
+    styled.info('[OpenaiIntegrationServices.promptWithoutSending] Mensagem enviada para o prompt:', text);
+
+    const { message } = await OpenAIController.promptMessage(text);
+
+    styled.success('[OpenaiIntegrationServices.promptWithoutSending] Resposta recebida do prompt:', message);
+    return message;
+  }
 };
