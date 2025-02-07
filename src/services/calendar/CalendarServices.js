@@ -137,7 +137,7 @@ export default class CalendarServices {
    * @param {string} [event.description=""] - Descrição do evento
    * @returns {Promise<object>} - Objeto com as informações do evento criado
    */
-  async createEvent({ summary, start, end, description = "" }) {
+  async createEvent({ summary, start, end, description = "" } = {}) {
     const response = await this.#calendar.events.insert({
       calendarId: this.#calendar_id,
       requestBody: {

@@ -1,7 +1,7 @@
 # Exemplo de arquivo docker-compose.yml
 # Altere todos os valores que estão com # para os valores do seu projeto
 services:
-  dental_sante_database:
+  database:
     image: postgres:16
     environment:
       POSTGRES_USER: DB_USER # Altere o usuário do banco de dados
@@ -12,9 +12,9 @@ services:
     volumes:
       - ./data:/var/lib/postgresql/data
     networks:
-      - dental-sante-network
+      - application-network
 
-  dental_sante_backend:
+  api:
     build: .
     command: "npm run start"
     working_dir: /home/node/app
@@ -22,18 +22,20 @@ services:
       - DOMAIN= # Domínio da aplicação
       - KOMMO_AUTH= # Token de acesso do Kommo (EM TESTE)
       - KOMMO_URL= # URL do Kommo
+      - DB_URL=postgres://DB_USER:DB_PASS@database:5432/DB_NAME # URL de conexão com o banco de dados (postgres://DB_USER:DB_PASS@DB_HOST:DB_PORT/DB_NAME)
+      - TZ=America/Sao_Paulo
       - OPENAI_API_KEY= # Chave de API do OpenAI
-      - DB_URL=postgres://DB_USER:DB_PASS@DB_HOST:DB_PORT/DB_NAME # URL de conexão com o banco de dados
+      - OPENAI_ASSISTANT_ID= # ID do assistente do OpenAI
     expose:
       - "PORT" # Altere para a porta que deseja expor
     ports:
-      - "3000:3000"
+      - "PORT:3000" # Altere para a porta que deseja expor
     networks:
-      - dental-sante-network
+      - application-network
 
 volumes:
   data:
 
 networks:
-  dental-sante-network:
+  application-network:
     external: true

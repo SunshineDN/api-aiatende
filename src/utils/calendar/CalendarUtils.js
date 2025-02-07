@@ -582,6 +582,11 @@ export class CalendarUtils {
     return await calendar_return;
   }
 
+  /**
+   * Valida o nome do profissional para retornar o id do calendário correspondente
+   * @param {string} condition - Nome do profissional ou condição para validar o calendário
+   * @returns {string} - Id do calendário
+   */
   static idValidate(condition = '') {
     const mapping = {
       'Juliana Leite': CalendarId.juliana,
