@@ -62,7 +62,7 @@ Levando em consideração o período escolhido pelo lead, você deve capturar um
 O retorno da resposta deve ser apenas a data escolhida, no formato "DD/MM/AAAA".
 `;
 
-    styled.info('Prompt para capturar a data:', datePrompt);
+    // styled.info('Prompt para capturar a data:', datePrompt);
 
     const { message: date } = await OpenAIController.promptMessage(datePrompt);
 
@@ -70,7 +70,7 @@ O retorno da resposta deve ser apenas a data escolhida, no formato "DD/MM/AAAA".
 
     const text = this.#choiceDatePrompt(date, turno, profissional, events);
 
-    styled.info('Prompt para listar os valores iniciais:', text);
+    // styled.info('Prompt para listar os valores iniciais:', text);
     const { message } = await OpenAIController.promptMessage(text);
     const obj = StaticUtils.extractJsonPrompt(message);
     return { ...obj, profissional: dentistaNome, turno };
@@ -82,7 +82,7 @@ O retorno da resposta deve ser apenas a data escolhida, no formato "DD/MM/AAAA".
 
     const text = this.#choiceDatePrompt(data, turno, profissional, events);
 
-    styled.info('Prompt para data escolhida:', text);
+    // styled.info('Prompt para data escolhida:', text);
     const { message } = await OpenAIController.promptMessage(text);
     const obj = StaticUtils.extractJsonPrompt(message);
     return { ...obj, profissional, turno };
