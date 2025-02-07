@@ -160,13 +160,25 @@ export default class StaticUtils {
         return `+55${ddd}${newNumber.substring(0, 4)}${newNumber.substring(4)}`;
     }
 
+    /**
+     * Verifica se uma string é uma codificação válida em base64
+     * @param {string} str - String a ser verificada
+     * @returns {boolean} - Retorna true se a string for uma codificação válida em base64
+     */
     static isBase64(str) {
-        try {
-            str = str + '=';
-            return btoa(atob(str)) == str;
-        } catch (err) {
+        const cleanedInput = str.replace(/\D/g, '');
+        if (/^\d{8,15}$/.test(cleanedInput)) {
             return false;
         }
+        try {
+            const decoded = Buffer.from(str, 'base64').toString('utf-8');
+            if (Buffer.from(decoded, 'utf-8').toString('base64').replace(/=+$/, '') === str.replace(/=+$/, '')) {
+                return true;
+            }
+        } catch (error) {
+            return false;
+        }
+        return false;
     }
 
     /**

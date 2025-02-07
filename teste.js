@@ -1257,9 +1257,11 @@ async function test() {
   // const response = await webCalendarServices.insertEvent('Dra. Juliana Leite', '05/02/2025', '18:00');
   // console.dir(response, { depth: null });
   // console.log(StaticUtils.isBase64(query));
-  const kommoCalendarServices = new KommoCalendarServices(24410353);
-  const response = await kommoCalendarServices.scheduleLead({ description: 'Teste', dateString: '17/02/2025 21:00', profissional: 'Odontopediatria' });
-  console.dir(response, { depth: null });
+  // const kommoCalendarServices = new KommoCalendarServices(24410353);
+  // const response = await kommoCalendarServices.scheduleLead({ description: 'Teste', dateString: '17/02/2025 21:00', profissional: 'Odontopediatria' });
+  // console.dir(response, { depth: null });
+
+  console.log(StaticUtils.formatTelephone('(81)+9+96724310'));
 }
 
 test();
