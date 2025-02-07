@@ -222,7 +222,6 @@ export default class KommoCalendarServices {
 `;
 
     await OpenaiIntegrationServices.assistantWithoutSending(this.#lead_id, registerEventMessage, process.env.OPENAI_ASSISTANT_ID);
-    styled.success('[KommoCalendarServices.scheduleLead] Evento agendado com sucesso:', registerEventMessage);
     return registerEvent;
   }
 }
