@@ -208,7 +208,11 @@ export default class KommoServices {
         }
       };
 
-      const { data: { _embedded: { leads } = {} } = {} } = await axios.request(options);
+      const { data: { _embedded: { leads } = {} } = {}, status } = await axios.request(options);
+
+      if (status === 204) {
+        return [];
+      }
 
       if (leads?.length > 1) {
         if (first_created) {
