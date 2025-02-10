@@ -340,7 +340,24 @@ export default class KommoServices {
     return { code: 200, response: data };
   }
 
-  async createLeadBk({ name = '', email = '', bairro = '', phone = '', datanascimento = '', dentista = '', service = '', periodo = '', turno = '', code = '' } = {}) {
+  /**
+   * Método para criar um lead no BK Funnels
+   * @param {object} objeto de criação do lead
+   * @param {string} objeto.name Nome do lead
+   * @param {string} objeto.email Email do lead
+   * @param {string} objeto.bairro Bairro do lead
+   * @param {string} objeto.phone Telefone do lead
+   * @param {string} objeto.datanascimento Data de nascimento do lead
+   * @param {string} objeto.dentista Dentista do lead
+   * @param {string} objeto.service Serviço do lead
+   * @param {string} objeto.periodo Período do lead
+   * @param {string} objeto.turno Turno do lead
+   * @param {string} objeto.code Código do lead
+   * @param {string} objeto.lead_status Status do lead
+   * 
+   * @returns {Promise<object>} Retorna o lead criado
+   */
+  async createLeadBk({ name = '', email = '', bairro = '', phone = '', datanascimento = '', dentista = '', service = '', periodo = '', turno = '', code = '', lead_status = '' } = {}) {
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields(), contacts_custom_fields: await this.getContactsCustomFields(), pipelines: await this.getPipelines() });
 
     const phoneField = kommoUtils.findContactsFieldByName('Telefone') || kommoUtils.findContactsFieldByName('Phone');
@@ -354,7 +371,7 @@ export default class KommoServices {
     const turnoField = kommoUtils.findLeadsFieldByName('Turno');
     const codeField = kommoUtils.findLeadsFieldByName('BK Funnels ID');
 
-    const status = kommoUtils.findStatusByName('PRÉ-AGENDAMENTO');
+    const status = kommoUtils.findStatusByName(lead_status || 'DADOS CADASTRAIS');
 
     const options = {
       method: 'POST',
@@ -523,10 +540,11 @@ export default class KommoServices {
    * @param {string} objeto.periodo Período do lead
    * @param {string} objeto.turno Turno do lead
    * @param {string} objeto.code Código do lead
+   * @param {string} objeto.lead_status Status do lead
    * 
    * @returns {Promise<object>} Retorna o lead atualizado
    */
-  async updateLeadBk({ id, name = '', email = '', bairro = '', datanascimento = '', dentista = '', service = '', periodo = '', turno = '', code = '' } = {}) {
+  async updateLeadBk({ id, name = '', email = '', bairro = '', datanascimento = '', dentista = '', service = '', periodo = '', turno = '', code = '', lead_status = '' } = {}) {
     if (!id) {
       throw new Error('Lead ID is required');
     }
@@ -542,7 +560,7 @@ export default class KommoServices {
     const codeField = kommoUtils.findLeadsFieldByName('BK Funnels ID');
     const calendarioField = kommoUtils.findLeadsFieldByName('Calendário');
 
-    const status = kommoUtils.findStatusByName('PRÉ-AGENDAMENTO');
+    const status = kommoUtils.findStatusByName(lead_status || 'PRÉ-AGENDAMENTO');
 
     const options = {
       method: 'PATCH',
