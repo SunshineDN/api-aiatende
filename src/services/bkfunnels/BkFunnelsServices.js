@@ -43,7 +43,6 @@ export default class BkFunnelsServices {
           dentista,
           service: procedimento,
           periodo,
-          turno: value,
           code: codeString,
           lead_status: 'DADOS CADASTRAIS'
         });
@@ -57,7 +56,6 @@ export default class BkFunnelsServices {
           dentista,
           service: procedimento,
           periodo,
-          turno: value,
           code: codeString,
           lead_status: 'DADOS CADASTRAIS'
         });
