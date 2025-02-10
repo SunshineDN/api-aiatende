@@ -1261,7 +1261,7 @@ async function test() {
   // const response = await kommoCalendarServices.scheduleLead({ description: 'Teste', dateString: '17/02/2025 21:00', profissional: 'Odontopediatria' });
   // console.dir(response, { depth: null });
 
-  const upd = await kommo.updateLeadBk({ id: 19030890, code: 'f881B1', bairro: 'Candeias', datanascimento: '11/03/2003', name: 'Douglas Augusto', dentista: 'Dra. Juliana Leite', email: 'douglascabral5000@gmail.com', periodo: 'Nesta Semana (Até Sábado)', service: 'Clareamento', turno: 'Qualquer horário' });
+  const upd = await kommo.updateLeadBk({ id: 24410353, code: 'f881B1', bairro: 'Candeias', datanascimento: '11/03/2003', name: 'Douglas Augusto', dentista: 'Dra. Juliana Leite', email: 'douglascabral5000@gmail.com', periodo: 'Nesta Semana (Até Sábado)', service: 'Invisalign', turno: 'Qualquer horário' });
   console.dir(upd, { depth: null });
 }
 
