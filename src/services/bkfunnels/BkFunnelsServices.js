@@ -57,6 +57,7 @@ export default class BkFunnelsServices {
         turno_res = await kommo.createLeadBk({
           name,
           email,
+          bairro,
           phone,
           datanascimento,
           dentista,
@@ -68,6 +69,9 @@ export default class BkFunnelsServices {
       } else {
         turno_res = await kommo.updateLeadBk({
           id: lead.id,
+          name,
+          email,
+          bairro,
           datanascimento,
           dentista,
           service: procedimento,

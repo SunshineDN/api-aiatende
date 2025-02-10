@@ -1,7 +1,7 @@
 export default class BkFunnelsUtils {
   static identifyAnswer(obj) {
     if (obj.answers.length === 0) {
-      const { name, email, phone, datanascimento } = obj;
+      const { name, email, phone, datanascimento, bairro } = obj;
       return {
         type: 'lead',
         value: {
@@ -9,6 +9,7 @@ export default class BkFunnelsUtils {
           email: email || '',
           phone: phone || '',
           datanascimento: datanascimento || '',
+          bairro: bairro || '',
         }
       }
     } else {
