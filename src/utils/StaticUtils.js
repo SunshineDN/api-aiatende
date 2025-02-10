@@ -201,4 +201,21 @@ export default class StaticUtils {
 
         return 'Demais Dentistas';
     }
+
+    /**
+     * Retorna o nome do bairro com os caracteres iniciais em maiúsculos (title case) com exceção de palavras como "de", "da", "do", "dos", "das", "e", "em", "no", "na", "nos", "nas", "para"
+     * @param {string} bairro - Nome do bairro
+     * @returns {string} - Nome do bairro com os caracteres iniciais em maiúsculos
+     */
+    static titleCaseBairro(bairro = '') {
+        const exceptions = ['de', 'da', 'do', 'dos', 'das', 'e', 'em', 'no', 'na', 'nos', 'nas', 'para'];
+        const words = bairro.split(' ');
+
+        return words.map((word, index) => {
+            if (index === 0 || !exceptions.includes(word.toLowerCase())) {
+                return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+            }
+            return word.toLowerCase();
+        }).join(' ');
+    }
 }

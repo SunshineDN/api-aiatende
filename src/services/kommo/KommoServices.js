@@ -70,6 +70,14 @@ export default class KommoServices {
   }
 
   async updateLead({ id, status_id = '', pipeline_id = '', custom_fields_values = [] } = {}) {
+    if (!id) {
+      throw new Error('Lead ID is required');
+    }
+
+    if (!status_id && !pipeline_id && custom_fields_values.length === 0) {
+      throw new Error('No data to update lead');
+    }
+
     const options = {
       method: 'PATCH',
       url: `${this.url}/api/v4/leads/${id}`,
@@ -109,6 +117,82 @@ export default class KommoServices {
     };
 
     const { data } = await axios.request(options);
+    return data;
+  }
+
+  /**
+   * Método para atualizar o contato do lead
+   * @param {object} objeto de atualização do contato
+   * @param {string} objeto.id ID do contato
+   * @param {string} objeto.name Nome do contato
+   * @param {string} objeto.email Email do contato
+   * @param {string} objeto.phone Telefone do contato
+   * @param {array} objeto.custom_fields_values Campos customizados do contato
+   * 
+   * @returns {Promise<object>} Retorna o contato atualizado
+   */
+  async updateContact({ id, name = '', email = '', phone = '', custom_fields_values = [] } = {}) {
+    if (!id) {
+      throw new Error('Contact ID is required');
+    }
+
+    if (!name && !email && !phone && custom_fields_values.length === 0) {
+      throw new Error('No data to update contact');
+    }
+
+    const options = {
+      method: 'PATCH',
+      url: `${this.url}/api/v4/contacts/${id}`,
+      headers: {
+        'accept': 'application/json',
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${this.auth}`
+      },
+      data: {
+        custom_fields_values: []
+      }
+    };
+
+    if (custom_fields_values.length) {
+      options.data.custom_fields_values = custom_fields_values;
+    }
+
+    if (name) {
+      options.data.name = name;
+    }
+
+    if (email || phone) {
+      const kommoUtils = new KommoUtils({ contacts_custom_fields: await this.getContactsCustomFields() });
+
+      if (email) {
+        const emailField = kommoUtils.findContactsFieldByCode('EMAIL') || kommoUtils.findContactsFieldByName('Email');
+        options.data.custom_fields_values.push({
+          field_id: emailField.id,
+          values: [
+            {
+              value: email,
+              enum_code: 'WORK'
+            }
+          ]
+        });
+      }
+
+      if (phone) {
+        const phoneField = kommoUtils.findContactsFieldByCode('PHONE') || kommoUtils.findContactsFieldByName('Telefone');
+        options.data.custom_fields_values.push({
+          field_id: phoneField.id,
+          values: [
+            {
+              value: kommoUtils.formatPhone(phone),
+              enum_code: 'WORK'
+            }
+          ]
+        });
+      }
+    }
+
+    const { data } = await axios.request(options);
+    styled.success('[KommoServices.updateContact] - Contact updated');
     return data;
   }
 
@@ -256,12 +340,13 @@ export default class KommoServices {
     return { code: 200, response: data };
   }
 
-  async createLeadBk({ name = '', email = '', phone = '', datanascimento = '', dentista = '', service = '', periodo = '', turno = '', code = '' } = {}) {
+  async createLeadBk({ name = '', email = '', bairro = '', phone = '', datanascimento = '', dentista = '', service = '', periodo = '', turno = '', code = '' } = {}) {
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields(), contacts_custom_fields: await this.getContactsCustomFields(), pipelines: await this.getPipelines() });
 
     const phoneField = kommoUtils.findContactsFieldByName('Telefone') || kommoUtils.findContactsFieldByName('Phone');
     const emailField = kommoUtils.findContactsFieldByName('O email') || kommoUtils.findContactsFieldByName('Email');
 
+    const bairroField = kommoUtils.findLeadsFieldByName('Bairro');
     const nascimentoField = kommoUtils.findLeadsFieldByName('Data de Nascimento');
     const dentistaField = kommoUtils.findLeadsFieldByName('Profissional');
     const serviceField = kommoUtils.findLeadsFieldByName('Serviço');
@@ -300,6 +385,18 @@ export default class KommoServices {
       options.data[0]._embedded.contacts[0].name = name;
     }
 
+    if (email) {
+      options.data[0]._embedded.contacts[0].custom_fields_values.push({
+        field_id: emailField.id,
+        values: [
+          {
+            value: email,
+            enum_code: 'WORK'
+          }
+        ]
+      });
+    }
+
     if (phone) {
       options.data[0]._embedded.contacts[0].custom_fields_values.push({
         field_id: phoneField.id,
@@ -312,13 +409,12 @@ export default class KommoServices {
       });
     }
 
-    if (email) {
-      options.data[0]._embedded.contacts[0].custom_fields_values.push({
-        field_id: emailField.id,
+    if (bairro) {
+      options.data[0].custom_fields_values.push({
+        field_id: bairroField.id,
         values: [
           {
-            value: email,
-            enum_code: 'WORK'
+            value: bairro
           }
         ]
       });
@@ -414,13 +510,30 @@ export default class KommoServices {
     return { code: 201, response: data };
   };
 
-  async updateLeadBk({ id, datanascimento = '', dentista = '', service = '', periodo = '', turno = '', code = '' } = {}) {
+  /**
+   * Método para atualizar o lead do BK Funnels
+   * @param {object} objeto de atualização do lead
+   * @param {string} objeto.id ID do lead
+   * @param {string} objeto.name Nome do lead
+   * @param {string} objeto.email Email do lead
+   * @param {string} objeto.bairro Bairro do lead
+   * @param {string} objeto.datanascimento Data de nascimento do lead
+   * @param {string} objeto.dentista Dentista do lead
+   * @param {string} objeto.service Serviço do lead
+   * @param {string} objeto.periodo Período do lead
+   * @param {string} objeto.turno Turno do lead
+   * @param {string} objeto.code Código do lead
+   * 
+   * @returns {Promise<object>} Retorna o lead atualizado
+   */
+  async updateLeadBk({ id, name = '', email = '', bairro = '', datanascimento = '', dentista = '', service = '', periodo = '', turno = '', code = '' } = {}) {
     if (!id) {
       throw new Error('Lead ID is required');
     }
 
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields(), contacts_custom_fields: await this.getContactsCustomFields(), pipelines: await this.getPipelines() });
 
+    const bairroField = kommoUtils.findLeadsFieldByName('Bairro');
     const nascimentoField = kommoUtils.findLeadsFieldByName('Data de Nascimento');
     const dentistaField = kommoUtils.findLeadsFieldByName('Profissional');
     const serviceField = kommoUtils.findLeadsFieldByName('Serviço');
@@ -456,6 +569,17 @@ export default class KommoServices {
     };
 
     // Adicionar os elementos ao custom_fields_values se houver algum valor
+
+    if (bairro) {
+      options.data.custom_fields_values.push({
+        field_id: bairroField.id,
+        values: [
+          {
+            value: bairro
+          }
+        ]
+      });
+    }
 
     if (datanascimento) {
       const validDate = (DateUtils.convertDateToMs(StaticUtils.normalizeDate(datanascimento)) / 1000) + 86400;
@@ -525,8 +649,29 @@ export default class KommoServices {
         ]
       });
     }
+    let response = {};
 
-    const { data } = await axios.request(options);
-    return { code: 200, response: data };
+    const { data: update_lead } = await axios.request(options);
+    response.lead = update_lead;
+
+    let update_contact;
+    if (name || email) {
+      const lead = await this.getLead({ id, withParams: 'contacts' });
+      const contact_id = lead.contact.id;
+      const contact_upd_obj = {}
+
+      if (name) {
+        contact_upd_obj.name = name;
+      }
+
+      if (email) {
+        contact_upd_obj.email = email;
+      }
+
+      update_contact = await this.updateContact({ ...contact_upd_obj, id: contact_id });
+    }
+    response.contact = update_contact;
+
+    return { code: 200, response };
   }
 };
