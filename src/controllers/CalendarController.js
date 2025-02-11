@@ -3,6 +3,10 @@ import { RemoveCalendarEvent } from '../services/calendar/RemoveCalendarEvent.js
 import { UpdateCalendarEvent } from '../services/calendar/UpdateCalendarEvent.js';
 import { GetAccessToken } from '../services/kommo/GetAccessToken.js';
 
+// Novos imports
+import styled from '../utils/log/styled.js';
+import KommoCalendarServices from '../services/kommo/KommoCalendarServices.js';
+
 export default class CalendarController {
   static async index(req, res) {
     res.json(req.body);
@@ -40,4 +44,18 @@ export default class CalendarController {
       res.status(500).json({ error });
     }
   };
+
+  // Novos métodos
+  static async insertEvent(req, res) {
+    try {
+      const { lead_id } = req.body;
+      const kommoCalendarServices = new KommoCalendarServices(lead_id);
+      const event = await kommoCalendarServices.scheduleLead();
+      return res.status(200).send({ message: 'Evento inserido com sucesso', event });
+    } catch (error) {
+      styled.error(`[CalendarController.insertEvent] Erro ao inserir evento no calendário: ${error?.message}`);
+      console.error(error);
+      return res.status(500).send({ message: 'Erro ao inserir evento no calendário', error: error?.message });
+    }
+  }
 }

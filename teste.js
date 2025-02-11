@@ -1264,8 +1264,8 @@ async function test() {
   // const upd = await kommo.updateLeadBk({ id: 24410353, code: 'f881B1', bairro: 'Candeias', datanascimento: '11/03/2003', name: 'Douglas Augusto', dentista: 'Dra. Juliana Leite', email: 'douglascabral5000@gmail.com', periodo: 'Nesta Semana (Até Sábado)', service: 'Invisalign', turno: 'Qualquer horário' });
   // console.dir(upd, { depth: null });
 
-  const lead = await kommo.listLeads({ query: '8196724310', first_created: true })
-  console.log(lead)
+  // const lead = await kommo.listLeads({ query: '8196724310', first_created: true })
+  // console.log(lead)
 }
 
 test();
