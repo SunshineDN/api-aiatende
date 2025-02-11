@@ -187,14 +187,21 @@ export default class KommoCalendarServices {
       startDateTime,
       endDateTime
     });
-    const registerEvent = await calendar.createEvent({ summary, description, start: startDateTime, end: endDateTime });
+
+    let eventResponse;
+    const isScheduled = LeadUtils.findLeadField({ lead, fieldName: 'ID do Evento', value: true });
+    if (isScheduled) {
+      eventResponse = await calendar.updateEvent({ eventId: isScheduled, summary, description, start: startDateTime, end: endDateTime });
+    } else {
+      eventResponse = await calendar.createEvent({ summary, description, start: startDateTime, end: endDateTime });
+    }
 
     custom_fields.push(
       {
         field_id: eventIdField.id,
         values: [
           {
-            value: registerEvent.id,
+            value: eventResponse.id,
           }
         ]
       },
@@ -202,7 +209,7 @@ export default class KommoCalendarServices {
         field_id: eventLinkField.id,
         values: [
           {
-            value: registerEvent.htmlLink,
+            value: eventResponse.htmlLink,
           }
         ]
       }
@@ -215,13 +222,13 @@ export default class KommoCalendarServices {
       custom_fields_values: custom_fields
     });
 
-    const registerEventMessage = `
+    const eventResponseMessage = `
 📅 **Usuário agendado com sucesso!**
 - **Data:** ${DateUtils.formatDate({ date: startDateTime, withWeekday: true })}
 - **Profissional:** ${profissional}
 `;
 
-    await OpenaiIntegrationServices.assistantWithoutSending(this.#lead_id, registerEventMessage, process.env.OPENAI_ASSISTANT_ID);
-    return registerEvent;
+    await OpenaiIntegrationServices.assistantWithoutSending(this.#lead_id, eventResponseMessage, process.env.OPENAI_ASSISTANT_ID);
+    return eventResponse;
   }
 }
