@@ -137,9 +137,30 @@ export default class CalendarServices {
    * @param {string} [event.description=""] - Descrição do evento
    * @returns {Promise<object>} - Objeto com as informações do evento criado
    */
-  async createEvent({ summary, start, end, description = "" } = {}) {
+  async createEvent({ summary = "", start, end, description = "" } = {}) {
     const response = await this.#calendar.events.insert({
       calendarId: this.#calendar_id,
+      requestBody: {
+        summary,
+        start: {
+          dateTime: start.toISOString(),
+          timeZone: "America/Recife"
+        },
+        end: {
+          dateTime: end.toISOString(),
+          timeZone: "America/Recife"
+        },
+        description
+      }
+    });
+
+    return response.data;
+  }
+
+  async updateEvent({ eventId, summary = "", start, end, description = "" } = {}) {
+    const response = await this.#calendar.events.update({
+      calendarId: this.#calendar_id,
+      eventId,
       requestBody: {
         summary,
         start: {
