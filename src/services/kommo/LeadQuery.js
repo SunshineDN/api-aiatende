@@ -96,7 +96,7 @@ export const LeadQuery = async (body, data, access_token) => {
             && dentist !== 'Dra. Iris Leão' && dentist !== 'Dr. Laureano Filho' && dentist !== 'Dra. Liana Mavignier' && dentist !== 'Dra. Luciana Luna'
             && dentist !== 'Dra. Lucília Miranda' && dentist !== 'Dr. Marcus Barbosa' && dentist !== 'Dra. Nashly Rodrigues' && dentist !== 'Dra. Rafaella Karina'
             && dentist !== 'Dra. Renata Cabral' && dentist !== 'Dr. Rafael Fialho') {
-            dentist = 'Dentista Isento';
+            dentist = 'Demais Dentistas';
           }
 
           params[0].custom_fields_values.push({
