@@ -73,13 +73,13 @@ export default class KommoCalendarServices {
     if (profissional !== '') {
       calendar_id = CalendarUtils.idValidate(profissional);
     } else {
-      const leadProfissional = LeadUtils.findLeadField({ lead, fieldName: 'Profissional', value: true });
+      profissional = LeadUtils.findLeadField({ lead, fieldName: 'Profissional', value: true });
 
-      if (!leadProfissional) {
+      if (!profissional) {
         throw new Error('Profissional não encontrado no lead');
       }
 
-      calendar_id = CalendarUtils.idValidate(leadProfissional);
+      calendar_id = CalendarUtils.idValidate(profissional);
     }
 
     const scheduledDateField = kommoUtils.findLeadsFieldByName('Data do Agendamento');
