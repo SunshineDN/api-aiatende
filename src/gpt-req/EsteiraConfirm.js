@@ -94,7 +94,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
         (field) => field.field_name === 'Data do Evento'
       )[0];
       const scheduled_date_value = scheduled_date?.values[0]?.value * 1000;
-      const date = DateUtils.formatDate({ date: scheduled_date_value });
+      const date = DateUtils.formatDate({ date: scheduled_date_value, withWeekday: true });
 
       const text = `System message: 'Retorne apenas uma mensagem para o usuário para a confirmação da sua ida para a clínica no dia: ${date}. Aqui vai um exemplo de mensagem: "Lembre-se do compromisso da sua consulta odontológica com *DENTISTA* é AMANHÃ
 
@@ -155,7 +155,7 @@ Confirmado?"`;
         (field) => field.field_name === 'Data do Evento'
       )[0];
       const scheduled_date_value = scheduled_date?.values[0]?.value * 1000;
-      const date = DateUtils.formatDate({ date: scheduled_date_value });
+      const date = DateUtils.formatDate({ date: scheduled_date_value, withWeekday: true });
 
       const text = `System message: Usuário passou mais 2 horas sem responder a mensagem anterior, retorne apenas uma mensagem pedindo para ele confirmar sua presença para o dia: ${date}. Exemplo de mensagem: "Gostaria de lembrar que o processo de confirmação da consulta é muito importante. Temos que planejar adequadamente seu atendimento. Por favor, confirme sua presença respondendo agora esta mensagem.
 
