@@ -100,6 +100,8 @@ export default class DateUtils {
    * @returns {string} - Data formatada conforme o formato especificado (com ou sem o dia da semana)
    */
   static formatDate({ date, format = 'DD/MM/YYYY HH:mm', withWeekday = false } = {}) {
+    styled.info('Formatando data:', date);
+
     const formattedDate = dayjs(date).format(format);
     if (withWeekday) {
       const days = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
