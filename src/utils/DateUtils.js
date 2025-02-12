@@ -102,8 +102,9 @@ export default class DateUtils {
   static formatDate({ date, format = 'DD/MM/YYYY HH:mm', withWeekday = false } = {}) {
     const formattedDate = dayjs(date).format(format);
     if (withWeekday) {
+      const dateConverted = dayjs(date);
       const days = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
-      const weekday = days[date.getDay()];
+      const weekday = days[dateConverted.day()];
       return `${weekday}, ${formattedDate}`;
     }
     return formattedDate;
