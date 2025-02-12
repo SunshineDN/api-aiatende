@@ -5,6 +5,7 @@ import { GetMessageReceived } from '../../services/kommo/GetMessageReceived.js';
 import { GetUser } from '../../services/kommo/GetUser.js';
 import { Communicator } from '../../utils/assistant-prompt/Communicator.js';
 import { DifDates } from '../../utils/DifDates.js';
+import DateUtils from '../../utils/DateUtils.js';
 
 export default class Confirmacao {
 
@@ -69,12 +70,12 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
       const { assistant_id } = req.params;
       const access_token = GetAccessToken();
       const user = await GetUser(req.body, false, access_token);
-      const scheduleDate = user?.custom_fields_values?.filter(field => field.field_name === 'Event Start')[0];
-      const scheduleDateValue = scheduleDate?.values[0]?.value;
+      const scheduleDate = user?.custom_fields_values?.filter(field => field.field_name === 'Data do Evento')[0];
+      const scheduleDateValue = scheduleDate?.values[0]?.value * 1000;
 
       // const DifDates = require('../../utils/DifDates');
 
-      const { diferencaDias, diferencaHoras } = DifDates(scheduleDateValue);
+      const { diferencaDias, diferencaHoras } = DifDates(DateUtils.formatDate({ date: scheduleDateValue }));
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
       const weekOptions = {
         timeZone: 'America/Recife',
@@ -109,11 +110,12 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
       const user = await GetUser(req.body, false, access_token);
 
       const scheduled_date = user?.custom_fields_values?.filter(
-        (field) => field.field_name === 'Event Start'
+        (field) => field.field_name === 'Data do Evento'
       )[0];
-      const scheduled_date_value = scheduled_date?.values[0]?.value;
+      const scheduled_date_value = scheduled_date?.values[0]?.value * 1000;
+      const date = DateUtils.formatDate({ date: scheduled_date_value });
 
-      const text = `System message: 'Retorne apenas uma mensagem para o usuário para a confirmação da sua ida para a clínica no dia: ${scheduled_date_value}. Aqui vai um exemplo de mensagem: "Lembre-se do compromisso da sua consulta odontológica com *DENTISTA* é AMANHÃ
+      const text = `System message: 'Retorne apenas uma mensagem para o usuário para a confirmação da sua ida para a clínica no dia: ${date}. Aqui vai um exemplo de mensagem: "Lembre-se do compromisso da sua consulta odontológica com *DENTISTA* é AMANHÃ
 
 Dia e Hora:
 19/08/2024 às 14:30
@@ -171,11 +173,12 @@ Confirmado?"`;
       const user = await GetUser(req.body, false, access_token);
 
       const scheduled_date = user?.custom_fields_values?.filter(
-        (field) => field.field_name === 'Event Start'
+        (field) => field.field_name === 'Data do Evento'
       )[0];
-      const scheduled_date_value = scheduled_date?.values[0]?.value;
+      const scheduled_date_value = scheduled_date?.values[0]?.value * 1000;
+      const date = DateUtils.formatDate({ date: scheduled_date_value });
 
-      const text = `System message: Usuário passou mais 2 horas sem responder a mensagem anterior, retorne apenas uma mensagem pedindo para ele confirmar sua presença para o dia: ${scheduled_date_value}. Exemplo de mensagem: "Gostaria de lembrar que o processo de confirmação da consulta é muito importante. Temos que planejar adequadamente seu atendimento. Por favor, confirme sua presença respondendo agora esta mensagem.
+      const text = `System message: Usuário passou mais 2 horas sem responder a mensagem anterior, retorne apenas uma mensagem pedindo para ele confirmar sua presença para o dia: ${date}. Exemplo de mensagem: "Gostaria de lembrar que o processo de confirmação da consulta é muito importante. Temos que planejar adequadamente seu atendimento. Por favor, confirme sua presença respondendo agora esta mensagem.
 
 Dia e Hora:
 19/08/2024 às 14:30

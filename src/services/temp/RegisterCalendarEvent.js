@@ -18,11 +18,11 @@ const RegisterCalendarEvent = async (payload, access_token = null) => {
     // console.log('Usuário:');
     // console.dir(user, { depth: null });
 
-    const eventSummary = user?.custom_fields_values?.filter(field => field.field_name === 'Event Summary')[0];
-    const eventStart = user?.custom_fields_values?.filter(field => field.field_name === 'Event Start')[0];
+    const eventSummary = user?.custom_fields_values?.filter(field => field.field_name === 'Título do Evento')[0];
+    const eventStart = user?.custom_fields_values?.filter(field => field.field_name === 'Data do Evento')[0];
 
-    const eventLink = custom_fields?.filter(field => field.name === 'Event Link')[0];
-    const eventID = custom_fields?.filter(field => field.name === 'Event ID')[0];
+    const eventLink = custom_fields?.filter(field => field.name === 'Link do Evento')[0];
+    const eventID = custom_fields?.filter(field => field.name === 'ID do Evento')[0];
 
     console.log('Sumário:', eventSummary?.values[0]?.value);
     console.log('Inicio do Evento:', eventStart?.values[0]?.value);
