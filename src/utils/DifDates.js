@@ -1,4 +1,9 @@
+import styled from "./log/styled.js";
+
 export function DifDates(data) {
+  styled.info('Calculando diferença de datas...');
+  styled.info('Data:', data);
+
   let dataAtual = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
 
   let [dataAtualStr, horaAtualStr] = dataAtual.split(', ');
