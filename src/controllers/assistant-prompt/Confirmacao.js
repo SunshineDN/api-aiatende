@@ -72,12 +72,11 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
       const user = await GetUser(req.body, false, access_token);
       const scheduleDate = user?.custom_fields_values?.filter(field => field.field_name === 'Data do Evento')[0];
       const scheduleDateValue = scheduleDate?.values[0]?.value * 1000;
-
-      styled.info('Data do agendamento:', scheduleDate?.values[0]?.value);
+      const dateConvert = DateUtils.formatDate({ date: scheduleDateValue });
 
       // const DifDates = require('../../utils/DifDates');
 
-      const { diferencaDias, diferencaHoras } = DifDates(DateUtils.formatDate({ date: scheduleDateValue }));
+      const { diferencaDias, diferencaHoras } = DifDates(dateConvert);
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
       const weekOptions = {
         timeZone: 'America/Recife',
@@ -86,7 +85,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
       const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
       const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
 
-      const text = `System message: O dia da semana, data e hora atual são; '${weekDayFormatted}, ${date}' Envie uma mensagem para o usuário avisando sobre a data de agendamento: '${scheduleDateValue}'. Adicione também que faltam ${diferencaDias} dia(s) e ${diferencaHoras} hora(s) para a consulta.`;
+      const text = `System message: O dia da semana, data e hora atual são; '${weekDayFormatted}, ${date}' Envie uma mensagem para o usuário avisando sobre a data de agendamento: '${dateConvert}'. Adicione também que faltam ${diferencaDias} dia(s) e ${diferencaHoras} hora(s) para a consulta.`;
 
       const data = {
         leadID,
