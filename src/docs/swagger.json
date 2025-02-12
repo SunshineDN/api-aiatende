@@ -11,10 +11,6 @@
       "description": "Servidor Oficial da AI Atende"
     },
     {
-      "url": "https://teste.aiatende.dev.br/api",
-      "description": "Servidor de Teste da AI Atende"
-    },
-    {
       "url": "http://localhost:3000",
       "description": "Servidor Local"
     },
