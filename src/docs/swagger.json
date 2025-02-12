@@ -7,12 +7,12 @@
   },
   "servers": [
     {
-      "url": "https://teste.aiatende.dev.br/api",
-      "description": "Servidor de Teste da AI Atende"
-    },
-    {
       "url": "https://aiatende.dev.br/api",
       "description": "Servidor Oficial da AI Atende"
+    },
+    {
+      "url": "https://teste.aiatende.dev.br/api",
+      "description": "Servidor de Teste da AI Atende"
     },
     {
       "url": "http://localhost:3000",
@@ -73,7 +73,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -191,7 +191,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -282,7 +282,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -373,7 +373,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -464,7 +464,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -555,7 +555,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -673,7 +673,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -764,7 +764,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -855,7 +855,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -946,7 +946,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -1064,7 +1064,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -1155,7 +1155,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -1246,7 +1246,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -1337,7 +1337,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -1429,7 +1429,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -1516,7 +1516,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -1604,7 +1604,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -1691,7 +1691,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -1778,7 +1778,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -1866,7 +1866,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -1953,7 +1953,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -2040,7 +2040,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -2128,7 +2128,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -2215,7 +2215,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -2303,7 +2303,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -2390,7 +2390,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -2477,7 +2477,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -2564,7 +2564,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -2651,7 +2651,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -2738,7 +2738,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -2825,7 +2825,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -2912,7 +2912,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -2999,7 +2999,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -3086,7 +3086,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -3174,7 +3174,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -3261,7 +3261,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -3348,7 +3348,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -3435,7 +3435,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -3522,7 +3522,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -3609,7 +3609,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -3696,7 +3696,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -3784,7 +3784,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -3871,7 +3871,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -3958,7 +3958,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -4045,7 +4045,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -4132,7 +4132,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -4220,7 +4220,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -4307,7 +4307,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -4394,7 +4394,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -4481,7 +4481,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -4568,7 +4568,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -4655,7 +4655,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -4742,7 +4742,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -4829,7 +4829,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -4917,7 +4917,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -5004,7 +5004,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -5091,7 +5091,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -5179,7 +5179,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -5266,7 +5266,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -5353,7 +5353,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
@@ -5441,7 +5441,7 @@
                 "properties": {
                   "leads[add][0][id]": {
                     "type": "string",
-                    "example": "22404815",
+                    "example": "24410353",
                     "description": "ID do lead"
                   },
                   "leads[add][0][status_id]": {
