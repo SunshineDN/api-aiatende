@@ -73,6 +73,8 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
       const scheduleDate = user?.custom_fields_values?.filter(field => field.field_name === 'Data do Evento')[0];
       const scheduleDateValue = scheduleDate?.values[0]?.value * 1000;
 
+      styled.info('Data do agendamento:', scheduleDate?.values[0]?.value);
+
       // const DifDates = require('../../utils/DifDates');
 
       const { diferencaDias, diferencaHoras } = DifDates(DateUtils.formatDate({ date: scheduleDateValue }));
