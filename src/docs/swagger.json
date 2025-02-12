@@ -7,24 +7,8 @@
   },
   "servers": [
     {
-      "url": "https://aiatende.dev.br/api",
-      "description": "Servidor Oficial da AI Atende"
-    },
-    {
-      "url": "http://localhost:3000",
-      "description": "Servidor Local"
-    },
-    {
       "url": "https://dentalsante.aiatende.dev.br/api",
       "description": "Servidor de Produção do Cliente Dental Santé"
-    },
-    {
-      "url": "https://nelson.aiatende.dev.br/api",
-      "description": "Servidor de Produção do Cliente Nelson Coutinho"
-    },
-    {
-      "url": "https://adrianocamposadvogado.aiatende.dev.br/api",
-      "description": "Servidor de Produção do Cliente Adriano Campos Advogado"
     }
   ],
   "paths": {
