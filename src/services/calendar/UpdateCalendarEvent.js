@@ -11,9 +11,9 @@ export const UpdateCalendarEvent = async (payload, access_token = null) => {
 
   try {
     const user = await GetUser(payload, false, access_token);
-    const eventSummary = user?.custom_fields_values?.filter(field => field.field_name === 'Event Summary')[0];
-    const eventStart = user?.custom_fields_values?.filter(field => field.field_name === 'Event Start')[0];
-    const eventId = user?.custom_fields_values?.filter(field => field.field_name === 'Event ID')[0];
+    const eventSummary = user?.custom_fields_values?.filter(field => field.field_name === 'Título do Evento')[0];
+    const eventStart = user?.custom_fields_values?.filter(field => field.field_name === 'Data do Evento')[0];
+    const eventId = user?.custom_fields_values?.filter(field => field.field_name === 'ID do Evento')[0];
     nameDoctor = user?.custom_fields_values?.filter(
       (field) => field.field_name === 'Profissional'
     )[0];

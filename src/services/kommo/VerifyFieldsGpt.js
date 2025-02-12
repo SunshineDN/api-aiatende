@@ -92,22 +92,22 @@ export const VerifyFieldsGpt = async (payload, res, access_token = null) => {
       },
       {
         id: 1368246,
-        name: 'Event Link',
+        name: 'Link do Evento',
         type: 'url',
       },
       {
         id: 1368248,
-        name: 'Event ID',
+        name: 'ID do Evento',
         type: 'text',
       },
       {
         id: 1368250,
-        name: 'Event Summary',
+        name: 'Título do Evento',
         type: 'text',
       },
       {
         id: 1368252,
-        name: 'Event Start',
+        name: 'Data do Evento',
         type: 'text',
       },
       {

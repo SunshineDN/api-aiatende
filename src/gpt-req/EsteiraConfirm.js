@@ -90,7 +90,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
       const user = await GetUser(req.body, false, access_token);
 
       const scheduled_date = user?.custom_fields_values?.filter(
-        (field) => field.field_name === 'Event Start'
+        (field) => field.field_name === 'Data do Evento'
       )[0];
       const scheduled_date_value = scheduled_date?.values[0]?.value;
 
@@ -150,7 +150,7 @@ Confirmado?"`;
       const user = await GetUser(req.body, false, access_token);
 
       const scheduled_date = user?.custom_fields_values?.filter(
-        (field) => field.field_name === 'Event Start'
+        (field) => field.field_name === 'Data do Evento'
       )[0];
       const scheduled_date_value = scheduled_date?.values[0]?.value;
 

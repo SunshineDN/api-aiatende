@@ -5,6 +5,7 @@ import { GetMessageReceived } from '../../services/kommo/GetMessageReceived.js';
 import { GetUser } from '../../services/kommo/GetUser.js';
 import { Communicator } from '../../utils/assistant-prompt/Communicator.js';
 import { DifDates } from '../../utils/DifDates.js';
+import DateUtils from '../../utils/DateUtils.js';
 
 export default class Confirmacao {
 
@@ -69,12 +70,12 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
       const { assistant_id } = req.params;
       const access_token = GetAccessToken();
       const user = await GetUser(req.body, false, access_token);
-      const scheduleDate = user?.custom_fields_values?.filter(field => field.field_name === 'Event Start')[0];
+      const scheduleDate = user?.custom_fields_values?.filter(field => field.field_name === 'Data do Evento')[0];
       const scheduleDateValue = scheduleDate?.values[0]?.value;
 
       // const DifDates = require('../../utils/DifDates');
 
-      const { diferencaDias, diferencaHoras } = DifDates(scheduleDateValue);
+      const { diferencaDias, diferencaHoras } = DifDates(DateUtils.secondsToDate(scheduleDateValue));
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
       const weekOptions = {
         timeZone: 'America/Recife',
@@ -109,7 +110,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
       const user = await GetUser(req.body, false, access_token);
 
       const scheduled_date = user?.custom_fields_values?.filter(
-        (field) => field.field_name === 'Event Start'
+        (field) => field.field_name === 'Data do Evento'
       )[0];
       const scheduled_date_value = scheduled_date?.values[0]?.value;
 
@@ -171,7 +172,7 @@ Confirmado?"`;
       const user = await GetUser(req.body, false, access_token);
 
       const scheduled_date = user?.custom_fields_values?.filter(
-        (field) => field.field_name === 'Event Start'
+        (field) => field.field_name === 'Data do Evento'
       )[0];
       const scheduled_date_value = scheduled_date?.values[0]?.value;
 
