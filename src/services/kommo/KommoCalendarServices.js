@@ -7,6 +7,7 @@ import { CalendarUtils } from "../../utils/calendar/CalendarUtils.js";
 import StaticUtils from "../../utils/StaticUtils.js";
 import styled from "../../utils/log/styled.js";
 import OpenaiIntegrationServices from "../openaiIntegration/OpenaiIntegrationServices.js";
+import { CONFIRMACAO_BOT_ID } from "../../config/bot_ids.js";
 
 export default class KommoCalendarServices {
   #lead_id;
@@ -229,6 +230,7 @@ export default class KommoCalendarServices {
 `;
 
     await OpenaiIntegrationServices.assistantWithoutSending(this.#lead_id, eventResponseMessage, process.env.OPENAI_ASSISTANT_ID);
+    await this.#kommo.launchBot(this.#lead_id, CONFIRMACAO_BOT_ID);
     return eventResponse;
   }
 }
