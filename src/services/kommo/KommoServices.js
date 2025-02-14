@@ -345,6 +345,36 @@ export default class KommoServices {
   }
 
   /**
+   * Método para lançar um bot no lead
+   * @param {number} id - ID do lead
+   * @param {number} bot_id - ID do bot
+   * @returns {Promise<object>} Retorna o bot lançado
+   */
+  async launchBot(id, bot_id) {
+    const options = {
+      method: 'POST',
+      url: `${this.url}/api/v2/salesbot/run`,
+      headers: {
+        'accept': 'application/json',
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${this.auth}`
+      },
+      data: [
+        {
+          entity_type: '2',
+          entity_id: id,
+          bot_id
+        }
+      ]
+    }
+
+    const { data } = await axios.request(options);
+    styled.success('[KommoServices.launchBot] - Bot launched');
+
+    return { code: 200, response: data };
+  }
+
+  /**
    * Método para criar um lead no BK Funnels
    * @param {object} objeto de criação do lead
    * @param {string} objeto.name Nome do lead
