@@ -1268,8 +1268,12 @@ async function test() {
   // const lead = await kommo.listLeads({ query: '8196724310', first_created: true })
   // console.log(lead)
 
-  const date = 1740225600000;
-  console.log(DifDates(DateUtils.formatDate({ date })));
+  // const date = 1740225600000;
+  // console.log(DifDates(DateUtils.formatDate({ date })));
+
+  const recepcaoServices = new RecepcaoServices(24527039);
+  const response = await recepcaoServices.identificar_fonte_entrada();
+  console.log(response);
 }
 
 test();
