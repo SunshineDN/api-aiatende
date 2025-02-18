@@ -23,4 +23,8 @@ export default class LeadThreadRepository extends BaseRepository {
   async deleteThreads(lead_id) {
     await this.delete({ where: { leadID: Number(lead_id) } });
   }
+
+  async updateThreads(lead_id, data) {
+    await this.model.update(data, { where: { leadID: Number(lead_id) } });
+  }
 }
