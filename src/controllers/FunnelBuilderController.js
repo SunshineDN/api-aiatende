@@ -1,4 +1,5 @@
 import FunnelBuilderServices from "../services/funnelbuilder/FunnelBuilderServices.js";
+import styled from "../utils/log/styled.js";
 
 export default class FunnelBuilderController {
   static webhook(req, res) {
