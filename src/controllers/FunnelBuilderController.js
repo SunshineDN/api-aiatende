@@ -1,4 +1,4 @@
-import FunnelBuilderServices from "../services/funnelbuilder/FunnelBuilderServices";
+import FunnelBuilderServices from "../services/funnelbuilder/FunnelBuilderServices.js";
 
 export default class FunnelBuilderController {
   static webhook(req, res) {
