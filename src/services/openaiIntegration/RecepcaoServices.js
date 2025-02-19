@@ -56,6 +56,21 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
   }
 
   //Assistente
+  async identificar_fonte_entrada(assistant_id) {
+    try {
+      styled.function('[RecepcaoServices.identificar_fonte_entrada] Recepção | Identificar Fonte de Entrada...');
+
+      const lead_origin = await this.leadMessagesRepository.getFirstMessageOrigin(this.lead_id);
+      return lead_origin;
+
+    } catch (error) {
+      styled.error(`[RecepcaoServices.identificar_fonte_entrada] Erro ao enviar mensagem para o assistente`);
+      await this.openaiintegrationservices.sendErrorLog({ lead_id: this.lead_id, error: `[RecepcaoServices.identificar_fonte_entrada] ${error?.message}` });
+      throw error;
+    }
+  }
+
+  //Assistente
   async indefinido(assistant_id) {
     try {
       styled.function('[RecepcaoServices.indefinido] Recepção | Indefinido...');
