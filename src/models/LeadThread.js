@@ -16,6 +16,10 @@ const LeadThread = sequelize.define('LeadThread', {
     type: DataTypes.ARRAY(DataTypes.STRING),
     allowNull: true,
   },
+  assistant_messages: {
+    type: DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.JSON)),
+    allowNull: true,
+  },
   lastTimestamp: {
     type: DataTypes.DATE,
     allowNull: true,
