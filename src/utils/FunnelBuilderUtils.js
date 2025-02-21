@@ -1,4 +1,5 @@
 import { sections, values } from "../config/funnel_builder_options.js";
+import styled from "./log/styled.js";
 
 export default class FunnelBuilderUtils {
 
