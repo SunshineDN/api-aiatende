@@ -24,10 +24,6 @@ export default class BaseRepository {
     return [create, created];
   }
 
-  async create(data) {
-    return await this.model.create(data);
-  }
-
   async update(id, data) {
     return await this.model.update(data, { where: { id } });
   }
