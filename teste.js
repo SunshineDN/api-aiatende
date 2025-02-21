@@ -1271,9 +1271,27 @@ async function test() {
   // const date = 1740225600000;
   // console.log(DifDates(DateUtils.formatDate({ date })));
 
-  const recepcaoServices = new RecepcaoServices(24527039);
-  const response = await recepcaoServices.identificar_fonte_entrada();
-  console.log(response);
+  // const recepcaoServices = new RecepcaoServices(24527039);
+  // const response = await recepcaoServices.identificar_fonte_entrada();
+  // console.log(response);
+
+  const obj = {
+    "id": "86f67a01-3493-4fea-aa78-60aeae4412f3",
+    "metadata": [
+      {
+        "ddc34b04-7fcf-47e3-9397-8ef933693b25": [
+          "e27e3194-2f70-48fe-9855-2e8569727de7"
+        ]
+      }
+    ]
+  }
+
+  const metadata = obj.metadata;
+
+  const service = Object.keys(metadata[0]);
+  const values = metadata[0][service];
+  console.log(service);
+  console.log(values);
 }
 
 test();
