@@ -1217,6 +1217,8 @@ const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env
 const kommoUtils = new KommoUtils();
 const recepcaoServices = new RecepcaoServices(19030890);
 
+// import { options } from './src/config/funnel_builder_options.js';
+
 async function test() {
   const leadThreadRepository = new LeadThreadRepository();
 
@@ -1275,12 +1277,36 @@ async function test() {
   // const response = await recepcaoServices.identificar_fonte_entrada();
   // console.log(response);
 
+  // const obj = {
+  //   "id": "9bb8d635-6d4d-4059-8762-0b3d4d02919a",
+  //   "metadata": [
+  //     {
+  //       "e5c8c894-91e7-4502-9583-2009c5448de3": "Douglas Augusto"
+  //     },
+  //     {
+  //       "df1d5ce4-e44f-4353-b07e-b8291820fabf": "11/03/2003"
+  //     },
+  //     {
+  //       "0f606c7f-4305-435d-905d-9e7fed35b247": "Candeias"
+  //     },
+  //     {
+  //       "697ee8b8-76ff-4fe0-bc7b-8b9443435eef": "sunshinedn2003@gmail.com"
+  //     },
+  //     {
+  //       "b5445742-67ce-476d-b86f-c87a20a0ba54": "(81) 9 9672-4310"
+  //     },
+  //     {
+  //       "7463bdef-d30c-45dd-ab83-79f4874abe55": "click"
+  //     }
+  //   ]
+  // }
+
   const obj = {
-    "id": "86f67a01-3493-4fea-aa78-60aeae4412f3",
+    "id": "9bb8d635-6d4d-4059-8762-0b3d4d02919a",
     "metadata": [
       {
         "ddc34b04-7fcf-47e3-9397-8ef933693b25": [
-          "e27e3194-2f70-48fe-9855-2e8569727de7"
+          "af2d8063-b49b-4908-b44b-0804c3ce0ac1"
         ]
       }
     ]
@@ -1288,10 +1314,62 @@ async function test() {
 
   const metadata = obj.metadata;
 
-  const service = Object.keys(metadata[0]);
-  const values = metadata[0][service];
-  console.log(service);
-  console.log(values);
+  const options = [
+    {
+      "ddc34b04-7fcf-47e3-9397-8ef933693b25": "Profissional",
+      values: [
+        {
+          "e27e3194-2f70-48fe-9855-2e8569727de7": "Dentista Especialista",
+          "af2d8063-b49b-4908-b44b-0804c3ce0ac1": "Dra. Juliana Leite",
+          "1dba186e-3cb0-4a7e-8978-54153d7085e1": "Dra. Lucília Miranda"
+        }
+      ]
+    },
+    {
+      "7463bdef-d30c-45dd-ab83-79f4874abe55": "Registro",
+      values: [
+        {
+          "e5c8c894-91e7-4502-9583-2009c5448de3": "Nome",
+          "df1d5ce4-e44f-4353-b07e-b8291820fabf": "Data de Nascimento",
+          "0f606c7f-4305-435d-905d-9e7fed35b247": "Bairro",
+          "697ee8b8-76ff-4fe0-bc7b-8b9443435eef": "Email",
+          "b5445742-67ce-476d-b86f-c87a20a0ba54": "Telefone"
+        }
+      ]
+    }
+  ]
+
+  const service = Object.keys(metadata[0])[0];
+
+  const optionsMapping = options.find(option => Object.keys(option)[0] === service);
+  console.log(optionsMapping);
+
+  const value = metadata[0][service][0];
+
+  console.log(value)
+
+  // const leadData = {}
+
+  // const fieldMapping = {};
+  // options.forEach(option => {
+  //   option.values.forEach(value => {
+  //     Object.keys(value).forEach(uuid => {
+  //       fieldMapping[uuid] = value[uuid]; // Mapeia UUID para Nome
+  //     });
+  //   });
+  // });
+
+  // // Preencher leadData com os valores do metadata
+  // metadata.forEach(item => {
+  //   const uuid = Object.keys(item)[0];
+  //   const value = item[uuid];
+
+  //   if (fieldMapping[uuid]) {
+  //     leadData[fieldMapping[uuid]] = value;
+  //   }
+  // });
+
+  // console.log(leadData['Telefone']);
 }
 
 test();
