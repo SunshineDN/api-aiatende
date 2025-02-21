@@ -1,4 +1,4 @@
-import { sections, values } from "../config/funnel_builder_options.js";
+import { options } from "../config/funnel_builder_options.js";
 import styled from "./log/styled.js";
 
 export default class FunnelBuilderUtils {
@@ -16,26 +16,44 @@ export default class FunnelBuilderUtils {
       return { type: 'not_found', value: null };
     }
 
-
     if (metadata?.length >= 5) {
       const leadData = {};
 
-      metadata.forEach((item) => {
+      const fieldMapping = {};
+      options.forEach(option => {
+        option.values.forEach(value => {
+          Object.keys(value).forEach(uuid => {
+            fieldMapping[uuid] = value[uuid];
+          });
+        });
+      });
+
+      metadata.forEach(item => {
         const uuid = Object.keys(item)[0];
         const value = item[uuid];
-        const fieldName = sections[uuid] || `Campo não identificado: ${uuid}`;
-        leadData[fieldName] = value;
+
+        if (fieldMapping[uuid]) {
+          leadData[fieldMapping[uuid]] = value;
+        }
       });
 
       return { type: 'register', value: metadata };
     }
 
     const uuid = Object.keys(metadata[0])[0];
-    const valueUUID = metadata[0][uuid];
+    const value = metadata[0][uuid];
 
-    const sectionName = sections[uuid];
-    const valueName = valueUUID.map((item) => values[item] || `Campo não identificado: ${item}`);
+    const optionMapping = options.find(option => {
+      return option.values.find(value => {
+        return value[uuid];
+      });
+    });
 
-    return { type: sectionName, value: valueName };
+    const valueMapping = optionMapping.values.find(value => {
+      return value[uuid];
+    });
+
+    return { type: 'update', value: valueMapping[uuid] };
+
   }
 };
