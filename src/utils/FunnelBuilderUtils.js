@@ -8,11 +8,9 @@ export default class FunnelBuilderUtils {
    * @param {object} obj 
    * @returns {object}
    */
-  static getMetadata(obj) {
+  static getMetadata(metadata) {
     styled.info('Metadata:');
-    styled.infodir(obj);
-
-    const metadata = obj.metadata;
+    styled.infodir(metadata);
 
     if (metadata?.length === 0) {
       return { type: 'not_found', value: null };
