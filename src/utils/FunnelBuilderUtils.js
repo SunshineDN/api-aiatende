@@ -8,13 +8,14 @@ export default class FunnelBuilderUtils {
    * @returns {object}
    */
   static getMetadata(obj) {
-    if (obj?.metadata?.length === 0) {
+    const metadata = obj.metadata;
+
+    if (metadata?.length === 0) {
       return { type: 'not_found', value: null };
     }
 
-    const metadata = obj.metadata;
 
-    if (metadata.length >= 5) {
+    if (metadata?.length >= 5) {
       const leadData = {};
 
       metadata.forEach((item) => {
