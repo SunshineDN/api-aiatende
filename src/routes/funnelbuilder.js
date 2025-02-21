@@ -13,6 +13,6 @@ router.use((req, res, next) => {
 
 router.post('/webhook', FunnelBuilderController.webhook);
 
-// router.post('/funnel', FunnelBuilderController.handleWebhook);
+router.post('/funnel', FunnelBuilderController.handleWebhook);
 
 export default router;
