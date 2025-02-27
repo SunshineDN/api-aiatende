@@ -5,7 +5,7 @@ export default class FunnelBuilderUtils {
 
   /**
    * Identificar a resposta do Funnel Builder
-   * @param {object} obj 
+   * @param {Array} metadata 
    * @returns {object}
    */
   static getMetadata(metadata) {

@@ -1337,7 +1337,7 @@ async function test() {
         }
       ]
     }
-  ]
+  ];
 
   const service = Object.keys(metadata[0])[0];
 
@@ -1346,7 +1346,12 @@ async function test() {
 
   const value = metadata[0][service][0];
 
-  console.log(value)
+  const values = Object.keys(optionsMapping.values[0]).filter((item) => {
+    return item === value;
+  })[0];
+
+  console.log(optionsMapping[service]);
+  console.log(optionsMapping.values[0][values]);
 
   // const leadData = {}
 
