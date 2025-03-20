@@ -2,6 +2,7 @@ import OpenaiIntegrationServices from './OpenaiIntegrationServices.js';
 import LeadUtils from '../../utils/LeadUtils.js';
 import styled from '../../utils/log/styled.js';
 import LeadMessagesRepository from '../../repositories/LeadMessagesRepository.js';
+import DateUtils from '../../utils/DateUtils.js';
 
 export default class ConfirmacaoServices {
   constructor(lead_id) {
@@ -21,15 +22,15 @@ export default class ConfirmacaoServices {
 
       const answer = await LeadUtils.findLeadField({ lead, fieldName: 'GPT | Answer', value: true });
 
-      const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
-      const weekOptions = {
-        timeZone: 'America/Recife',
-        weekday: 'long'
-      };
-      const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
-      const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
+      const text = `Analise a mensagem: '${answer}' e veja em quais das situações abaixo encaixa a intenção da resposta do usuário: '${lead_messages}'.
 
-      const text = ``;
+#Confirmou: Usuário confirmou a presença.
+
+#NãoConfirmou: Usuário não confirmou a presença.
+
+#Geral: Para os demais assuntos.
+
+Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra:" Exemplo: #Geral'`;
 
       const response = await this.openaiintegrationservices.prompt(this.lead_id, text);
       return { code: 200, message: 'Prompt enviado com sucesso', ...response };
@@ -42,28 +43,113 @@ export default class ConfirmacaoServices {
   }
 
   //Assistente
-  async qualificado(assistant_id) {
+  async mensagemConfirmacao24hPrimeiroContato(assistant_id) {
     try {
-      styled.function('[ConfirmacaoServices.qualificado] Confirmação | Confirmação...');
+      styled.function('[ConfirmacaoServices.mensagemConfirmacao24hPrimeiroContato] Confirmação | Esteira de Confirmação 24 horas - Primeiro Contato...');
 
-      const { recent_messages, last_messages } = await this.leadMessagesRepository.getLastAndRecentMessages(this.lead_id, 1);
-      const lead_messages = recent_messages || last_messages;
+      const lead = await this.openaiintegrationservices.getLead({ id: this.lead_id });
+      const scheduleDate = LeadUtils.findLeadField({ lead, fieldName: 'Data do Agendamento', value: true });
+      const convertDate = DateUtils.secondsToDate(Number(scheduleDate));
+      const date = DateUtils.formatDate({ date: convertDate, withWeekday: true });
 
-      const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
-      const weekOptions = {
-        timeZone: 'America/Recife',
-        weekday: 'long'
-      };
-      const weekDay = new Date().toLocaleDateString('pt-BR', weekOptions);
-      const weekDayFormatted = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
+      const text = `System message: 'Retorne apenas uma mensagem para o usuário para a confirmação da sua ida para a clínica no dia: ${date}. Aqui vai um exemplo de mensagem: "Lembre-se do compromisso da sua consulta odontológica com *DENTISTA* é AMANHÃ
 
-      const text = ``;
+Dia e Hora:
+19/08/2024 às 14:30
+
+Não esqueça de confirmar sua presença, respondendo esta mensagem agora!
+
+Confirmado?"'`;
 
       const response = await this.openaiintegrationservices.assistant(this.lead_id, text, assistant_id);
       return { code: 200, message: 'Mensagem do assistente enviada com sucesso', ...response };
 
     } catch (error) {
-      styled.error(`[ConfirmacaoServices.qualificado] Erro ao enviar mensagem para o assistente`);
+      styled.error(`[ConfirmacaoServices.mensagemConfirmacao24hPrimeiroContato] Erro ao enviar mensagem para o assistente`);
+      await this.openaiintegrationservices.sendErrorLog({ lead_id: this.lead_id, error: `[ConfirmacaoServices.qualificado] ${error?.message}` });
+      throw error;
+    }
+  }
+
+  //Assistente
+  async mensagemConfirmacao24hSegundoContato(assistant_id) {
+    try {
+      styled.function('[ConfirmacaoServices.mensagemConfirmacao24hSegundoContato] Confirmação | Esteira de Confirmação 24 horas - Segundo Contato...');
+
+      const text = `System message: Usuário passou 2 horas sem responder a mensagem anterior, retorne apenas uma mensagem dizendo que é muito importante que ele confirme a presença no dia marcado. Exemplo de mensagem: "Olá, Tudo bem? Ainda não recebemos a confirmação da sua presença na consulta odontológica de amanhã.
+Por favor, confirmar o mais rápido possível, Obrigada!
+
+Confirmado?"`;
+
+      const response = await this.openaiintegrationservices.assistant(this.lead_id, text, assistant_id);
+      return { code: 200, message: 'Mensagem do assistente enviada com sucesso', ...response };
+
+    } catch (error) {
+      styled.error(`[ConfirmacaoServices.mensagemConfirmacao24hSegundoContato] Erro ao enviar mensagem para o assistente`);
+      await this.openaiintegrationservices.sendErrorLog({ lead_id: this.lead_id, error: `[ConfirmacaoServices.qualificado] ${error?.message}` });
+      throw error;
+    }
+  }
+
+  //Assistente
+  async mensagemConfirmacao24hTerceiroContato(assistant_id) {
+    try {
+      styled.function('[ConfirmacaoServices.mensagemConfirmacao24hTerceiroContato] Confirmação | Esteira de Confirmação 24 horas - Terceiro Contato...');
+
+      const text = `System message: Usuário passou mais 2 horas sem responder a mensagem anterior, retorne apenas uma mensagem pedindo para ele confirmar sua presença para o dia: ${date}. Exemplo de mensagem: "Gostaria de lembrar que o processo de confirmação da consulta é muito importante. Temos que planejar adequadamente seu atendimento. Por favor, confirme sua presença respondendo agora esta mensagem.
+
+Dia e Hora:
+19/08/2024 às 14:30
+
+Confirmado?"`;
+
+      const response = await this.openaiintegrationservices.assistant(this.lead_id, text, assistant_id);
+      return { code: 200, message: 'Mensagem do assistente enviada com sucesso', ...response };
+
+    } catch (error) {
+      styled.error(`[ConfirmacaoServices.mensagemConfirmacao24hTerceiroContato] Erro ao enviar mensagem para o assistente`);
+      await this.openaiintegrationservices.sendErrorLog({ lead_id: this.lead_id, error: `[ConfirmacaoServices.qualificado] ${error?.message}` });
+      throw error;
+    }
+  }
+
+  //Assistente
+  async mensagemConfirmacao3hPrimeiroContato(assistant_id) {
+    try {
+      styled.function('[ConfirmacaoServices.mensagemConfirmacao3hPrimeiroContato] Confirmação | Esteira de Confirmação 3 horas - Primeiro Contato...');
+
+      const text = `System message: Usuário confirmou e a consulta dele será *HOJE*. Retorne apenas uma mensagem pedindo para ele confirmar a presença. Exemplo de mensagem: "É *HOJE*!
+
+Por favor, confirme agora sua presença.
+
+Dia e hora:
+
+19/08/2024 às 14:00
+
+Ok?"`;
+
+      const response = await this.openaiintegrationservices.assistant(this.lead_id, text, assistant_id);
+      return { code: 200, message: 'Mensagem do assistente enviada com sucesso', ...response };
+
+    } catch (error) {
+      styled.error(`[ConfirmacaoServices.mensagemConfirmacao3hPrimeiroContato] Erro ao enviar mensagem para o assistente`);
+      await this.openaiintegrationservices.sendErrorLog({ lead_id: this.lead_id, error: `[ConfirmacaoServices.qualificado] ${error?.message}` });
+      throw error;
+    }
+  }
+
+  //Assistente
+  async mensagemConfirmacao3hSegundoContato(assistant_id) {
+    try {
+      styled.function('[ConfirmacaoServices.mensagemConfirmacao3hSegundoContato] Confirmação | Esteira de Confirmação 3 horas - Segundo Contato...');
+
+      const text = `System message: Usuário passou 30 minutos sem responder a mensagem anterior, retorne apenas uma mensagem perguntando se pode confirmar a presença dele.`;
+
+      const response = await this.openaiintegrationservices.assistant(this.lead_id, text, assistant_id);
+      return { code: 200, message: 'Mensagem do assistente enviada com sucesso', ...response };
+
+    } catch (error) {
+      styled.error(`[ConfirmacaoServices.mensagemConfirmacao3hSegundoContato] Erro ao enviar mensagem para o assistente`);
       await this.openaiintegrationservices.sendErrorLog({ lead_id: this.lead_id, error: `[ConfirmacaoServices.qualificado] ${error?.message}` });
       throw error;
     }
