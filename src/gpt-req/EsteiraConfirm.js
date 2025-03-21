@@ -103,7 +103,7 @@ Dia e Hora:
 
 Não esqueça de confirmar sua presença, respondendo esta mensagem agora!
 
-Confirmado?" '`;
+Confirmado?"'`;
 
       const data = {
         leadID,
