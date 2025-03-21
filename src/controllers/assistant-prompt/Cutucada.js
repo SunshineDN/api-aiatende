@@ -15,18 +15,19 @@ export default class Cutucada {
       const message_received = await GetMessageReceived(req.body, access_token);
       const answer = await GetAnswer(req.body, access_token);
 
-      const text = `Aja como um analista de marketing experiente e veja a seguinte mensagem: '${answer}'. E analise a resposta do usuário: '${message_received}'.
-Identifique em qual das situações abaixo melhor se encaixa a intenção do usuário:
+      const text = `Aja como um analista de marketing experiente. Receba a seguinte mensagem enviada pelo estabelecimento: ${answer}. Agora analise a resposta do usuário: ${message_received}.
 
-#Perdido: Se o usuário estiver com intenção de encerrar a conversa, ou não quer continuar falando.
+Classifique a intenção do usuário com base nas categorias abaixo. Retorne apenas o respectivo ID no formato #categoria: — exemplo: #Geral:
 
-#Aguardar: Se o usuário estiver sem poder responder no momento, ou está ocupado, ou está querendo responder depois.
+Categorias:
 
-#Continuar: Quando a resposta do usuário quer responder uma mensagem da Clínica. 
+#Perdido: Quando o usuário demonstra intenção de encerrar a conversa, não quer continuar falando ou ignora a abordagem.
 
-#Geral: os demais assuntos.
+#Aguardar: Quando o usuário está ocupado, sem poder responder no momento, ou manifesta desejo de responder mais tarde.
 
-Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra:" Exemplo: #Geral'`;
+#Continuar: Quando a resposta do usuário interage com a mensagem da Clínica, demonstrando interesse ou continuidade na conversa.
+
+#Geral: Quando a mensagem do usuário trata de outro assunto que não se enquadra nas opções acima.`;
       await Communicator.prompt(req, res, text);
     } catch (error) {
       styled.error(`Erro ao enviar prompt: ${error.message}`);

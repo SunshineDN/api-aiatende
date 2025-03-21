@@ -96,6 +96,10 @@ Confirmado?"`;
     try {
       styled.function('[ConfirmacaoServices.mensagemConfirmacao24hTerceiroContato] Confirmação | Esteira de Confirmação 24 horas - Terceiro Contato...');
 
+      const scheduleDate = LeadUtils.findLeadField({ lead, fieldName: 'Data do Agendamento', value: true });
+      const convertDate = DateUtils.secondsToDate(Number(scheduleDate));
+      const date = DateUtils.formatDate({ date: convertDate, withWeekday: true });
+
       const text = `System message: Usuário passou mais 2 horas sem responder a mensagem anterior, retorne apenas uma mensagem pedindo para ele confirmar sua presença para o dia: ${date}. Exemplo de mensagem: "Gostaria de lembrar que o processo de confirmação da consulta é muito importante. Temos que planejar adequadamente seu atendimento. Por favor, confirme sua presença respondendo agora esta mensagem.
 
 Dia e Hora:
