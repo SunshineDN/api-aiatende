@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import customParseFormat from 'dayjs/plugin/customParseFormat.js';
+import { v4 as uuidv4, v5 as uuidv5 } from 'uuid';
 import styled from "./log/styled.js";
 
 export default class StaticUtils {
@@ -217,5 +218,25 @@ export default class StaticUtils {
             }
             return word.toLowerCase();
         }).join(' ');
+    }
+
+    /**
+     * Gerar um UUIDv4 (Universally Unique Identifier) de 36 caracteres
+     * @returns {string} - UUIDv4 gerado
+     */
+    static generateUUID() {
+        return uuidv4();
+    }
+
+    /**
+     * Gerar um UUIDv5 baseado em um obj
+     * @param {object} obj - Objeto a ser usado como base para o UUIDv5
+     * @returns {string} - UUIDv5 gerado
+     */
+    static generateUUIDv5(obj) {
+        const namespace = '3a16cbcc-a22f-4973-9714-9dcaebd2b3e3'
+        const jsonString = JSON.stringify(obj);
+        const hash = uuidv5(jsonString, namespace);
+        return hash;
     }
 }

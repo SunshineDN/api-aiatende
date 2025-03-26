@@ -1301,57 +1301,57 @@ async function test() {
   //   ]
   // }
 
-  const obj = {
-    "id": "9bb8d635-6d4d-4059-8762-0b3d4d02919a",
-    "metadata": [
-      {
-        "ddc34b04-7fcf-47e3-9397-8ef933693b25": [
-          "af2d8063-b49b-4908-b44b-0804c3ce0ac1"
-        ]
-      }
-    ]
-  }
+  // const obj = {
+  //   "id": "9bb8d635-6d4d-4059-8762-0b3d4d02919a",
+  //   "metadata": [
+  //     {
+  //       "ddc34b04-7fcf-47e3-9397-8ef933693b25": [
+  //         "af2d8063-b49b-4908-b44b-0804c3ce0ac1"
+  //       ]
+  //     }
+  //   ]
+  // }
 
-  const metadata = obj.metadata;
+  // const metadata = obj.metadata;
 
-  const options = [
-    {
-      "ddc34b04-7fcf-47e3-9397-8ef933693b25": "Profissional",
-      values: [
-        {
-          "e27e3194-2f70-48fe-9855-2e8569727de7": "Dentista Especialista",
-          "af2d8063-b49b-4908-b44b-0804c3ce0ac1": "Dra. Juliana Leite",
-          "1dba186e-3cb0-4a7e-8978-54153d7085e1": "Dra. Lucília Miranda"
-        }
-      ]
-    },
-    {
-      "7463bdef-d30c-45dd-ab83-79f4874abe55": "Registro",
-      values: [
-        {
-          "e5c8c894-91e7-4502-9583-2009c5448de3": "Nome",
-          "df1d5ce4-e44f-4353-b07e-b8291820fabf": "Data de Nascimento",
-          "0f606c7f-4305-435d-905d-9e7fed35b247": "Bairro",
-          "697ee8b8-76ff-4fe0-bc7b-8b9443435eef": "Email",
-          "b5445742-67ce-476d-b86f-c87a20a0ba54": "Telefone"
-        }
-      ]
-    }
-  ];
+  // const options = [
+  //   {
+  //     "ddc34b04-7fcf-47e3-9397-8ef933693b25": "Profissional",
+  //     values: [
+  //       {
+  //         "e27e3194-2f70-48fe-9855-2e8569727de7": "Dentista Especialista",
+  //         "af2d8063-b49b-4908-b44b-0804c3ce0ac1": "Dra. Juliana Leite",
+  //         "1dba186e-3cb0-4a7e-8978-54153d7085e1": "Dra. Lucília Miranda"
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     "7463bdef-d30c-45dd-ab83-79f4874abe55": "Registro",
+  //     values: [
+  //       {
+  //         "e5c8c894-91e7-4502-9583-2009c5448de3": "Nome",
+  //         "df1d5ce4-e44f-4353-b07e-b8291820fabf": "Data de Nascimento",
+  //         "0f606c7f-4305-435d-905d-9e7fed35b247": "Bairro",
+  //         "697ee8b8-76ff-4fe0-bc7b-8b9443435eef": "Email",
+  //         "b5445742-67ce-476d-b86f-c87a20a0ba54": "Telefone"
+  //       }
+  //     ]
+  //   }
+  // ];
 
-  const service = Object.keys(metadata[0])[0];
+  // const service = Object.keys(metadata[0])[0];
 
-  const optionsMapping = options.find(option => Object.keys(option)[0] === service);
-  console.log(optionsMapping);
+  // const optionsMapping = options.find(option => Object.keys(option)[0] === service);
+  // console.log(optionsMapping);
 
-  const value = metadata[0][service][0];
+  // const value = metadata[0][service][0];
 
-  const values = Object.keys(optionsMapping.values[0]).filter((item) => {
-    return item === value;
-  })[0];
+  // const values = Object.keys(optionsMapping.values[0]).filter((item) => {
+  //   return item === value;
+  // })[0];
 
-  console.log(optionsMapping[service]);
-  console.log(optionsMapping.values[0][values]);
+  // console.log(optionsMapping[service]);
+  // console.log(optionsMapping.values[0][values]);
 
   // const leadData = {}
 
@@ -1375,6 +1375,13 @@ async function test() {
   // });
 
   // console.log(leadData['Telefone']);
+
+  styled.info(StaticUtils.generateUUIDv5({
+    utm_source: 'Facebook',
+    utm_campaign: '12983716',
+    utm_content: 'LLKJSADB[skdkaksl]nnasodn',
+    utm_medium: '1829387632'
+  }));
 }
 
 test();
