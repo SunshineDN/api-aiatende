@@ -1,8 +1,10 @@
 import express from 'express';
-import WebCalendarController from '../controllers/WppController.js';
+import WppController from '../controllers/WppController.js';
 
 const router = express.Router();
 
-router.get('/', WebCalendarController.handleReceiveMessage);
+router.get('/wbhk', WppController.handleWabhookReceived);
+
+router.post('/message-upsert', WppController.handleMessageUpsert);
 
 export default router;

@@ -1,13 +1,13 @@
 import styled from "../utils/log/styled.js";
 import StaticUtils from "../utils/StaticUtils.js";
 
-export default class WebCalendarController {
+export default class WppController {
 
   /**
     * @param { import('express').Request } req
     * @param { import('express').Response } res
     */
-  static async handleReceiveMessage(req, res) {
+  static async handleWabhookReceived(req, res) {
     const { query } = req;
     styled.info('Query:');
     styled.infodir(query);
@@ -16,5 +16,9 @@ export default class WebCalendarController {
     styled.info('Hash:', hash);
 
     res.redirect(`https://wa.me/558130930133?source=${hash}`);
+  }
+
+  static async handleMessageUpsert(req, res) {
+    res.status(200).send('ok');
   }
 }

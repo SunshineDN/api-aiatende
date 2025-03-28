@@ -1208,6 +1208,8 @@ import GlobalServices from './src/services/openaiIntegration/GlobalServices.js';
 import { CalendarUtils } from './src/utils/calendar/CalendarUtils.js';
 import KommoCalendarServices from './src/services/kommo/KommoCalendarServices.js';
 import { DifDates } from './src/utils/DifDates.js';
+import Leads from './src/models/Leads.js';
+import LeadThread from './src/models/LeadThread.js';
 
 // ADRIANO
 // const kommo = new KommoServices({ auth: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjU3MTBhYzI1OGRiYzE5YjMwOGJiOTJjNGQwNWRkNDcyYjAzNTY0MDM5MzUzYTg2OGZmNDU2MGYxM2U3OGRhNDMwNzA1ZTI1MmE5ZDA1ZjkxIn0.eyJhdWQiOiI5OTIzYzhiMi1jNDYzLTQ0MGQtYTcxMS0wMTIwZWZhNGMzYmIiLCJqdGkiOiI1NzEwYWMyNThkYmMxOWIzMDhiYjkyYzRkMDVkZDQ3MmIwMzU2NDAzOTM1M2E4NjhmZjQ1NjBmMTNlNzhkYTQzMDcwNWUyNTJhOWQwNWY5MSIsImlhdCI6MTczNjgxNzQyNSwibmJmIjoxNzM2ODE3NDI1LCJleHAiOjE3Njk4MTc2MDAsInN1YiI6Ijc0MjE4OTkiLCJncmFudF90eXBlIjoiIiwiYWNjb3VudF9pZCI6MzM5ODExODMsImJhc2VfZG9tYWluIjoia29tbW8uY29tIiwidmVyc2lvbiI6Miwic2NvcGVzIjpbImNybSIsImZpbGVzIiwiZmlsZXNfZGVsZXRlIiwibm90aWZpY2F0aW9ucyIsInB1c2hfbm90aWZpY2F0aW9ucyJdLCJoYXNoX3V1aWQiOiJlMzE4MzllYi03MWU1LTQyMDctOGQ0YS1iZWVjZTI3MTg0MTgiLCJhcGlfZG9tYWluIjoiYXBpLWMua29tbW8uY29tIn0.Idtrl_UJp1uHQHfvb8denAWxhASFVY8ju2fZ3hxwmMofCuKXbj8LXPOW92p9XkGgy2azs_IzzprhMjm1yJ_QMtnu71FtfRDE8o55FkfDBeflXH9SaAzhmQ65WmXvpnrwTsrfnbjeCNacPb0m6YQBKezqdS9XtzCw0Ptt_f0Pab7qpLZRuzso7p21zD0HkdGRt5U8ttADaMb-YgKHRnDZKtKEA4BVQWh1R6uvHe2bC4onceyQAiQo_FaKrH1C2w7_kP7ZkfleDhVHLeevjP38qYUeKGsUkfEiyPZgPIFy_MPRfKRnPInDB70K_sbXHjklZ8eQAQgr6Vi2MrOoVFyuwQ', url: 'https://adrianocamposadvogado.kommo.com' });
@@ -1376,11 +1378,17 @@ async function test() {
 
   // console.log(leadData['Telefone']);
 
-  styled.info(StaticUtils.generateUUIDv5({
-    utm_source: 'Facebook',
-    utm_campaign: '12983716',
-    utm_content: 'LLKJSADB[skdkaksl]nnasodn',
-    utm_medium: '1829387632'
+  // styled.info(StaticUtils.generateUUIDv5({
+  //   utm_source: 'Facebook',
+  //   utm_campaign: '12983716',
+  //   utm_content: 'LLKJSADB[skdkaksl]nnasodn',
+  //   utm_medium: '1829387632'
+  // }));
+
+  styled.infodir(await LeadThread.findAll({
+    where: {
+      leadID: 24410353
+    }
   }));
 }
 
