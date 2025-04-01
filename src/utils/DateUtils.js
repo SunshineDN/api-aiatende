@@ -109,4 +109,24 @@ export default class DateUtils {
     }
     return formattedDate;
   }
+
+  /**
+   * Calcula a diferença entre duas datas em dias, horas e minutos
+   * @param {Date} startDate - Data de início
+   * @returns {object} - Objeto contendo a diferença em dias, horas e minutos
+   */
+  static dateDurationCalculator(startDate) {
+    const now = new Date();
+    const diffInMs = startDate - now;
+    const diffInSeconds = Math.floor(diffInMs / 1000);
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    const diffInDays = Math.floor(diffInHours / 24);
+
+    return {
+      days: diffInDays,
+      hours: diffInHours % 24,
+      minutes: diffInMinutes % 60,
+    };
+  }
 }

@@ -1,16 +1,20 @@
 'use strict';
 
-const { DataTypes } = require('sequelize');
+import { DataTypes } from 'sequelize';
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    return queryInterface.createTable('UTM Parameters', {
+    return queryInterface.createTable('marketing_tracking', {
       id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
         primaryKey: true,
+      },
+      gclid: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
       utm_source: {
         type: DataTypes.STRING,
@@ -29,6 +33,10 @@ module.exports = {
         allowNull: true,
       },
       utm_content: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      utm_referrer: {
         type: DataTypes.STRING,
         allowNull: true,
       },

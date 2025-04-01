@@ -105,4 +105,12 @@ export default class LeadMessagesRepository extends BaseRepository {
         return origin;
     }
   }
+
+  async clearMessages(lead_id) {
+    const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
+    if (!lead_message?.messages?.length) return null;
+
+    await this.update(Number(lead_id), { messages: [] });
+    styled.success('[LeadMessagesRepository.clearMessages] - Mensagens limpas com sucesso!');
+  }
 }

@@ -1,10 +1,11 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "database_development",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "aiatende",
+    "password": "4cs1y095zAxU",
+    "database": "aiatende",
+    "host": "server.aiatende.dev.br",
+    "port": 4003,
+    "dialect": "postgres"
   },
   "test": {
     "username": "root",

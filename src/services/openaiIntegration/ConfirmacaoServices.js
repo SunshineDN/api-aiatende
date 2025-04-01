@@ -22,15 +22,19 @@ export default class ConfirmacaoServices {
 
       const answer = await LeadUtils.findLeadField({ lead, fieldName: 'GPT | Answer', value: true });
 
-      const text = `Analise a mensagem: '${answer}' e veja em quais das situações abaixo encaixa a intenção da resposta do usuário: '${lead_messages}'.
+      const text = `Considere que você esteja analisando a intenção de uma frase digitada por um usuário em um chatbot.
+Analise a mensagem: '${answer}' e veja em quais das situações abaixo encaixa a intenção para a resposta: '${lead_messages}'.
+#Confirmação: A resposta tem intenção de confirmar ou continuar com o agendamento.
 
-#Confirmou: Usuário confirmou a presença.
+#NãoConfirmar: A resposta tem intenção de não confirmar ou não continuar com o agendamento.
 
-#NãoConfirmou: Usuário não confirmou a presença.
+#Reagendar: Caso a resposta tenha a intenção de marcar ou data agendada para outra data.
 
-#Geral: Para os demais assuntos.
+#Desmarcar: Caso a resposta tenha intenção de desmarcar.
 
-Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra:" Exemplo: #Geral'`;
+#Geral: Não condiz com os demais cenários.
+
+Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra:" Exemplo: #Atendente`;
 
       const response = await this.openaiintegrationservices.prompt(this.lead_id, text);
       return { code: 200, message: 'Prompt enviado com sucesso', ...response };
@@ -38,6 +42,30 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
     } catch (error) {
       styled.error(`[ConfirmacaoServices.intencao] Erro ao enviar mensagem para o prompt`);
       await this.openaiintegrationservices.sendErrorLog({ lead_id: this.lead_id, error: `[ConfirmacaoServices.intencao] ${error?.message}` });
+      throw error;
+    }
+  }
+
+  //Assistente
+  async confirmarPresenca(assistant_id) {
+    try {
+      styled.function('[ConfirmacaoServices.confirmarPresenca] Confirmação | Assistente...');
+
+      const lead = await this.openaiintegrationservices.getLead({ id: this.lead_id });
+      const scheduleDate = LeadUtils.findLeadField({ lead, fieldName: 'Data do Agendamento', value: true });
+      const convertDate = DateUtils.secondsToDate(Number(scheduleDate));
+      const date = DateUtils.formatDate({ date: convertDate, withWeekday: true });
+
+      const { days, hours, minutes } = DateUtils.dateDurationCalculator(convertDate);
+
+      const text = `System message: Envie uma mensagem para o usuário avisando sobre a data de agendamento: '${date}'. Adicione também que faltam ${days} dia(s), ${hours} hora(s) e ${minutes} minuto(s) para a consulta.`;
+
+      const response = await this.openaiintegrationservices.assistant(this.lead_id, text, assistant_id);
+      return { code: 200, message: 'Mensagem do assistente enviada com sucesso', ...response };
+
+    } catch (error) {
+      styled.error(`[ConfirmacaoServices.confirmarPresenca] Erro ao enviar mensagem para o assistente`);
+      await this.openaiintegrationservices.sendErrorLog({ lead_id: this.lead_id, error: `[ConfirmacaoServices.confirmarPresenca] ${error?.message}` });
       throw error;
     }
   }
