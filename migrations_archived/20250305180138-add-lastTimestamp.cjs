@@ -1,7 +1,5 @@
 'use strict';
 
-import { DataTypes } from 'sequelize';
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -11,7 +9,7 @@ module.exports = {
           'lead_threads',
           'assistant_messages',
           {
-            type: DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.JSON)),
+            type: Sequelize.DataTypes.ARRAY(Sequelize.DataTypes.ARRAY(Sequelize.DataTypes.JSON)),
             after: "assistant_id"
           },
           { transaction: t },

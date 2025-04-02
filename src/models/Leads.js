@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/db.js';
 
-const Leads = sequelize.define('Leads', {
+const leads = sequelize.define('leads', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -16,8 +16,6 @@ const Leads = sequelize.define('Leads', {
     type: DataTypes.JSON,
     allowNull: true,
   }
-}, {
-  tableName: 'Leads', // nome da tabela no banco de dados
 });
 
-export default Leads;
+export default leads;
