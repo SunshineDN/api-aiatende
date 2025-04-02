@@ -1208,6 +1208,9 @@ import GlobalServices from './src/services/openaiIntegration/GlobalServices.js';
 import { CalendarUtils } from './src/utils/calendar/CalendarUtils.js';
 import KommoCalendarServices from './src/services/kommo/KommoCalendarServices.js';
 import { DifDates } from './src/utils/DifDates.js';
+import Leads from './src/models/Leads.js';
+import LeadThread from './src/models/LeadThread.js';
+import ConfirmacaoServices from './src/services/openaiIntegration/ConfirmacaoServices.js';
 
 // ADRIANO
 // const kommo = new KommoServices({ auth: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjU3MTBhYzI1OGRiYzE5YjMwOGJiOTJjNGQwNWRkNDcyYjAzNTY0MDM5MzUzYTg2OGZmNDU2MGYxM2U3OGRhNDMwNzA1ZTI1MmE5ZDA1ZjkxIn0.eyJhdWQiOiI5OTIzYzhiMi1jNDYzLTQ0MGQtYTcxMS0wMTIwZWZhNGMzYmIiLCJqdGkiOiI1NzEwYWMyNThkYmMxOWIzMDhiYjkyYzRkMDVkZDQ3MmIwMzU2NDAzOTM1M2E4NjhmZjQ1NjBmMTNlNzhkYTQzMDcwNWUyNTJhOWQwNWY5MSIsImlhdCI6MTczNjgxNzQyNSwibmJmIjoxNzM2ODE3NDI1LCJleHAiOjE3Njk4MTc2MDAsInN1YiI6Ijc0MjE4OTkiLCJncmFudF90eXBlIjoiIiwiYWNjb3VudF9pZCI6MzM5ODExODMsImJhc2VfZG9tYWluIjoia29tbW8uY29tIiwidmVyc2lvbiI6Miwic2NvcGVzIjpbImNybSIsImZpbGVzIiwiZmlsZXNfZGVsZXRlIiwibm90aWZpY2F0aW9ucyIsInB1c2hfbm90aWZpY2F0aW9ucyJdLCJoYXNoX3V1aWQiOiJlMzE4MzllYi03MWU1LTQyMDctOGQ0YS1iZWVjZTI3MTg0MTgiLCJhcGlfZG9tYWluIjoiYXBpLWMua29tbW8uY29tIn0.Idtrl_UJp1uHQHfvb8denAWxhASFVY8ju2fZ3hxwmMofCuKXbj8LXPOW92p9XkGgy2azs_IzzprhMjm1yJ_QMtnu71FtfRDE8o55FkfDBeflXH9SaAzhmQ65WmXvpnrwTsrfnbjeCNacPb0m6YQBKezqdS9XtzCw0Ptt_f0Pab7qpLZRuzso7p21zD0HkdGRt5U8ttADaMb-YgKHRnDZKtKEA4BVQWh1R6uvHe2bC4onceyQAiQo_FaKrH1C2w7_kP7ZkfleDhVHLeevjP38qYUeKGsUkfEiyPZgPIFy_MPRfKRnPInDB70K_sbXHjklZ8eQAQgr6Vi2MrOoVFyuwQ', url: 'https://adrianocamposadvogado.kommo.com' });
@@ -1277,104 +1280,19 @@ async function test() {
   // const response = await recepcaoServices.identificar_fonte_entrada();
   // console.log(response);
 
-  // const obj = {
-  //   "id": "9bb8d635-6d4d-4059-8762-0b3d4d02919a",
-  //   "metadata": [
-  //     {
-  //       "e5c8c894-91e7-4502-9583-2009c5448de3": "Douglas Augusto"
-  //     },
-  //     {
-  //       "df1d5ce4-e44f-4353-b07e-b8291820fabf": "11/03/2003"
-  //     },
-  //     {
-  //       "0f606c7f-4305-435d-905d-9e7fed35b247": "Candeias"
-  //     },
-  //     {
-  //       "697ee8b8-76ff-4fe0-bc7b-8b9443435eef": "sunshinedn2003@gmail.com"
-  //     },
-  //     {
-  //       "b5445742-67ce-476d-b86f-c87a20a0ba54": "(81) 9 9672-4310"
-  //     },
-  //     {
-  //       "7463bdef-d30c-45dd-ab83-79f4874abe55": "click"
-  //     }
-  //   ]
-  // }
+  // styled.info(StaticUtils.generateUUIDv5({
+  //   utm_source: 'Facebook',
+  //   utm_campaign: '12983716',
+  //   utm_content: 'LLKJSADB[skdkaksl]nnasodn',
+  //   utm_medium: '1829387632'
+  // }));
 
-  const obj = {
-    "id": "9bb8d635-6d4d-4059-8762-0b3d4d02919a",
-    "metadata": [
-      {
-        "ddc34b04-7fcf-47e3-9397-8ef933693b25": [
-          "af2d8063-b49b-4908-b44b-0804c3ce0ac1"
-        ]
-      }
-    ]
-  }
+  // const leadMessageRepository = new LeadMessagesRepository();
+  // await leadMessageRepository.clearMessages(24410353);
 
-  const metadata = obj.metadata;
-
-  const options = [
-    {
-      "ddc34b04-7fcf-47e3-9397-8ef933693b25": "Profissional",
-      values: [
-        {
-          "e27e3194-2f70-48fe-9855-2e8569727de7": "Dentista Especialista",
-          "af2d8063-b49b-4908-b44b-0804c3ce0ac1": "Dra. Juliana Leite",
-          "1dba186e-3cb0-4a7e-8978-54153d7085e1": "Dra. Lucília Miranda"
-        }
-      ]
-    },
-    {
-      "7463bdef-d30c-45dd-ab83-79f4874abe55": "Registro",
-      values: [
-        {
-          "e5c8c894-91e7-4502-9583-2009c5448de3": "Nome",
-          "df1d5ce4-e44f-4353-b07e-b8291820fabf": "Data de Nascimento",
-          "0f606c7f-4305-435d-905d-9e7fed35b247": "Bairro",
-          "697ee8b8-76ff-4fe0-bc7b-8b9443435eef": "Email",
-          "b5445742-67ce-476d-b86f-c87a20a0ba54": "Telefone"
-        }
-      ]
-    }
-  ];
-
-  const service = Object.keys(metadata[0])[0];
-
-  const optionsMapping = options.find(option => Object.keys(option)[0] === service);
-  console.log(optionsMapping);
-
-  const value = metadata[0][service][0];
-
-  const values = Object.keys(optionsMapping.values[0]).filter((item) => {
-    return item === value;
-  })[0];
-
-  console.log(optionsMapping[service]);
-  console.log(optionsMapping.values[0][values]);
-
-  // const leadData = {}
-
-  // const fieldMapping = {};
-  // options.forEach(option => {
-  //   option.values.forEach(value => {
-  //     Object.keys(value).forEach(uuid => {
-  //       fieldMapping[uuid] = value[uuid]; // Mapeia UUID para Nome
-  //     });
-  //   });
-  // });
-
-  // // Preencher leadData com os valores do metadata
-  // metadata.forEach(item => {
-  //   const uuid = Object.keys(item)[0];
-  //   const value = item[uuid];
-
-  //   if (fieldMapping[uuid]) {
-  //     leadData[fieldMapping[uuid]] = value;
-  //   }
-  // });
-
-  // console.log(leadData['Telefone']);
+  const confirmacaoServices = new ConfirmacaoServices(24410353);
+  const response = await confirmacaoServices.confirmarPresenca("YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4");
+  console.dir(response, { depth: null });
 }
 
 test();

@@ -71,7 +71,7 @@ export default class OpenaiIntegrationServices extends KommoServices {
     const lead = await this.getLead({ id: lead_id });
     const message_received = LeadUtils.findLeadField({ lead, fieldName: 'GPT | Message received' });
     if (message_received) {
-      StaticUtils.sleep(2);
+      await StaticUtils.sleep(2);
       await this.updateLead({ id: lead_id, custom_fields_values: [{ field_id: message_received.field_id, values: [{ value: '' }] }] });
     }
 

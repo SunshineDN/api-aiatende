@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/db.js';
 
-const FunnelBuilder = sequelize.define('FunnelBuilder', {
+const funnel_builder = sequelize.define('funnel_builder', {
   id: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -28,8 +28,6 @@ const FunnelBuilder = sequelize.define('FunnelBuilder', {
   shift: {
     type: DataTypes.JSON,
   },
-}, {
-  tableName: 'FunnelBuilder', // nome da tabela no banco de dados
 });
 
-export default FunnelBuilder;
+export default funnel_builder;
