@@ -1,5 +1,5 @@
 import express from 'express';
-import Confirmacao from '../../../../../controllers/assistant-prompt/Confirmacao.js';
+import ConfirmacaoController from '../../../../../controllers/openaiIntegration/ConfirmacaoController.js';
 import kommoMiddleware from '../../../../../middlewares/kommoMiddleware.js';
 
 const router = express.Router();
@@ -13,8 +13,6 @@ router.get('/', (req, res) => {
 });
 
 // BOT CONFIRMAÇÃO
-router.post('/intencao', Confirmacao.intencao);
-
-router.post('/intencao-presenca', Confirmacao.intencao_presenca);
+router.post('/intencao', ConfirmacaoController.intencao);
 
 export default router;

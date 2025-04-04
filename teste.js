@@ -1208,6 +1208,9 @@ import GlobalServices from './src/services/openaiIntegration/GlobalServices.js';
 import { CalendarUtils } from './src/utils/calendar/CalendarUtils.js';
 import KommoCalendarServices from './src/services/kommo/KommoCalendarServices.js';
 import { DifDates } from './src/utils/DifDates.js';
+import Leads from './src/models/Leads.js';
+import LeadThread from './src/models/LeadThread.js';
+import ConfirmacaoServices from './src/services/openaiIntegration/ConfirmacaoServices.js';
 
 // ADRIANO
 // const kommo = new KommoServices({ auth: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjU3MTBhYzI1OGRiYzE5YjMwOGJiOTJjNGQwNWRkNDcyYjAzNTY0MDM5MzUzYTg2OGZmNDU2MGYxM2U3OGRhNDMwNzA1ZTI1MmE5ZDA1ZjkxIn0.eyJhdWQiOiI5OTIzYzhiMi1jNDYzLTQ0MGQtYTcxMS0wMTIwZWZhNGMzYmIiLCJqdGkiOiI1NzEwYWMyNThkYmMxOWIzMDhiYjkyYzRkMDVkZDQ3MmIwMzU2NDAzOTM1M2E4NjhmZjQ1NjBmMTNlNzhkYTQzMDcwNWUyNTJhOWQwNWY5MSIsImlhdCI6MTczNjgxNzQyNSwibmJmIjoxNzM2ODE3NDI1LCJleHAiOjE3Njk4MTc2MDAsInN1YiI6Ijc0MjE4OTkiLCJncmFudF90eXBlIjoiIiwiYWNjb3VudF9pZCI6MzM5ODExODMsImJhc2VfZG9tYWluIjoia29tbW8uY29tIiwidmVyc2lvbiI6Miwic2NvcGVzIjpbImNybSIsImZpbGVzIiwiZmlsZXNfZGVsZXRlIiwibm90aWZpY2F0aW9ucyIsInB1c2hfbm90aWZpY2F0aW9ucyJdLCJoYXNoX3V1aWQiOiJlMzE4MzllYi03MWU1LTQyMDctOGQ0YS1iZWVjZTI3MTg0MTgiLCJhcGlfZG9tYWluIjoiYXBpLWMua29tbW8uY29tIn0.Idtrl_UJp1uHQHfvb8denAWxhASFVY8ju2fZ3hxwmMofCuKXbj8LXPOW92p9XkGgy2azs_IzzprhMjm1yJ_QMtnu71FtfRDE8o55FkfDBeflXH9SaAzhmQ65WmXvpnrwTsrfnbjeCNacPb0m6YQBKezqdS9XtzCw0Ptt_f0Pab7qpLZRuzso7p21zD0HkdGRt5U8ttADaMb-YgKHRnDZKtKEA4BVQWh1R6uvHe2bC4onceyQAiQo_FaKrH1C2w7_kP7ZkfleDhVHLeevjP38qYUeKGsUkfEiyPZgPIFy_MPRfKRnPInDB70K_sbXHjklZ8eQAQgr6Vi2MrOoVFyuwQ', url: 'https://adrianocamposadvogado.kommo.com' });
@@ -1216,6 +1219,8 @@ import { DifDates } from './src/utils/DifDates.js';
 const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
 const kommoUtils = new KommoUtils();
 const recepcaoServices = new RecepcaoServices(19030890);
+
+// import { options } from './src/config/funnel_builder_options.js';
 
 async function test() {
   const leadThreadRepository = new LeadThreadRepository();
@@ -1268,8 +1273,26 @@ async function test() {
   // const lead = await kommo.listLeads({ query: '8196724310', first_created: true })
   // console.log(lead)
 
-  const date = 1740225600000;
-  console.log(DifDates(DateUtils.formatDate({ date })));
+  // const date = 1740225600000;
+  // console.log(DifDates(DateUtils.formatDate({ date })));
+
+  // const recepcaoServices = new RecepcaoServices(24527039);
+  // const response = await recepcaoServices.identificar_fonte_entrada();
+  // console.log(response);
+
+  // styled.info(StaticUtils.generateUUIDv5({
+  //   utm_source: 'Facebook',
+  //   utm_campaign: '12983716',
+  //   utm_content: 'LLKJSADB[skdkaksl]nnasodn',
+  //   utm_medium: '1829387632'
+  // }));
+
+  // const leadMessageRepository = new LeadMessagesRepository();
+  // await leadMessageRepository.clearMessages(24410353);
+
+  const confirmacaoServices = new ConfirmacaoServices(24410353);
+  const response = await confirmacaoServices.confirmarPresenca("YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4");
+  console.dir(response, { depth: null });
 }
 
 test();

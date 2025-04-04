@@ -88,50 +88,29 @@ export default class LeadMessagesRepository extends BaseRepository {
     };
   }
 
-  // async getLastMessages(lead_id, limit = 3) {
-  //   const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
-  //   if (!lead_message) return '';
+  async getFirstMessageOrigin(lead_id) {
+    const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
+    if (!lead_message?.messages?.length) return null;
 
-  //   const lead_messages = lead_message.messages;
-  //   if (!lead_messages || !lead_messages.length) return '';
+    const origin = lead_message.messages[0].origin;
 
-  //   const messages = lead_messages.slice(-limit).map(msg => msg.lead_message);
-  //   return messages.join('\n');
-  // }
+    switch (origin) {
+      case 'com.amocrm.amocrmwa':
+        return 'WhatsApp Web';
+      case 'instagram_business':
+        return 'Instagram Direct';
+      case 'waba':
+        return 'WhatsApp API';
+      default:
+        return origin;
+    }
+  }
 
-  // async getRecentMessages(lead_id) {
-  //   const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
-  //   if (!lead_message) return '';
+  async clearMessages(lead_id) {
+    const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
+    if (!lead_message?.messages?.length) return null;
 
-  //   const lead_messages = lead_message.messages;
-  //   if (!lead_messages || !lead_messages.length) return '';
-
-  //   const last_timestamp = await new LeadThreadRepository().getLastTimestamp(lead_id);
-
-  //   let messages = lead_messages;
-  //   if (last_timestamp) {
-  //     messages = lead_messages.filter(msg => new Date(Number(msg.created_at) * 1000) > last_timestamp);
-  //   }
-
-  //   if (!messages.length) return '';
-
-  //   return messages.map(msg => msg.lead_message).join('\n');
-  // }
-
-  // async getLastAndRecentMessages(lead_id) {
-  //   const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
-  //   if (!lead_message) return null;
-
-  //   const lead_messages = lead_message.messages;
-  //   if (!lead_messages || !lead_messages.length) return null;
-
-  //   const last_timestamp = await new LeadThreadRepository().getLastTimestamp(Number(lead_id));
-  //   const messages = lead_messages.filter(msg => new Date(Number(msg.created_at) * 1000) > last_timestamp);
-  //   if (!messages.length) return null;
-
-  //   return {
-  //     last_messages: lead_messages.slice(-3).map(msg => msg.lead_message).join('\n'),
-  //     recent_messages: messages.map(msg => msg.lead_message).join('\n')
-  //   };
-  // }
+    await this.update(Number(lead_id), { messages: [] });
+    styled.success('[LeadMessagesRepository.clearMessages] - Mensagens limpas com sucesso!');
+  }
 }
