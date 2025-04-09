@@ -13,17 +13,7 @@ const lead_messages = sequelize.define('lead_messages', {
   },
   messages: {
     type: DataTypes.ARRAY(DataTypes.JSON),
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
-  },
+  }
 });
 
 export default lead_messages;
