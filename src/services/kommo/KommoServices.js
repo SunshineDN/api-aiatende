@@ -69,7 +69,16 @@ export default class KommoServices {
     }
   }
 
-  async createLead({pipeline_id = '', status_id = '', custom_fields_values = []} = {}) {
+  /**
+   * Método para criar um lead
+   * @param {object} objeto de criação do lead
+   * @param {string} objeto.pipeline_id ID do pipeline
+   * @param {string} objeto.status_id ID do status
+   * @param {array} objeto.custom_fields_values Campos customizados do lead
+   * 
+   * @returns {Promise<object>} Retorna o lead criado
+   */
+  async createLead({ pipeline_id = '', status_id = '', custom_fields_values = [] } = {}) {
 
     const options = {
       method: 'POST',
@@ -87,7 +96,7 @@ export default class KommoServices {
         }
       ]
     };
-    
+
     const { data } = await axios.request(options);
     styled.success('[KommoServices.createLead] - Lead created');
     return data;
