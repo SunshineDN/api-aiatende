@@ -28,8 +28,6 @@ const bk_funnels = sequelize.define('bk_funnels', {
   funnelId: {
     type: DataTypes.STRING,
   }
-}, {
-  tableName: 'bk_funnels', // nome da tabela no banco de dados
 });
 
 export default bk_funnels;

@@ -8,6 +8,10 @@ const lead_threads = sequelize.define('lead_threads', {
     primaryKey: true,
     autoIncrement: true,
   },
+  author_id: {
+    type: DataTypes.UUID,
+    allowNull: true,
+  },
   threadID: {
     type: DataTypes.ARRAY(DataTypes.STRING),
     allowNull: true,
@@ -24,8 +28,6 @@ const lead_threads = sequelize.define('lead_threads', {
     type: DataTypes.DATE,
     allowNull: true,
   },
-}, {
-  tableName: 'lead_threads', // nome da tabela no banco de dados
 });
 
-export default lead_thread;
+export default lead_threads;

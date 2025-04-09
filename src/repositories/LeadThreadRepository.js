@@ -1,5 +1,5 @@
 import BaseRepository from "./BaseRepository.js";
-import LeadThread from "../models/LeadThread.js";
+import LeadThread from "../models/lead_threads.js";
 
 export default class LeadThreadRepository extends BaseRepository {
   constructor() {

@@ -15,7 +15,25 @@ const leads = sequelize.define('leads', {
   details: {
     type: DataTypes.JSON,
     allowNull: true,
-  }
+  },
+  createdAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
+  },
+  marketing_tracking_id: {
+    type: DataTypes.UUID,
+    references: {
+      model: 'marketing_tracking',
+      key: 'id',
+    },
+    allowNull: true,
+  },
 });
 
 export default leads;

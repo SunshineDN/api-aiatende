@@ -2,7 +2,7 @@ import axios from 'axios';
 import OpenAI from 'openai';
 import { Op } from 'sequelize';
 import styled from '../utils/log/styled.js';
-import LeadThread from '../models/LeadThread.js';
+import LeadThread from '../models/lead_threads.js';
 import { transcribeAudio } from '../services/gpt/TranscribeAudio.js';
 import { getFileNameFromUrl } from '../utils/GetNameExtension.js';
 import { downloadAudio, deleteTempFile } from '../services/gpt/DaD-Audio.js';
