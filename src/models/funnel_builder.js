@@ -28,6 +28,8 @@ const funnel_builder = sequelize.define('funnel_builder', {
   shift: {
     type: DataTypes.JSON,
   },
+}, {
+  tableName: 'funnel_builder'
 });
 
 export default funnel_builder;
