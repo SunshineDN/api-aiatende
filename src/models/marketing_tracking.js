@@ -8,7 +8,15 @@ const marketing_tracking = sequelize.define('marketing_tracking', {
     allowNull: false,
     primaryKey: true,
   },
+  client_id: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
   gclid: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  fbclid: {
     type: DataTypes.STRING,
     allowNull: true,
   },
@@ -35,6 +43,16 @@ const marketing_tracking = sequelize.define('marketing_tracking', {
   utm_referrer: {
     type: DataTypes.STRING,
     allowNull: true,
+  },
+  createdAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
   },
   lead_id: {
     type: DataTypes.UUID,

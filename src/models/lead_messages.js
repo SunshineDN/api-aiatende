@@ -1,20 +1,18 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/db.js';
 
-const leads = sequelize.define('leads', {
+const lead_messages = sequelize.define('lead_messages', {
   id: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
+    type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
   },
-  data: {
-    type: DataTypes.JSON,
+  author_id: {
+    type: DataTypes.UUID,
     allowNull: true,
   },
-  details: {
-    type: DataTypes.JSON,
-    allowNull: true,
+  messages: {
+    type: DataTypes.ARRAY(DataTypes.JSON),
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -26,14 +24,6 @@ const leads = sequelize.define('leads', {
     allowNull: false,
     defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
   },
-  marketing_tracking_id: {
-    type: DataTypes.UUID,
-    references: {
-      model: 'marketing_tracking',
-      key: 'id',
-    },
-    allowNull: true,
-  },
 });
 
-export default leads;
+export default lead_messages;

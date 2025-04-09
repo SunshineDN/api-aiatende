@@ -1,5 +1,5 @@
 import BaseRepository from "./BaseRepository.js";
-import BkFunnels from "../models/BkFunnels.js";
+import BkFunnels from "../models/bk_funnels.js";
 
 export default class BkFunnelsRepository extends BaseRepository {
   constructor() {
