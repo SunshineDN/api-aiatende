@@ -1,9 +1,9 @@
-import BaseRepository from "./BaseRepository";
-import MarketingTracking from "../models/marketing_tracking.js";
+import BaseRepository from "./BaseRepository.js";
+import marketing_tracking from "../models/marketing_tracking.js";
 
 
 export default class MarketingTrackingRepository extends BaseRepository {
   constructor() {
-    super(MarketingTracking);
+    super(marketing_tracking);
   }
 }
