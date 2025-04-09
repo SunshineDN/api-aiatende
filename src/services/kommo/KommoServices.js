@@ -69,6 +69,30 @@ export default class KommoServices {
     }
   }
 
+  async createLead({pipeline_id = '', status_id = '', custom_fields_values = []} = {}) {
+
+    const options = {
+      method: 'POST',
+      url: `${this.url}/api/v4/leads`,
+      headers: {
+        accept: 'application/json',
+        'content-type': 'application/json',
+        authorization: `Bearer ${this.auth}`
+      },
+      data: [
+        {
+          pipeline_id,
+          status_id,
+          custom_fields_values
+        }
+      ]
+    };
+    
+    const { data } = await axios.request(options);
+    styled.success('[KommoServices.createLead] - Lead created');
+    return data;
+  }
+
   async updateLead({ id, status_id = '', pipeline_id = '', custom_fields_values = [] } = {}) {
     if (!id) {
       throw new Error('Lead ID is required');
@@ -373,6 +397,7 @@ export default class KommoServices {
 
     return { code: 200, response: data };
   }
+
 
   /**
    * Método para criar um lead no BK Funnels
