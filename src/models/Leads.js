@@ -24,6 +24,8 @@ const leads = sequelize.define('leads', {
     },
     allowNull: true,
   },
+}, {
+  tableName: 'leads',
 });
 
 export default leads;

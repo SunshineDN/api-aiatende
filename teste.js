@@ -1290,9 +1290,12 @@ async function test() {
   // const leadMessageRepository = new LeadMessagesRepository();
   // await leadMessageRepository.clearMessages(24410353);
 
-  const confirmacaoServices = new ConfirmacaoServices(24410353);
-  const response = await confirmacaoServices.confirmarPresenca("YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4");
-  console.dir(response, { depth: null });
+  // const confirmacaoServices = new ConfirmacaoServices(24410353);
+  // const response = await confirmacaoServices.confirmarPresenca("YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4");
+  // console.dir(response, { depth: null });
+
+  const marketing = 0;
+  const marketingValues = 0;
 }
 
 test();

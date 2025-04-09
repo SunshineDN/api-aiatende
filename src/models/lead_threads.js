@@ -28,6 +28,8 @@ const lead_threads = sequelize.define('lead_threads', {
     type: DataTypes.DATE,
     allowNull: true,
   },
+}, {
+  tableName: 'lead_threads'
 });
 
 export default lead_threads;
