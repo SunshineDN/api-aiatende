@@ -44,16 +44,6 @@ const marketing_tracking = sequelize.define('marketing_tracking', {
     type: DataTypes.STRING,
     allowNull: true,
   },
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
-  },
   lead_id: {
     type: DataTypes.UUID,
     references: {
