@@ -43,15 +43,7 @@ const marketing_tracking = sequelize.define('marketing_tracking', {
   utm_referrer: {
     type: DataTypes.STRING,
     allowNull: true,
-  },
-  lead_id: {
-    type: DataTypes.UUID,
-    references: {
-      model: 'leads', // Nome da tabela referenciada
-      key: 'id', // Chave primária da tabela referenciada
-    },
-    allowNull: false,
-  },
+  }
 });
 
 export default marketing_tracking;
