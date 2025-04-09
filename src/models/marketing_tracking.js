@@ -44,6 +44,8 @@ const marketing_tracking = sequelize.define('marketing_tracking', {
     type: DataTypes.STRING,
     allowNull: true,
   }
+}, {
+  tableName: 'marketing_tracking',
 });
 
 export default marketing_tracking;

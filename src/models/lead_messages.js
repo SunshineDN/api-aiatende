@@ -14,6 +14,8 @@ const lead_messages = sequelize.define('lead_messages', {
   messages: {
     type: DataTypes.ARRAY(DataTypes.JSON),
   }
+}, {
+  tableName: 'lead_messages',
 });
 
 export default lead_messages;
