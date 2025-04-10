@@ -17,7 +17,7 @@ export default class WppServices {
     await this.marketing_tracking.updateByClientId(create.client_id, utms);
     styled.success('UTM separated and saved in the database');
 
-    const custom_fields_values = await this.handleCustomFields({utms});
+    const custom_fields_values = await this.handleCustomFields({utms}, create.id);
     styled.success('Custom fields values created');
 
     await this.kommo.createLead({
@@ -26,11 +26,17 @@ export default class WppServices {
       custom_fields_values
     });
     
-    return create.client_id;
+    return create.id;
   }
 
   async handleWebhookDuplicate(data) {
-    return data;
+    const {custom_fields_values} = data
+
+    const id_field = custom_fields_values.find(field => field.field_id === 1379333);
+    const id = id_field.values[0].value;
+    styled.infodir(id_field)
+    styled.info(id)
+    return id;
 
   }
 
@@ -50,8 +56,9 @@ export default class WppServices {
     return utms
   }
 
-  async handleCustomFields({utms}){
+  async handleCustomFields({utms},id){
     const custom_fields_values = [
+      {field_id: 1379333, values: [{value: id}]},
       {field_id: 1379289, values: [{value: utms.client_id}]},
       {field_id: 1379023, values: [{value: utms.utm_source}]},
       {field_id: 1379025, values: [{value: utms.utm_campaign}]},
