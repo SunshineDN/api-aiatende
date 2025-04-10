@@ -407,7 +407,6 @@ export default class KommoServices {
     return { code: 200, response: data };
   }
 
-
   /**
    * Método para criar um lead no BK Funnels
    * @param {object} objeto de criação do lead

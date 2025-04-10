@@ -26,6 +26,9 @@ services:
       - TZ=America/Sao_Paulo
       - OPENAI_API_KEY= # Chave de API do OpenAI
       - OPENAI_ASSISTANT_ID= # ID do assistente do OpenAI
+      - EVOLUTION_API_BASE_URL= # URL base da API do Evolution API
+      - EVOLUTION_API_INSTANCE_ID= # ID da instância da API do Evolution API
+      - EVOLUTION_API_KEY= # Chave de API do Evolution API
     expose:
       - "PORT" # Altere para a porta que deseja expor
     ports:
