@@ -11,10 +11,38 @@ export default class OpenaiIntegrationServices extends KommoServices {
     super({ auth, url });
   }
 
-  async #sendMessage({ lead_id, message }) {
+  async #saveAssistantMessage({ lead_id, message }) {
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields() });
 
     const answerField = kommoUtils.findLeadsFieldByName('GPT | Answer');
+    const logField = kommoUtils.findLeadsFieldByName('GPT | LOG');
+    const custom_fields_values = [
+      {
+        field_id: answerField.id,
+        values: [
+          {
+            value: message
+          }
+        ]
+      },
+      {
+        field_id: logField.id,
+        values: [
+          {
+            value: 'ok'
+          }
+        ]
+      }
+    ]
+
+    const response = await this.updateLead({ id: lead_id, custom_fields_values });
+    return response;
+  }
+
+  async #savePromptMessage({ lead_id, message }) {
+    const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields() });
+
+    const answerField = kommoUtils.findLeadsFieldByName('GPT | Intent');
     const logField = kommoUtils.findLeadsFieldByName('GPT | LOG');
     const custom_fields_values = [
       {
@@ -79,7 +107,7 @@ export default class OpenaiIntegrationServices extends KommoServices {
     const { message } = await OpenAIController.generateMessage(data);
 
     styled.success('[OpenaiIntegrationServices.assistant] Resposta recebida do assistente:', message);
-    const updated = await this.#sendMessage({ lead_id, message: StaticUtils.substituteEmojisAnswer(message) });
+    const updated = await this.#saveAssistantMessage({ lead_id, message: StaticUtils.substituteEmojisAnswer(message) });
     return {
       generated_message: message,
       updated
@@ -94,7 +122,7 @@ export default class OpenaiIntegrationServices extends KommoServices {
 
     styled.success('[OpenaiIntegrationServices.prompt] Resposta recebida do prompt:', message);
 
-    const updated = await this.#sendMessage({ lead_id, message });
+    const updated = await this.#savePromptMessage({ lead_id, message });
     return {
       generated_message: message,
       updated
