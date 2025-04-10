@@ -21,7 +21,7 @@ export default class CutucadaServices {
       const answer = await LeadUtils.findLeadField({ lead, fieldName: 'GPT | Answer', value: true });
 
       const text = `Aja como um analista de marketing experiente em comunicação com clientes.
-Receba a mensagem enviada pela clínica: ${answer}.
+Receba a mensagem enviada pelo estabelecimento: ${answer}.
 Agora analise a resposta recebida do usuário: ${lead_messages}.
 
 Sua tarefa é identificar a intenção do usuário com base nas categorias abaixo e retornar somente o ID correspondente no formato: #Categoria (exemplo: #Geral).
