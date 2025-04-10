@@ -95,4 +95,24 @@ Retorne apenas a mensagem que será enviada ao usuário.`;
       throw error;
     }
   }
+
+  async gerar_perguntas_historico() {
+    try {
+      styled.function('[CutucadaServices.gerar_perguntas_historico] Cutucada | Gerar Perguntas Histórico...');
+      const history_messages = await this.leadMessagesRepository.getMessagesHistory(this.lead_id);
+
+      const text = `Aja como um especialista em comunicação persuasiva via WhatsApp.
+Com base nesse histórico, gere apenas uma pergunta certeira, direta e personalizada que aumente significativamente as chances de o cliente responder rapidamente.
+Importante: sua resposta deve conter somente a pergunta, sem nenhum comentário, explicação ou saudação.
+Histórico:
+{ ${history_messages} }`;
+
+      const response = await this.openaiintegrationservices.prompt(this.lead_id, text);
+      return { code: 200, message: 'Prompt enviado com sucesso', ...response };
+    } catch (error) {
+      styled.error(`[CutucadaServices.gerar_perguntas_historico] Erro ao enviar mensagem para o prompt`);
+      await this.openaiintegrationservices.sendErrorLog({ lead_id: this.lead_id, error: `[CutucadaServices.gerar_perguntas_historico] ${error?.message}` });
+      throw error;
+    }
+  }
 }

@@ -18,4 +18,6 @@ router.post('/intencao', CutucadaController.intencao);
 
 router.post('/gerar-perguntas', CutucadaController.gerar_perguntas);
 
+router.post('/gerar-pergunta-historico', CutucadaController.gerar_perguntas_historico);
+
 export default router;
