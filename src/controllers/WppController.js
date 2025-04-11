@@ -36,7 +36,7 @@ export default class WppController {
       return;
     }
   }
-
+  
   static async handleMessageUpsert(req, res) {
     res.status(200).send('ok');
   }
