@@ -43,39 +43,8 @@ export default class WppServices {
       styled.warning("Lead Sem Contato")
       return
     }
-    const { data: { _embedded: { leads }}  } = await this.kommo.listLeads({query:id})
-    styled.infodir(leads)
-    const custom = leads.map((item) => {
-
-      return {id: item.id,fields:item.custom_fields_values,embedded: item._embedded}
-    })
-    styled.info("Custom:")
-    styled.infodir(custom)
-    const lead_sc = custom.filter((item) => item?.embedded?.contacts?.length == 0)
-    const fields = lead_sc.flatMap((item) => item.fields)
-    const format_fields_sc = fields.map((item) => {
-      return {
-          id: item.field_id,
-          value:item.values[0].value
-      }
-    })
-    const id_sc = lead_sc.flatMap((item) => item.id)
-    styled.info("Sem Contato: ")
-    styled.infodir(format_fields_sc)
-    styled.infodir(id_sc)
-    const lead_cc = custom.filter((item)=> item?.embedded?.contacts?.length != 0)
-    const fields_cc = lead_cc.flatMap((item) => item.fields)
-    const format_cc = fields_cc.map((item)=> {
-      return {
-        id: item.field_id,
-        value: item?.values[0]?.value
-      }
-    })
-    const id_cc = lead_cc.flatMap((item)=> item.id)
-    styled.info("Com Contato: ")
-    styled.infodir(format_cc)
-    styled.infodir(id_cc)
-
+    styled.info("Lead com contato")
+    styled.infodir(contacts)
     return res.status(200)
   }
 
