@@ -26,7 +26,7 @@ export default class WppController {
 
   async handleWebhookDuplicate(req,res) {
     try {
-      const { leads : {add} } = req.body;
+      const add = req.body;
       styled.infodir(add);
       await this.wppServices.handleWebhookDuplicate(add);
       return res.status(200).json({ message: "Tratamento de duplicata realizado com sucesso" });
