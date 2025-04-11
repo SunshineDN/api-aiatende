@@ -16,7 +16,7 @@ export default class WppController {
       styled.infodir(query);
       const id = await this.wppServices.handleWabhookReceived(query);
       styled.success('Webhook received and handled');
-      res.redirect(`https://wa.me/558130930133?source=${id}`);
+      res.redirect(`https://wa.me/558130930133?text=Lead%20recebido%20com%20sucesso%20${id}`);
     } catch (error) {
       styled.error('Error in webhook', error);
       res.status(500).send('Internal Server Error');

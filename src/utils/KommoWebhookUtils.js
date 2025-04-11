@@ -1,11 +1,11 @@
-import MarketingTrackingRepository from "../repositories/MarketingTrackingRepository";
-import KommoServices from "../services/KommoServices.js";
+import MarketingTrackingRepository from "../repositories/MarketingTrackingRepository.js";
+import KommoServices from "../services/kommo/KommoServices.js"
 import styled from "./log/styled.js";
 
-class KommoWebhookUtils {
+export default class KommoWebhookUtils {
     constructor(){
         this.kommo = new KommoServices();
-        this.marketing_tracking = new MarketingTrackingRepository();
+        this.MarketingTracking= new MarketingTrackingRepository();
     }
 
     static async handleWebhookDuplicate(lead) {
@@ -23,4 +23,3 @@ class KommoWebhookUtils {
     }
 }
 
-module.exports = KommoWebhookUtils;
