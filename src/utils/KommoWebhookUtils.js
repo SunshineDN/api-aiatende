@@ -1,21 +1,25 @@
-const { default: KommoServices } = require("../services/kommo/KommoServices");
+import MarketingTrackingRepository from "../repositories/MarketingTrackingRepository";
+import KommoServices from "../services/KommoServices.js";
+import styled from "./log/styled.js";
 
 class KommoWebhookUtils {
     constructor(){
         this.kommo = new KommoServices();
+        this.marketing_tracking = new MarketingTrackingRepository();
     }
 
-    static async handleWebhookDuplicate(data) {
-        const id_lead = data.flatMap((item) => item.id)
-        const lead = await this.kommo.getLead({id: id_lead, withParams: "contacts"})
+    static async handleWebhookDuplicate(lead) {
+        styled.function('[KommoWebhookUtils.handleWebhookDuplicate]');
         if(lead.contact.length == 0 || lead.contact == []){
             styled.warning("Lead Sem Contato")
             return
         }
-        const custom_fields = lead.custom_fields_values
         styled.info("Lead com contato")
-        styled.infodir(lead)
-        return
+        const custom_fields = lead.custom_fields_values
+        const id_backup = custom_fields.filter(field => field.id === "1379333")
+        const id = id_backup[0].values[0].value;
+        styled.info(id)
+        return id
     }
 }
 

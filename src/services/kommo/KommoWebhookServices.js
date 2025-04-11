@@ -4,6 +4,7 @@ import styled from "../../utils/log/styled.js";
 import StaticUtils from "../../utils/StaticUtils.js";
 import OpenAIServices from "../gpt/OpenAIServices.js";
 import KommoServices from "./KommoServices.js";
+import KommoWebhookUtils from "../../utils/KommoWebhookUtils.js";
 import LeadMessagesRepository from "../../repositories/LeadMessagesRepository.js";
 
 export default class KommoWebhookServices extends KommoServices {
@@ -14,7 +15,8 @@ export default class KommoWebhookServices extends KommoServices {
   async createLead(id, { calendar = false, created_at = false } = {}) {
     styled.function('[KommoWebhookServices.createLead]');
 
-    const lead = await this.getLead({ id });
+    const lead = await this.getLead({ id, withParams: 'contacts' });
+    const isDuplicate = await KommoWebhookUtils.handleWebhookDuplicate(lead);
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields() });
     const calendario = LeadUtils.findLeadField({ lead, fieldName: 'Calendário', value: true });
     const criacao = LeadUtils.findLeadField({ lead, fieldName: 'Data de Criação', value: true });
