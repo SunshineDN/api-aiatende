@@ -38,13 +38,14 @@ export default class WppServices {
     const id = id_field[0].values[0].value;
     styled.info(id)
     
-    const {data: {_embedded: {contacts} = {}}} = await this.kommo.getLead({id: id_lead, with: "contacts"})
-    if(contacts.length == 0 || contacts == []){
+    const leads = await this.kommo.getLead({id: id_lead, withParams: "contacts"})
+    styled.infodir(leads)
+    if(leads.contact.length == 0 || leads.contact == []){
       styled.warning("Lead Sem Contato")
       return
     }
     styled.info("Lead com contato")
-    styled.infodir(contacts)
+    styled.infodir(leads)
     return res.status(200)
   }
 
