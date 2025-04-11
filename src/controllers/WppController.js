@@ -26,12 +26,12 @@ export default class WppController {
 
   async handleWebhookDuplicate(req,res) {
     try {
-      const add = req.body;
+      const {leads: {add}} = req.body;
       styled.infodir(add);
       await this.wppServices.handleWebhookDuplicate(add);
       return res.status(200).json({ message: "Tratamento de duplicata realizado com sucesso" });
     }catch (error) {
-      styled.error('Error in webhook', error);
+      console.error(error);
       res.status(500).send('Internal Server Error');
       return;
     }
