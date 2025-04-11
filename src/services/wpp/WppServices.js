@@ -2,6 +2,7 @@ import MarketingTrackingRepository from "../../repositories/MarketingTrackingRep
 import styled from "../../utils/log/styled.js";
 import KommoServices from "../kommo/KommoServices.js";
 
+
 export default class WppServices {
   constructor(){
     this.marketing_tracking = new MarketingTrackingRepository();
@@ -17,7 +18,7 @@ export default class WppServices {
     await this.marketing_tracking.updateByClientId(create.client_id, utms);
     styled.success('UTM separated and saved in the database');
 
-    const custom_fields_values = await this.handleCustomFields({utms});
+    const custom_fields_values = await this.handleCustomFields({utms}, create.id);
     styled.success('Custom fields values created');
 
     await this.kommo.createLead({
@@ -26,12 +27,56 @@ export default class WppServices {
       custom_fields_values
     });
     
-    return create.client_id;
+    return create.id;
   }
 
   async handleWebhookDuplicate(data) {
-    return data;
+    
+    const id_lead = data.flatMap((item) => item.id)
+    const custom_fields = data.flatMap((item) => item.custom_fields)
+    const id_field = custom_fields.filter(field => field.id === "1379333");
+    const id = id_field[0].values[0].value;
+    styled.info(id)
+    
+    const {data: {_embedded: {contacts} = {}}} = await this.kommo.getLead({id: id_lead, with: "contacts"})
+    if(contacts.length == 0 || contacts == []){
+      styled.warning("Lead Sem Contato")
+      return
+    }
+    const { data: { _embedded: { leads }}  } = await this.kommo.listLeads({query:id})
+    styled.infodir(leads)
+    const custom = leads.map((item) => {
 
+      return {id: item.id,fields:item.custom_fields_values,embedded: item._embedded}
+    })
+    styled.info("Custom:")
+    styled.infodir(custom)
+    const lead_sc = custom.filter((item) => item?.embedded?.contacts?.length == 0)
+    const fields = lead_sc.flatMap((item) => item.fields)
+    const format_fields_sc = fields.map((item) => {
+      return {
+          id: item.field_id,
+          value:item.values[0].value
+      }
+    })
+    const id_sc = lead_sc.flatMap((item) => item.id)
+    styled.info("Sem Contato: ")
+    styled.infodir(format_fields_sc)
+    styled.infodir(id_sc)
+    const lead_cc = custom.filter((item)=> item?.embedded?.contacts?.length != 0)
+    const fields_cc = lead_cc.flatMap((item) => item.fields)
+    const format_cc = fields_cc.map((item)=> {
+      return {
+        id: item.field_id,
+        value: item?.values[0]?.value
+      }
+    })
+    const id_cc = lead_cc.flatMap((item)=> item.id)
+    styled.info("Com Contato: ")
+    styled.infodir(format_cc)
+    styled.infodir(id_cc)
+
+    return res.status(200)
   }
 
   async handleUTMSeparator(query) {
@@ -50,8 +95,9 @@ export default class WppServices {
     return utms
   }
 
-  async handleCustomFields({utms}){
+  async handleCustomFields({utms},id){
     const custom_fields_values = [
+      {field_id: 1379333, values: [{value: id}]},
       {field_id: 1379289, values: [{value: utms.client_id}]},
       {field_id: 1379023, values: [{value: utms.utm_source}]},
       {field_id: 1379025, values: [{value: utms.utm_campaign}]},
@@ -65,4 +111,6 @@ export default class WppServices {
     return custom_fields_values
 
   }
+
+   
 }

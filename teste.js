@@ -17,6 +17,7 @@
 //   }
 // ];
 
+import KommoServices from './src/services/kommo/KommoServices.js';
 import styled from './src/utils/log/styled.js';
 
 // const fatherFieldValues = 'Teste1;teste2;teste3;teste4;teste5';
@@ -1193,100 +1194,111 @@ import styled from './src/utils/log/styled.js';
 // console.log(date2);
 // console.log(date2 > date1);
 
-import KommoServices from './src/services/kommo/KommoServices.js';
-import KommoUtils from './src/utils/KommoUtils.js';
-import EvolutionApiServices from './src/services/evolutionapi/EvolutionApiServices.js';
-import fs from 'fs';
+// import KommoServices from './src/services/kommo/KommoServices.js';
+// import KommoUtils from './src/utils/KommoUtils.js';
+// import EvolutionApiServices from './src/services/evolutionapi/EvolutionApiServices.js';
+// import fs from 'fs';
 
-// ADRIANO
-// const kommo = new KommoServices({ auth: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjU3MTBhYzI1OGRiYzE5YjMwOGJiOTJjNGQwNWRkNDcyYjAzNTY0MDM5MzUzYTg2OGZmNDU2MGYxM2U3OGRhNDMwNzA1ZTI1MmE5ZDA1ZjkxIn0.eyJhdWQiOiI5OTIzYzhiMi1jNDYzLTQ0MGQtYTcxMS0wMTIwZWZhNGMzYmIiLCJqdGkiOiI1NzEwYWMyNThkYmMxOWIzMDhiYjkyYzRkMDVkZDQ3MmIwMzU2NDAzOTM1M2E4NjhmZjQ1NjBmMTNlNzhkYTQzMDcwNWUyNTJhOWQwNWY5MSIsImlhdCI6MTczNjgxNzQyNSwibmJmIjoxNzM2ODE3NDI1LCJleHAiOjE3Njk4MTc2MDAsInN1YiI6Ijc0MjE4OTkiLCJncmFudF90eXBlIjoiIiwiYWNjb3VudF9pZCI6MzM5ODExODMsImJhc2VfZG9tYWluIjoia29tbW8uY29tIiwidmVyc2lvbiI6Miwic2NvcGVzIjpbImNybSIsImZpbGVzIiwiZmlsZXNfZGVsZXRlIiwibm90aWZpY2F0aW9ucyIsInB1c2hfbm90aWZpY2F0aW9ucyJdLCJoYXNoX3V1aWQiOiJlMzE4MzllYi03MWU1LTQyMDctOGQ0YS1iZWVjZTI3MTg0MTgiLCJhcGlfZG9tYWluIjoiYXBpLWMua29tbW8uY29tIn0.Idtrl_UJp1uHQHfvb8denAWxhASFVY8ju2fZ3hxwmMofCuKXbj8LXPOW92p9XkGgy2azs_IzzprhMjm1yJ_QMtnu71FtfRDE8o55FkfDBeflXH9SaAzhmQ65WmXvpnrwTsrfnbjeCNacPb0m6YQBKezqdS9XtzCw0Ptt_f0Pab7qpLZRuzso7p21zD0HkdGRt5U8ttADaMb-YgKHRnDZKtKEA4BVQWh1R6uvHe2bC4onceyQAiQo_FaKrH1C2w7_kP7ZkfleDhVHLeevjP38qYUeKGsUkfEiyPZgPIFy_MPRfKRnPInDB70K_sbXHjklZ8eQAQgr6Vi2MrOoVFyuwQ', url: 'https://adrianocamposadvogado.kommo.com' });
+// // ADRIANO
+// // const kommo = new KommoServices({ auth: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjU3MTBhYzI1OGRiYzE5YjMwOGJiOTJjNGQwNWRkNDcyYjAzNTY0MDM5MzUzYTg2OGZmNDU2MGYxM2U3OGRhNDMwNzA1ZTI1MmE5ZDA1ZjkxIn0.eyJhdWQiOiI5OTIzYzhiMi1jNDYzLTQ0MGQtYTcxMS0wMTIwZWZhNGMzYmIiLCJqdGkiOiI1NzEwYWMyNThkYmMxOWIzMDhiYjkyYzRkMDVkZDQ3MmIwMzU2NDAzOTM1M2E4NjhmZjQ1NjBmMTNlNzhkYTQzMDcwNWUyNTJhOWQwNWY5MSIsImlhdCI6MTczNjgxNzQyNSwibmJmIjoxNzM2ODE3NDI1LCJleHAiOjE3Njk4MTc2MDAsInN1YiI6Ijc0MjE4OTkiLCJncmFudF90eXBlIjoiIiwiYWNjb3VudF9pZCI6MzM5ODExODMsImJhc2VfZG9tYWluIjoia29tbW8uY29tIiwidmVyc2lvbiI6Miwic2NvcGVzIjpbImNybSIsImZpbGVzIiwiZmlsZXNfZGVsZXRlIiwibm90aWZpY2F0aW9ucyIsInB1c2hfbm90aWZpY2F0aW9ucyJdLCJoYXNoX3V1aWQiOiJlMzE4MzllYi03MWU1LTQyMDctOGQ0YS1iZWVjZTI3MTg0MTgiLCJhcGlfZG9tYWluIjoiYXBpLWMua29tbW8uY29tIn0.Idtrl_UJp1uHQHfvb8denAWxhASFVY8ju2fZ3hxwmMofCuKXbj8LXPOW92p9XkGgy2azs_IzzprhMjm1yJ_QMtnu71FtfRDE8o55FkfDBeflXH9SaAzhmQ65WmXvpnrwTsrfnbjeCNacPb0m6YQBKezqdS9XtzCw0Ptt_f0Pab7qpLZRuzso7p21zD0HkdGRt5U8ttADaMb-YgKHRnDZKtKEA4BVQWh1R6uvHe2bC4onceyQAiQo_FaKrH1C2w7_kP7ZkfleDhVHLeevjP38qYUeKGsUkfEiyPZgPIFy_MPRfKRnPInDB70K_sbXHjklZ8eQAQgr6Vi2MrOoVFyuwQ', url: 'https://adrianocamposadvogado.kommo.com' });
 
-// DENTAL SANTE
-const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
-const kommoUtils = new KommoUtils();
+// // DENTAL SANTE
+// const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
+// const kommoUtils = new KommoUtils();
 
-// import { options } from './src/config/funnel_builder_options.js';
+// // import { options } from './src/config/funnel_builder_options.js';
 
-async function test() {
+// async function test() {
 
-  // const lead = await leadThreadRepository.findById(19030890);
+//   // const lead = await leadThreadRepository.findById(19030890);
 
-  // console.log(lead);
+//   // console.log(lead);
 
-  // const updated = await leadThreadRepository.getLastTimestamp(19030890);
-  // const ms = "1737754701";
-  // console.log(updated.toString());
-  // console.log(new Date().toString());
-  // console.log(new Date(Number(ms) * 1000).toString());
-  // console.log(new Date(Number(ms) * 1000) > updated);
+//   // const updated = await leadThreadRepository.getLastTimestamp(19030890);
+//   // const ms = "1737754701";
+//   // console.log(updated.toString());
+//   // console.log(new Date().toString());
+//   // console.log(new Date(Number(ms) * 1000).toString());
+//   // console.log(new Date(Number(ms) * 1000) > updated);
 
-  // const upd = await leadThreadRepository.updateLastTimestamp(19030890);
-  // console.log(upd);
+//   // const upd = await leadThreadRepository.updateLastTimestamp(19030890);
+//   // console.log(upd);
 
-  // const leadMessageRepository = new LeadMessagesRepository();
-  // const recentMessages = await leadMessageRepository.getRecentMessages(19030890);
-  // console.log(recentMessages ? recentMessages : 'Nenhuma mensagem encontrada');
+//   // const leadMessageRepository = new LeadMessagesRepository();
+//   // const recentMessages = await leadMessageRepository.getRecentMessages(19030890);
+//   // console.log(recentMessages ? recentMessages : 'Nenhuma mensagem encontrada');
 
-  // const lead = await kommo.getLead({ id: 19030890 });
-  // const message_received = LeadUtils.findLeadField({ lead, fieldName: 'GPT | Message received' });
-  // if (message_received) {
-  //   await kommo.updateLead({ id: 19030890, custom_fields_values: [{ field_id: message_received.field_id, values: [{ value: '' }] }] });
-  // }
-  // console.log('Mensagem recebida apagada com sucesso');
+//   // const lead = await kommo.getLead({ id: 19030890 });
+//   // const message_received = LeadUtils.findLeadField({ lead, fieldName: 'GPT | Message received' });
+//   // if (message_received) {
+//   //   await kommo.updateLead({ id: 19030890, custom_fields_values: [{ field_id: message_received.field_id, values: [{ value: '' }] }] });
+//   // }
+//   // console.log('Mensagem recebida apagada com sucesso');
 
-  // const response = await new GlobalServices(19030890).assistente("YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA");
-  // console.log(response);
+//   // const response = await new GlobalServices(19030890).assistente("YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA");
+//   // console.log(response);
 
-  // const query = "MjQ0MTAzNTM";
-  // const query = "%289%29+672-4310";
+//   // const query = "MjQ0MTAzNTM";
+//   // const query = "%289%29+672-4310";
 
-  // const webCalendarServices = new WebCalendarServices(query);
+//   // const webCalendarServices = new WebCalendarServices(query);
 
-  // const response = await webCalendarServices.listInitialValues();
-  // const response = await webCalendarServices.getChoiceDate('08/02/2025', 'Qualquer horário', 'Odontopediatria');
-  // const response = await webCalendarServices.insertEvent('Dra. Juliana Leite', '05/02/2025', '18:00');
-  // console.dir(response, { depth: null });
-  // console.log(StaticUtils.isBase64(query));
-  // const kommoCalendarServices = new KommoCalendarServices(24410353);
-  // const response = await kommoCalendarServices.scheduleLead({ description: 'Teste', dateString: '17/02/2025 21:00', profissional: 'Odontopediatria' });
-  // console.dir(response, { depth: null });
+//   // const response = await webCalendarServices.listInitialValues();
+//   // const response = await webCalendarServices.getChoiceDate('08/02/2025', 'Qualquer horário', 'Odontopediatria');
+//   // const response = await webCalendarServices.insertEvent('Dra. Juliana Leite', '05/02/2025', '18:00');
+//   // console.dir(response, { depth: null });
+//   // console.log(StaticUtils.isBase64(query));
+//   // const kommoCalendarServices = new KommoCalendarServices(24410353);
+//   // const response = await kommoCalendarServices.scheduleLead({ description: 'Teste', dateString: '17/02/2025 21:00', profissional: 'Odontopediatria' });
+//   // console.dir(response, { depth: null });
 
-  // const upd = await kommo.updateLeadBk({ id: 24410353, code: 'f881B1', bairro: 'Candeias', datanascimento: '11/03/2003', name: 'Douglas Augusto', dentista: 'Dra. Juliana Leite', email: 'douglascabral5000@gmail.com', periodo: 'Nesta Semana (Até Sábado)', service: 'Invisalign', turno: 'Qualquer horário' });
-  // console.dir(upd, { depth: null });
+//   // const upd = await kommo.updateLeadBk({ id: 24410353, code: 'f881B1', bairro: 'Candeias', datanascimento: '11/03/2003', name: 'Douglas Augusto', dentista: 'Dra. Juliana Leite', email: 'douglascabral5000@gmail.com', periodo: 'Nesta Semana (Até Sábado)', service: 'Invisalign', turno: 'Qualquer horário' });
+//   // console.dir(upd, { depth: null });
 
-  // const lead = await kommo.listLeads({ query: '8196724310', first_created: true })
-  // console.log(lead)
+//   // const lead = await kommo.listLeads({ query: '8196724310', first_created: true })
+//   // console.log(lead)
 
-  // const date = 1740225600000;
-  // console.log(DifDates(DateUtils.formatDate({ date })));
+//   // const date = 1740225600000;
+//   // console.log(DifDates(DateUtils.formatDate({ date })));
 
-  // const recepcaoServices = new RecepcaoServices(24527039);
-  // const response = await recepcaoServices.identificar_fonte_entrada();
-  // console.log(response);
+//   // const recepcaoServices = new RecepcaoServices(24527039);
+//   // const response = await recepcaoServices.identificar_fonte_entrada();
+//   // console.log(response);
 
-  // styled.info(StaticUtils.generateUUIDv5({
-  //   utm_source: 'Facebook',
-  //   utm_campaign: '12983716',
-  //   utm_content: 'LLKJSADB[skdkaksl]nnasodn',
-  //   utm_medium: '1829387632'
-  // }));
+//   // styled.info(StaticUtils.generateUUIDv5({
+//   //   utm_source: 'Facebook',
+//   //   utm_campaign: '12983716',
+//   //   utm_content: 'LLKJSADB[skdkaksl]nnasodn',
+//   //   utm_medium: '1829387632'
+//   // }));
 
-  // const leadMessageRepository = new LeadMessagesRepository();
-  // await leadMessageRepository.clearMessages(24410353);
+//   // const leadMessageRepository = new LeadMessagesRepository();
+//   // await leadMessageRepository.clearMessages(24410353);
 
-  // const confirmacaoServices = new ConfirmacaoServices(24410353);
-  // const response = await confirmacaoServices.confirmarPresenca("YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4");
-  // console.dir(response, { depth: null });
-  const audio64 = audioToBase64('./src/resources/audio/let-me-know.mp3');
+//   // const confirmacaoServices = new ConfirmacaoServices(24410353);
+//   // const response = await confirmacaoServices.confirmarPresenca("YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4");
+//   // console.dir(response, { depth: null });
+//   const audio64 = audioToBase64('./src/resources/audio/let-me-know.mp3');
 
-  const evolutionApiServices = new EvolutionApiServices(process.env.EVOLUTION_API_KEY, process.env.EVOLUTION_API_INSTANCE_ID);
-  // await evolutionApiServices.sendMessage({ number: '558196724310', message: 'Teste de mensagem' });
-  await evolutionApiServices.sendAudio({ number: '558196724310', audio: audio64 });
+//   const evolutionApiServices = new EvolutionApiServices(process.env.EVOLUTION_API_KEY, process.env.EVOLUTION_API_INSTANCE_ID);
+//   // await evolutionApiServices.sendMessage({ number: '558196724310', message: 'Teste de mensagem' });
+//   await evolutionApiServices.sendAudio({ number: '558196724310', audio: audio64 });
+// }
+
+// test();
+
+// function audioToBase64(audioPath) {
+//   const audioData = fs.readFileSync(audioPath);
+//   return Buffer.from(audioData).toString('base64');
+// }
+
+
+async function getKommo (){
+  const kommo =  new KommoServices({ auth: "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImI2Njg5YmRkOTE4NDg0ZGJkNjQ3NmEwODg0MGY2N2JlOWEwN2VkZTBiYmJlOWU0ZDlkYjc1Y2Y2OTZhMzI3YTc1ODA3NDBjNDAzZDlhOGQ2In0.eyJhdWQiOiIwYTVhYWNiZi02ZWVjLTQ3YmItYTM5YS03ZjBiOTExZTg0ZDEiLCJqdGkiOiJiNjY4OWJkZDkxODQ4NGRiZDY0NzZhMDg4NDBmNjdiZTlhMDdlZGUwYmJiZTllNGQ5ZGI3NWNmNjk2YTMyN2E3NTgwNzQwYzQwM2Q5YThkNiIsImlhdCI6MTczODI5MjI1MywibmJmIjoxNzM4MjkyMjUzLCJleHAiOjE4OTYwNDgwMDAsInN1YiI6Ijc0MjE4OTkiLCJncmFudF90eXBlIjoiIiwiYWNjb3VudF9pZCI6MzEyMDUwMzUsImJhc2VfZG9tYWluIjoia29tbW8uY29tIiwidmVyc2lvbiI6Miwic2NvcGVzIjpbImNybSIsImZpbGVzIiwiZmlsZXNfZGVsZXRlIiwibm90aWZpY2F0aW9ucyIsInB1c2hfbm90aWZpY2F0aW9ucyJdLCJoYXNoX3V1aWQiOiI0YzI0MjkwZS02N2U1LTRlZjAtOGI1OC02ZDhiOTg0OTQ4YTMiLCJhcGlfZG9tYWluIjoiYXBpLWcua29tbW8uY29tIn0.lzOGrE1pKw9ksBZIJSw1XkCCcj9YBdvYRlDVkPM3FwPLCRBQAlQtQp1_uoi0Ln9_kHg5V5pMiboui4U4UvJWkriQ7S4Jdzq9nssjSskxeBG5NRVScl9VVlxqFD0_tHqzqxqpiKD46pbB-odu88zoDQX9fDL6esF0o-aafCoTwmmE6XOe6GNOzAuBBeokhi4wwTK8cWgRS-wZZ9UnFScM5xkj5BnCAtDVx6w7rJkQsSu4BgoAJI_dyu2GPPZA4imGLBXpiS2HpwcN8boc3C_zPmicz00Ffsdsfnp06J-6Rj0r39_21a9nJeAPplWcn3-hIaz6J8e8jNK3m7ejKq1zTw", url: "https://aiatende.kommo.com" });
+  const lead = await kommo.listLeads ({query: '2667ba18-930d-40d3-a892-4a6d6c696ac4', first_created: false});
+  styled.infodir(lead)
+  return lead
 }
 
-test();
+getKommo()
 
-function audioToBase64(audioPath) {
-  const audioData = fs.readFileSync(audioPath);
-  return Buffer.from(audioData).toString('base64');
-}
