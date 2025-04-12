@@ -162,6 +162,16 @@ export default class StaticUtils {
     }
 
     /**
+     * Formata um número de telefone para o formato do Evolution
+     * @param {string} number - Número a ser formatado
+     * @returns {string} - Número formatado
+     */
+    static removePhoneNonNumericCharacters(number) {
+        let formattedNumber = number.replace(/\D/g, '');
+        return formattedNumber
+    }
+
+    /**
      * Verifica se uma string é uma codificação válida em base64
      * @param {string} str - String a ser verificada
      * @returns {boolean} - Retorna true se a string for uma codificação válida em base64

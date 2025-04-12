@@ -15,7 +15,7 @@ export default class GlobalServices {
       styled.function('[GlobalServices.prompt] Global | Prompt...');
       const { recent_messages, last_messages } = await this.leadMessagesRepository.getLastAndRecentMessages(this.lead_id, 1);
       const lead_messages = recent_messages || last_messages;
-      const response = await this.openaiintegrationservices.prompt(this.lead_id, lead_messages);
+      const response = await this.openaiintegrationservices.prompt({ lead_id: this.lead_id, text: lead_messages });
       return { code: 200, message: 'Prompt enviado com sucesso', ...response };
 
     } catch (error) {
@@ -32,7 +32,7 @@ export default class GlobalServices {
 
       const { recent_messages, last_messages } = await this.leadMessagesRepository.getLastAndRecentMessages(this.lead_id, 1);
       const lead_messages = recent_messages || last_messages;
-      const response = await this.openaiintegrationservices.assistant(this.lead_id, lead_messages, assistant_id);
+      const response = await this.openaiintegrationservices.assistant({ lead_id: this.lead_id, text: lead_messages, assistant_id });
       return { code: 200, message: 'Mensagem do assistente enviada com sucesso', ...response };
 
     } catch (error) {

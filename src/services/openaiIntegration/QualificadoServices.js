@@ -45,7 +45,7 @@ export default class QualificadoServices {
 
 Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra:" Exemplo: #Agendamento'`;
 
-      const response = await this.openaiintegrationservices.prompt(this.lead_id, text);
+      const response = await this.openaiintegrationservices.prompt({ lead: this.lead_id, text });
       return { code: 200, message: 'Prompt enviado com sucesso', ...response };
 
     } catch (error) {
@@ -78,7 +78,7 @@ Vamos mostrar nosso conhecimento com respostas bem precisas, mas de simples ente
 
 User message: '${lead_messages}'`;
 
-      const response = await this.openaiintegrationservices.assistant(this.lead_id, text, assistant_id);
+      const response = await this.openaiintegrationservices.assistant({ lead_id: this.lead_id, text, assistant_id });
       return { code: 200, message: 'Mensagem do assistente enviada com sucesso', ...response };
 
     } catch (error) {
