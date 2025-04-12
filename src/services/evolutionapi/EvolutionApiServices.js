@@ -27,6 +27,10 @@ export default class EvolutionApiServices {
    * @returns {Promise<Object>} - Resposta da API
    */
   async sendMessage({ message, number } = {}) {
+
+    const text = `*Assistente Virtual - Gabriele:*
+${message}`
+
     const options = {
       method: "POST",
       url: `${this.#baseUrl}/message/sendText/${this.#instance}`,
@@ -35,7 +39,7 @@ export default class EvolutionApiServices {
         apikey: this.#apiKey,
       },
       data: {
-        text: message,
+        text,
         number,
       }
     }
