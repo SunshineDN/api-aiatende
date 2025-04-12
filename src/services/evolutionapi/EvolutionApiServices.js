@@ -29,6 +29,7 @@ export default class EvolutionApiServices {
   async sendMessage({ message, number } = {}) {
 
     const text = `*Assistente Virtual - Gabriele:*
+
 ${message}`
 
     const options = {
