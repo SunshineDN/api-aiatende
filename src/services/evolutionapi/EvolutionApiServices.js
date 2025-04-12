@@ -6,10 +6,14 @@ export default class EvolutionApiServices {
   #baseUrl = process.env.EVOLUTION_API_BASE_URL;
 
   /**
-   * @param {string} apiKey - Chave da API
-   * @param {string} instance - Instância do Evolution
+   * Construtor da classe EvolutionApiServices
+   * 
+   * @constructor
+   * @param {object} options - Opções para inicializar a classe
+   * @param {string} options.apiKey - Chave da API
+   * @param {string} options.instance - Instância do Evolution
    */
-  constructor(apiKey, instance) {
+  constructor({ apiKey, instance }) {
     this.#apiKey = apiKey;
     this.#instance = instance;
   }

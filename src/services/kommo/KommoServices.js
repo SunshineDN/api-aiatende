@@ -18,6 +18,14 @@ export default class KommoServices {
     }
   }
 
+  /**
+   * Método para buscar um lead pelo ID, com opções para trazer informações adicionais como contatos, elementos de catálogo, razão de perda, etc.
+   * 
+   * @param {object} object
+   * @param {string} object.id ID do lead
+   * @param {string} object.withParams Parâmetro para trazer informações adicionais do lead
+   * @returns {Promise<object>} Retorna os dados do lead
+   */
   async getLead({ id, withParams = '' } = {}) {
     let url;
     if (withParams) {
@@ -102,6 +110,16 @@ export default class KommoServices {
     return data;
   }
 
+  /**
+   * Método para atualizar um lead
+   * 
+   * @param {object} objeto de atualização do lead
+   * @param {string} objeto.id ID do lead
+   * @param {string} objeto.status_id ID do status
+   * @param {string} objeto.pipeline_id ID do pipeline
+   * @param {array} objeto.custom_fields_values Campos customizados do lead
+   * @returns {Promise<object>} Retorna o lead atualizado
+   */
   async updateLead({ id, status_id = '', pipeline_id = '', custom_fields_values = [] } = {}) {
     if (!id) {
       throw new Error('Lead ID is required');
@@ -139,6 +157,13 @@ export default class KommoServices {
     return data;
   }
 
+  /**
+   * Método para buscar um contato pelo ID
+   * 
+   * @param {string} id ID do contato
+   * @returns {Promise<object>} Retorna os dados do contato
+   *
+   */
   async getContact(id) {
     const options = {
       method: 'GET',
@@ -229,6 +254,16 @@ export default class KommoServices {
     return data;
   }
 
+  /**
+   * Método para buscar leads com base em uma consulta
+   * 
+   * @param {object} object
+   * @param {string} object.query Consulta para buscar os leads
+   * @param {boolean} object.first_created Se true, retorna o primeiro lead criado
+   * @param {string} object.withParams Parâmetro para trazer informações adicionais do lead
+   * @return {Promise<object>} Retorna os dados dos leads encontrados
+   * 
+   */
   async listLeads({ query = '', first_created = false, withParams = '' } = {}) {
     if (query) {
       const url = withParams !== '' ? `${this.url}/api/v4/leads?query=${query}&with=${withParams}` : `${this.url}/api/v4/leads?query=${query}`;
@@ -273,6 +308,11 @@ export default class KommoServices {
     return [];
   }
 
+  /**
+   * Método para buscar leads com base em uma consulta
+   * 
+   * @returns {Promise<object>} Retorna os dados dos leads encontrados
+   */
   async getContactsCustomFields() {
     const options = {
       method: 'GET',
@@ -287,6 +327,11 @@ export default class KommoServices {
     return custom_fields;
   }
 
+  /**
+   * Método para buscar os campos customizados dos leads
+   * 
+   * @returns {Promise<object>} Retorna os dados dos campos customizados dos leads
+   */
   async getLeadsCustomFields() {
     const options = {
       method: 'GET',
@@ -301,6 +346,11 @@ export default class KommoServices {
     return custom_fields;
   }
 
+  /**
+   * Método para buscar os pipelines
+   * 
+   * @returns {Promise<object>} Retorna os dados dos pipelines
+   */
   async getPipelines() {
     const options = {
       method: 'GET',
@@ -313,68 +363,6 @@ export default class KommoServices {
 
     const { data: { _embedded: { pipelines } } } = await axios.request(options);
     return pipelines;
-  }
-
-  async webhookCreate(id, { calendar = false, created_at = false } = {}) {
-    const lead = await this.getLead({ id });
-    const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields() });
-    const calendario = LeadUtils.findLeadField({ lead, fieldName: 'Calendário', value: true });
-    const criacao = LeadUtils.findLeadField({ lead, fieldName: 'Data de Criação', value: true });
-
-    const options = {
-      method: 'PATCH',
-      url: `${this.url}/api/v4/leads/${id}`,
-      headers: {
-        'accept': 'application/json',
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${this.auth}`
-      },
-      data: {
-        custom_fields_values: []
-      }
-    };
-
-    if (calendar) {
-      if (!calendario) {
-        const calendarField = kommoUtils.findLeadsFieldByName('Calendário');
-        const calendarLink = StaticUtils.calendarLink(id);
-
-        options.data.custom_fields_values.push({
-          field_id: calendarField.id,
-          values: [
-            {
-              value: calendarLink
-            }
-          ]
-        });
-      } else {
-        styled.warning('[KommoServices.webhookCreate] - Calendário já existe no Lead');
-      }
-    }
-
-    if (created_at) {
-      if (!criacao) {
-        const createdAtField = kommoUtils.findLeadsFieldByName('Data de Criação');
-        let createdAt = lead?.created_at;
-        if (!createdAt) {
-          createdAt = new Date().getTime() / 1000;
-        }
-        options.data.custom_fields_values.push({
-          field_id: createdAtField.id,
-          values: [
-            {
-              value: createdAt
-            }
-          ]
-        });
-      } else {
-        styled.warning('[KommoServices.webhookCreate] - Data de Criação já existe no Lead');
-      }
-    }
-
-    const { data } = await axios.request(options);
-    styled.success('[KommoServices.webhookCreate] - Webhook Geral de criação de leads executado');
-    return { code: 200, response: data };
   }
 
   /**

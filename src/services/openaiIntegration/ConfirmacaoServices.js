@@ -36,7 +36,7 @@ Analise a mensagem: '${answer}' e veja em quais das situações abaixo encaixa a
 
 Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra:" Exemplo: #Atendente`;
 
-      const response = await this.openaiintegrationservices.prompt(this.lead_id, text);
+      const response = await this.openaiintegrationservices.prompt({ lead_id: this.lead_id, text });
       return { code: 200, message: 'Prompt enviado com sucesso', ...response };
 
     } catch (error) {
@@ -60,7 +60,7 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
 
       const text = `System message: Envie uma mensagem para o usuário avisando sobre a data de agendamento: '${date}'. Adicione também que faltam ${days} dia(s), ${hours} hora(s) e ${minutes} minuto(s) para a consulta.`;
 
-      const response = await this.openaiintegrationservices.assistant(this.lead_id, text, assistant_id);
+      const response = await this.openaiintegrationservices.assistant({ lead_id: this.lead_id, text, assistant_id });
       return { code: 200, message: 'Mensagem do assistente enviada com sucesso', ...response };
 
     } catch (error) {
@@ -89,7 +89,7 @@ Não esqueça de confirmar sua presença, respondendo esta mensagem agora!
 
 Confirmado?"'`;
 
-      const response = await this.openaiintegrationservices.assistant(this.lead_id, text, assistant_id);
+      const response = await this.openaiintegrationservices.assistant({ lead_id: this.lead_id, text, assistant_id });
       return { code: 200, message: 'Mensagem do assistente enviada com sucesso', ...response };
 
     } catch (error) {
@@ -109,7 +109,7 @@ Por favor, confirmar o mais rápido possível, Obrigada!
 
 Confirmado?"`;
 
-      const response = await this.openaiintegrationservices.assistant(this.lead_id, text, assistant_id);
+      const response = await this.openaiintegrationservices.assistant({ lead_id: this.lead_id, text, assistant_id });
       return { code: 200, message: 'Mensagem do assistente enviada com sucesso', ...response };
 
     } catch (error) {
@@ -135,7 +135,7 @@ Dia e Hora:
 
 Confirmado?"`;
 
-      const response = await this.openaiintegrationservices.assistant(this.lead_id, text, assistant_id);
+      const response = await this.openaiintegrationservices.assistant({ lead_id: this.lead_id, text, assistant_id });
       return { code: 200, message: 'Mensagem do assistente enviada com sucesso', ...response };
 
     } catch (error) {
@@ -160,7 +160,7 @@ Dia e hora:
 
 Ok?"`;
 
-      const response = await this.openaiintegrationservices.assistant(this.lead_id, text, assistant_id);
+      const response = await this.openaiintegrationservices.assistant({ lead_id: this.lead_id, text, assistant_id });
       return { code: 200, message: 'Mensagem do assistente enviada com sucesso', ...response };
 
     } catch (error) {
@@ -177,7 +177,7 @@ Ok?"`;
 
       const text = `System message: Usuário passou 30 minutos sem responder a mensagem anterior, retorne apenas uma mensagem perguntando se pode confirmar a presença dele.`;
 
-      const response = await this.openaiintegrationservices.assistant(this.lead_id, text, assistant_id);
+      const response = await this.openaiintegrationservices.assistant({ lead_id: this.lead_id, text, assistant_id });
       return { code: 200, message: 'Mensagem do assistente enviada com sucesso', ...response };
 
     } catch (error) {

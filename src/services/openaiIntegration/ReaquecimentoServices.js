@@ -18,7 +18,7 @@ export default class ReaquecimentoServices {
 
       const { recent_messages, last_messages } = await this.leadMessagesRepository.getLastAndRecentMessages(this.lead_id, 1);
       const lead_messages = recent_messages || last_messages;
-      
+
       const answer = await LeadUtils.findLeadField({ lead, fieldName: 'GPT | Answer', value: true });
 
       const text = `Considere que você esteja analisando a intenção da resposta de um usuário em um chatbot. Analise a mensagem da clínica: '${answer}', e veja em quais das situações abaixo se encaixa a intenção da mensagem do usuário: '${lead_messages}'.
@@ -33,7 +33,7 @@ export default class ReaquecimentoServices {
 
 Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra" Exemplo: #Agendamento'`;
 
-      const response = await this.openaiintegrationservices.prompt(this.lead_id, text);
+      const response = await this.openaiintegrationservices.prompt({ lead: this.lead_id, text });
       return { code: 200, message: 'Prompt enviado com sucesso', ...response };
 
     } catch (error) {
@@ -61,7 +61,7 @@ Gostaria de saber mais sobre as condições.
 Tenho uma dúvida. Aguardamos seu retorno!
 Atenciosamente, Gabriele"`;
 
-      const response = await this.openaiintegrationservices.assistant(this.lead_id, text, assistant_id);
+      const response = await this.openaiintegrationservices.assistant({ lead_id: this.lead_id, text, assistant_id });
       return { code: 200, message: 'Mensagem do assistente enviada com sucesso', ...response };
 
     } catch (error) {
@@ -87,7 +87,7 @@ Gostaria de saber mais sobre as promoções.
 Tenho uma dúvida. Aguardamos seu retorno!
 Atenciosamente, Gabriele"`;
 
-      const response = await this.openaiintegrationservices.assistant(this.lead_id, text, assistant_id);
+      const response = await this.openaiintegrationservices.assistant({ lead_id: this.lead_id, text, assistant_id });
       return { code: 200, message: 'Mensagem do assistente enviada com sucesso', ...response };
 
     } catch (error) {

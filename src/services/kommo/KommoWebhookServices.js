@@ -35,7 +35,7 @@ export default class KommoWebhookServices extends KommoServices {
           ]
         });
       } else {
-        styled.warning('[KommoServices.createLead] - Calendário já existe no Lead');
+        styled.warning('[KommoWebhookServices.createLead] - Calendário já existe no Lead');
       }
     }
 
@@ -55,12 +55,12 @@ export default class KommoWebhookServices extends KommoServices {
           ]
         });
       } else {
-        styled.warning('[KommoServices.createLead] - Data de Criação já existe no Lead');
+        styled.warning('[KommoWebhookServices.createLead] - Data de Criação já existe no Lead');
       }
     }
 
     const res = await this.updateLead({ id, custom_fields_values });
-    styled.success('[KommoServices.createLead] - Webhook Geral de criação de leads executado');
+    styled.success('[KommoWebhookServices.createLead] - Webhook Geral de criação de leads executado');
     return { code: 200, response: res };
   }
 
