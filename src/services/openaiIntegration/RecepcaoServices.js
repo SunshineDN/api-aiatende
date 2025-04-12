@@ -45,7 +45,7 @@ export default class RecepcaoServices {
 
 Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra" Exemplo: #Agendamento'`;
 
-      const response = await this.openaiintegrationservices.prompt({ lead: this.lead_id, text });
+      const response = await this.openaiintegrationservices.prompt({ lead_id: this.lead_id, text });
       return { code: 200, message: 'Prompt enviado com sucesso', ...response };
 
     } catch (error) {
