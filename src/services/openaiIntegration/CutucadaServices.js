@@ -67,7 +67,7 @@ ${answer}
 Retorne apenas a pergunta que será enviada ao usuário.
 Não inclua nenhuma explicação, tag ou texto adicional.`;
 
-      const response = await this.openaiintegrationservices.prompt({ lead: this.lead_id, text, send_message: true });
+      const response = await this.openaiintegrationservices.prompt({ lead_id: this.lead_id, text, send_message: true });
       return { code: 200, message: 'Prompt enviado com sucesso', ...response };
     } catch (error) {
       styled.error(`[CutucadaServices.gerar_perguntas] Erro ao enviar mensagem para o prompt`);
@@ -111,7 +111,7 @@ Importante: sua resposta deve conter somente a pergunta, sem nenhum comentário,
 Histórico:
 { ${history_messages} }`;
 
-      const response = await this.openaiintegrationservices.prompt({ lead: this.lead_id, text, send_message: true });
+      const response = await this.openaiintegrationservices.prompt({ lead_id: this.lead_id, text, send_message: true });
       return { code: 200, message: 'Prompt enviado com sucesso', ...response };
     } catch (error) {
       styled.error(`[CutucadaServices.gerar_perguntas_historico] Erro ao enviar mensagem para o prompt`);
