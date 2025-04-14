@@ -12,13 +12,14 @@ export default class WppServices {
   async handleWabhookReceived(query) {
 
     const utms = await this.handleUTMSeparator(query)
+    styled.info("utms e dados")
     styled.infodir(utms)
 
     const [create, _] = await this.marketing_tracking.findOrCreate({where: {client_id: utms.client_id}});
     await this.marketing_tracking.updateByClientId(create.client_id, utms);
     styled.success('UTM separated and saved in the database');
 
-    const custom_fields_values = await this.handleCustomFields({utms}, create.id);
+    const custom_fields_values = await this.handleCustomFields({utms});
     styled.success('Custom fields values created');
 
     await this.kommo.createLead({
@@ -27,7 +28,7 @@ export default class WppServices {
       custom_fields_values
     });
     
-    return create.id;
+    return {text:utms.text, hash:utms.hash};
   }
 
   async handleWebhookDuplicate(data) {
@@ -60,14 +61,15 @@ export default class WppServices {
       utm_content: query.utm_content || "Não informado",
       utm_referrer: query.utm_referrer || "Não informado",
       client_id: query.client_id || "Não informado",
+      text: query.text || "Não informado",
+      hash: query.hash || "Não informado"
     }
-    styled.infodir(utms)
     return utms
   }
 
-  async handleCustomFields({utms},id){
+  async handleCustomFields({utms}){
     const custom_fields_values = [
-      {field_id: 1379333, values: [{value: id}]},
+      {field_id: 1379333, values: [{value: utms.hash}]},
       {field_id: 1379289, values: [{value: utms.client_id}]},
       {field_id: 1379023, values: [{value: utms.utm_source}]},
       {field_id: 1379025, values: [{value: utms.utm_campaign}]},
@@ -79,7 +81,6 @@ export default class WppServices {
       {field_id: 1379297, values: [{value: utms.utm_referrer}]},
     ]
     return custom_fields_values
-
   }
 
    
