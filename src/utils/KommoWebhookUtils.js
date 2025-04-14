@@ -10,17 +10,13 @@ export default class KommoWebhookUtils {
 
      async handleWebhookDuplicate(lead) {
         styled.function('[KommoWebhookUtils.handleWebhookDuplicate]');
-        if(lead.contact.length == 0 || lead.contact == []){
-            styled.warning("Lead Sem Contato")
-            return
-        }
-        styled.info("Lead com contato")
         const custom_fields = lead.custom_fields_values
 	styled.infodir(custom_fields)
         const id_backup = custom_fields.filter((field) => field.field_id == 1379333)
 	styled.infodir(id_backup)
         const id = id_backup[0].values[0].value;
-	const utms = await this.marketing_tracking.findById(id)
+	const utms = await this.marketing_tracking.findOne({where: {hash: id}})
+	styled.info("utms: ")
 	styled.infodir(utms)
 	const custom_field_updated = await this.handleCustomFields(utms)
         styled.infodir(custom_field_updated)
