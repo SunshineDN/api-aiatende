@@ -43,6 +43,11 @@ const marketing_tracking = sequelize.define('marketing_tracking', {
   utm_referrer: {
     type: DataTypes.STRING,
     allowNull: true,
+  },
+  hash: {
+    type:DataTypes.STRING,
+    allowNull: true,
+    unique: true
   }
 }, {
   tableName: 'marketing_tracking',
