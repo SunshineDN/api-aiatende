@@ -9,9 +9,9 @@ export default class WppServices {
     this.kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
   }
 
-  async handleWabhookReceived(query) {
+  async handleWabhookReceived(query, hash) {
 
-    const utms = await this.handleUTMSeparator(query)
+    const utms = this.handleUTMSeparator(query, hash)
     styled.info("utms e dados")
     styled.infodir(utms)
 
@@ -50,7 +50,7 @@ export default class WppServices {
     return res.status(200)
   }
 
-  async handleUTMSeparator(query) {
+  handleUTMSeparator(query, hash) {
     const utms = {
       gclid: query.gclid || "Não informado",
       fbclid: query.fbclid || "Não informado",
@@ -62,7 +62,7 @@ export default class WppServices {
       utm_referrer: query.utm_referrer || "Não informado",
       client_id: query.client_id || "Não informado",
       text: query.text || "Não informado",
-      hash: query.hash || "Não informado"
+      hash: hash || "Não informado",
     }
     return utms
   }

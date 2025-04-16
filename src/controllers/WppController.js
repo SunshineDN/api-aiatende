@@ -15,8 +15,8 @@ export default class WppController {
     try {
       const { query } = req;
       styled.infodir(query);
-      const text = await this.wppServices.handleWabhookReceived(query);
       const hash = StaticUtils.generateSimpleHash();
+      const text = await this.wppServices.handleWabhookReceived(query, hash);
       styled.success('Webhook received and handled');
       res.redirect(`https://wa.me/558130930133?text=[ ${hash} -> *NÂO APAGUE ESSA MENSAGEM* ]\n${text}`);
     } catch (error) {
