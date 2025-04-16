@@ -1,5 +1,6 @@
 import WppServices from "../services/wpp/WppServices.js";
 import styled from "../utils/log/styled.js";
+import StaticUtils from "../utils/StaticUtils.js";
 
 
 export default class WppController {
@@ -14,7 +15,8 @@ export default class WppController {
     try {
       const { query } = req;
       styled.infodir(query);
-      const {text, hash} = await this.wppServices.handleWabhookReceived(query);
+      const text = await this.wppServices.handleWabhookReceived(query);
+      const hash = StaticUtils.generateSimpleHash();
       styled.success('Webhook received and handled');
       res.redirect(`https://wa.me/558130930133?text=[ ${hash} -> *NÂO APAGUE ESSA MENSAGEM* ]\n${text}`);
     } catch (error) {
@@ -24,19 +26,19 @@ export default class WppController {
     }
   }
 
-  async handleWebhookDuplicate(req,res) {
+  async handleWebhookDuplicate(req, res) {
     try {
-      const {leads: {add}} = req.body;
+      const { leads: { add } } = req.body;
       styled.infodir(add);
       await this.wppServices.handleWebhookDuplicate(add);
       return res.status(200).json({ message: "Tratamento de duplicata realizado com sucesso" });
-    }catch (error) {
+    } catch (error) {
       console.error(error);
       res.status(500).send('Internal Server Error');
       return;
     }
   }
-  
+
   static async handleMessageUpsert(req, res) {
     res.status(200).send('ok');
   }
