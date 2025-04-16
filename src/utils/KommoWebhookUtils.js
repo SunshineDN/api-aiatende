@@ -42,7 +42,7 @@ export default class KommoWebhookUtils extends KommoUtils {
 		const utms = await this.#marketing_tracking.findOne({ where: { hash: id } })
 		styled.info("utms: ")
 		styled.infodir(utms)
-		const custom_field_updated = await this.handleCustomFields(utms)
+		const custom_field_updated = this.handleCustomFields(utms)
 		styled.infodir(custom_field_updated)
 		const update = await this.kommo.updateLead({ id: lead.id, custom_fields_values: custom_field_updated })
 		styled.infodir(update)
