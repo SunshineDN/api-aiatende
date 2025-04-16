@@ -49,8 +49,8 @@ export default class KommoWebhookUtils extends KommoUtils {
 		return;
 	}
 
-	async handleCustomFields(utms) {
-		const custom_fields_values = [
+	handleCustomFields(utms) {
+		return [
 			{ field_id: 1379289, values: [{ value: utms.client_id }] },
 			{ field_id: 1379023, values: [{ value: utms.utm_source }] },
 			{ field_id: 1379025, values: [{ value: utms.utm_campaign }] },
@@ -62,8 +62,6 @@ export default class KommoWebhookUtils extends KommoUtils {
 			{ field_id: 1379297, values: [{ value: utms.utm_referrer }] },
 			{ field_id: 1379333, values: [{ value: utms.hash }] },
 		]
-		return custom_fields_values
-
 	}
 }
 
