@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import crypto from "crypto";
 import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 import { v4 as uuidv4, v5 as uuidv5 } from 'uuid';
 import styled from "./log/styled.js";
@@ -248,5 +249,9 @@ export default class StaticUtils {
         const jsonString = JSON.stringify(obj);
         const hash = uuidv5(jsonString, namespace);
         return hash;
+    }
+    
+    static generateSimpleHash() {
+        return crypto.randomBytes(4).toString('hex'); // Gera uma string hexadecimal de 8 caracteres
     }
 }

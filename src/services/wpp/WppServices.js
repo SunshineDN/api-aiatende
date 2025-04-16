@@ -4,9 +4,9 @@ import KommoServices from "../kommo/KommoServices.js";
 
 
 export default class WppServices {
-  constructor(){
+  constructor() {
     this.marketing_tracking = new MarketingTrackingRepository();
-    this.kommo =  new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
+    this.kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
   }
 
   async handleWabhookReceived(query) {
@@ -15,11 +15,11 @@ export default class WppServices {
     styled.info("utms e dados")
     styled.infodir(utms)
 
-    const [create, _] = await this.marketing_tracking.findOrCreate({where: {client_id: utms.client_id}});
+    const [create, _] = await this.marketing_tracking.findOrCreate({ where: { client_id: utms.client_id } });
     await this.marketing_tracking.updateByClientId(create.client_id, utms);
     styled.success('UTM separated and saved in the database');
 
-    const custom_fields_values = await this.handleCustomFields({utms});
+    const custom_fields_values = await this.handleCustomFields({ utms });
     styled.success('Custom fields values created');
 
     await this.kommo.createLead({
@@ -27,21 +27,21 @@ export default class WppServices {
       status_id: 82573772,
       custom_fields_values
     });
-    
-    return {text:utms.text, hash:utms.hash};
+
+    return utms.text;
   }
 
   async handleWebhookDuplicate(data) {
-    
+
     const id_lead = data.flatMap((item) => item.id)
     const custom_fields = data.flatMap((item) => item.custom_fields)
     const id_field = custom_fields.filter(field => field.id === "1379333");
     const id = id_field[0].values[0].value;
     styled.info(id)
-    
-    const leads = await this.kommo.getLead({id: id_lead, withParams: "contacts"})
+
+    const leads = await this.kommo.getLead({ id: id_lead, withParams: "contacts" })
     styled.infodir(leads)
-    if(leads.contact.length == 0 || leads.contact == []){
+    if (leads.contact.length == 0 || leads.contact == []) {
       styled.warning("Lead Sem Contato")
       return
     }
@@ -67,21 +67,21 @@ export default class WppServices {
     return utms
   }
 
-  async handleCustomFields({utms}){
+  async handleCustomFields({ utms }) {
     const custom_fields_values = [
-      {field_id: 1379333, values: [{value: utms.hash}]},
-      {field_id: 1379289, values: [{value: utms.client_id}]},
-      {field_id: 1379023, values: [{value: utms.utm_source}]},
-      {field_id: 1379025, values: [{value: utms.utm_campaign}]},
-      {field_id: 1379027, values: [{value: utms.utm_content}]},
-      {field_id: 1379029, values: [{value: utms.utm_medium}]},
-      {field_id: 1379291, values: [{value: utms.gclid}]},
-      {field_id: 1379293, values: [{value: utms.fbclid}]},
-      {field_id: 1379295, values: [{value: utms.utm_term}]},
-      {field_id: 1379297, values: [{value: utms.utm_referrer}]},
+      { field_id: 1379333, values: [{ value: utms.hash }] },
+      { field_id: 1379289, values: [{ value: utms.client_id }] },
+      { field_id: 1379023, values: [{ value: utms.utm_source }] },
+      { field_id: 1379025, values: [{ value: utms.utm_campaign }] },
+      { field_id: 1379027, values: [{ value: utms.utm_content }] },
+      { field_id: 1379029, values: [{ value: utms.utm_medium }] },
+      { field_id: 1379291, values: [{ value: utms.gclid }] },
+      { field_id: 1379293, values: [{ value: utms.fbclid }] },
+      { field_id: 1379295, values: [{ value: utms.utm_term }] },
+      { field_id: 1379297, values: [{ value: utms.utm_referrer }] },
     ]
     return custom_fields_values
   }
 
-   
+
 }

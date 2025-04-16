@@ -3,6 +3,7 @@ import OpenaiIntegrationServices from "./src/services/openaiIntegration/OpenaiIn
 import KommoWebhookUtils from "./src/utils/KommoWebhookUtils.js";
 import LeadUtils from "./src/utils/LeadUtils.js";
 import styled from "./src/utils/log/styled.js";
+import StaticUtils from "./src/utils/StaticUtils.js";
 
 async function main() {
   // const openaiIntegration = new OpenaiIntegrationServices({
@@ -13,12 +14,14 @@ async function main() {
   // const message = "Olá, tudo bem?";
   // await openaiIntegration.assistant(lead_id, message, "YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4");
 
+  const hash = StaticUtils.generateSimpleHash();
+  const text = "Olá, tudo bem?";
+  styled.info("Hash gerada:", hash);
   const haveHash = KommoWebhookUtils.handleEncounterHash(
-    "Olá, tudo bem? Aqui está sua hash: 2cf2s4dba. Por favor, confirme."
+    `[ ${hash} -> *NÂO APAGUE ESSA MENSAGEM* ]\n${text}`
   );
 
   if (!haveHash) {
-    styled.info("❌ Nenhuma hash encontrada na mensagem.");
     return;
   }
 
