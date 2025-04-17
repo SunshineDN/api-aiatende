@@ -1,4 +1,4 @@
-import styled from '../../utils/log/styledLog.js';
+import styled from '../../utils/log/styled.js';
 import { GetAccessToken } from '../kommo/GetAccessToken.js';
 import { GetCustomFields } from '../kommo/GetCustomFields.js';
 import { GetUser } from '../kommo/GetUser.js';

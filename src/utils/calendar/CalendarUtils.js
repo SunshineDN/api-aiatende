@@ -1,6 +1,6 @@
 import { google } from 'googleapis';
-import styled from '../log/styledLog.js';
-import { AuthCalendar } from './AuthCalendar.js';
+import styled from '../log/styled.js';
+import AuthCalendar from './AuthCalendar.js';
 import { CalendarId } from '../../config/calendarId.js';
 
 export class CalendarUtils {
@@ -418,21 +418,21 @@ export class CalendarUtils {
                 if (availableTimes.length) {
                   const lastObj = availableTimes[availableTimes.length - 1];
                   if (lastObj.date === interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[0]) {
-                    lastObj.avaiableOptions.push(interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[1]);
+                    lastObj.availableOptions.push(interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[1]);
                   } else {
                     const obj = {
                       date: interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[0],
-                      avaiableOptions: [],
+                      availableOptions: [],
                     };
-                    obj.avaiableOptions.push(interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[1]);
+                    obj.availableOptions.push(interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[1]);
                     availableTimes.push(obj);
                   }
                 } else {
                   const obj = {
                     date: interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[0],
-                    avaiableOptions: [],
+                    availableOptions: [],
                   };
-                  obj.avaiableOptions.push(interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[1]);
+                  obj.availableOptions.push(interval.start.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(', ')[1]);
                   availableTimes.push(obj);
                 }
 
@@ -582,13 +582,24 @@ export class CalendarUtils {
     return await calendar_return;
   }
 
-  static idValidate(condition) {
-    if (condition.includes('Juliana Leite')) {
-      return CalendarId.juliana;
-    } else if (condition.includes('Lucília Miranda')) {
-      return CalendarId.odontopediatria;
-    } else {
-      return CalendarId.dentistas;
+  /**
+   * Valida o nome do profissional para retornar o id do calendário correspondente
+   * @param {string} condition - Nome do profissional ou condição para validar o calendário
+   * @returns {string} - Id do calendário
+   */
+  static idValidate(condition = '') {
+    const mapping = {
+      'Juliana Leite': CalendarId.juliana,
+      'Lucília Miranda': CalendarId.odontopediatria,
+      'Odontopediatria': CalendarId.odontopediatria,
+    };
+
+    for (const key in mapping) {
+      if (condition.includes(key)) {
+        return mapping[key];
+      }
     }
+
+    return CalendarId.dentistas;
   }
 }

@@ -192,7 +192,7 @@ Não formate as linhas da resposta solicitada.`;
       )[0];
 
       const nameDoctor = user?.custom_fields_values?.filter(
-        (field) => field.field_name === 'Dentista'
+        (field) => field.field_name === 'Profissional'
       )[0];
 
       let dates;

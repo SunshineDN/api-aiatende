@@ -1,5 +1,5 @@
 import { parse } from 'date-fns';
-import styled from '../../utils/log/styledLog.js';
+import styled from '../../utils/log/styled.js';
 import { CalendarIdValidate } from '../../utils/calendar/CalendarIdValidate.js';
 import { GetCustomFields } from '../kommo/GetCustomFields.js';
 import { UpdateLead } from '../kommo/UpdateLead.js';
@@ -18,20 +18,20 @@ export const RegisterCalendarEvent = async (payload, access_token = null) => {
     // console.dir(user, { depth: null });
 
     const eventSummary = user?.custom_fields_values?.filter(
-      (field) => field.field_name === 'Event Summary'
+      (field) => field.field_name === 'Título do Evento'
     )[0];
     const eventStart = user?.custom_fields_values?.filter(
-      (field) => field.field_name === 'Event Start'
+      (field) => field.field_name === 'Data do Evento'
     )[0];
     const nameDoctor = user?.custom_fields_values?.filter(
-      (field) => field.field_name === 'Dentista'
+      (field) => field.field_name === 'Profissional'
     )[0];
 
     const eventLink = custom_fields?.filter(
-      (field) => field.name === 'Event Link'
+      (field) => field.name === 'Link do Evento'
     )[0];
     const eventID = custom_fields?.filter(
-      (field) => field.name === 'Event ID'
+      (field) => field.name === 'ID do Evento'
     )[0];
     const dataAgendamento = custom_fields?.filter(
       (field) => field.name === 'Data do Agendamento'

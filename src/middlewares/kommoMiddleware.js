@@ -1,4 +1,4 @@
-import styled from "../utils/log/styledLog.js";
+import styled from "../utils/log/styled.js";
 
 export default function kommoMiddleware(req, _, next) {
   if (req.method === 'GET') {
@@ -18,7 +18,7 @@ export default function kommoMiddleware(req, _, next) {
   const account_domain = `https://${account_subdomain}.kommo.com`;
 
   req.body = {
-    lead_id,
+    lead_id: Number(lead_id),
     old_status_id,
     old_pipeline_id,
     status_id,

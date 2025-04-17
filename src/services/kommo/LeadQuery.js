@@ -1,5 +1,5 @@
 import axios from 'axios';
-import styled from '../../utils/log/styledLog.js';
+import styled from '../../utils/log/styled.js';
 import { GetCustomFields } from './GetCustomFields.js';
 import { GetContactCustomFields } from './GetContactCustomFields.js';
 
@@ -19,7 +19,7 @@ export const LeadQuery = async (body, data, access_token) => {
 
     const bairro_field = custom_fields?.filter(field => field.name === 'Bairro')[0];
     const birthdate_field = custom_fields?.filter(field => field.name === 'Data de Nascimento (Texto)')[0];
-    const dentist_field = custom_fields?.filter(field => field.name === 'Dentista')[0];
+    const dentist_field = custom_fields?.filter(field => field.name === 'Profissional')[0];
     const schedule_date_field = custom_fields?.filter(field => field.name === 'Data escolhida')[0];
     const reschedule = custom_fields?.filter(field => field.name === 'Reagendou')[0];
     const reason_field = custom_fields?.filter(field => field.name === 'Motivo Consulta')[0];
@@ -96,7 +96,7 @@ export const LeadQuery = async (body, data, access_token) => {
             && dentist !== 'Dra. Iris Leão' && dentist !== 'Dr. Laureano Filho' && dentist !== 'Dra. Liana Mavignier' && dentist !== 'Dra. Luciana Luna'
             && dentist !== 'Dra. Lucília Miranda' && dentist !== 'Dr. Marcus Barbosa' && dentist !== 'Dra. Nashly Rodrigues' && dentist !== 'Dra. Rafaella Karina'
             && dentist !== 'Dra. Renata Cabral' && dentist !== 'Dr. Rafael Fialho') {
-            dentist = 'Dentista Isento';
+            dentist = 'Demais Dentistas';
           }
 
           params[0].custom_fields_values.push({

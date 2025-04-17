@@ -1,10 +1,12 @@
 import KommoUtils from "../../utils/KommoUtils.js";
 import LeadUtils from "../../utils/LeadUtils.js";
-import styled from "../../utils/log/styledLog.js";
+import styled from "../../utils/log/styled.js";
 import StaticUtils from "../../utils/StaticUtils.js";
 import OpenAIServices from "../gpt/OpenAIServices.js";
 import KommoServices from "./KommoServices.js";
+import KommoWebhookUtils from "../../utils/KommoWebhookUtils.js";
 import LeadMessagesRepository from "../../repositories/LeadMessagesRepository.js";
+import MarketingTrackingRepository from "../../repositories/MarketingTrackingRepository.js";
 
 export default class KommoWebhookServices extends KommoServices {
   constructor({ auth, url }) {
@@ -13,8 +15,10 @@ export default class KommoWebhookServices extends KommoServices {
 
   async createLead(id, { calendar = false, created_at = false } = {}) {
     styled.function('[KommoWebhookServices.createLead]');
+    const kommoWebUtils = new KommoWebhookUtils()
 
     const lead = await this.getLead({ id });
+    await kommoWebUtils.handleWebhookDuplicate(lead);
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields() });
     const calendario = LeadUtils.findLeadField({ lead, fieldName: 'Calendário', value: true });
     const criacao = LeadUtils.findLeadField({ lead, fieldName: 'Data de Criação', value: true });
@@ -35,7 +39,7 @@ export default class KommoWebhookServices extends KommoServices {
           ]
         });
       } else {
-        styled.warning('[KommoServices.createLead] - Calendário já existe no Lead');
+        styled.warning('[KommoWebhookServices.createLead] - Calendário já existe no Lead');
       }
     }
 
@@ -55,12 +59,12 @@ export default class KommoWebhookServices extends KommoServices {
           ]
         });
       } else {
-        styled.warning('[KommoServices.createLead] - Data de Criação já existe no Lead');
+        styled.warning('[KommoWebhookServices.createLead] - Data de Criação já existe no Lead');
       }
     }
 
     const res = await this.updateLead({ id, custom_fields_values });
-    styled.success('[KommoServices.createLead] - Webhook Geral de criação de leads executado');
+    styled.success('[KommoWebhookServices.createLead] - Webhook Geral de criação de leads executado');
     return { code: 200, response: res };
   }
 
@@ -69,6 +73,27 @@ export default class KommoWebhookServices extends KommoServices {
     styled.function('[KommoWebhookServices.messageReceived]');
     const { lead_id } = obj;
     const { attachment = {}, text = '' } = obj.message;
+
+    const haveHash = KommoWebhookUtils.handleEncounterHash(text);
+
+    if (haveHash) {
+      styled.info('[KommoWebhookServices.messageReceived] - Mensagem contém hash, buscando no banco de dados...');
+
+      const marketingTrackingRepository = new MarketingTrackingRepository();
+      const utms = await marketingTrackingRepository.findOne({ where: { hash: haveHash } });
+
+      if (utms) {
+        styled.success('[KommoWebhookServices.messageReceived] - Hash encontrada, processando...');
+
+        const kommoWebhookUtils = new KommoWebhookUtils({ leads_custom_fields: await this.getLeadsCustomFields() });
+        const custom_fields = kommoWebhookUtils.handleCustomFields(utms);
+        await this.updateLead({ id: lead_id, custom_fields_values: custom_fields });
+        styled.success('[KommoWebhookServices.messageReceived] - Campos personalizados atualizados com sucesso.');
+      } else {
+        styled.warning('[KommoWebhookServices.messageReceived] - Nenhuma hash identificada corretamente na mensagem.');
+      }
+    }
+
     const leadMessageRepository = new LeadMessagesRepository();
 
     const send_at = obj?.message?.created_at;
@@ -81,7 +106,7 @@ export default class KommoWebhookServices extends KommoServices {
 
     const openaiServices = new OpenAIServices();
     obj.message.lead_message = StaticUtils.isUrl(text) ? '[url]' : StaticUtils.substituirEmojis(text);
-    
+
     if (Object.keys(attachment).length > 0) {
       if (attachment?.type === 'voice' || attachment?.type === 'audio') {
         const extension = attachment?.file_name.split('.').pop();
@@ -95,24 +120,35 @@ export default class KommoWebhookServices extends KommoServices {
     }
 
     await leadMessageRepository.verifyAndUpdate(lead_id, obj.message);
-    const lead_messages = await leadMessageRepository.getLastMessages(lead_id);
+    // const lead_messages = await leadMessageRepository.getLastMessages(lead_id);
+    const { last_messages, recent_messages } = await leadMessageRepository.getLastAndRecentMessages(lead_id);
 
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields() });
     const lastMessages = kommoUtils.findLeadsFieldByName('GPT | Last messages');
+    const message_received = kommoUtils.findLeadsFieldByName('GPT | Message received');
 
     const custom_fields_values = [
       {
         field_id: lastMessages.id,
         values: [
           {
-            value: lead_messages
+            value: last_messages
           }
         ]
       },
+      {
+        field_id: message_received.id,
+        values: [
+          {
+            value: recent_messages
+          }
+        ]
+      }
     ];
 
     const res = await this.updateLead({ id: lead_id, custom_fields_values });
-    styled.success('Preenchido mensagem do lead:', lead_messages);
+    styled.success('[KommoWebhookServices.messageReceived] - Mensagens recentes: ', recent_messages);
+    styled.success('[KommoWebhookServices.messageReceived] - Últimas mensagens: ', last_messages);
     return { code: 200, response: res };
   }
 }

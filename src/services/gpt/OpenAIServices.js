@@ -1,5 +1,5 @@
 import OpenAIUtils from '../../utils/OpenAIUtils.js';
-import styled from '../../utils/log/styledLog.js';
+import styled from '../../utils/log/styled.js';
 
 export default class OpenAIServices {
 

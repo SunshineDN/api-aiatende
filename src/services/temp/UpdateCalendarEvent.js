@@ -10,9 +10,9 @@ const UpdateCalendarEvent = async (payload, access_token = null) => {
     }
     const user = await GetUser(payload, false, access_token);
 
-    const eventSummary = user?.custom_fields_values?.filter(field => field.field_name === 'Event Summary')[0];
-    const eventStart = user?.custom_fields_values?.filter(field => field.field_name === 'Event Start')[0];
-    const eventId = user?.custom_fields_values?.filter(field => field.field_name === 'Event ID')[0];
+    const eventSummary = user?.custom_fields_values?.filter(field => field.field_name === 'Título do Evento')[0];
+    const eventStart = user?.custom_fields_values?.filter(field => field.field_name === 'Data do Evento')[0];
+    const eventId = user?.custom_fields_values?.filter(field => field.field_name === 'ID do Evento')[0];
   
     console.log('Sumário:', eventSummary?.values[0]?.value);
     console.log('Inicio do Evento:', eventStart?.values[0]?.value);

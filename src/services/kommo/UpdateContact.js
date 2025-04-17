@@ -1,5 +1,5 @@
 import axios from 'axios';
-import styled from '../../utils/log/styledLog.js';
+import styled from '../../utils/log/styled.js';
 import { HandlingError } from './HandlingError.js';
 
 export const UpdateContact = async (payload, contact_id, data, access_token = null) => {

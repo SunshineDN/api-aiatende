@@ -1,7 +1,6 @@
 import express from 'express';
 import GptController from '../controllers/GptController.js';
 import kommoMiddleware from '../middlewares/kommoMiddleware.js';
-import messageReceivedMiddleware from '../middlewares/messageReceivedMiddleware.js';
 
 const router = express.Router();
 
@@ -12,8 +11,6 @@ router.get('/', kommoMiddleware, GptController.index);
 router.post('/prompt', kommoMiddleware, GptController.messageToPrompt);
 
 router.post('/:assistant_id/message', kommoMiddleware, GptController.messageToAssistant);
-
-router.post('/transcribe', messageReceivedMiddleware, GptController.transcribeMessage);
 
 router.post('/delete-thread', kommoMiddleware, GptController.deleteThread);
 

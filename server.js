@@ -1,11 +1,11 @@
 import app from './app.js';
-import styled from './src/utils/log/styledLog.js';
+import styled from './src/utils/log/styled.js';
 import { sequelize } from './src/config/db.js';
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, async () => {
-  if(process.env.PORT) {
+  if (process.env.PORT) {
     styled.info('Servidor rodando com porta personalizada ' + process.env.PORT + '!');
   } else {
     styled.info('Servidor rodando com porta padrão 3000!');

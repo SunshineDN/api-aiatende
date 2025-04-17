@@ -1,4 +1,4 @@
-import styled from "../utils/log/styledLog.js";
+import styled from "../utils/log/styled.js";
 
 export default class WebhookMiddleware {
   static createLead(req, _, next) {

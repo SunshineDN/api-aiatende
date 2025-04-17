@@ -1,6 +1,6 @@
 import express from 'express';
 
-import Global from '../../../../../controllers/assistant-prompt/Global.js';
+import GlobalController from '../../../../../controllers/openaiIntegration/GlobalController.js';
 import kommoMiddleware from '../../../../../middlewares/kommoMiddleware.js';
 
 const router = express.Router();
@@ -14,6 +14,6 @@ router.get('/', (req, res) => {
 });
 
 // ROTA GLOBAL
-router.post('/:assistant_id', Global.assistant);
+router.post('/:assistant_id', GlobalController.assistente);
 
 export default router;

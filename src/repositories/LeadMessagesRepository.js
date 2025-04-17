@@ -1,6 +1,7 @@
 import BaseRepository from "./BaseRepository.js";
-import LeadMessages from "../models/LeadMessages.js";
-import styled from "../utils/log/styledLog.js";
+import LeadThreadRepository from "./LeadThreadRepository.js";
+import LeadMessages from "../models/lead_messages.js";
+import styled from "../utils/log/styled.js";
 
 export default class LeadMessagesRepository extends BaseRepository {
   constructor() {
@@ -35,14 +36,90 @@ export default class LeadMessagesRepository extends BaseRepository {
     return;
   }
 
+  async getMessagesHistory(lead_id) {
+    const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
+    if (!lead_message?.messages?.length) return null;
+
+    const messages = lead_message.messages;
+
+    return messages.map(msg => msg.lead_message).join('\n');
+  }
+
   async getLastMessages(lead_id, limit = 3) {
     const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
-    if (!lead_message) return [];
+    if (!lead_message?.messages?.length) return null;
 
-    const lead_messages = lead_message.messages;
-    if (!lead_messages || !lead_messages.length) return [];
+    const messages = lead_message.messages;
 
-    const messages = lead_messages.slice(-limit).map(msg => msg.lead_message);
-    return messages.join('\n');
+    return messages.slice(-limit).map(msg => msg.lead_message).join('\n');
+  }
+
+  async getRecentMessages(lead_id) {
+    const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
+    if (!lead_message?.messages?.length) return null;
+
+    const last_timestamp = await new LeadThreadRepository().getLastTimestamp(Number(lead_id));
+    last_timestamp?.setMilliseconds(last_timestamp.getMilliseconds() - 1000);
+
+    const messages = lead_message.messages;
+    const recent_messages = [];
+
+    for (const msg of messages) {
+      const created_at = new Date(Number(msg.created_at) * 1000);
+      if (created_at > last_timestamp) {
+        recent_messages.push(msg.lead_message);
+      }
+    }
+
+    return recent_messages.join('\n') || null
+  }
+
+  async getLastAndRecentMessages(lead_id, limit = 3) {
+    const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
+    if (!lead_message?.messages?.length) return null;
+
+    const last_timestamp = await new LeadThreadRepository().getLastTimestamp(Number(lead_id));
+    last_timestamp?.setMilliseconds(last_timestamp.getMilliseconds() - 1000);
+
+    const messages = lead_message.messages;
+    const recent_messages = [];
+
+    for (const msg of messages) {
+      const created_at = new Date(Number(msg.created_at) * 1000);
+      if (created_at > last_timestamp) {
+        recent_messages.push(msg.lead_message);
+      }
+    }
+
+    return {
+      last_messages: messages.slice(-limit).map(msg => msg.lead_message).join('\n'),
+      recent_messages: recent_messages.join('\n') || null
+    };
+  }
+
+  async getFirstMessageOrigin(lead_id) {
+    const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
+    if (!lead_message?.messages?.length) return null;
+
+    const origin = lead_message.messages[0].origin;
+
+    switch (origin) {
+      case 'com.amocrm.amocrmwa':
+        return 'WhatsApp Web';
+      case 'instagram_business':
+        return 'Instagram Direct';
+      case 'waba':
+        return 'WhatsApp API';
+      default:
+        return origin;
+    }
+  }
+
+  async clearMessages(lead_id) {
+    const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
+    if (!lead_message?.messages?.length) return null;
+
+    await this.update(Number(lead_id), { messages: [] });
+    styled.success('[LeadMessagesRepository.clearMessages] - Mensagens limpas com sucesso!');
   }
 }

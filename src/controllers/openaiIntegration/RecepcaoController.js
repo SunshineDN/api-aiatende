@@ -1,9 +1,8 @@
-import styled from '../../utils/log/styledLog.js';
+import styled from '../../utils/log/styled.js';
 import RecepcaoServices from '../../services/openaiIntegration/RecepcaoServices.js';
 
-export default class Recepcao {
+export default class RecepcaoController {
 
-  //Prompt
   static async intencao(req, res) {
     try {
       const { lead_id } = req.body;
@@ -12,13 +11,12 @@ export default class Recepcao {
       return res.status(response.code).send(response);
 
     } catch (error) {
-      styled.error(`[Recepcao.intencao] Erro ao enviar prompt: ${error.message}`);
+      styled.error(`[RecepcaoController.intencao] Erro ao enviar prompt: ${error.message}`);
       console.error(error);
       return res.status(500).send({ message: 'Erro ao enviar prompt', error: error?.message });
     }
   }
 
-  //Assistente
   static async indefinido(req, res) {
     try {
       const { lead_id } = req.body;
@@ -28,13 +26,12 @@ export default class Recepcao {
       return res.status(response.code).send(response);
 
     } catch (error) {
-      styled.error(`[Recepcao.indefinido] Erro ao enviar mensagem para a assistente: ${error?.message}`);
+      styled.error(`[RecepcaoController.indefinido] Erro ao enviar mensagem para a assistente: ${error?.message}`);
       console.error(error);
-      return res.status(500).send({ message: 'Erro ao enviar prompt', error: error?.message });
+      return res.status(500).send({ message: 'Erro ao enviar mensagem para a assistente', error: error?.message });
     }
   }
 
-  //Assistente
   static async nao_qualificado(req, res) {
     try {
       const { lead_id } = req.body;
@@ -44,9 +41,9 @@ export default class Recepcao {
       return res.status(response.code).send(response);
       
     } catch (error) {
-      styled.error(`[Recepcao.nao_qualificado] Erro ao enviar mensagem para a assistente: ${error?.message}`);
+      styled.error(`[RecepcaoController.nao_qualificado] Erro ao enviar mensagem para a assistente: ${error?.message}`);
       console.error(error);
-      return res.status(500).send({ message: 'Erro ao enviar prompt', error: error?.message });
+      return res.status(500).send({ message: 'Erro ao enviar mensagem para a assistente', error: error?.message });
     }
   }
 }

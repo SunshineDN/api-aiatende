@@ -1,5 +1,5 @@
 import { deflate } from 'pako';
-import styled from '../log/styledLog.js';
+import styled from '../log/styled.js';
 
 export const EncryptId = (id) => {
   try {

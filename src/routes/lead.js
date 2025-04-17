@@ -1,7 +1,7 @@
 import express from 'express';
 import LeadController from '../controllers/LeadController.js';
 import kommoMiddleware from '../middlewares/kommoMiddleware.js';
-import createLeadMiddleware from '../middlewares/createLeadMiddleware.js';
+import WebhookMiddleware from '../middlewares/WebhookMiddleware.js';
 
 const router = express.Router();
 
@@ -19,6 +19,6 @@ router.post('/split-fields/scheduling', kommoMiddleware, leadController.setSplit
 
 router.post('/add-tel', kommoMiddleware, leadController.addTelephone);
 
-router.post('/webhook/create', createLeadMiddleware, leadController.webhookCreate);
+router.post('/webhook/create', WebhookMiddleware.createLead, leadController.webhookCreate);
 
 export default router;

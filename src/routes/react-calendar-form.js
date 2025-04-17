@@ -1,5 +1,5 @@
 import express from 'express';
-import styled from '../utils/log/styledLog.js';
+import styled from '../utils/log/styled.js';
 import CalendarController from '../controllers/CalendarController.js';
 import WebCalendarController from '../controllers/WebCalendarController.js';
 
@@ -10,17 +10,14 @@ router.use(express.json({ type: 'application/json' }));
 router.use((req, _, next) => {
   styled.middleware('Request Type: ', req.method);
   styled.middleware('Request URL: ', req.originalUrl);
-  styled.middlewaredir('Request Body: ', req.body);
+  styled.middleware('Request Body:');
+  styled.middlewaredir(req.body);
   next();
 });
 
 router.get('/', CalendarController.index);
 
-router.post('/listEvents', CalendarController.listEventsWeb);
-
 router.post('/initial', WebCalendarController.initial);
-
-router.post('/default', WebCalendarController.default);
 
 router.post('/choice', WebCalendarController.choice);
 

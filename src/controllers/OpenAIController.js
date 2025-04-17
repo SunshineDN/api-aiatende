@@ -1,8 +1,8 @@
 import axios from 'axios';
 import OpenAI from 'openai';
 import { Op } from 'sequelize';
-import styled from '../utils/log/styledLog.js';
-import LeadThread from '../models/LeadThread.js';
+import styled from '../utils/log/styled.js';
+import LeadThread from '../models/lead_threads.js';
 import { transcribeAudio } from '../services/gpt/TranscribeAudio.js';
 import { getFileNameFromUrl } from '../utils/GetNameExtension.js';
 import { downloadAudio, deleteTempFile } from '../services/gpt/DaD-Audio.js';
@@ -51,11 +51,11 @@ export default class OpenAIController {
           }
         });
         styled.success('Thread created in OpenAI');
-        styled.success(newThread);
+        styled.successdir(newThread);
 
         styled.info('Updating threadID in database');
-        let newArrayAssistans = existThreads.assistant_id;
-        let newArrayThreads = existThreads.threadID;
+        let newArrayAssistans = existThreads.assistant_id || [];
+        let newArrayThreads = existThreads.threadID || [];
 
         await LeadThread.update({
           threadID: [...newArrayThreads, newThread.id],

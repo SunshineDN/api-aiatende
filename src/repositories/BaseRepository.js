@@ -24,15 +24,11 @@ export default class BaseRepository {
     return [create, created];
   }
 
-  async create(data) {
-    return await this.model.create(data);
-  }
-
   async update(id, data) {
     return await this.model.update(data, { where: { id } });
   }
 
-  async delete(id) {
-    return await this.model.destroy({ where: { id } });
+  async delete(query) {
+    return await this.model.destroy(query);
   }
 };

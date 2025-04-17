@@ -1,5 +1,5 @@
 import { parse } from 'date-fns';
-import styled from '../../utils/log/styledLog.js';
+import styled from '../../utils/log/styled.js';
 import { GetAccessToken } from './GetAccessToken.js';
 import { GetCustomFields } from './GetCustomFields.js';
 import { GetUser } from './GetUser.js';
@@ -25,7 +25,7 @@ export const SplitSchedulingFields = async (payload, access_token = null) => {
     let custom_fields_values = [];
 
     if (data_field_split.length >= 3) {
-      const birth = data_field_split[1];
+      const birth = String(data_field_split[1]);
       const birthField = custom_fields.filter(field => field.name === 'Data de Nascimento')[0];
       const kommoUtils = new KommoUtils();
       const birthTime = kommoUtils.convertDateToMs(birth);

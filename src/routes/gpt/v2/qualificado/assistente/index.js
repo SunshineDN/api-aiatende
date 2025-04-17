@@ -1,6 +1,5 @@
 import express from 'express';
-
-import Qualificado from '../../../../../controllers/assistant-prompt/Qualificado.js';
+import QualificadoController from '../../../../../controllers/openaiIntegration/QualificadoController.js';
 import kommoMiddleware from '../../../../../middlewares/kommoMiddleware.js';
 
 const router = express.Router();
@@ -14,8 +13,6 @@ router.get('/', (req, res) => {
 });
 
 // BOT QUALIFICADO
-router.post('/:assistant_id/qualificado', Qualificado.qualificado);
-
-router.post('/:assistant_id/nao-qualificado', Qualificado.nao_qualificado);
+router.post('/:assistant_id/qualificado', QualificadoController.qualificado);
 
 export default router;

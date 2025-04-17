@@ -1,7 +1,7 @@
 import BkFunnelsRepository from "../../repositories/BkFunnelsRepository.js";
 import BkFunnelsUtils from "../../utils/BkFunnelsUtils.js";
 import KommoUtils from "../../utils/KommoUtils.js";
-import styled from "../../utils/log/styledLog.js";
+import styled from "../../utils/log/styled.js";
 import KommoServices from "../kommo/KommoServices.js";
 
 export default class BkFunnelsServices {
@@ -24,8 +24,45 @@ export default class BkFunnelsServices {
       const [_, created] = await bkFunnelsRepository.findOrCreate({ where: { code: codeString, funnelId: funnelIdString } });
 
       await bkFunnelsRepository.updateByCode(codeString, { objects: value });
+
+      const kommoUtils = new KommoUtils();
+      const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
+      const bkLeadInfo = await bkFunnelsRepository.findByCode(codeString);
+
+      const { objects: { name, email, phone, datanascimento, bairro }, dentista, procedimento, periodo } = bkLeadInfo;
+
+      const lead = await kommo.listLeads({ query: kommoUtils.formatPhone(phone), first_created: true });
+      let lead_res;
+      if (!lead || lead?.length === 0) {
+        lead_res = await kommo.createLeadBk({
+          name,
+          email,
+          bairro,
+          phone,
+          datanascimento,
+          dentista,
+          service: procedimento,
+          periodo,
+          code: codeString,
+          lead_status: 'DADOS CADASTRAIS'
+        });
+      } else {
+        lead_res = await kommo.updateLeadBk({
+          id: lead.id,
+          name,
+          email,
+          bairro,
+          datanascimento,
+          dentista,
+          service: procedimento,
+          periodo,
+          code: codeString,
+          lead_status: 'DADOS CADASTRAIS'
+        });
+      }
+
       styled.success('BK Funnels Lead Informations has been stored');
-      return { code: 200, response: { message: 'BK Funnels Lead Informations has been stored' }, created };
+      return { code: 200, response: { message: 'BK Funnels Lead Informations has been stored', lead_res, created } };
     }
 
     const [_, created] = await bkFunnelsRepository.findOrCreate({ where: { code: codeString, funnelId: funnelIdString } });
@@ -45,38 +82,48 @@ export default class BkFunnelsServices {
       return { code: 200, response: { message: 'BK Funnels Lead created and periodo has been updated' } };
 
     } else if (type === 'turno') {
+      await bkFunnelsRepository.updateByCode(codeString, { turno: value });
+
       const kommoUtils = new KommoUtils();
       const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
       const bkLeadInfo = await bkFunnelsRepository.findByCode(codeString);
 
-      const { objects: { name, email, phone, datanascimento }, dentista, procedimento, periodo } = bkLeadInfo;
+      const { objects: { name, email, phone, datanascimento, bairro }, dentista, procedimento, periodo } = bkLeadInfo;
 
-      const leads = await kommo.listLeads({ query: kommoUtils.formatPhone(phone), first_created: true });
+      const lead = await kommo.listLeads({ query: kommoUtils.formatPhone(phone), first_created: true });
       let turno_res;
-      if (!leads || leads?.length === 0) {
+      if (!lead || lead?.length === 0) {
         turno_res = await kommo.createLeadBk({
-          name: name,
-          email: email,
-          phone: phone,
-          datanascimento: datanascimento,
-          dentista: dentista,
-          procedimento: procedimento,
-          periodo: periodo,
+          name,
+          email,
+          bairro,
+          phone,
+          datanascimento,
+          dentista,
+          service: procedimento,
+          periodo,
           turno: value,
-          code: codeString
+          code: codeString,
+          lead_status: 'PRÉ-AGENDAMENTO'
         });
       } else {
         turno_res = await kommo.updateLeadBk({
-          id: leads[0].id,
-          dentista: dentista,
-          procedimento: procedimento,
-          periodo: periodo,
+          id: lead.id,
+          name,
+          email,
+          bairro,
+          datanascimento,
+          dentista,
+          service: procedimento,
+          periodo,
           turno: value,
+          code: codeString,
+          lead_status: 'PRÉ-AGENDAMENTO'
         });
       }
-      await bkFunnelsRepository.updateByCode(codeString, { turno: value });
+
       styled.success('BK Funnels Lead created and turno has been updated');
-      return { code: 200, response: { message: 'BK Funnels Lead created and turno has been updated', turno_res }, created };
+      return { code: 200, response: { message: 'BK Funnels Lead created and turno has been updated', turno_res, created } };
 
     } else if (type === 'quests') {
       const { quests } = await bkFunnelsRepository.findByCode(codeString);
