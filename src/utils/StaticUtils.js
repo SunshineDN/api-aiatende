@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import crypto from "crypto";
 import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 import { v4 as uuidv4, v5 as uuidv5 } from 'uuid';
 import styled from "./log/styled.js";
@@ -162,6 +163,16 @@ export default class StaticUtils {
     }
 
     /**
+     * Formata um número de telefone para o formato do Evolution
+     * @param {string} number - Número a ser formatado
+     * @returns {string} - Número formatado
+     */
+    static removePhoneNonNumericCharacters(number) {
+        let formattedNumber = number.replace(/\D/g, '');
+        return formattedNumber
+    }
+
+    /**
      * Verifica se uma string é uma codificação válida em base64
      * @param {string} str - String a ser verificada
      * @returns {boolean} - Retorna true se a string for uma codificação válida em base64
@@ -238,5 +249,9 @@ export default class StaticUtils {
         const jsonString = JSON.stringify(obj);
         const hash = uuidv5(jsonString, namespace);
         return hash;
+    }
+    
+    static generateSimpleHash() {
+        return crypto.randomBytes(4).toString('hex'); // Gera uma string hexadecimal de 8 caracteres
     }
 }

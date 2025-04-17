@@ -12,6 +12,7 @@ export default class KommoWebhookController {
     try {
       const { body } = req;
       const response = await this.kommo.createLead(body?.lead_id, { calendar: true, created_at: true });
+ 
       res.status(200).json(response);
     } catch (error) {
       styled.error('[KommoWebhookController.created] Erro');

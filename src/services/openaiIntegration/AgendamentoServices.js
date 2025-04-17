@@ -32,7 +32,7 @@ Instruções: "Somente enquanto aparecer esta instrução específica, ao finali
 Instruções: "Somente enquanto aparecer esta instrução específica, ao finalizar a resposta, você deve lembrar o usuário de acessar o link para cadastro que foi enviado anteriormente para que o usuário possa agendar uma consulta."`;
       }
 
-      const response = await this.openaiintegrationservices.assistant(this.lead_id, text, assistant_id);
+      const response = await this.openaiintegrationservices.assistant({ lead_id: this.lead_id, text, assistant_id });
       return { code: 200, message: 'Mensagem do assistente enviada com sucesso', ...response };
 
     } catch (error) {
@@ -65,7 +65,7 @@ Instruções: "Somente enquanto aparecer esta instrução específica, ao finali
 
 Instruções: "Somente enquanto aparecer esta instrução específica, ao finalizar a resposta, você deve lembrar o usuário de acessar o link para acessar o calendário que foi enviado anteriormente para que o usuário possa agendar uma consulta."`;
       }
-      const response = await this.openaiintegrationservices.assistant(this.lead_id, text, assistant_id);
+      const response = await this.openaiintegrationservices.assistant({ lead_id: this.lead_id, text, assistant_id });
       return { code: 200, message: 'Mensagem do assistente enviada com sucesso', ...response };
 
     } catch (error) {

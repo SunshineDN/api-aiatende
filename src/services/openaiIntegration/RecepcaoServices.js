@@ -45,7 +45,7 @@ export default class RecepcaoServices {
 
 Responda apenas com o respectivo ID das opções, que segue este padrão: "#palavra" Exemplo: #Agendamento'`;
 
-      const response = await this.openaiintegrationservices.prompt(this.lead_id, text);
+      const response = await this.openaiintegrationservices.prompt({ lead_id: this.lead_id, text });
       return { code: 200, message: 'Prompt enviado com sucesso', ...response };
 
     } catch (error) {
@@ -92,7 +92,7 @@ Recebendo um usuário novo. Inicie a conversa perguntando o seu nome, caso já t
 
 User message: '${lead_messages}'`;
 
-      const response = await this.openaiintegrationservices.assistant(this.lead_id, text, assistant_id);
+      const response = await this.openaiintegrationservices.assistant({ lead_id: this.lead_id, text, assistant_id });
       return { code: 200, message: 'Mensagem do assistente enviada com sucesso', ...response };
 
     } catch (error) {
@@ -149,7 +149,7 @@ Em breve, te responderão!'
 6) Se não for nenhuma das opções acima, então receba como usuário novo. Inicie a conversa perguntando o seu nome para demonstrar proximidade, e na sequência entender os seus interesses e as suas dúvidas."`;
 
 
-      const response = await this.openaiintegrationservices.assistant(this.lead_id, text, assistant_id);
+      const response = await this.openaiintegrationservices.assistant({ lead_id: this.lead_id, text, assistant_id });
       return { code: 200, message: 'Mensagem do assistente enviada com sucesso', ...response };
 
     } catch (error) {

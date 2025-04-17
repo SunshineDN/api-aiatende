@@ -1,6 +1,6 @@
 import BaseRepository from "./BaseRepository.js";
 import LeadThreadRepository from "./LeadThreadRepository.js";
-import LeadMessages from "../models/LeadMessages.js";
+import LeadMessages from "../models/lead_messages.js";
 import styled from "../utils/log/styled.js";
 
 export default class LeadMessagesRepository extends BaseRepository {
@@ -34,6 +34,15 @@ export default class LeadMessagesRepository extends BaseRepository {
     }
 
     return;
+  }
+
+  async getMessagesHistory(lead_id) {
+    const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
+    if (!lead_message?.messages?.length) return null;
+
+    const messages = lead_message.messages;
+
+    return messages.map(msg => msg.lead_message).join('\n');
   }
 
   async getLastMessages(lead_id, limit = 3) {

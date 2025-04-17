@@ -8,7 +8,15 @@ const marketing_tracking = sequelize.define('marketing_tracking', {
     allowNull: false,
     primaryKey: true,
   },
+  client_id: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
   gclid: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  fbclid: {
     type: DataTypes.STRING,
     allowNull: true,
   },
@@ -36,14 +44,13 @@ const marketing_tracking = sequelize.define('marketing_tracking', {
     type: DataTypes.STRING,
     allowNull: true,
   },
-  lead_id: {
-    type: DataTypes.UUID,
-    references: {
-      model: 'leads', // Nome da tabela referenciada
-      key: 'id', // Chave primária da tabela referenciada
-    },
-    allowNull: false,
-  },
+  hash: {
+    type:DataTypes.STRING,
+    allowNull: true,
+    unique: true
+  }
+}, {
+  tableName: 'marketing_tracking',
 });
 
 export default marketing_tracking;

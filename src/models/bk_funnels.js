@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/db.js';
 
-const BkFunnels = sequelize.define('BkFunnels', {
+const bk_funnels = sequelize.define('bk_funnels', {
   code: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -29,7 +29,7 @@ const BkFunnels = sequelize.define('BkFunnels', {
     type: DataTypes.STRING,
   }
 }, {
-  tableName: 'BkFunnels', // nome da tabela no banco de dados
+  tableName: 'bk_funnels'
 });
 
-export default BkFunnels;
+export default bk_funnels;

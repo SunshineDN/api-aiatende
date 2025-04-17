@@ -9,6 +9,7 @@ module.exports = {
           id: {
             type: Sequelize.DataTypes.UUID,
             defaultValue: Sequelize.DataTypes.UUIDV4,
+            unique: true,
             allowNull: false,
             primaryKey: true,
           },
@@ -38,10 +39,23 @@ module.exports = {
             type: Sequelize.DataTypes.UUID,
             defaultValue: Sequelize.DataTypes.UUIDV4,
             allowNull: false,
+            unique: true,
             primaryKey: true,
+          },
+          client_id: {
+            type: Sequelize.DataTypes.STRING,
+            allowNull: true,
           },
           gclid: {
             type: Sequelize.DataTypes.STRING,
+            allowNull: true,
+          },
+          fbclid: {
+            type: Sequelize.DataTypes.STRING,
+            allowNull: true,
+          },
+          hash: {
+            type: Sequelize.DataTypes.STRING(8),
             allowNull: true,
           },
           utm_source: {
@@ -67,14 +81,6 @@ module.exports = {
           utm_referrer: {
             type: Sequelize.DataTypes.STRING,
             allowNull: true,
-          },
-          lead_id: {
-            type: Sequelize.DataTypes.UUID,
-            references: {
-              model: 'leads', // Nome da tabela referenciada
-              key: 'id', // Chave primária da tabela referenciada
-            },
-            allowNull: false,
           },
           createdAt: {
             type: Sequelize.DataTypes.DATE,

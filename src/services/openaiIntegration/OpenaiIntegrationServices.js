@@ -5,16 +5,48 @@ import KommoServices from '../kommo/KommoServices.js';
 import LeadThreadRepository from '../../repositories/LeadThreadRepository.js';
 import LeadUtils from '../../utils/LeadUtils.js';
 import StaticUtils from '../../utils/StaticUtils.js';
+import EvolutionApiServices from '../evolutionapi/EvolutionApiServices.js';
 
 export default class OpenaiIntegrationServices extends KommoServices {
+  #evolutionApi;
+
   constructor({ auth, url }) {
     super({ auth, url });
+    this.#evolutionApi = new EvolutionApiServices({ apiKey: process.env.EVOLUTION_API_KEY, instance: process.env.EVOLUTION_API_INSTANCE_ID });
   }
 
-  async #sendMessage({ lead_id, message }) {
+  async #saveAssistantMessage({ lead_id, message }) {
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields() });
 
     const answerField = kommoUtils.findLeadsFieldByName('GPT | Answer');
+    const logField = kommoUtils.findLeadsFieldByName('GPT | LOG');
+    const custom_fields_values = [
+      {
+        field_id: answerField.id,
+        values: [
+          {
+            value: message
+          }
+        ]
+      },
+      {
+        field_id: logField.id,
+        values: [
+          {
+            value: 'ok'
+          }
+        ]
+      }
+    ]
+
+    const response = await this.updateLead({ id: lead_id, custom_fields_values });
+    return response;
+  }
+
+  async #savePromptMessage({ lead_id, message }) {
+    const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields() });
+
+    const answerField = kommoUtils.findLeadsFieldByName('GPT | Intent');
     const logField = kommoUtils.findLeadsFieldByName('GPT | LOG');
     const custom_fields_values = [
       {
@@ -58,7 +90,7 @@ export default class OpenaiIntegrationServices extends KommoServices {
     return response;
   }
 
-  async assistant(lead_id, text, assistant_id) {
+  async assistant({ lead_id, text, assistant_id, send_message = true } = {}) {
     styled.function('[OpenaiIntegrationServices.assistant] Enviando para o assistente GPT...');
     styled.info('[OpenaiIntegrationServices.assistant] Mensagem enviada para o assistente:', text);
 
@@ -68,7 +100,8 @@ export default class OpenaiIntegrationServices extends KommoServices {
       assistant_id
     }
 
-    const lead = await this.getLead({ id: lead_id });
+    const lead = await this.getLead({ id: lead_id, withParams: 'contacts' });
+
     const message_received = LeadUtils.findLeadField({ lead, fieldName: 'GPT | Message received' });
     if (message_received) {
       await StaticUtils.sleep(2);
@@ -79,14 +112,23 @@ export default class OpenaiIntegrationServices extends KommoServices {
     const { message } = await OpenAIController.generateMessage(data);
 
     styled.success('[OpenaiIntegrationServices.assistant] Resposta recebida do assistente:', message);
-    const updated = await this.#sendMessage({ lead_id, message: StaticUtils.substituteEmojisAnswer(message) });
+
+    if (send_message) {
+      const contact = lead.contact;
+      const phoneNumber = LeadUtils.getPhoneNumber({ contact });
+
+      this.#evolutionApi.sendMessage({ message, number: phoneNumber })
+      styled.success(`[OpenaiIntegrationServices.assistant] Mensagem enviada para o lead ${lead_id} via Evolution API`);
+    }
+
+    const updated = await this.#saveAssistantMessage({ lead_id, message: StaticUtils.substituteEmojisAnswer(message) });
     return {
       generated_message: message,
       updated
     }
   }
 
-  async prompt(lead_id, text) {
+  async prompt({ lead_id, text, send_message = false } = {}) {
     styled.function('[OpenaiIntegrationServices.prompt] Enviando prompt...');
     styled.info('[OpenaiIntegrationServices.prompt] Mensagem enviada para o prompt:', text);
 
@@ -94,7 +136,16 @@ export default class OpenaiIntegrationServices extends KommoServices {
 
     styled.success('[OpenaiIntegrationServices.prompt] Resposta recebida do prompt:', message);
 
-    const updated = await this.#sendMessage({ lead_id, message });
+    if (send_message) {
+      const lead = await this.getLead({ id: lead_id, withParams: 'contacts' });
+      const contact = lead.contact;
+      const phoneNumber = LeadUtils.getPhoneNumber({ contact });
+
+      this.#evolutionApi.sendMessage({ message, number: phoneNumber });
+      styled.success(`[OpenaiIntegrationServices.prompt] Mensagem enviada para o lead ${lead_id} via Evolution API`);
+    }
+
+    const updated = await this.#savePromptMessage({ lead_id, message });
     return {
       generated_message: message,
       updated

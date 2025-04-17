@@ -1,6 +1,6 @@
 import express from 'express';
 
-import Cutucada from '../../../../../controllers/assistant-prompt/Cutucada.js';
+import CutucadaController from '../../../../../controllers/openaiIntegration/CutucadaController.js';
 import kommoMiddleware from '../../../../../middlewares/kommoMiddleware.js';
 
 const router = express.Router();
@@ -14,8 +14,10 @@ router.get('/', (req, res) => {
 });
 
 // BOT CUTUCADA
-router.post('/intencao', Cutucada.intencao);
+router.post('/intencao', CutucadaController.intencao);
 
-router.post('/gerar-perguntas', Cutucada.gerar_perguntas);
+router.post('/gerar-perguntas', CutucadaController.gerar_perguntas);
+
+router.post('/gerar-pergunta-historico', CutucadaController.gerar_perguntas_historico);
 
 export default router;

@@ -1,6 +1,6 @@
 import express from 'express';
 
-import Cutucada from '../../../../../controllers/assistant-prompt/Cutucada.js';
+import CutucadaController from '../../../../../controllers/openaiIntegration/CutucadaController.js';
 import kommoMiddleware from '../../../../../middlewares/kommoMiddleware.js';
 
 const router = express.Router();
@@ -14,6 +14,6 @@ router.get('/', (req, res) => {
 });
 
 // BOT CUTUCADA
-router.post('/:assistant_id/assistente', Cutucada.assistente);
+router.post('/:assistant_id/assistente', CutucadaController.assistente);
 
 export default router;
