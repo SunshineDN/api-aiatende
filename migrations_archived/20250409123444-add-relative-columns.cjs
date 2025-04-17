@@ -6,19 +6,6 @@ module.exports = {
     return queryInterface.sequelize.transaction(t => {
       return Promise.all([
         queryInterface.addColumn(
-          'marketing_tracking',
-          'lead_id',
-          {
-            type: Sequelize.DataTypes.UUID,
-            references: {
-              model: 'leads', // Nome da tabela referenciada
-              key: 'id', // Chave primária da tabela referenciada
-            },
-            allowNull: false,
-          },
-          { transaction: t },
-        ),
-        queryInterface.addColumn(
           'leads',
           'marketing_tracking_id',
           {

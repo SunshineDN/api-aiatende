@@ -29,6 +29,7 @@ services:
       - EVOLUTION_API_BASE_URL= # URL base da API do Evolution API
       - EVOLUTION_API_INSTANCE_ID= # ID da instância da API do Evolution API
       - EVOLUTION_API_KEY= # Chave de API do Evolution API
+      - WHATSAPP_NUMBER=558130930133 # Número do WhatsApp
     expose:
       - "PORT" # Altere para a porta que deseja expor
     ports:

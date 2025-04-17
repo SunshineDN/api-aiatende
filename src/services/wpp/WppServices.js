@@ -9,7 +9,7 @@ export default class WppServices {
     this.kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
   }
 
-  async handleWabhookReceived(query, hash) {
+  async handleWebhookReceived(query, hash) {
 
     const utms = this.handleUTMSeparator(query, hash)
     styled.info("utms e dados")

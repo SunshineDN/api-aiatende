@@ -54,6 +54,10 @@ module.exports = {
             type: Sequelize.DataTypes.STRING,
             allowNull: true,
           },
+          hash: {
+            type: Sequelize.DataTypes.STRING(8),
+            allowNull: true,
+          },
           utm_source: {
             type: Sequelize.DataTypes.STRING,
             allowNull: true,
