@@ -17,7 +17,8 @@ export default class AgendamentoServices {
 
       const form = process.env.FORM || '';
 
-      const { recent_messages, last_messages } = await this.leadMessagesRepository.getLastAndRecentMessages(this.lead_id, 1);
+      const recent_messages = await this.leadMessagesRepository.getRecentMessages(this.lead_id);
+      const last_messages = await this.leadMessagesRepository.getLastMessages(this.lead_id, 1);
       const lead_messages = recent_messages || last_messages;
 
       let text;
@@ -51,7 +52,8 @@ Instruções: "Somente enquanto aparecer esta instrução específica, ao finali
 
       const calendario = LeadUtils.findLeadField({ lead, fieldName: 'Calendário', value: true });
 
-      const { recent_messages, last_messages } = await this.leadMessagesRepository.getLastAndRecentMessages(this.lead_id, 1);
+      const recent_messages = await this.leadMessagesRepository.getRecentMessages(this.lead_id);
+      const last_messages = await this.leadMessagesRepository.getLastMessages(this.lead_id, 1);
       const lead_messages = recent_messages || last_messages;
 
       let text;

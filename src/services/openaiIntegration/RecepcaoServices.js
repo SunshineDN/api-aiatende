@@ -76,7 +76,8 @@ Responda apenas com o respectivo ID das opções, que segue este padrão: "#pala
     try {
       styled.function('[RecepcaoServices.indefinido] Recepção | Indefinido...');
 
-      const { recent_messages, last_messages } = await this.leadMessagesRepository.getLastAndRecentMessages(this.lead_id, 1);
+      const recent_messages = await this.leadMessagesRepository.getRecentMessages(this.lead_id);
+      const last_messages = await this.leadMessagesRepository.getLastMessages(this.lead_id, 1);
       const lead_messages = recent_messages || last_messages;
 
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
@@ -108,7 +109,8 @@ User message: '${lead_messages}'`;
     try {
       styled.function('[RecepcaoServices.nao_qualificado] Recepção | Não Qualificado...');
 
-      const { recent_messages, last_messages } = await this.leadMessagesRepository.getLastAndRecentMessages(this.lead_id, 1);
+      const recent_messages = await this.leadMessagesRepository.getRecentMessages(this.lead_id);
+      const last_messages = await this.leadMessagesRepository.getLastMessages(this.lead_id, 1);
       const lead_messages = recent_messages || last_messages;
 
       const date = new Date().toLocaleString('pt-BR', { timeZone: 'America/Recife' });
