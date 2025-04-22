@@ -38,7 +38,10 @@ export default class LeadMessagesRepository extends BaseRepository {
 
   async getMessagesHistory(lead_id) {
     const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
-    if (!lead_message?.messages?.length) return null;
+    if (!lead_message?.messages?.length) {
+      styled.warning('[LeadMessagesRepository.getMessagesHistory] - Nenhuma mensagem encontrada no histórico');
+      return null;
+    };
 
     const messages = lead_message.messages;
 
@@ -47,7 +50,10 @@ export default class LeadMessagesRepository extends BaseRepository {
 
   async getLastMessages(lead_id, limit = 3) {
     const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
-    if (!lead_message?.messages?.length) return null;
+    if (!lead_message?.messages?.length) {
+      styled.warning('[LeadMessagesRepository.getLastMessages] - Nenhuma última mensagem encontrada');
+      return null;
+    };
 
     const messages = lead_message.messages;
 
@@ -56,7 +62,10 @@ export default class LeadMessagesRepository extends BaseRepository {
 
   async getRecentMessages(lead_id) {
     const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
-    if (!lead_message?.messages?.length) return null;
+    if (!lead_message?.messages?.length) {
+      styled.warning('[LeadMessagesRepository.getRecentMessages] - Nenhuma mensagem recente encontrada');
+      return null;
+    }
 
     const last_timestamp = await new LeadThreadRepository().getLastTimestamp(Number(lead_id));
     last_timestamp?.setMilliseconds(last_timestamp.getMilliseconds() - 1000);
