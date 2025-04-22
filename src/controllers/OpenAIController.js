@@ -109,11 +109,14 @@ export default class OpenAIController {
       styled.info('Index of assistant', indexOfAssistant);
 
       styled.info('Sending message to assistant');
+
+      const sanitizedText = (text ?? "").trim();
+
       await openai.beta.threads.messages.create(
         existThreads.threadID[indexOfAssistant],
         {
           role: 'user',
-          content: text
+          content: sanitizedText.length > 0 ? sanitizedText : '[Mensagem vazia]',
         }
       );
 
