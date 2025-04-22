@@ -1,3 +1,4 @@
+import LeadMessagesRepository from "./src/repositories/LeadMessagesRepository.js";
 import MarketingTrackingRepository from "./src/repositories/MarketingTrackingRepository.js";
 import KommoServices from "./src/services/kommo/KommoServices.js";
 import OpenaiIntegrationServices from "./src/services/openaiIntegration/OpenaiIntegrationServices.js";
@@ -43,9 +44,6 @@ async function main() {
   // }
 
   // console.log("Hash encontrada:", haveHash);
-
-  console.log(atob('YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA'));
-
 }
 
 main();

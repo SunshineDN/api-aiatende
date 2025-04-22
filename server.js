@@ -1,6 +1,6 @@
 import app from './app.js';
 import styled from './src/utils/log/styled.js';
-import { sequelize } from './src/config/db.js';
+import { sequelize, connectWithBackoff } from './src/config/db.js';
 
 const PORT = process.env.PORT || 3000;
 
@@ -12,7 +12,7 @@ app.listen(PORT, async () => {
   }
   styled.info('Servidor rodando na porta: ' + PORT);
   try {
-    await sequelize.authenticate();
+    await connectWithBackoff();
     styled.success('Conexão com o banco de dados estabelecida com sucesso!');
 
     await sequelize.sync();

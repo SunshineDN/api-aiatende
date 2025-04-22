@@ -1,6 +1,9 @@
 docker-compose.yml
 node_modules
 .env
+.env.caa
+.env.aiatende
+.env.dentalsante
 *data
 *service_account*.json
 backup_docker_logs.sh
