@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASS} # Altere a senha do banco de dados
       POSTGRES_DB: ${DB_NAME} # Altere o nome do banco de dados
     ports:
-      - "5432:5432" # Altere a porta para a porta que deseja expor
+      - "5432:5432" # Altere a primeira porta que deseja expor
     volumes:
       - ./data:/var/lib/postgresql/data
     networks:
@@ -18,11 +18,13 @@ services:
     build: .
     command: "npm run start"
     working_dir: /home/node/app
+    depends_on:
+      - database
     environment:
       - DOMAIN=${DOMAIN} # Domínio da aplicação
       - KOMMO_AUTH=${KOMMO_AUTH} # Token de acesso do Kommo
       - KOMMO_URL=${KOMMO_URL} # URL do Kommo
-      - DB_URL=postgres://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME} # URL de conexão com o banco de dados (postgres://DB_USER:DB_PASS@DB_HOST:DB_PORT/DB_NAME)
+      - DB_URL=postgres://${DB_USER}:${DB_PASS}@database:5432/${DB_NAME} # URL de conexão com o banco de dados (postgres://DB_USER:DB_PASS@DB_HOST:DB_PORT/DB_NAME)
       - TZ=${GENERIC_TIMEZONE} # Fuso horário da aplicação
       - OPENAI_API_KEY=${OPENAI_API_KEY} # Chave de API do OpenAI
       - OPENAI_ASSISTANT_ID=${OPENAI_ASSISTANT_ID} # ID do assistente do OpenAI
@@ -33,7 +35,7 @@ services:
     expose:
       - "3000" # Altere para a porta que deseja expor
     ports:
-      - "3000:3000" # Altere para a porta que deseja expor
+      - "3000:3000" # Altere a primeira porta para a que deseja expor
     networks:
       - aiatende-network
 
@@ -43,4 +45,4 @@ volumes:
 
 networks:
   aiatende-network:
-    external: true
+    driver: bridge
