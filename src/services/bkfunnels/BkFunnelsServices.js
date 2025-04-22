@@ -8,6 +8,10 @@ export default class BkFunnelsServices {
 
   static async createUpdateLead(body) {
     const { code, funnelId } = body;
+
+    styled.info(`[BkFunnelsServices.createUpdateLead] - Code: ${code} | FunnelId: ${funnelId}`);
+    styled.infodir(body);
+
     const codeString = code.toString();
     const funnelIdString = funnelId.toString();
 
