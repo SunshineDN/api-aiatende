@@ -116,7 +116,7 @@ export default class OpenAIController {
         existThreads.threadID[indexOfAssistant],
         {
           role: 'user',
-          content: sanitizedText.length > 0 ? sanitizedText : '[Mensagem vazia]',
+          content: sanitizedText.length > 0 ? sanitizedText : '[]',
         }
       );
 
