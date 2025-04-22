@@ -16,7 +16,8 @@ export default class ReaquecimentoServices {
       styled.function('[ReaquecimentoServices.intencao] Recepção | Intenção...');
       const lead = await this.openaiintegrationservices.getLead({ id: this.lead_id });
 
-      const { recent_messages, last_messages } = await this.leadMessagesRepository.getLastAndRecentMessages(this.lead_id, 1);
+      const recent_messages = await this.leadMessagesRepository.getRecentMessages(this.lead_id);
+      const last_messages = await this.leadMessagesRepository.getLastMessages(this.lead_id, 1);
       const lead_messages = recent_messages || last_messages;
 
       const answer = await LeadUtils.findLeadField({ lead, fieldName: 'GPT | Answer', value: true });
