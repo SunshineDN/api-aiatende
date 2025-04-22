@@ -14,17 +14,18 @@ export default class BkFunnelsUtils {
       }
     } else {
       const { answers: [answer] } = obj;
-      if (answer.includes('Dentista especialista')) {
+      const answerLower = answer.toLowerCase();
+      if (answerLower.includes('dentista') && answerLower.includes('especialista')) {
         return {
           type: 'dentista',
           value: 'Demais Dentistas',
         }
-      } else if (answer.includes('Dra. Juliana Leite')) {
+      } else if (answerLower.includes('dra') && answerLower.includes('juliana') && answerLower.includes('leite')) {
         return {
           type: 'dentista',
           value: 'Dra. Juliana Leite',
         }
-      } else if (answer.includes('Dra. Lucília')) {
+      } else if (answerLower.includes('dra') && answerLower.includes('lucília')) {
         return {
           type: 'dentista',
           value: 'Dra. Lucília Miranda',
