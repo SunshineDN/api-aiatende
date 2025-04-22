@@ -18,7 +18,8 @@ export default class ConfirmacaoController {
 
   static async confirmar_presenca(req, res) {
     try {
-      const { lead_id, assistant_id } = req.body;
+      const { lead_id } = req.body;
+      const { assistant_id } = req.params;
       const confirmacaoServices = new ConfirmacaoServices(lead_id);
       const response = await confirmacaoServices.confirmarPresenca(assistant_id);
       return res.status(response.code).send(response);
