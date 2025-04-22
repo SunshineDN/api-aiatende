@@ -15,34 +15,36 @@ async function main() {
   // const message = "Olá, tudo bem?";
   // await openaiIntegration.assistant(lead_id, message, "YXNzdF9SUWJRbjVoblRKNjBwZTRydU16R3hROG4");
 
-  const marketingTrackingRepository = new MarketingTrackingRepository();
+  // const marketingTrackingRepository = new MarketingTrackingRepository();
 
-  const hash = StaticUtils.generateSimpleHash();
-  const text = "Olá, tudo bem?";
-  styled.info("Hash gerada:", hash);
+  // const hash = StaticUtils.generateSimpleHash();
+  // const text = "Olá, tudo bem?";
+  // styled.info("Hash gerada:", hash);
 
-  const hashExist = await marketingTrackingRepository.findOne({
-    where: {
-      hash,
-    },
-  });
+  // const hashExist = await marketingTrackingRepository.findOne({
+  //   where: {
+  //     hash,
+  //   },
+  // });
 
-  if (hashExist) {
-    styled.warning("Hash já existe:", hash);
-    return;
-  } else {
-    styled.success("Hash não existe:", hash);
-  }
+  // if (hashExist) {
+  //   styled.warning("Hash já existe:", hash);
+  //   return;
+  // } else {
+  //   styled.success("Hash não existe:", hash);
+  // }
 
-  const haveHash = KommoWebhookUtils.handleEncounterHash(
-    `[ ${hash} -> *NÂO APAGUE ESSA MENSAGEM* ]\n${text}`
-  );
+  // const haveHash = KommoWebhookUtils.handleEncounterHash(
+  //   `[ ${hash} -> *NÂO APAGUE ESSA MENSAGEM* ]\n${text}`
+  // );
 
-  if (!haveHash) {
-    return;
-  }
+  // if (!haveHash) {
+  //   return;
+  // }
 
-  console.log("Hash encontrada:", haveHash);
+  // console.log("Hash encontrada:", haveHash);
+
+  console.log(atob('YXNzdF9qeDlCWlMxdEJUMHhoRk5jemtSSEVBOTA'));
 
 }
 
