@@ -125,6 +125,7 @@ Confirmado?"`;
     try {
       styled.function('[ConfirmacaoServices.mensagemConfirmacao24hTerceiroContato] Confirmação | Esteira de Confirmação 24 horas - Terceiro Contato...');
 
+      const lead = await this.openaiintegrationservices.getLead({ id: this.lead_id });
       const scheduleDate = LeadUtils.findLeadField({ lead, fieldName: 'Data do Agendamento', value: true });
       const convertDate = DateUtils.secondsToDate(Number(scheduleDate));
       const date = DateUtils.formatDate({ date: convertDate, withWeekday: true });
