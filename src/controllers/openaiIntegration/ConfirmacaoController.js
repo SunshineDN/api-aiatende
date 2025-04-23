@@ -33,8 +33,9 @@ export default class ConfirmacaoController {
   static async primeiro_contato_24h(req, res) {
     try {
       const { lead_id } = req.body;
+      const { assistant_id } = req.params;
       const confirmacaoServices = new ConfirmacaoServices(lead_id);
-      const response = await confirmacaoServices.mensagemConfirmacao24hPrimeiroContato();
+      const response = await confirmacaoServices.mensagemConfirmacao24hPrimeiroContato(assistant_id);
       return res.status(response.code).send(response);
     } catch (error) {
       styled.error(`[ConfirmacaoController.primeiro_contato_24h] Erro ao enviar mensagem para o prompt: ${error?.message}`);
@@ -46,8 +47,9 @@ export default class ConfirmacaoController {
   static async segundo_contato_24h(req, res) {
     try {
       const { lead_id } = req.body;
+      const { assistant_id } = req.params;
       const confirmacaoServices = new ConfirmacaoServices(lead_id);
-      const response = await confirmacaoServices.mensagemConfirmacao24hSegundoContato();
+      const response = await confirmacaoServices.mensagemConfirmacao24hSegundoContato(assistant_id);
       return res.status(response.code).send(response);
     } catch (error) {
       styled.error(`[ConfirmacaoController.segundo_contato_24h] Erro ao enviar mensagem para o prompt: ${error?.message}`);
@@ -59,8 +61,9 @@ export default class ConfirmacaoController {
   static async terceiro_contato_24h(req, res) {
     try {
       const { lead_id } = req.body;
+      const { assistant_id } = req.params;
       const confirmacaoServices = new ConfirmacaoServices(lead_id);
-      const response = await confirmacaoServices.mensagemConfirmacao24hTerceiroContato();
+      const response = await confirmacaoServices.mensagemConfirmacao24hTerceiroContato(assistant_id);
       return res.status(response.code).send(response);
     } catch (error) {
       styled.error(`[ConfirmacaoController.terceiro_contato_24h] Erro ao enviar mensagem para o prompt: ${error?.message}`);
@@ -72,8 +75,9 @@ export default class ConfirmacaoController {
   static async primeiro_contato_3h(req, res) {
     try {
       const { lead_id } = req.body;
+      const { assistant_id } = req.params;
       const confirmacaoServices = new ConfirmacaoServices(lead_id);
-      const response = await confirmacaoServices.mensagemConfirmacao3hPrimeiroContato();
+      const response = await confirmacaoServices.mensagemConfirmacao3hPrimeiroContato(assistant_id);
       return res.status(response.code).send(response);
     } catch (error) {
       styled.error(`[ConfirmacaoController.primeiro_contato_3h] Erro ao enviar mensagem para o prompt: ${error?.message}`);
@@ -85,8 +89,9 @@ export default class ConfirmacaoController {
   static async segundo_contato_3h(req, res) {
     try {
       const { lead_id } = req.body;
+      const { assistant_id } = req.params;
       const confirmacaoServices = new ConfirmacaoServices(lead_id);
-      const response = await confirmacaoServices.mensagemConfirmacao3hSegundoContato();
+      const response = await confirmacaoServices.mensagemConfirmacao3hSegundoContato(assistant_id);
       return res.status(response.code).send(response);
     } catch (error) {
       styled.error(`[ConfirmacaoController.segundo_contato_3h] Erro ao enviar mensagem para o prompt: ${error?.message}`);

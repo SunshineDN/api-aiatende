@@ -95,7 +95,7 @@ Confirmado?"'`;
 
     } catch (error) {
       styled.error(`[ConfirmacaoServices.mensagemConfirmacao24hPrimeiroContato] Erro ao enviar mensagem para o assistente`);
-      await this.openaiintegrationservices.sendErrorLog({ lead_id: this.lead_id, error: `[ConfirmacaoServices.qualificado] ${error?.message}` });
+      await this.openaiintegrationservices.sendErrorLog({ lead_id: this.lead_id, error: `[ConfirmacaoServices.mensagemConfirmacao24hPrimeiroContato] ${error?.message}` });
       throw error;
     }
   }
@@ -115,7 +115,7 @@ Confirmado?"`;
 
     } catch (error) {
       styled.error(`[ConfirmacaoServices.mensagemConfirmacao24hSegundoContato] Erro ao enviar mensagem para o assistente`);
-      await this.openaiintegrationservices.sendErrorLog({ lead_id: this.lead_id, error: `[ConfirmacaoServices.qualificado] ${error?.message}` });
+      await this.openaiintegrationservices.sendErrorLog({ lead_id: this.lead_id, error: `[ConfirmacaoServices.mensagemConfirmacao24hSegundoContato] ${error?.message}` });
       throw error;
     }
   }
@@ -141,7 +141,7 @@ Confirmado?"`;
 
     } catch (error) {
       styled.error(`[ConfirmacaoServices.mensagemConfirmacao24hTerceiroContato] Erro ao enviar mensagem para o assistente`);
-      await this.openaiintegrationservices.sendErrorLog({ lead_id: this.lead_id, error: `[ConfirmacaoServices.qualificado] ${error?.message}` });
+      await this.openaiintegrationservices.sendErrorLog({ lead_id: this.lead_id, error: `[ConfirmacaoServices.mensagemConfirmacao24hTerceiroContato] ${error?.message}` });
       throw error;
     }
   }
@@ -166,7 +166,7 @@ Ok?"`;
 
     } catch (error) {
       styled.error(`[ConfirmacaoServices.mensagemConfirmacao3hPrimeiroContato] Erro ao enviar mensagem para o assistente`);
-      await this.openaiintegrationservices.sendErrorLog({ lead_id: this.lead_id, error: `[ConfirmacaoServices.qualificado] ${error?.message}` });
+      await this.openaiintegrationservices.sendErrorLog({ lead_id: this.lead_id, error: `[ConfirmacaoServices.mensagemConfirmacao3hPrimeiroContato] ${error?.message}` });
       throw error;
     }
   }
@@ -183,7 +183,7 @@ Ok?"`;
 
     } catch (error) {
       styled.error(`[ConfirmacaoServices.mensagemConfirmacao3hSegundoContato] Erro ao enviar mensagem para o assistente`);
-      await this.openaiintegrationservices.sendErrorLog({ lead_id: this.lead_id, error: `[ConfirmacaoServices.qualificado] ${error?.message}` });
+      await this.openaiintegrationservices.sendErrorLog({ lead_id: this.lead_id, error: `[ConfirmacaoServices.mensagemConfirmacao3hSegundoContato] ${error?.message}` });
       throw error;
     }
   }
