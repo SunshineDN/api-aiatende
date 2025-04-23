@@ -34,4 +34,4 @@ git pull
 
 # Sobe os serviços com docker-compose
 echo "Executando processo de build..."
-docker-compose up -d
+docker compose up -d --build
