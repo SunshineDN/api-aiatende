@@ -330,7 +330,7 @@ export default class KommoServices {
   /**
    * Método para buscar os campos customizados dos leads
    * 
-   * @returns {Promise<object>} Retorna os dados dos campos customizados dos leads
+   * @returns {Promise<object[]>} Retorna os dados dos campos customizados dos leads
    */
   async getLeadsCustomFields() {
     const options = {

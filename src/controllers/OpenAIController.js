@@ -6,6 +6,7 @@ import LeadThread from '../models/lead_threads.js';
 import { transcribeAudio } from '../services/gpt/TranscribeAudio.js';
 import { getFileNameFromUrl } from '../utils/GetNameExtension.js';
 import { downloadAudio, deleteTempFile } from '../services/gpt/DaD-Audio.js';
+import { ensureThread, fetchLatestAssistantMessage, runWithPolling, sendUserMessage } from '../utils/OpenAIThreads.js';
 
 const openai = new OpenAI(process.env.OPENAI_API_KEY);
 
@@ -209,6 +210,37 @@ Failed? ${run.status === 'failed'}`);
       throw new Error(error);
     }
   }
+
+  // /**
+  //  * Gera uma resposta do assistente para o lead informado.
+  //  * @param {{ text: string, leadID: number|string, assistant_id: string }} info
+  //  * @returns {Promise<{ message: string }>}
+  //  */
+  // static async generateMessage(info) {
+  //   const { text = '', leadID, assistant_id } = info;
+  //   const sanitizedText = text.trim() || '[]';
+
+  //   try {
+  //     // 1) Garante que exista um thread para esse lead + assistant
+  //     const { threadID } = await ensureThread(leadID, assistant_id);
+  //     styled.info(`Usando thread ${threadID}`);
+
+  //     // 2) Envia a mensagem do usuário
+  //     await sendUserMessage(threadID, sanitizedText);
+  //     styled.info('Mensagem do usuário enviada');
+
+  //     // 3) Executa o run e aguarda completude
+  //     await runWithPolling(threadID, assistant_id);
+  //     styled.success('Run completado com sucesso');
+
+  //     // 4) Busca e retorna a resposta do assistente
+  //     const message = await fetchLatestAssistantMessage(threadID);
+  //     return { message };
+  //   } catch (err) {
+  //     styled.error('Erro em generateMessage:', err);
+  //     throw err;
+  //   }
+  // }
 
   static async promptMessage(text) {
     try {

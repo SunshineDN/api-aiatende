@@ -49,18 +49,34 @@ export default class KommoWebhookUtils extends KommoUtils {
 		return;
 	}
 
-	handleCustomFields(utms) {
+	async handleCustomFields(utms) {
+
+		this.leads_custom_fields = await this.kommo.getLeadsCustomFields();
+
+		const track_message_field = this.findLeadsFieldByName('track message');
+		const client_id_field = this.findLeadsFieldByName('client_id');
+		const utm_source_field = this.findLeadsFieldByName('utm_source');
+		const utm_campaign_field = this.findLeadsFieldByName('utm_campaign');
+		const utm_content_field = this.findLeadsFieldByName('utm_content');
+		const utm_medium_field = this.findLeadsFieldByName('utm_medium');
+		const utm_term_field = this.findLeadsFieldByName('utm_term');
+		const utm_referrer_field = this.findLeadsFieldByName('utm_referrer');
+		const gclid_field = this.findLeadsFieldByName('gclid');
+		const fbclid_field = this.findLeadsFieldByName('fbclid');
+		const fbp_field = this.findLeadsFieldByName('fbp');
+
 		return [
-			{ field_id: 1379289, values: [{ value: utms.client_id }] },
-			{ field_id: 1379023, values: [{ value: utms.utm_source }] },
-			{ field_id: 1379025, values: [{ value: utms.utm_campaign }] },
-			{ field_id: 1379027, values: [{ value: utms.utm_content }] },
-			{ field_id: 1379029, values: [{ value: utms.utm_medium }] },
-			{ field_id: 1379291, values: [{ value: utms.gclid }] },
-			{ field_id: 1379293, values: [{ value: utms.fbclid }] },
-			{ field_id: 1379295, values: [{ value: utms.utm_term }] },
-			{ field_id: 1379297, values: [{ value: utms.utm_referrer }] },
-			{ field_id: 1379333, values: [{ value: utms.hash }] },
+			{ field_id: track_message_field.id, values: [{ value: utms.hash }] },
+			{ field_id: client_id_field.id, values: [{ value: utms.client_id }] },
+			{ field_id: utm_source_field.id, values: [{ value: utms.utm_source }] },
+			{ field_id: utm_campaign_field.id, values: [{ value: utms.utm_campaign }] },
+			{ field_id: utm_content_field.id, values: [{ value: utms.utm_content }] },
+			{ field_id: utm_medium_field.id, values: [{ value: utms.utm_medium }] },
+			{ field_id: utm_term_field.id, values: [{ value: utms.utm_term }] },
+			{ field_id: utm_referrer_field.id, values: [{ value: utms.utm_referrer }] },
+			{ field_id: gclid_field.id, values: [{ value: utms.gclid }] },
+			{ field_id: fbclid_field.id, values: [{ value: utms.fbclid }] },
+			{ field_id: fbp_field.id, values: [{ value: utms.fbp }] }
 		]
 	}
 }
