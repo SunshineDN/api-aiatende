@@ -53,11 +53,12 @@ async function sendUserMessage(threadID, content) {
  * Cria um run no thread e aguarda até completar, falhar ou expirar.
  * Tenta cancelar e reexecutar até MAX_RUN_RETRIES vezes.
  * @param {string} threadID 
+ * @param {string} assistant_id
  */
-async function runWithPolling(threadID) {
+async function runWithPolling(threadID, assistant_id) {
   for (let attempt = 1; attempt <= MAX_RUN_RETRIES; attempt++) {
     // Inicia um run
-    let run = await openai.beta.threads.runs.create(threadID, { assistant_id: undefined });
+    let run = await openai.beta.threads.runs.create(threadID, { assistant_id });
 
     // Polling com intervalo incremental
     for (let i = 1; i <= MAX_POLL_ATTEMPTS; i++) {
