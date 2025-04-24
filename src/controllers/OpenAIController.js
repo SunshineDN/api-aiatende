@@ -230,7 +230,7 @@ export default class OpenAIController {
       styled.info('Mensagem do usuário enviada');
 
       // 3) Executa o run e aguarda completude
-      await runWithPolling(threadID);
+      await runWithPolling(threadID, assistant_id);
       styled.success('Run completado com sucesso');
 
       // 4) Busca e retorna a resposta do assistente
