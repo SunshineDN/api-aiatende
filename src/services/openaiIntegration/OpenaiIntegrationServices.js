@@ -110,7 +110,7 @@ export default class OpenaiIntegrationServices extends KommoServices {
     }
 
     await new LeadThreadRepository().updateLastTimestamp(lead_id);
-    const { message } = await OpenAIController.generateMessage(data);
+    const { message } = await OpenAIController.generateMessageTest({ text, leadID: lead_id, assistant_id });
 
     styled.success('[OpenaiIntegrationServices.assistant] Resposta recebida do assistente:', message);
 
@@ -163,7 +163,7 @@ export default class OpenaiIntegrationServices extends KommoServices {
       assistant_id
     }
 
-    const { message } = await OpenAIController.generateMessage(data);
+    const { message } = await OpenAIController.generateMessageTest({ text, leadID: lead_id, assistant_id });
 
     styled.success('[OpenaiIntegrationServices.assistantWithoutSending] Resposta recebida do assistente:', message);
     return message;
