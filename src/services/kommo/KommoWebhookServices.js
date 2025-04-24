@@ -15,10 +15,8 @@ export default class KommoWebhookServices extends KommoServices {
 
   async createLead(id, { calendar = false, created_at = false } = {}) {
     styled.function('[KommoWebhookServices.createLead]');
-    const kommoWebUtils = new KommoWebhookUtils()
 
     const lead = await this.getLead({ id });
-    await kommoWebUtils.handleWebhookDuplicate(lead);
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields() });
     const calendario = LeadUtils.findLeadField({ lead, fieldName: 'Calendário', value: true });
     const criacao = LeadUtils.findLeadField({ lead, fieldName: 'Data de Criação', value: true });
