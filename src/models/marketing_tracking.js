@@ -6,6 +6,7 @@ const marketing_tracking = sequelize.define('marketing_tracking', {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
     allowNull: false,
+    unique: true,
     primaryKey: true,
   },
   client_id: {
@@ -18,6 +19,14 @@ const marketing_tracking = sequelize.define('marketing_tracking', {
   },
   fbclid: {
     type: DataTypes.STRING,
+    allowNull: true,
+  },
+  fbp: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  hash: {
+    type: DataTypes.STRING(8),
     allowNull: true,
   },
   utm_source: {
@@ -44,11 +53,6 @@ const marketing_tracking = sequelize.define('marketing_tracking', {
     type: DataTypes.STRING,
     allowNull: true,
   },
-  hash: {
-    type:DataTypes.STRING,
-    allowNull: true,
-    unique: true
-  }
 }, {
   tableName: 'marketing_tracking',
 });
