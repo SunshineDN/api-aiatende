@@ -176,8 +176,8 @@ export default class OpenAIController {
             styled.warning(`\n[Lead ${leadID}] - Timing for cancel: ${cancel_time}`);
             styled.warning(`[Lead ${leadID}] - Run status for cancel: ${run.status}`);
             styled.warning(`Cancel? ${run.status === 'cancelled'}
-  Expired? ${run.status === 'expired'}
-  Failed? ${run.status === 'failed'}`);
+Expired? ${run.status === 'expired'}
+Failed? ${run.status === 'failed'}`);
             cancel_time++;
             await wait(1000);
           };
@@ -208,102 +208,6 @@ export default class OpenAIController {
       styled.error('Erro ao enviar mensagem para o assistente:', error);
       throw new Error(error);
     }
-  }
-
-  /**
-     * Sends a user message to the appropriate assistant thread, creating it if necessary,
-     * waits for the assistant's response, and returns the generated text.
-     * @param {{ text?: string, leadID: number, assistant_id: string }} info
-     * @returns {Promise<{ message: string }>} The generated message from the assistant.
-     */
-  static async generateMessageTest({ text = '', leadID, assistant_id: encodedAssistantId }) {
-    const assistantId = Buffer.from(encodedAssistantId, 'base64').toString('utf8');
-    const content = text.trim() || '[]';
-
-    try {
-      // 1. Ensure a thread exists for this lead and assistant
-      const threadRecord = await OpenAIController._getOrCreateThread(leadID, assistantId);
-      const { threadID } = threadRecord;
-
-      // 2. Send the sanitized user message
-      await openai.beta.threads.messages.create(threadID, {
-        role: 'user',
-        content,
-      });
-
-      // 3. Run the assistant and wait for completion
-      await OpenAIController._runAssistant(threadID, assistantId, { maxAttempts: 6, pollIntervalMs: 1000 });
-
-      // 4. Fetch the latest assistant reply
-      const messagesResponse = await openai.beta.threads.messages.list(threadID);
-      const reply = messagesResponse.data?.[0]?.content?.[0]?.text?.value;
-
-      return { message: reply || '' };
-    } catch (error) {
-      console.error('Error in generateMessage:', error);
-      throw error;
-    }
-  }
-
-  /**
-   * Retrieves an existing thread or creates a new one if none exists.
-   */
-  static async _getOrCreateThread(leadID, assistantId) {
-    // Try to find an existing thread record
-    let threadRecord = await LeadThread.findOne({
-      where: { leadID, assistant_id: { [Op.contains]: [assistantId] } },
-    });
-
-    // If not found, create a new thread and re-fetch
-    if (!threadRecord) {
-      await OpenAIController.createThread(leadID, assistantId);
-      threadRecord = await LeadThread.findOne({
-        where: { leadID, assistant_id: { [Op.contains]: [assistantId] } },
-      });
-    }
-
-    return threadRecord.dataValues;
-  }
-
-  /**
-   * Runs the assistant on a thread until completion, with retries and cancellation.
-   */
-  static async _runAssistant(threadID, assistantId, { maxAttempts = 5, pollIntervalMs = 1000 }) {
-    let attempt = 0;
-
-    while (attempt < maxAttempts) {
-      // Start a run
-      let run = await openai.beta.threads.runs.create(threadID, { assistant_id: assistantId });
-      let status;
-      let polls = 0;
-
-      // Poll until the run completes or expires
-      do {
-        await OpenAIController._delay(pollIntervalMs);
-        run = await openai.beta.threads.runs.retrieve(threadID, run.id);
-        status = run.status;
-        polls++;
-      } while (status === 'running' && polls < 10);
-
-      if (status === 'completed') return;
-
-      // If this was the last attempt, throw
-      if (attempt === maxAttempts - 1) {
-        const errMsg = run.last_error?.message || `Assistant run failed with status: ${status}`;
-        throw new Error(errMsg);
-      }
-
-      // Otherwise, cancel and retry
-      await openai.beta.threads.runs.cancel(threadID, run.id);
-      attempt++;
-    }
-  }
-
-  /**
-   * Simple delay utility
-   */
-  static _delay(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   static async promptMessage(text) {
