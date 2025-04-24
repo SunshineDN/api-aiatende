@@ -222,7 +222,7 @@ export default class OpenAIController {
 
     try {
       // 1. Ensure a thread exists for this lead and assistant
-      const threadRecord = await MessageService._getOrCreateThread(leadID, assistantId);
+      const threadRecord = await OpenAIController._getOrCreateThread(leadID, assistantId);
       const { threadID } = threadRecord;
 
       // 2. Send the sanitized user message
@@ -232,7 +232,7 @@ export default class OpenAIController {
       });
 
       // 3. Run the assistant and wait for completion
-      await MessageService._runAssistant(threadID, assistantId, { maxAttempts: 6, pollIntervalMs: 1000 });
+      await OpenAIController._runAssistant(threadID, assistantId, { maxAttempts: 6, pollIntervalMs: 1000 });
 
       // 4. Fetch the latest assistant reply
       const messagesResponse = await openai.beta.threads.messages.list(threadID);
@@ -279,7 +279,7 @@ export default class OpenAIController {
 
       // Poll until the run completes or expires
       do {
-        await MessageService._delay(pollIntervalMs);
+        await OpenAIController._delay(pollIntervalMs);
         run = await openai.beta.threads.runs.retrieve(threadID, run.id);
         status = run.status;
         polls++;
