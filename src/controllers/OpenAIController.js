@@ -285,7 +285,7 @@ export default class OpenAIController {
         polls++;
       } while (status === 'running' && polls < 10);
 
-      if (status === 'completed') return;
+      if (status === 'completed') break;
 
       // If this was the last attempt, throw
       if (attempt === maxAttempts - 1) {
