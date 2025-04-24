@@ -2,6 +2,7 @@ import LeadMessagesRepository from "./src/repositories/LeadMessagesRepository.js
 import MarketingTrackingRepository from "./src/repositories/MarketingTrackingRepository.js";
 import KommoServices from "./src/services/kommo/KommoServices.js";
 import OpenaiIntegrationServices from "./src/services/openaiIntegration/OpenaiIntegrationServices.js";
+import WppServices from "./src/services/wpp/WppServices.js";
 import KommoWebhookUtils from "./src/utils/KommoWebhookUtils.js";
 import LeadUtils from "./src/utils/LeadUtils.js";
 import styled from "./src/utils/log/styled.js";
@@ -45,13 +46,18 @@ async function main() {
 
   // console.log("Hash encontrada:", haveHash);
 
-  const leadMessagesRepository = new LeadMessagesRepository();
-  const lastMessages = await leadMessagesRepository.getLastMessages(19030890, 1);
-  const recentMessages = await leadMessagesRepository.getRecentMessages(19030890);
+  // const leadMessagesRepository = new LeadMessagesRepository();
+  // const lastMessages = await leadMessagesRepository.getLastMessages(19030890, 1);
+  // const recentMessages = await leadMessagesRepository.getRecentMessages(19030890);
 
-  const leadMessages = recentMessages || lastMessages;
+  // const leadMessages = recentMessages || lastMessages;
 
-  styled.info("Lead Messages:", leadMessages);
+  // styled.info("Lead Messages:", leadMessages);
+
+  const wppServices = new WppServices();
+  const t = await wppServices.test();
+  styled.info("Test result:", t);
+  styled.infodir(t);
 }
 
 main();

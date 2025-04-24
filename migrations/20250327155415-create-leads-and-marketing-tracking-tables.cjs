@@ -54,6 +54,10 @@ module.exports = {
             type: Sequelize.DataTypes.STRING,
             allowNull: true,
           },
+          fbp: {
+            type: Sequelize.DataTypes.STRING,
+            allowNull: true,
+          },
           hash: {
             type: Sequelize.DataTypes.STRING(8),
             allowNull: true,
