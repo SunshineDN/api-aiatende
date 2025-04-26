@@ -42,7 +42,7 @@ const tools = [
     type: "function",
     function: {
       name: "getLocation",
-      description: "Provide some random location",
+      description: "Get the user's location based on their IP address",
       parameters: {
         type: "object",
         properties: {},
@@ -107,7 +107,7 @@ async function agent(userInput) {
 }
  
 const response = await agent(
-  "Qual a minha localização atual e qual a temperatura que está lá agora? Me diga em português, por favor."
+  "Por favor, sugira algumas atividades com base na minha localização e no clima. Estou em Jaboatao dos Guararapes"
 );
  
 console.log("response:", response);
