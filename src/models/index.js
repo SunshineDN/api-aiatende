@@ -1,5 +1,5 @@
 import { sequelize } from '../config/db.js';
-import Lead from './_leads.js';
+import Lead from './leads.js';
 import MarketingTracking from './marketing_tracking.js';
 import LeadMessage from './lead_messages.js';
 import LeadThread from './lead_threads.js';
