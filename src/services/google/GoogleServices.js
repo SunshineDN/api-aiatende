@@ -1,5 +1,6 @@
 import { google } from "googleapis";
 import GoogleClient from "../../clients/GoogleClient.js";
+import styled from "../../utils/log/styled.js";
 
 export default class GoogleServices {
   #calendarId;
@@ -21,8 +22,17 @@ export default class GoogleServices {
 
     return response.data.body.content.map((element) => {
       if (element.paragraph) {
-        return element.paragraph.elements.map((e) => e.textRun.content).join('');
+        return element.paragraph?.elements.map((e) => e.textRun?.content).join('');
       }
+
+      if (element.table) {
+        return element.table.tableRows.map((row) => {
+          return row.tableCells.map((cell) => {
+            return cell.content.map((content) => content.paragraph?.elements.map((e) => e.textRun?.content).join('')).join('');
+          }).join('');
+        }).join('');
+      }
+
       return '';
     }).join('');
   }
