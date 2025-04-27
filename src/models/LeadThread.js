@@ -6,7 +6,6 @@ const LeadThread = sequelize.define('LeadThread', {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
-    autoIncrement: true,
   },
   author_id: {
     type: DataTypes.UUID,
