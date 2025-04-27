@@ -2,13 +2,15 @@ import axios from 'axios';
 import OpenAI from 'openai';
 import { Op } from 'sequelize';
 import styled from '../utils/log/styled.js';
-import LeadThread from '../models/lead_threads.js';
+// import LeadThread from '../models/lead_threads.js';
+import models from '../models/index.js';
 import { transcribeAudio } from '../services/gpt/TranscribeAudio.js';
 import { getFileNameFromUrl } from '../utils/GetNameExtension.js';
 import { downloadAudio, deleteTempFile } from '../services/gpt/DaD-Audio.js';
 import { ensureThread, fetchLatestAssistantMessage, runWithPolling, sendUserMessage } from '../utils/OpenAIThreads.js';
 
 const openai = new OpenAI(process.env.OPENAI_API_KEY);
+const LeadThread = models.LeadThread;
 
 export default class OpenAIController {
 
