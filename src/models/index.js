@@ -1,10 +1,10 @@
 import { sequelize } from '../config/db.js';
-import Lead from './leads.js';
-import MarketingTracking from './marketing_tracking.js';
-import LeadMessage from './lead_messages.js';
-import LeadThread from './lead_threads.js';
-import BkFunnel from './bk_funnels.js';
-import FunnelBuilder from './funnel_builder.js';
+import Lead from './Lead.js';
+import MarketingTracking from './MarketingTracking.js';
+import LeadMessage from './LeadMessage.js';
+import LeadThread from './LeadThread.js';
+import BkFunnel from './BkFunnels.js';
+import FunnelBuilder from './FunnelBuilder.js';
 
 const models = {
   Lead,
