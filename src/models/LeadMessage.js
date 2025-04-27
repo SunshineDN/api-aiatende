@@ -1,11 +1,12 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/db.js';
 
-const lead_messages = sequelize.define('lead_messages', {
+const LeadMessage = sequelize.define('LeadMessage', {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
+    autoIncrement: true,
   },
   author_id: {
     type: DataTypes.UUID,
@@ -16,6 +17,8 @@ const lead_messages = sequelize.define('lead_messages', {
   }
 }, {
   tableName: 'lead_messages',
+  underscored: true,
+  timestamps: true,
 });
 
-export default lead_messages;
+export default LeadMessage;

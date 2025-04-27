@@ -1,8 +1,8 @@
 import BaseRepository from "./BaseRepository.js";
-import FunnelBuilder from "../models/funnel_builder.js";
+import models from "../models/index.js";
 
 export default class FunnelBuilderRepository extends BaseRepository {
   constructor() {
-    super(FunnelBuilder);
+    super(models.FunnelBuilder);
   }
 }

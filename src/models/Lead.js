@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/db.js';
 
-const leads = sequelize.define('leads', {
+const Lead = sequelize.define('Lead', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -18,14 +18,23 @@ const leads = sequelize.define('leads', {
   },
   marketing_tracking_id: {
     type: DataTypes.UUID,
+    allowNull: true,
     references: {
       model: 'marketing_tracking',
       key: 'id',
     },
-    allowNull: true,
   },
 }, {
   tableName: 'leads',
+  underscored: true,
+  timestamps: true,
 });
 
-export default leads;
+Lead.associate = models => {
+  Lead.belongsTo(models.MarketingTracking, {
+    foreignKey: 'marketing_tracking_id',
+    as: 'marketing_tracking',
+  });
+}
+
+export default Lead;
