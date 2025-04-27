@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/db.js';
 
 const LeadThread = sequelize.define('LeadThread', {
-  leadID: {
+  lead_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
@@ -11,7 +11,7 @@ const LeadThread = sequelize.define('LeadThread', {
     type: DataTypes.UUID,
     allowNull: true,
   },
-  threadID: {
+  thread_id: {
     type: DataTypes.ARRAY(DataTypes.STRING),
     allowNull: true,
   },
