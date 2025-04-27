@@ -1,9 +1,9 @@
 import BaseRepository from "./BaseRepository.js";
-import LeadThread from "../models/lead_threads.js";
+import models from "../models/index.js";
 
 export default class LeadThreadRepository extends BaseRepository {
   constructor() {
-    super(LeadThread);
+    super(models.LeadThread);
   }
 
   async updateLastTimestamp(lead_id) {

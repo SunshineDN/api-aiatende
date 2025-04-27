@@ -77,8 +77,6 @@ export default class OpenAIController {
   static async generateMessage(info) {
     const { text, leadID, assistant_id } = info;
 
-    // console.log('Texto recebido do usuário:', text);
-
     const assistant = atob(assistant_id);
 
     try {
@@ -126,10 +124,6 @@ export default class OpenAIController {
       };
 
       styled.info('Running assistant');
-      // let run = await openai.beta.threads.runs.create(
-      //   existThreads.threadID[indexOfAssistant],
-      //   { assistant_id: assistant }
-      // );
 
       let run;
       const exec = async (times) => {
@@ -189,16 +183,6 @@ Failed? ${run.status === 'failed'}`);
       };
 
       await exec(6);
-      // await exec(1);
-
-      // while (run.status !== 'completed') {
-      //   run = await openai.beta.threads.runs.retrieve(
-      //     existThreads.threadID[indexOfAssistant],
-      //     run.id
-      //   );
-      //   console.log('Run status:'.yellow.bold, run.status);
-      //   setTimeout(() => { }, 2000);
-      // }
 
       const messages_response = await openai.beta.threads.messages.list(
         existThreads.threadID[indexOfAssistant]
@@ -210,37 +194,6 @@ Failed? ${run.status === 'failed'}`);
       throw new Error(error);
     }
   }
-
-  // /**
-  //  * Gera uma resposta do assistente para o lead informado.
-  //  * @param {{ text: string, leadID: number|string, assistant_id: string }} info
-  //  * @returns {Promise<{ message: string }>}
-  //  */
-  // static async generateMessage(info) {
-  //   const { text = '', leadID, assistant_id } = info;
-  //   const sanitizedText = text.trim() || '[]';
-
-  //   try {
-  //     // 1) Garante que exista um thread para esse lead + assistant
-  //     const { threadID } = await ensureThread(leadID, assistant_id);
-  //     styled.info(`Usando thread ${threadID}`);
-
-  //     // 2) Envia a mensagem do usuário
-  //     await sendUserMessage(threadID, sanitizedText);
-  //     styled.info('Mensagem do usuário enviada');
-
-  //     // 3) Executa o run e aguarda completude
-  //     await runWithPolling(threadID, assistant_id);
-  //     styled.success('Run completado com sucesso');
-
-  //     // 4) Busca e retorna a resposta do assistente
-  //     const message = await fetchLatestAssistantMessage(threadID);
-  //     return { message };
-  //   } catch (err) {
-  //     styled.error('Erro em generateMessage:', err);
-  //     throw err;
-  //   }
-  // }
 
   static async promptMessage(text) {
     try {

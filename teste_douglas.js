@@ -1,5 +1,6 @@
 import LeadMessagesRepository from "./src/repositories/LeadMessagesRepository.js";
 import MarketingTrackingRepository from "./src/repositories/MarketingTrackingRepository.js";
+import GoogleServices from "./src/services/google/GoogleServices.js";
 import KommoServices from "./src/services/kommo/KommoServices.js";
 import OpenaiIntegrationServices from "./src/services/openaiIntegration/OpenaiIntegrationServices.js";
 import WppServices from "./src/services/wpp/WppServices.js";
@@ -54,10 +55,15 @@ async function main() {
 
   // styled.info("Lead Messages:", leadMessages);
 
-  const wppServices = new WppServices();
-  const t = await wppServices.test();
-  styled.info("Test result:", t);
-  styled.infodir(t);
+  // const wppServices = new WppServices();
+  // const t = await wppServices.test();
+  // styled.info("Test result:", t);
+  // styled.infodir(t);
+
+  const googleServices = new GoogleServices({ document_id: "1spZ6lZ4R4n0qRdVDMuV_6E8_Zwh3-z9DXj7JbzQxTDk" });
+  const docContent = await googleServices.getDocumentContent();
+
+  styled.infodir(docContent);
 }
 
 main();

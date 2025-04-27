@@ -1,11 +1,11 @@
 import BaseRepository from "./BaseRepository.js";
+import models from "../models/index.js";
 import LeadThreadRepository from "./LeadThreadRepository.js";
-import LeadMessages from "../models/lead_messages.js";
 import styled from "../utils/log/styled.js";
 
 export default class LeadMessagesRepository extends BaseRepository {
   constructor() {
-    super(LeadMessages);
+    super(models.LeadMessage);
   }
 
   async verifySendDate(lead_id, seconds) {
