@@ -81,8 +81,18 @@ export default class OpenAIController {
 
     const assistant = atob(assistant_id);
 
-    try {
-      let existThreads = await LeadThread?.findOne({
+    let existThreads = await LeadThread?.findOne({
+      where: {
+        lead_id,
+        assistant_id: {
+          [Op.contains]: [assistant]
+        }
+      }
+    });
+
+    if (!existThreads) {
+      await OpenAIController.createThread(lead_id, assistant);
+      existThreads = await LeadThread.findOne({
         where: {
           lead_id,
           assistant_id: {
@@ -90,111 +100,96 @@ export default class OpenAIController {
           }
         }
       });
+    }
 
-      if (!existThreads) {
-        await OpenAIController.createThread(lead_id, assistant);
-        existThreads = await LeadThread.findOne({
-          where: {
-            lead_id,
-            assistant_id: {
-              [Op.contains]: [assistant]
-            }
-          }
-        });
+    styled.info('Thread found');
+    styled.infodir(existThreads.dataValues);
+
+    const indexOfAssistant = existThreads.assistant_id.indexOf(assistant);
+    styled.info('Index of assistant', indexOfAssistant);
+
+    styled.info('Sending message to assistant');
+
+    const sanitizedText = (text ?? "").trim();
+
+    await openai.beta.threads.messages.create(
+      existThreads.thread_id[indexOfAssistant],
+      {
+        role: 'user',
+        content: sanitizedText.length > 0 ? sanitizedText : '[]',
       }
+    );
 
-      styled.info('Thread found');
-      styled.infodir(existThreads.dataValues);
+    const wait = (ms) => {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    };
 
-      const indexOfAssistant = existThreads.assistant_id.indexOf(assistant);
-      styled.info('Index of assistant', indexOfAssistant);
+    styled.info('Running assistant');
 
-      styled.info('Sending message to assistant');
-
-      const sanitizedText = (text ?? "").trim();
-
-      await openai.beta.threads.messages.create(
-        existThreads.thread_id[indexOfAssistant],
-        {
-          role: 'user',
-          content: sanitizedText.length > 0 ? sanitizedText : '[]',
-        }
-      );
-
-      const wait = (ms) => {
-        return new Promise(resolve => setTimeout(resolve, ms));
-      };
-
-      styled.info('Running assistant');
-
-      let run;
-      const exec = async (times) => {
-        let count = 1;
-        let repeat = 1;
-        while (repeat <= times) {
-          run = await openai.beta.threads.runs.create(
-            existThreads.thread_id[indexOfAssistant],
-            { assistant_id: assistant }
-          );
-          while (count <= 10) {
-            run = await openai.beta.threads.runs.retrieve(
-              existThreads.thread_id[indexOfAssistant],
-              run.id
-            );
-            styled.info(`[Lead ${lead_id}] - ${repeat}# ${count}' Run status: ${run?.status}`);
-            if (run.status === 'completed') {
-              styled.success(`[Lead ${lead_id}] - Run completed`);
-              return;
-            } else if (run.status !== 'completed' && repeat === times && count === 10) {
-              styled.warning(`[Lead ${lead_id}] - Run not completed`);
-              if (run.status === 'failed') {
-                styled.error(`[Lead ${lead_id}] - Run failed`);
-                throw new Error(`Erro no running da mensagem do Assistant GPT: ${run?.last_error?.message}`);
-              } else if (run.status === 'expired') {
-                styled.error(`[Lead ${lead_id}] - Run expired`);
-                throw new Error('O tempo de execução do Assistant GPT expirou');
-              } else {
-                styled.warning(`[Lead ${lead_id}] - Run not completed`);
-              }
-            }
-            await wait(1000);
-            count++;
-          }
-          run = await openai.beta.threads.runs.cancel(
+    let run;
+    const exec = async (times) => {
+      let count = 1;
+      let repeat = 1;
+      while (repeat <= times) {
+        run = await openai.beta.threads.runs.create(
+          existThreads.thread_id[indexOfAssistant],
+          { assistant_id: assistant }
+        );
+        while (count <= 10) {
+          run = await openai.beta.threads.runs.retrieve(
             existThreads.thread_id[indexOfAssistant],
             run.id
           );
-          let cancel_time = 1;
-          while (run.status !== 'cancelled' && run.status !== 'expired' && run.status !== 'failed') {
-            run = await openai.beta.threads.runs.retrieve(
-              existThreads.thread_id[indexOfAssistant],
-              run.id
-            );
-            styled.warning(`\n[Lead ${lead_id}] - Timing for cancel: ${cancel_time}`);
-            styled.warning(`[Lead ${lead_id}] - Run status for cancel: ${run.status}`);
-            styled.warning(`Cancel? ${run.status === 'cancelled'}
+          styled.info(`[Lead ${lead_id}] - ${repeat}# ${count}' Run status: ${run?.status}`);
+          if (run.status === 'completed') {
+            styled.success(`[Lead ${lead_id}] - Run completed`);
+            return;
+          } else if (run.status !== 'completed' && repeat === times && count === 10) {
+            styled.warning(`[Lead ${lead_id}] - Run not completed`);
+            if (run.status === 'failed') {
+              styled.error(`[Lead ${lead_id}] - Run failed`);
+              throw new Error(`Erro no running da mensagem do Assistant GPT: ${run?.last_error?.message}`);
+            } else if (run.status === 'expired') {
+              styled.error(`[Lead ${lead_id}] - Run expired`);
+              throw new Error('O tempo de execução do Assistant GPT expirou');
+            } else {
+              styled.warning(`[Lead ${lead_id}] - Run not completed`);
+            }
+          }
+          await wait(1000);
+          count++;
+        }
+        run = await openai.beta.threads.runs.cancel(
+          existThreads.thread_id[indexOfAssistant],
+          run.id
+        );
+        let cancel_time = 1;
+        while (run.status !== 'cancelled' && run.status !== 'expired' && run.status !== 'failed') {
+          run = await openai.beta.threads.runs.retrieve(
+            existThreads.thread_id[indexOfAssistant],
+            run.id
+          );
+          styled.warning(`\n[Lead ${lead_id}] - Timing for cancel: ${cancel_time}`);
+          styled.warning(`[Lead ${lead_id}] - Run status for cancel: ${run.status}`);
+          styled.warning(`Cancel? ${run.status === 'cancelled'}
 Expired? ${run.status === 'expired'}
 Failed? ${run.status === 'failed'}`);
-            cancel_time++;
-            await wait(1000);
-          };
-          cancel_time = 1;
-          count = 1;
-          repeat++;
-        }
-      };
+          cancel_time++;
+          await wait(1000);
+        };
+        cancel_time = 1;
+        count = 1;
+        repeat++;
+      }
+    };
 
-      await exec(6);
+    await exec(6);
 
-      const messages_response = await openai.beta.threads.messages.list(
-        existThreads.thread_id[indexOfAssistant]
-      );
+    const messages_response = await openai.beta.threads.messages.list(
+      existThreads.thread_id[indexOfAssistant]
+    );
 
-      return { message: messages_response?.data[0]?.content[0]?.text?.value };
-    } catch (error) {
-      styled.error('Erro ao enviar mensagem para o assistente:', error);
-      throw new Error(error);
-    }
+    return { message: messages_response?.data[0]?.content[0]?.text?.value };
   }
 
   static async promptMessage(text) {
