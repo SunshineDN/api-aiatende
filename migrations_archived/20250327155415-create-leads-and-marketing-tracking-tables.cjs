@@ -7,8 +7,8 @@ module.exports = {
       return Promise.all([
         queryInterface.createTable('leads', {
           id: {
-            type: Sequelize.DataTypes.UUID,
-            defaultValue: Sequelize.DataTypes.UUIDV4,
+            type: Sequelize.DataTypes.INTEGER,
+            autoIncrement: true,
             unique: true,
             allowNull: false,
             primaryKey: true,

@@ -5,6 +5,7 @@ import LeadMessage from './LeadMessage.js';
 import LeadThread from './LeadThread.js';
 import BkFunnel from './BkFunnels.js';
 import FunnelBuilder from './FunnelBuilder.js';
+import Message from './Message.js';
 
 const models = {
   Lead,
@@ -13,6 +14,7 @@ const models = {
   LeadThread,
   BkFunnel,
   FunnelBuilder,
+  Message
 };
 
 // Inicializa associações

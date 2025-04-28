@@ -7,6 +7,10 @@ export default class BaseRepository {
     return await this.model.create(data);
   }
 
+  async bulkCreate(data) {
+    return await this.model.bulkCreate(data);
+  }
+
   async findAll(query = {}) {
     return await this.model.findAll(query);
   }
