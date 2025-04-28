@@ -42,7 +42,12 @@ module.exports = {
             unique: true,
             primaryKey: true,
           },
-          client_id: {
+          hash: {
+            type: Sequelize.DataTypes.STRING(8),
+            allowNull: true,
+          },
+
+          gclientid: {
             type: Sequelize.DataTypes.STRING,
             allowNull: true,
           },
@@ -54,15 +59,20 @@ module.exports = {
             type: Sequelize.DataTypes.STRING,
             allowNull: true,
           },
+          ga_utm: {
+            type: Sequelize.DataTypes.STRING,
+            allowNull: true,
+          },
           fbp: {
             type: Sequelize.DataTypes.STRING,
             allowNull: true,
           },
-          hash: {
-            type: Sequelize.DataTypes.STRING(8),
+          fbc: {
+            type: Sequelize.DataTypes.STRING,
             allowNull: true,
           },
-          utm_source: {
+
+          utm_content: {
             type: Sequelize.DataTypes.STRING,
             allowNull: true,
           },
@@ -74,15 +84,19 @@ module.exports = {
             type: Sequelize.DataTypes.STRING,
             allowNull: true,
           },
+          utm_source: {
+            type: Sequelize.DataTypes.STRING,
+            allowNull: true,
+          },
           utm_term: {
             type: Sequelize.DataTypes.STRING,
             allowNull: true,
           },
-          utm_content: {
+          utm_referrer: {
             type: Sequelize.DataTypes.STRING,
             allowNull: true,
           },
-          utm_referrer: {
+          referrer: {
             type: Sequelize.DataTypes.STRING,
             allowNull: true,
           },
