@@ -95,7 +95,7 @@ export default class OpenaiIntegrationServices extends KommoServices {
     styled.info('[OpenaiIntegrationServices.assistant] Mensagem enviada para o assistente:', text);
 
     const data = {
-      leadID: lead_id,
+      lead_id,
       text,
       assistant_id
     }
@@ -158,7 +158,7 @@ export default class OpenaiIntegrationServices extends KommoServices {
     styled.info('[OpenaiIntegrationServices.assistantWithoutSending] Mensagem enviada para o assistente:', text);
 
     const data = {
-      leadID: lead_id,
+      lead_id: lead_id,
       text,
       assistant_id
     }
