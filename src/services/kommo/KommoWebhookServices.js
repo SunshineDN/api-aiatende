@@ -85,7 +85,7 @@ export default class KommoWebhookServices extends KommoServices {
         styled.success('[KommoWebhookServices.messageReceived] - Hash encontrada, processando...');
 
         const wppServices = new WppServices();
-        const custom_fields = await wppServices.handleCustomFields(utms);
+        const custom_fields = await wppServices.handleCustomFields({ utms });
         await this.updateLead({ id: lead_id, custom_fields_values: custom_fields });
         styled.success('[KommoWebhookServices.messageReceived] - Campos personalizados atualizados com sucesso.');
       } else {
