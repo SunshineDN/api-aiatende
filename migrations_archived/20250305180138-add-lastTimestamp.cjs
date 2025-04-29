@@ -16,7 +16,7 @@ module.exports = {
         ),
         queryInterface.addColumn(
           'lead_threads',
-          'lastTimestamp',
+          'last_timestamp',
           {
             type: Sequelize.DataTypes.DATE,
             after: "assistant_messages"

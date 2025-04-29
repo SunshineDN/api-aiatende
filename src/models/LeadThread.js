@@ -23,7 +23,7 @@ const LeadThread = sequelize.define('LeadThread', {
     type: DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.JSON)),
     allowNull: true,
   },
-  lastTimestamp: {
+  last_timestamp: {
     type: DataTypes.DATE,
     allowNull: true,
   },
