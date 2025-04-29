@@ -14,7 +14,12 @@ export default class WppServices {
 
   async handleWebhookReceived(query, hash) {
 
-    const utms = this.handleUTMSeparator(query, hash)
+    const utms = this.handleUTMSeparator(query, hash);
+
+    if (!utms.gclientid) {
+      styled.error("gclientid not found");
+      return;
+    }
 
     const [create, _] = await this.#marketing_tracking.findOrCreate({ where: { gclientid: utms.gclientid } });
     await this.#marketing_tracking.updateByClientId(create.gclientid, utms);
