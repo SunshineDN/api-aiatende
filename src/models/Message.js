@@ -14,7 +14,9 @@ const Message = sequelize.define('Message', {
     references: {
       model: 'leads',
       key: 'lead_id'
-    }
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
   },
   agent_name: {
     type: DataTypes.STRING,
