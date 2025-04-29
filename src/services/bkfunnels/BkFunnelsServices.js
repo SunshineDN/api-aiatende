@@ -25,7 +25,7 @@ export default class BkFunnelsServices {
     const bkFunnelsRepository = new BkFunnelsRepository();
 
     if (type === 'lead') {
-      const [_, created] = await bkFunnelsRepository.findOrCreate({ where: { code: codeString, funnelId: funnelIdString } });
+      const [_, created] = await bkFunnelsRepository.findOrCreate({ where: { code: codeString, funnel_id: funnelIdString } });
 
       await bkFunnelsRepository.updateByCode(codeString, { objects: value });
 
@@ -69,7 +69,7 @@ export default class BkFunnelsServices {
       return { code: 200, response: { message: 'BK Funnels Lead Informations has been stored', lead_res, created } };
     }
 
-    const [_, created] = await bkFunnelsRepository.findOrCreate({ where: { code: codeString, funnelId: funnelIdString } });
+    const [_, created] = await bkFunnelsRepository.findOrCreate({ where: { code: codeString, funnel_id: funnelIdString } });
     if (type === 'dentista') {
       await bkFunnelsRepository.updateByCode(codeString, { dentista: value });
       styled.success('BK Funnels Lead created and dentista has been updated');
