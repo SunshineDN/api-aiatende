@@ -16,8 +16,8 @@ export default class WppServices {
 
     const utms = this.handleUTMSeparator(query, hash)
 
-    const [create, _] = await this.#marketing_tracking.findOrCreate({ where: { client_id: utms.gclientid } });
-    await this.#marketing_tracking.updateByClientId(create.client_id, utms);
+    const [create, _] = await this.#marketing_tracking.findOrCreate({ where: { gclientid: utms.gclientid } });
+    await this.#marketing_tracking.updateByClientId(create.gclientid, utms);
     styled.success('UTM separated and saved in the database');
 
     const custom_fields_values = await this.handleCustomFields({ utms });
