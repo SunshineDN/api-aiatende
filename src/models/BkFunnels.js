@@ -16,7 +16,7 @@ const BkFunnels = sequelize.define('BkFunnels', {
   periodo: { type: DataTypes.STRING, allowNull: true },
   turno: { type: DataTypes.STRING, allowNull: true },
   objects: { type: DataTypes.JSON, allowNull: true },
-  funnelId: { type: DataTypes.STRING, allowNull: true },
+  funnel_id: { type: DataTypes.STRING, allowNull: true },
 }, {
   tableName: 'bk_funnels',
   underscored: true,
