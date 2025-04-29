@@ -1,13 +1,12 @@
 import BaseRepository from "./BaseRepository.js";
-import marketing_tracking from "../models/marketing_tracking.js";
-
+import models from "../models/index.js";
 
 export default class MarketingTrackingRepository extends BaseRepository {
   constructor() {
-    super(marketing_tracking);
+    super(models.MarketingTracking);
   }
 
-  async updateByClientId(client_id, data) {
-    return await this.model.update(data, { where: { client_id } });
+  async updateByClientId(gclientid, data) {
+    return await this.model.update(data, { where: { gclientid } });
   }
 }

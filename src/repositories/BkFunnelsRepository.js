@@ -1,9 +1,9 @@
 import BaseRepository from "./BaseRepository.js";
-import BkFunnels from "../models/bk_funnels.js";
+import models from "../models/index.js";
 
 export default class BkFunnelsRepository extends BaseRepository {
   constructor() {
-    super(BkFunnels);
+    super(models.BkFunnel);
   }
 
   async findByCode(code) {
