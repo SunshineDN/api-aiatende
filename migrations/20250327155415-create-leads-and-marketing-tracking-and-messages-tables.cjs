@@ -5,35 +5,6 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     return queryInterface.sequelize.transaction(t => {
       return Promise.all([
-        queryInterface.createTable('leads', {
-          id: {
-            type: Sequelize.DataTypes.INTEGER,
-            autoIncrement: true,
-            unique: true,
-            allowNull: false,
-            primaryKey: true,
-          },
-          data: {
-            type: Sequelize.DataTypes.JSON,
-            allowNull: true,
-          },
-          details: {
-            type: Sequelize.DataTypes.JSON,
-            allowNull: true,
-          },
-          createdAt: {
-            type: Sequelize.DataTypes.DATE,
-            allowNull: false,
-            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-          },
-          updatedAt: {
-            type: Sequelize.DataTypes.DATE,
-            allowNull: false,
-            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-          },
-        }, {
-          transaction: t,
-        }),
         queryInterface.createTable('marketing_tracking', {
           id: {
             type: Sequelize.DataTypes.UUID,
@@ -113,6 +84,93 @@ module.exports = {
         }, {
           transaction: t,
         }),
+        queryInterface.createTable('leads', {
+          id: {
+            type: Sequelize.DataTypes.INTEGER,
+            autoIncrement: true,
+            unique: true,
+            allowNull: false,
+            primaryKey: true,
+          },
+          lead_id: {
+            type: Sequelize.DataTypes.INTEGER,
+            allowNull: false,
+            unique: true,
+          },
+          data: {
+            type: Sequelize.DataTypes.JSON,
+            allowNull: true,
+          },
+          details: {
+            type: Sequelize.DataTypes.JSON,
+            allowNull: true,
+          },
+          marketing_tracking_id: {
+            type: Sequelize.DataTypes.UUID,
+            allowNull: true,
+            references: {
+              model: 'marketing_tracking',
+              key: 'id',
+            },
+            onUpdate: 'CASCADE',
+            onDelete: 'SET NULL',
+          },
+          createdAt: {
+            type: Sequelize.DataTypes.DATE,
+            allowNull: false,
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+          },
+          updatedAt: {
+            type: Sequelize.DataTypes.DATE,
+            allowNull: false,
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+          },
+        }, {
+          transaction: t,
+        }),
+        queryInterface.createTable('messages', {
+          id: {
+            type: Sequelize.DataTypes.UUID,
+            defaultValue: Sequelize.DataTypes.UUIDV4,
+            primaryKey: true,
+            allowNull: false,
+          },
+          lead_id: {
+            type: Sequelize.DataTypes.INTEGER,
+            allowNull: false,
+            unique: true,
+            references: {
+              model: 'leads',
+              key: 'lead_id',
+            },
+            onUpdate: 'CASCADE',
+            onDelete: 'SET NULL',
+          },
+          agent_name: {
+            type: Sequelize.DataTypes.STRING,
+            allowNull: false,
+          },
+          role: {
+            type: Sequelize.DataTypes.ENUM('user', 'assistant', 'system', 'tool', 'data'),
+            allowNull: false,
+          },
+          content: {
+            type: Sequelize.DataTypes.JSON,
+            allowNull: false,
+          },
+          createdAt: {
+            type: Sequelize.DataTypes.DATE,
+            allowNull: false,
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+          },
+          updatedAt: {
+            type: Sequelize.DataTypes.DATE,
+            allowNull: false,
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+          },
+        }, {
+          transaction: t,
+        })
       ])
     })
   },

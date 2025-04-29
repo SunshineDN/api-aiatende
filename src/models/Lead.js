@@ -10,7 +10,7 @@ const Lead = sequelize.define('Lead', {
   },
   lead_id: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: false
   },
   data: {
     type: DataTypes.JSON,
@@ -27,6 +27,8 @@ const Lead = sequelize.define('Lead', {
       model: 'marketing_tracking',
       key: 'id',
     },
+    onUpdate: 'CASCADE',
+    onDelete: 'SET NULL',
   },
 }, {
   tableName: 'leads',
