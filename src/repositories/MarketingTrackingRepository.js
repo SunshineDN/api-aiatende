@@ -6,7 +6,7 @@ export default class MarketingTrackingRepository extends BaseRepository {
     super(models.MarketingTracking);
   }
 
-  async updateByClientId(client_id, data) {
-    return await this.model.update(data, { where: { client_id } });
+  async updateByClientId(gclientid, data) {
+    return await this.model.update(data, { where: { gclientid } });
   }
 }
