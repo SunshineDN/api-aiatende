@@ -1,18 +1,17 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/db.js';
 
-const lead_threads = sequelize.define('lead_threads', {
-  leadID: {
+const LeadThread = sequelize.define('LeadThread', {
+  lead_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
-    autoIncrement: true,
   },
   author_id: {
     type: DataTypes.UUID,
     allowNull: true,
   },
-  threadID: {
+  thread_id: {
     type: DataTypes.ARRAY(DataTypes.STRING),
     allowNull: true,
   },
@@ -29,7 +28,9 @@ const lead_threads = sequelize.define('lead_threads', {
     allowNull: true,
   },
 }, {
-  tableName: 'lead_threads'
+  tableName: 'lead_threads',
+  underscored: true,
+  timestamps: true,
 });
 
-export default lead_threads;
+export default LeadThread;

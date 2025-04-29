@@ -5,10 +5,11 @@
 // const { openai } = require('../services/openai');
 
 import { Op } from 'sequelize';
-import lead_threads from '../models/lead_threads.js';
+import models from '../models/index.js';
 import OpenAIController from '../controllers/OpenAIController.js';
 import { openai } from '../services/gpt/AuthenticateOpenAI.js';
 
+const lead_threads = models.LeadThread;
 const DEFAULT_POLL_INTERVAL = 1000; // ms
 const MAX_POLL_ATTEMPTS = 10;
 const MAX_RUN_RETRIES = 6;
