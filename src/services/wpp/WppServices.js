@@ -82,7 +82,7 @@ export default class WppServices {
       ga_utm: query.ga_utm,
       fbp: query.fbp,
       fbc: query.fbc,
-      text: query.text,
+      text: query.text || "",
       hash: hash,
     }
     return utms
