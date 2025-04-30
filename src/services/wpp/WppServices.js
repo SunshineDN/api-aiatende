@@ -69,21 +69,21 @@ export default class WppServices {
 
   handleUTMSeparator(query, hash) {
     const utms = {
-      utm_content: query.utm_content || "Não informado",
-      utm_medium: query.utm_medium || "Não informado",
-      utm_campaign: query.utm_campaign || "Não informado",
-      utm_source: query.utm_source || "Não informado",
-      utm_term: query.utm_term || "Não informado",
-      utm_referrer: query.utm_referrer || "Não informado",
-      referrer: query.referrer || "Não informado",
-      gclientid: query.gclientid || "Não informado",
-      gclid: query.gclid || "Não informado",
-      fbclid: query.fbclid || "Não informado",
-      ga_utm: query.ga_utm || "Não informado",
-      fbp: query.fbp || "Não informado",
-      fbc: query.fbc || "Não informado",
-      text: query.text || "Não informado",
-      hash: hash || "Não informado",
+      utm_content: query.utm_content,
+      utm_medium: query.utm_medium,
+      utm_campaign: query.utm_campaign,
+      utm_source: query.utm_source,
+      utm_term: query.utm_term,
+      utm_referrer: query.utm_referrer,
+      referrer: query.referrer,
+      gclientid: query.gclientid,
+      gclid: query.gclid,
+      fbclid: query.fbclid,
+      ga_utm: query.ga_utm,
+      fbp: query.fbp,
+      fbc: query.fbc,
+      text: query.text,
+      hash: hash,
     }
     return utms
   }
