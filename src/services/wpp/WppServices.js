@@ -30,8 +30,8 @@ export default class WppServices {
 
     const kommoWebhookUtils = new KommoWebhookUtils({ pipelines: await this.#kommo.getPipelines() });
 
-    const pipeline = kommoWebhookUtils.findPipelineByName('ENTRADA WHATSAPP');
-    const status = kommoWebhookUtils.findStatusByName('Entrada whatsapp');
+    const pipeline = kommoWebhookUtils.findPipelineByName('01 - Recepção Virtual');
+    const status = kommoWebhookUtils.findStatusByName('Clique no Site');
     if (!pipeline || !status) {
       styled.error("Pipeline or status not found");
       return;
