@@ -9,7 +9,8 @@ export default class KommoUtils {
   }
 
   findPipelineByName(name) {
-    return this.pipelines.filter(pipeline => pipeline.name === name)[0] || null;
+    name = name.toLowerCase().trim();
+    return this.pipelines.filter(pipeline => pipeline.name.toLowerCase() === name)[0] || null;
   }
 
   findStatusByCode(pipelineName, code) {
@@ -23,8 +24,9 @@ export default class KommoUtils {
   }
 
   findStatusByName(name) {
+    name = name.toLowerCase().trim();
     const statuses = this.pipelines.map(pipeline => pipeline._embedded.statuses).flat();
-    return statuses.filter(status => status.name === name)[0] || null;
+    return statuses.filter(status => status.name.toLowerCase() === name)[0] || null;
   }
 
   findLeadsFieldByName(name) {
