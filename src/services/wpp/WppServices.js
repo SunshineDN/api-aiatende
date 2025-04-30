@@ -100,7 +100,7 @@ export default class WppServices {
     const utm_term_field = kommoWebhookUtils.findLeadsFieldByName('utm_term');
     const utm_referrer_field = kommoWebhookUtils.findLeadsFieldByName('utm_referrer');
     const referrer_field = kommoWebhookUtils.findLeadsFieldByName('referrer');
-    const gclientid = kommoWebhookUtils.findLeadsFieldByName('gclientid');
+    const gclientid_field = kommoWebhookUtils.findLeadsFieldByName('gclientid');
     const gclid_field = kommoWebhookUtils.findLeadsFieldByName('gclid');
     const fbclid_field = kommoWebhookUtils.findLeadsFieldByName('fbclid');
     const ga_utm_field = kommoWebhookUtils.findLeadsFieldByName('ga_utm');
@@ -109,7 +109,7 @@ export default class WppServices {
 
     const custom_fields_values = []
 
-    if (utms.hash) {
+    if (utms.hash && track_message_field) {
       custom_fields_values.push({
         field_id: track_message_field.id,
         values: [
@@ -120,7 +120,7 @@ export default class WppServices {
       });
     }
 
-    if (utms.utm_content) {
+    if (utms.utm_content && utm_content_field) {
       custom_fields_values.push({
         field_id: utm_content_field.id,
         values: [
@@ -131,7 +131,7 @@ export default class WppServices {
       });
     }
 
-    if (utms.utm_medium) {
+    if (utms.utm_medium && utm_medium_field) {
       custom_fields_values.push({
         field_id: utm_medium_field.id,
         values: [
@@ -142,7 +142,7 @@ export default class WppServices {
       });
     }
 
-    if (utms.utm_campaign) {
+    if (utms.utm_campaign && utm_campaign_field) {
       custom_fields_values.push({
         field_id: utm_campaign_field.id,
         values: [
@@ -153,7 +153,7 @@ export default class WppServices {
       });
     }
 
-    if (utms.utm_source) {
+    if (utms.utm_source && utm_source_field) {
       custom_fields_values.push({
         field_id: utm_source_field.id,
         values: [
@@ -164,7 +164,7 @@ export default class WppServices {
       });
     }
 
-    if (utms.utm_term) {
+    if (utms.utm_term && utm_term_field) {
       custom_fields_values.push({
         field_id: utm_term_field.id,
         values: [
@@ -175,7 +175,7 @@ export default class WppServices {
       });
     }
 
-    if (utms.utm_referrer) {
+    if (utms.utm_referrer && utm_referrer_field) {
       custom_fields_values.push({
         field_id: utm_referrer_field.id,
         values: [
@@ -186,7 +186,7 @@ export default class WppServices {
       });
     }
 
-    if (utms.referrer) {
+    if (utms.referrer && referrer_field) {
       custom_fields_values.push({
         field_id: referrer_field.id,
         values: [
@@ -197,9 +197,9 @@ export default class WppServices {
       });
     }
 
-    if (utms.gclientid) {
+    if (utms.gclientid && gclientid_field) {
       custom_fields_values.push({
-        field_id: gclientid.id,
+        field_id: gclientid_field.id,
         values: [
           {
             value: utms.gclientid
@@ -208,7 +208,7 @@ export default class WppServices {
       });
     }
 
-    if (utms.gclid) {
+    if (utms.gclid && gclid_field) {
       custom_fields_values.push({
         field_id: gclid_field.id,
         values: [
@@ -219,7 +219,7 @@ export default class WppServices {
       });
     }
 
-    if (utms.fbclid) {
+    if (utms.fbclid && fbclid_field) {
       custom_fields_values.push({
         field_id: fbclid_field.id,
         values: [
@@ -230,7 +230,7 @@ export default class WppServices {
       });
     }
 
-    if (utms.ga_utm) {
+    if (utms.ga_utm && ga_utm_field) {
       custom_fields_values.push({
         field_id: ga_utm_field.id,
         values: [
@@ -241,7 +241,7 @@ export default class WppServices {
       });
     }
 
-    if (utms.fbp) {
+    if (utms.fbp && fbp_field) {
       custom_fields_values.push({
         field_id: fbp_field.id,
         values: [
@@ -252,7 +252,7 @@ export default class WppServices {
       });
     }
 
-    if (utms.fbc) {
+    if (utms.fbc && fbc_field) {
       custom_fields_values.push({
         field_id: fbc_field.id,
         values: [
