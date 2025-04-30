@@ -86,8 +86,8 @@ module.exports = {
         }),
         queryInterface.createTable('leads', {
           id: {
-            type: Sequelize.DataTypes.INTEGER,
-            autoIncrement: true,
+            type: Sequelize.DataTypes.UUID,
+            defaultValue: Sequelize.DataTypes.UUIDV4,
             unique: true,
             allowNull: false,
             primaryKey: true,
@@ -138,7 +138,6 @@ module.exports = {
           lead_id: {
             type: Sequelize.DataTypes.INTEGER,
             allowNull: false,
-            unique: true,
             references: {
               model: 'leads',
               key: 'lead_id',
