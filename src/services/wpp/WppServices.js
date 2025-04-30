@@ -109,7 +109,7 @@ export default class WppServices {
 
     const custom_fields_values = []
 
-    if (track_message_field) {
+    if (utms.hash) {
       custom_fields_values.push({
         field_id: track_message_field.id,
         values: [
@@ -120,7 +120,7 @@ export default class WppServices {
       });
     }
 
-    if (utm_content_field) {
+    if (utms.utm_content) {
       custom_fields_values.push({
         field_id: utm_content_field.id,
         values: [
@@ -131,7 +131,7 @@ export default class WppServices {
       });
     }
 
-    if (utm_medium_field) {
+    if (utms.utm_medium) {
       custom_fields_values.push({
         field_id: utm_medium_field.id,
         values: [
@@ -142,7 +142,7 @@ export default class WppServices {
       });
     }
 
-    if (utm_campaign_field) {
+    if (utms.utm_campaign) {
       custom_fields_values.push({
         field_id: utm_campaign_field.id,
         values: [
@@ -153,7 +153,7 @@ export default class WppServices {
       });
     }
 
-    if (utm_source_field) {
+    if (utms.utm_source) {
       custom_fields_values.push({
         field_id: utm_source_field.id,
         values: [
@@ -164,7 +164,7 @@ export default class WppServices {
       });
     }
 
-    if (utm_term_field) {
+    if (utms.utm_term) {
       custom_fields_values.push({
         field_id: utm_term_field.id,
         values: [
@@ -175,7 +175,7 @@ export default class WppServices {
       });
     }
 
-    if (utm_referrer_field) {
+    if (utms.utm_referrer) {
       custom_fields_values.push({
         field_id: utm_referrer_field.id,
         values: [
@@ -186,7 +186,7 @@ export default class WppServices {
       });
     }
 
-    if (referrer_field) {
+    if (utms.referrer) {
       custom_fields_values.push({
         field_id: referrer_field.id,
         values: [
@@ -197,7 +197,7 @@ export default class WppServices {
       });
     }
 
-    if (gclientid) {
+    if (utms.gclientid) {
       custom_fields_values.push({
         field_id: gclientid.id,
         values: [
@@ -208,7 +208,7 @@ export default class WppServices {
       });
     }
 
-    if (gclid_field) {
+    if (utms.gclid) {
       custom_fields_values.push({
         field_id: gclid_field.id,
         values: [
@@ -219,7 +219,7 @@ export default class WppServices {
       });
     }
 
-    if (fbclid_field) {
+    if (utms.fbclid) {
       custom_fields_values.push({
         field_id: fbclid_field.id,
         values: [
@@ -230,7 +230,7 @@ export default class WppServices {
       });
     }
 
-    if (ga_utm_field) {
+    if (utms.ga_utm) {
       custom_fields_values.push({
         field_id: ga_utm_field.id,
         values: [
@@ -241,7 +241,7 @@ export default class WppServices {
       });
     }
 
-    if (fbp_field) {
+    if (utms.fbp) {
       custom_fields_values.push({
         field_id: fbp_field.id,
         values: [
@@ -252,7 +252,7 @@ export default class WppServices {
       });
     }
 
-    if (fbc_field) {
+    if (utms.fbc) {
       custom_fields_values.push({
         field_id: fbc_field.id,
         values: [
