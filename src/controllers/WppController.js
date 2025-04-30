@@ -18,12 +18,17 @@ export default class WppController {
       styled.infodir(query);
       const hash = StaticUtils.generateSimpleHash();
       const text = await this.wppServices.handleWebhookReceived(query, hash);
-      styled.success('Webhook received and handled');
-      res.redirect(`https://wa.me/${whatsAppNumber}?text=[ ${hash} ]\n${text}`);
+      if (text == null) {
+        styled.warning("gclientid not found");
+        res.redirect(`https://wa.me/${whatsAppNumber}?text=Olá, tudo bem?`);
+      } else {
+        styled.success('Webhook received and handled');
+        res.redirect(`https://wa.me/${whatsAppNumber}?text=[ ${hash} ]\n${text}`);
+      }
     } catch (error) {
-      styled.error('Error in webhook', error);
-      res.status(500).send('Internal Server Error');
-      return;
+      styled.error(`[WppController.handleWebhookReceived] Error: ${error?.message}`);
+      console.error(error);
+      return res.status(500).send({ message: 'Internal Server Error', error: error?.message });
     }
   }
 
@@ -34,9 +39,9 @@ export default class WppController {
       await this.wppServices.handleWebhookDuplicate(add);
       return res.status(200).json({ message: "Tratamento de duplicata realizado com sucesso" });
     } catch (error) {
+      styled.error(`[WppController.handleWebhookDuplicate] Error: ${error?.message}`);
       console.error(error);
-      res.status(500).send('Internal Server Error');
-      return;
+      return res.status(500).send({ message: 'Internal Server Error', error: error?.message });
     }
   }
 
