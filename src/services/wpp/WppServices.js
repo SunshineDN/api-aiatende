@@ -47,40 +47,6 @@ export default class WppServices {
     return utms.text;
   }
 
-  async handleReceiveData(body, hash) {
-
-    const utms = this.handleUTMSeparator(body, hash);
-
-    if (!utms.gclientid) {
-      return;
-    }
-
-    const [create, _] = await this.#marketing_tracking.findOrCreate({ where: { gclientid: utms.gclientid } });
-    await this.#marketing_tracking.updateByClientId(create.gclientid, utms);
-    styled.success('UTM separated and saved in the database');
-
-    const custom_fields_values = await this.handleCustomFields({ utms });
-    styled.success('Custom fields values created');
-
-    const kommoWebhookUtils = new KommoWebhookUtils({ pipelines: await this.#kommo.getPipelines() });
-
-    const pipeline = kommoWebhookUtils.findPipelineByName('01 - Recepção Virtual');
-    const status = kommoWebhookUtils.findStatusByName('Clique no Site');
-    if (!pipeline || !status) {
-      styled.error("Pipeline or status not found");
-      return;
-    }
-
-    styled.success("Lead created successfully");
-    await this.#kommo.createLead({
-      pipeline_id: pipeline.id,
-      status_id: status.id,
-      custom_fields_values
-    });
-
-    return utms.text;
-  }
-
   async handleWebhookDuplicate(data) {
 
     const id_lead = data.flatMap((item) => item.id)
