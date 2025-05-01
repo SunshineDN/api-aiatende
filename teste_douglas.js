@@ -1,6 +1,7 @@
 import LeadMessagesRepository from "./src/repositories/LeadMessagesRepository.js";
 import LeadRepository from "./src/repositories/LeadRepository.js";
 import MarketingTrackingRepository from "./src/repositories/MarketingTrackingRepository.js";
+import EvolutionApiServices from "./src/services/evolutionapi/EvolutionApiServices.js";
 import GoogleServices from "./src/services/google/GoogleServices.js";
 import KommoServices from "./src/services/kommo/KommoServices.js";
 import AgentManager from "./src/services/openai/AgentManager.js";
@@ -73,11 +74,23 @@ async function main() {
   // const lead = await kommo.getLead({ id: 24410353 });
   // styled.info("Lead:", lead);
 
-    const lead_id = 24410353;
-    const message = "Me conte uma curiosidade";
+    // const lead_id = 24410353;
+    // const message = "Me conte uma curiosidade";
 
-    const reply = await manager.runGroup(lead_id, message);
-    styled.info("Resposta do grupo de agentes:", reply);
+    // const reply = await manager.runGroup(lead_id, message);
+    // styled.info("Resposta do grupo de agentes:", reply);
+
+    const evolutionService = new EvolutionApiServices({
+      apiKey: process.env.EVOLUTION_API_KEY,
+      instance: process.env.EVOLUTION_API_INSTANCE_ID,
+    });
+
+    const response = await evolutionService.sendMessage({
+      message: "Olá, tudo bem?",
+      number: "558196724310"
+    })
+
+    styled.info("Resposta da API:", response);
 }
 
 main();

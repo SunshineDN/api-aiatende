@@ -47,6 +47,40 @@ export default class WppServices {
     return utms.text;
   }
 
+  async handleReceiveData(body, hash) {
+
+    const utms = this.handleUTMSeparator(body, hash);
+
+    if (!utms.gclientid) {
+      return;
+    }
+
+    const [create, _] = await this.#marketing_tracking.findOrCreate({ where: { gclientid: utms.gclientid } });
+    await this.#marketing_tracking.updateByClientId(create.gclientid, utms);
+    styled.success('UTM separated and saved in the database');
+
+    const custom_fields_values = await this.handleCustomFields({ utms });
+    styled.success('Custom fields values created');
+
+    const kommoWebhookUtils = new KommoWebhookUtils({ pipelines: await this.#kommo.getPipelines() });
+
+    const pipeline = kommoWebhookUtils.findPipelineByName('01 - Recepção Virtual');
+    const status = kommoWebhookUtils.findStatusByName('Clique no Site');
+    if (!pipeline || !status) {
+      styled.error("Pipeline or status not found");
+      return;
+    }
+
+    styled.success("Lead created successfully");
+    await this.#kommo.createLead({
+      pipeline_id: pipeline.id,
+      status_id: status.id,
+      custom_fields_values
+    });
+
+    return utms.text;
+  }
+
   async handleWebhookDuplicate(data) {
 
     const id_lead = data.flatMap((item) => item.id)
@@ -67,22 +101,22 @@ export default class WppServices {
     return res.status(200)
   }
 
-  handleUTMSeparator(query, hash) {
+  handleUTMSeparator(obj, hash) {
     const utms = {
-      utm_content: query.utm_content,
-      utm_medium: query.utm_medium,
-      utm_campaign: query.utm_campaign,
-      utm_source: query.utm_source,
-      utm_term: query.utm_term,
-      utm_referrer: query.utm_referrer,
-      referrer: query.referrer,
-      gclientid: query.gclientid,
-      gclid: query.gclid,
-      fbclid: query.fbclid,
-      ga_utm: query.ga_utm,
-      fbp: query.fbp,
-      fbc: query.fbc,
-      text: query.text || "",
+      utm_content: obj.utm_content,
+      utm_medium: obj.utm_medium,
+      utm_campaign: obj.utm_campaign,
+      utm_source: obj.utm_source,
+      utm_term: obj.utm_term,
+      utm_referrer: obj.utm_referrer,
+      referrer: obj.referrer,
+      gclientid: obj.gclientid,
+      gclid: obj.gclid,
+      fbclid: obj.fbclid,
+      ga_utm: obj.ga_utm,
+      fbp: obj.fbp,
+      fbc: obj.fbc,
+      text: obj.text || "",
       hash: hash,
     }
     return utms
