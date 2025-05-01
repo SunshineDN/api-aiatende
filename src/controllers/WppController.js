@@ -41,7 +41,7 @@ export default class WppController {
     try {
       const whatsAppNumber = process.env.WHATSAPP_NUMBER; // Número do WhatsApp no padrao 558112345678
       const { body } = req;
-      styled.info(body);
+      styled.infodir(body);
       const hash = StaticUtils.generateSimpleHash();
       const text = await this.wppServices.handleReceiveData(body, hash);
       if (text == null) {

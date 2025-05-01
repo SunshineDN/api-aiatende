@@ -4,6 +4,8 @@ import WppController from '../controllers/WppController.js';
 const router = express.Router();
 const wppController = new WppController();
 
+router.use(express.json());
+
 router.get('/wbhk', (req,res) => wppController.handleWebhookReceived(req, res));
 
 router.post('/receiveData', (req,res) => wppController.handleReceiveData(req, res));
