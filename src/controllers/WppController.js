@@ -7,6 +7,7 @@ export default class WppController {
   constructor() {
     this.wppServices = new WppServices();
   }
+
   /**
     * @param { import('express').Request } req
     * @param { import('express').Response } res

@@ -67,22 +67,22 @@ export default class WppServices {
     return res.status(200)
   }
 
-  handleUTMSeparator(query, hash) {
+  handleUTMSeparator(obj, hash) {
     const utms = {
-      utm_content: query.utm_content,
-      utm_medium: query.utm_medium,
-      utm_campaign: query.utm_campaign,
-      utm_source: query.utm_source,
-      utm_term: query.utm_term,
-      utm_referrer: query.utm_referrer,
-      referrer: query.referrer,
-      gclientid: query.gclientid,
-      gclid: query.gclid,
-      fbclid: query.fbclid,
-      ga_utm: query.ga_utm,
-      fbp: query.fbp,
-      fbc: query.fbc,
-      text: query.text || "",
+      utm_content: obj.utm_content,
+      utm_medium: obj.utm_medium,
+      utm_campaign: obj.utm_campaign,
+      utm_source: obj.utm_source,
+      utm_term: obj.utm_term,
+      utm_referrer: obj.utm_referrer,
+      referrer: obj.referrer,
+      gclientid: obj.gclientid,
+      gclid: obj.gclid,
+      fbclid: obj.fbclid,
+      ga_utm: obj.ga_utm,
+      fbp: obj.fbp,
+      fbc: obj.fbc,
+      text: obj.text || "",
       hash: hash,
     }
     return utms
