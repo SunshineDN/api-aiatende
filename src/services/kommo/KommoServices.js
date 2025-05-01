@@ -3,12 +3,16 @@ import KommoUtils from "../../utils/KommoUtils.js";
 import StaticUtils from "../../utils/StaticUtils.js";
 import styled from "../../utils/log/styled.js";
 import LeadUtils from "../../utils/LeadUtils.js";
+import LeadRepository from "../../repositories/LeadRepository.js";
 import DateUtils from "../../utils/DateUtils.js";
 
 export default class KommoServices {
+  #leadRepository;
+
   constructor({ auth, url }) {
     this.auth = auth;
     this.url = url;
+    this.#leadRepository = new LeadRepository();
   }
 
   checkAuth() {
@@ -66,12 +70,15 @@ export default class KommoServices {
     const { data: leadData } = await axios.request(options);
 
     if (!withParams) {
+      await this.#leadRepository.findCreateAndUpdate(id, leadData);
       return leadData;
     } else {
       if (withParams === 'contacts') {
         leadData.contact = await this.getContact(leadData?._embedded?.contacts?.[0]?.id);
+        await this.#leadRepository.findCreateAndUpdate(id, leadData);
         return leadData;
       } else {
+        await this.#leadRepository.findCreateAndUpdate(id, leadData);
         return leadData;
       }
     }

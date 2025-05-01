@@ -10,7 +10,8 @@ const Lead = sequelize.define('Lead', {
   },
   lead_id: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
+    unique: true,
   },
   data: {
     type: DataTypes.JSON,
