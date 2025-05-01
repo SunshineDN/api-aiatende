@@ -6,6 +6,8 @@ const wppController = new WppController();
 
 router.get('/wbhk', (req,res) => wppController.handleWebhookReceived(req, res));
 
+router.post('/receiveData', (req,res) => wppController.handleReceiveData(req, res));
+
 router.post('/wbhk/duplicate', (req,res) => wppController.handleWebhookDuplicate(req, res));
 
 router.post('/message-upsert', (req,res ) => wppController.handleMessageUpsert(req,res));

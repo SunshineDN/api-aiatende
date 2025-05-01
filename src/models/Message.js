@@ -35,7 +35,7 @@ const Message = sequelize.define('Message', {
   timestamps: true,
   underscored: true,
 });
-
+ 
 Message.associate = models => {
   Message.belongsTo(models.Lead, {
     foreignKey: 'lead_id',

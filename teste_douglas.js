@@ -1,5 +1,7 @@
 import LeadMessagesRepository from "./src/repositories/LeadMessagesRepository.js";
+import LeadRepository from "./src/repositories/LeadRepository.js";
 import MarketingTrackingRepository from "./src/repositories/MarketingTrackingRepository.js";
+import EvolutionApiServices from "./src/services/evolutionapi/EvolutionApiServices.js";
 import GoogleServices from "./src/services/google/GoogleServices.js";
 import KommoServices from "./src/services/kommo/KommoServices.js";
 import AgentManager from "./src/services/openai/AgentManager.js";
@@ -65,46 +67,30 @@ async function main() {
   // const docContent = await googleServices.getDocumentContent();
 
   // styled.infodir(docContent);
+  // const kommo = new KommoServices({
+  //   auth: process.env.KOMMO_AUTH,
+  //   url: process.env.KOMMO_URL,
+  // });
+  // const lead = await kommo.getLead({ id: 24410353 });
+  // styled.info("Lead:", lead);
 
-  const lead_id = 24410353;
-  const message = "Me conte uma curiosidade";
+    // const lead_id = 24410353;
+    // const message = "Me conte uma curiosidade";
 
-  const manager = new AgentManager();
-  manager.addAgent({
-    name: "Agente A",
-    systemPrompt: `🎯 Prompt do Agente 1 — Resumidor:
+    // const reply = await manager.runGroup(lead_id, message);
+    // styled.info("Resposta do grupo de agentes:", reply);
 
-Você é o Agente 1. Sua função é ler a mensagem do usuário e fazer um resumo claro e objetivo da conversa.
+    const evolutionService = new EvolutionApiServices({
+      apiKey: process.env.EVOLUTION_API_KEY,
+      instance: process.env.EVOLUTION_API_INSTANCE_ID,
+    });
 
-Instruções:
+    const response = await evolutionService.sendMessage({
+      message: "Olá, tudo bem?",
+      number: "558196724310"
+    })
 
-Capture os pontos principais da mensagem do usuário.
-
-Resuma em 3 a 5 linhas, de forma neutra, sem julgamentos ou interpretações além do que foi dito.
-
-Não responda à dúvida do usuário. Apenas faça o resumo.
-
-Ao final, envie o resumo com o formato:`,
-  });
-  manager.addAgent({
-    name: "Agente B",
-    systemPrompt: `🎯 Prompt do Agente 2 — Respondedor
-
-Você é o Agente 2. Sua função é ler o resumo feito pelo Agente 1 e formular a melhor resposta possível para atender ao usuário.
-
-Instruções:
-
-Leia com atenção o [Resumo da Conversa] enviado pelo Agente 1.
-
-Elabore uma resposta clara, completa e amigável, focando em resolver ou orientar o que foi resumido.
-
-Se necessário, sugira próximos passos ou faça perguntas adicionais para entender melhor o caso.
-
-A resposta deve ser útil e direta, sempre respeitando o tom educado.`
-  });
-
-  const reply = await manager.runGroup(lead_id, message);
-  styled.info("Resposta do grupo de agentes:", reply);
+    styled.info("Resposta da API:", response);
 }
 
 main();
