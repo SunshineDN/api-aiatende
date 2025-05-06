@@ -51,6 +51,10 @@ async function scheduleAppointment({ patientName, date, time, dentistId }) {
   };
 }
 
+const availableTools = {
+  scheduleAppointment
+}
+
 // 4. rota da sua API que recebe o chat do usuário
 export async function handleChat(message) {
   const userMessage = message;
@@ -106,7 +110,7 @@ export async function handleChat(message) {
   return choice;
 }
 
-const threadId = "thread_X1B4MjcV3d23GLkgUMbmvTNU"
+const threadId = "thread_sIybowHrdoRpg56tXEUVBrFk"
 // const runId = "run_V2pQXatzX0VPoN99r4oE23jV"
 
 async function handleChatWithThreads(message) {
@@ -129,31 +133,88 @@ async function handleChatWithThreads(message) {
 
 async function handleObtainMessage(thread_id) {
   const allMessages = await openai.beta.threads.messages.list(thread_id);
+  allMessages.data = allMessages.data.slice().reverse();
   styled.infodir(allMessages);
 }
 
-async function handleCaptureMessage(run = null) {
-  const threadId = run.thread_id;
-  const runId = run.id
+// async function handleCaptureMessage(run = null) {
+//   const threadId = run.thread_id;
+//   const runId = run.id
 
-  let status;
-  do {
-    status = await openai.beta.threads.runs.retrieve(threadId, runId);
+//   let status;
+//   do {
+//     status = await openai.beta.threads.runs.retrieve(threadId, runId);
+//     styled.info(status.status);
+
+//     await new Promise(r => setTimeout(r, 500));
+//   } while (status.status !== "completed" && status.status !== "requires_action");
+
+//   if (status.status === "requires_action") {
+//     const call = status.required_action;
+
+//     if (call.type === "submit_tool_outputs") {
+//       const tool_calls = call.submit_tool_outputs.tool_calls[0];
+//       const function_called_name = tool_calls.function.name;
+//       const functionToCall = availableTools[function_called_name];
+//       const function_called_args = JSON.parse(tool_calls.function.arguments);
+//       const tool_result = await functionToCall(function_called_args);
+//     }
+//   }
+
+//   await handleObtainMessage(threadId);
+// }
+
+async function handleCaptureMessage(run) {
+  const threadId = run.thread_id;
+  const runId = run.id;
+
+  while (true) {
+    // 1) recuperar o status do run
+    const status = await openai.beta.threads.runs.retrieve(threadId, runId);
     styled.info(status.status);
 
-    await new Promise(r => setTimeout(r, 500));
-  } while (status.status !== "completed" && status.status !== "requires_action");
+    // 2) se precisar rodar tool...
+    if (status.status === "requires_action") {
+      const call = status.required_action;
 
-  if (status.status === "requires_action") {
-    const call = status.required_action
-    styled.infodir(status)
+      if (call.type === "submit_tool_outputs") {
+        // 2.1 descompactar chamada
+        const toolCall = call.submit_tool_outputs.tool_calls[0];
+        const fnName = toolCall.function.name;
+        const args = JSON.parse(toolCall.function.arguments);
+
+        // 2.2 executar sua lógica local
+        const result = await availableTools[fnName](args);
+
+        styled.infodir(result);
+
+        // 2.3 submeter o resultado ao run
+        await openai.beta.threads.runs.submitToolOutputs(threadId, runId, {
+          tool_outputs: [
+            { tool_call_id: toolCall.id, output: JSON.stringify(result) }
+          ]
+        });
+
+        // voltar ao topo do loop para polling
+        continue;
+      }
+    }
+
+    // 3) se completou, sai do loop
+    if (status.status === "completed") {
+      break;
+    }
+
+    // 4) se ainda está “running”, aguarda e repete
+    await new Promise(r => setTimeout(r, 500));
   }
 
+  // 5) agora que o run terminou, obtém a mensagem
   await handleObtainMessage(threadId);
 }
 
 const main = async () => {
-  const message = "Isso, está correto"
+  const message = "06/05/2025 às 14h"
   const run = await handleChatWithThreads(message);
 
   await handleCaptureMessage(run);
