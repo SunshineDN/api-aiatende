@@ -5,6 +5,7 @@ import EvolutionApiServices from "./src/services/evolutionapi/EvolutionApiServic
 import GoogleServices from "./src/services/google/GoogleServices.js";
 import KommoServices from "./src/services/kommo/KommoServices.js";
 import AgentManager from "./src/services/openai/AgentManager.js";
+import ToolsServices from "./src/services/openai/ToolsServices.js";
 import OpenaiIntegrationServices from "./src/services/openaiIntegration/OpenaiIntegrationServices.js";
 import WppServices from "./src/services/wpp/WppServices.js";
 import KommoWebhookUtils from "./src/utils/KommoWebhookUtils.js";
@@ -80,17 +81,10 @@ async function main() {
     // const reply = await manager.runGroup(lead_id, message);
     // styled.info("Resposta do grupo de agentes:", reply);
 
-    const evolutionService = new EvolutionApiServices({
-      apiKey: process.env.EVOLUTION_API_KEY,
-      instance: process.env.EVOLUTION_API_INSTANCE_ID,
-    });
-
-    const response = await evolutionService.sendMessage({
-      message: "Olá, tudo bem?",
-      number: "558196724310"
-    })
-
-    styled.info("Resposta da API:", response);
+    const tools = new ToolsServices();
+    const method = StaticUtils.findMethods(tools, 'analisarIntencaoUsuario')[0];
+    styled.infodir(method);
+    tools[method]({ resumoConversa: 'teste' })
 }
 
 main();

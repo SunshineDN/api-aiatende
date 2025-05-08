@@ -254,4 +254,23 @@ export default class StaticUtils {
     static generateSimpleHash() {
         return crypto.randomBytes(4).toString('hex'); // Gera uma string hexadecimal de 8 caracteres
     }
+
+    /**
+     * Encontra métodos em uma instância
+     * @param {object} instance Instância da classe criada
+     * @param {string} fn_name Nome da função para pesquisar se há o método na classe criada
+     * @returns {Array<string>}
+     */
+    static findMethods(instance, fn_name = '') {
+        const proto = Object.getPrototypeOf(instance);
+        return Object
+            .getOwnPropertyNames(proto)
+            .filter((name) => {
+                const prop = proto[name];
+
+                if (fn_name === '') return typeof prop === 'function' && name !== 'constructor';
+
+                return typeof prop === 'function' && name !== 'constructor' && name === fn_name;
+            });
+    }
 }
