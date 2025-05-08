@@ -5,18 +5,6 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
-async function scheduleAppointment({ patientName, date, time, dentistId }) {
-  // aqui você faria o .insert() no seu banco, chamaria outro serviço etc.
-  // vamos simular respondendo um ID de agendamento:
-  return {
-    appointmentId: "appt_" + Date.now(),
-    patientName,
-    date,
-    time,
-    dentistId,
-    status: "confirmed"
-  };
-}
 
 const availableTools = {
   scheduleAppointment
