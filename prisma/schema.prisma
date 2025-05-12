@@ -1,0 +1,111 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+model SequelizeMeta {
+  name String @id @db.VarChar(255)
+}
+
+model bk_funnels {
+  code         String   @id @db.VarChar(255)
+  quests       String[] @db.VarChar(255)
+  dentista     String?  @db.VarChar(255)
+  procedimento String?  @db.VarChar(255)
+  periodo      String?  @db.VarChar(255)
+  turno        String?  @db.VarChar(255)
+  objects      Json?    @db.Json
+  funnel_id    String?  @db.VarChar(255)
+  created_at   DateTime @db.Timestamptz(6)
+  updated_at   DateTime @db.Timestamptz(6)
+}
+
+model funnel_builder {
+  id                 String   @id @db.VarChar(255)
+  professional       Json?    @db.Json
+  service            Json?    @db.Json
+  service_intro_page Json?    @db.Json
+  testimony          Json?    @db.Json
+  register           Json?    @db.Json
+  period             Json?    @db.Json
+  shift              Json?    @db.Json
+  created_at         DateTime @db.Timestamptz(6)
+  updated_at         DateTime @db.Timestamptz(6)
+}
+
+model lead_messages {
+  id         Int      @id @default(autoincrement())
+  author_id  String?  @db.Uuid
+  messages   Json[]   @db.Json
+  created_at DateTime @db.Timestamptz(6)
+  updated_at DateTime @db.Timestamptz(6)
+}
+
+model lead_threads {
+  lead_id            Int       @id
+  author_id          String?   @db.Uuid
+  thread_id          String[]  @db.VarChar(255)
+  assistant_id       String[]  @db.VarChar(255)
+  assistant_messages Json[]    @db.Json
+  last_timestamp     DateTime? @db.Timestamptz(6)
+  created_at         DateTime  @db.Timestamptz(6)
+  updated_at         DateTime  @db.Timestamptz(6)
+}
+
+model leads {
+  id                    String              @id @db.Uuid @default(uuid())
+  lead_id               Int                 @unique
+  data                  Json?               @db.Json
+  details               Json?               @db.Json
+  marketing_tracking_id String?             @db.Uuid
+  created_at            DateTime            @db.Timestamptz(6)
+  updated_at            DateTime            @db.Timestamptz(6)
+  marketing_tracking    marketing_tracking? @relation(fields: [marketing_tracking_id], references: [id])
+  messages              messages[]
+}
+
+model marketing_tracking {
+  id           String   @id @db.Uuid @default(uuid())
+  hash         String?  @db.VarChar(8)
+  gclientid    String?  @db.VarChar(255)
+  gclid        String?  @db.VarChar(255)
+  fbclid       String?  @db.VarChar(255)
+  ga_utm       String?  @db.VarChar(255)
+  fbp          String?  @db.VarChar(255)
+  fbc          String?  @db.VarChar(255)
+  utm_content  String?  @db.VarChar(255)
+  utm_medium   String?  @db.VarChar(255)
+  utm_campaign String?  @db.VarChar(255)
+  utm_source   String?  @db.VarChar(255)
+  utm_term     String?  @db.VarChar(255)
+  utm_referrer String?  @db.VarChar(255)
+  referrer     String?  @db.VarChar(255)
+  created_at   DateTime @db.Timestamptz(6)
+  updated_at   DateTime @db.Timestamptz(6)
+  leads        leads[]
+}
+
+model messages {
+  id         String             @id @db.Uuid @default(uuid())
+  lead_id    Int
+  agent_name String             @db.VarChar(255)
+  role       enum_messages_role
+  content    Json               @db.Json
+  created_at DateTime           @db.Timestamptz(6)
+  updated_at DateTime           @db.Timestamptz(6)
+  leads      leads              @relation(fields: [lead_id], references: [lead_id], onDelete: Cascade)
+}
+
+enum enum_messages_role {
+  user
+  assistant
+  system
+  tool
+  data
+  function
+}

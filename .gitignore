@@ -7,3 +7,4 @@ node_modules
 *service_account*.json
 backup_docker_logs.sh
 backup_logs
+generated/prisma/

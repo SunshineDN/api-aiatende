@@ -1,3 +1,4 @@
+import { PrismaClient } from "@prisma/client";
 import LeadMessagesRepository from "./src/repositories/LeadMessagesRepository.js";
 import LeadRepository from "./src/repositories/LeadRepository.js";
 import MarketingTrackingRepository from "./src/repositories/MarketingTrackingRepository.js";
@@ -12,6 +13,8 @@ import KommoWebhookUtils from "./src/utils/KommoWebhookUtils.js";
 import LeadUtils from "./src/utils/LeadUtils.js";
 import styled from "./src/utils/log/styled.js";
 import StaticUtils from "./src/utils/StaticUtils.js";
+import { withAccelerate } from "@prisma/extension-accelerate";
+import LeadThreadRepository from "./src/repositories/LeadThreadRepository.js";
 
 async function main() {
   // const openaiIntegration = new OpenaiIntegrationServices({
@@ -81,10 +84,16 @@ async function main() {
     // const reply = await manager.runGroup(lead_id, message);
     // styled.info("Resposta do grupo de agentes:", reply);
 
-    const tools = new ToolsServices();
-    const method = StaticUtils.findMethods(tools, 'analisarIntencaoUsuario')[0];
-    styled.infodir(method);
-    tools[method]({ resumoConversa: 'teste' })
+    // const tools = new ToolsServices();
+    // const method = StaticUtils.findMethods(tools, 'analisarIntencaoUsuario')[0];
+    // styled.infodir(method);
+    // tools[method]({ resumoConversa: 'teste' })
+
+    const prisma = new PrismaClient();
+    prisma.$extends(withAccelerate());
+    const leadThreadRepo = new LeadThreadRepository();
+    const lastTimestam = await leadThreadRepo.getLastTimestamp(24410353);
+    styled.info("Ultimo timestamp:", lastTimestam);
 }
 
 main();
