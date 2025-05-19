@@ -53,12 +53,12 @@ model lead_threads {
   assistant_id       String[]  @db.VarChar(255)
   assistant_messages Json[]    @db.Json
   last_timestamp     DateTime? @db.Timestamptz(6)
-  created_at         DateTime  @db.Timestamptz(6)
-  updated_at         DateTime  @db.Timestamptz(6)
+  created_at         DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at         DateTime  @default(now()) @updatedAt @db.Timestamptz(6)
 }
 
 model leads {
-  id                    String              @id @db.Uuid @default(uuid())
+  id                    String              @id @default(uuid()) @db.Uuid
   lead_id               Int                 @unique
   data                  Json?               @db.Json
   details               Json?               @db.Json
@@ -70,7 +70,7 @@ model leads {
 }
 
 model marketing_tracking {
-  id           String   @id @db.Uuid @default(uuid())
+  id           String   @id @default(uuid()) @db.Uuid
   hash         String?  @db.VarChar(8)
   gclientid    String?  @db.VarChar(255)
   gclid        String?  @db.VarChar(255)
@@ -91,7 +91,7 @@ model marketing_tracking {
 }
 
 model messages {
-  id         String             @id @db.Uuid @default(uuid())
+  id         String             @id @default(uuid()) @db.Uuid
   lead_id    Int
   agent_name String             @db.VarChar(255)
   role       enum_messages_role

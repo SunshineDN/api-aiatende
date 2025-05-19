@@ -25,9 +25,12 @@ export default class BkFunnelsServices {
     const bkFunnelsRepository = new BkFunnelsRepository();
 
     if (type === 'lead') {
-      const [_, created] = await bkFunnelsRepository.findOrCreate({ where: { code: codeString, funnel_id: funnelIdString } });
-
-      await bkFunnelsRepository.updateByCode(codeString, { objects: value });
+      // const [_, created] = await bkFunnelsRepository.findOrCreate({ where: { code: codeString, funnel_id: funnelIdString } });
+      const person = await bkFunnelsRepository.findOrCreate({
+        where: { code: codeString, funnel_id: funnelIdString },
+        update: { objects: value },
+        create: { code: codeString, funnel_id: funnelIdString, objects: value },
+      });
 
       const kommoUtils = new KommoUtils();
       const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
@@ -66,10 +69,16 @@ export default class BkFunnelsServices {
       }
 
       styled.success('BK Funnels Lead Informations has been stored');
-      return { code: 200, response: { message: 'BK Funnels Lead Informations has been stored', lead_res, created } };
+      return { code: 200, response: { message: 'BK Funnels Lead Informations has been stored', lead_res, person } };
     }
 
-    const [_, created] = await bkFunnelsRepository.findOrCreate({ where: { code: codeString, funnel_id: funnelIdString } });
+    // const [_, created] = await bkFunnelsRepository.findOrCreate({ where: { code: codeString, funnel_id: funnelIdString } });
+    // Create person without update
+    const person = await bkFunnelsRepository.findOrCreate({
+      where: { code: codeString, funnel_id: funnelIdString },
+      update: { },
+      create: { code: codeString, funnel_id: funnelIdString },
+    });
     if (type === 'dentista') {
       await bkFunnelsRepository.updateByCode(codeString, { dentista: value });
       styled.success('BK Funnels Lead created and dentista has been updated');
@@ -127,7 +136,7 @@ export default class BkFunnelsServices {
       }
 
       styled.success('BK Funnels Lead created and turno has been updated');
-      return { code: 200, response: { message: 'BK Funnels Lead created and turno has been updated', turno_res, created } };
+      return { code: 200, response: { message: 'BK Funnels Lead created and turno has been updated', turno_res, person } };
 
     } else if (type === 'quests') {
       const { quests } = await bkFunnelsRepository.findByCode(codeString);
@@ -137,7 +146,7 @@ export default class BkFunnelsServices {
         await bkFunnelsRepository.updateByCode(codeString, { quests: [value] });
       }
       styled.success('BK Funnels Lead created and quests has been updated');
-      return { code: 200, response: { message: 'BK Funnels Lead created and quests has been updated' }, created };
+      return { code: 200, response: { message: 'BK Funnels Lead created and quests has been updated' }, person };
 
     } else {
       styled.error('Type not found when creating BK Funnels Lead');

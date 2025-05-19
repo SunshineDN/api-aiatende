@@ -1,9 +1,10 @@
 import BaseRepository from "./BaseRepository.js";
 import models from "../models/index.js";
+import prisma from "../prisma-client.js";
 
 export default class MessageRepository extends BaseRepository {
   constructor() {
-    super(models.Message);
+    super(prisma.messages);
   }
 
   /**
@@ -12,9 +13,9 @@ export default class MessageRepository extends BaseRepository {
    * @returns {Promise<Array<{ lead_id: number, agent_name: string ,role: string, content: string, createdAt: Date, updatedAt: Date }>>}
    */
   async getHistory(lead_id) {
-    const messages = await this.model.findAll({
+    const messages = await this.model.findMany({
       where: { lead_id },
-      order: [["createdAt", "ASC"]],
+      orderBy: [{ createdAt: "asc" }],
     });
 
     return messages.map((message) => ({

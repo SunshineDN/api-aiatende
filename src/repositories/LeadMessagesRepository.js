@@ -1,11 +1,12 @@
 import BaseRepository from "./BaseRepository.js";
 import models from "../models/index.js";
+import prisma from "../prisma-client.js";
 import LeadThreadRepository from "./LeadThreadRepository.js";
 import styled from "../utils/log/styled.js";
 
 export default class LeadMessagesRepository extends BaseRepository {
   constructor() {
-    super(models.LeadMessage);
+    super(prisma.lead_messages);
   }
 
   async verifySendDate(lead_id, seconds) {
@@ -23,16 +24,13 @@ export default class LeadMessagesRepository extends BaseRepository {
   }
 
   async verifyAndUpdate(lead_id, message) {
-    const [create, _] = await this.findOrCreate({ where: { id: Number(lead_id) } });
-
-    if (create.messages) {
-      await this.update(Number(lead_id), { messages: [...create.messages, message] });
-      styled.success('[LeadMessagesRepository.verifyAndUpdate] - Mensagem adicionada ao Lead EXISTENTE');
-    } else {
-      await this.update(Number(lead_id), { messages: [message] });
-      styled.success('[LeadMessagesRepository.verifyAndUpdate] - Mensagem adicionada ao Lead NOVO');
-    }
-
+    const lead = await this.findOrCreate({
+      where: { id: Number(lead_id) },
+      update: { messages: { push: message } },
+      create: { id: Number(lead_id), messages: [message] },
+    });
+    styled.success('[LeadMessagesRepository.verifyAndUpdate] - Lead encontrado ou criado com sucesso!');
+    styled.successdir(lead);
     return;
   }
 

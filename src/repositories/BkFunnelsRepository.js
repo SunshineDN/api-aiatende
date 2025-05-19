@@ -1,9 +1,10 @@
 import BaseRepository from "./BaseRepository.js";
 import models from "../models/index.js";
+import prisma from "../prisma-client.js";
 
 export default class BkFunnelsRepository extends BaseRepository {
   constructor() {
-    super(models.BkFunnel);
+    super(prisma.bk_funnels);
   }
 
   async findByCode(code) {
@@ -11,6 +12,12 @@ export default class BkFunnelsRepository extends BaseRepository {
   }
 
   async updateByCode(code, data) {
-    return await this.model.update(data, { where: { code } });
+    // return await this.model.update(data, { where: { code } });
+    return await this.model.update({
+      where: {
+        code,
+      },
+      data,
+    });
   }
 }
