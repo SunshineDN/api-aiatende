@@ -15,6 +15,8 @@ import styled from "./src/utils/log/styled.js";
 import StaticUtils from "./src/utils/StaticUtils.js";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import LeadThreadRepository from "./src/repositories/LeadThreadRepository.js";
+import { runEspecialistaAgendamento } from "./src/services/openai/tools/runEspecialistaAgendamento.js";
+import OpenAIServices from "./src/services/openai/OpenAIServices.js";
 
 async function main() {
   // const openaiIntegration = new OpenaiIntegrationServices({
@@ -78,22 +80,56 @@ async function main() {
   // const lead = await kommo.getLead({ id: 24410353 });
   // styled.info("Lead:", lead);
 
-    // const lead_id = 24410353;
-    // const message = "Me conte uma curiosidade";
+  // const lead_id = 24410353;
+  // const message = "Me conte uma curiosidade";
 
-    // const reply = await manager.runGroup(lead_id, message);
-    // styled.info("Resposta do grupo de agentes:", reply);
+  // const reply = await manager.runGroup(lead_id, message);
+  // styled.info("Resposta do grupo de agentes:", reply);
 
-    // const tools = new ToolsServices();
-    // const method = StaticUtils.findMethods(tools, 'analisarIntencaoUsuario')[0];
-    // styled.infodir(method);
-    // tools[method]({ resumoConversa: 'teste' })
+  // const tools = new ToolsServices();
+  // const method = StaticUtils.findMethods(tools, 'analisarIntencaoUsuario')[0];
+  // styled.infodir(method);
+  // tools[method]({ resumoConversa: 'teste' })
 
-    const prisma = new PrismaClient();
-    prisma.$extends(withAccelerate());
-    const leadThreadRepo = new LeadThreadRepository();
-    const lastTimestam = await leadThreadRepo.getLastTimestamp(24410353);
-    styled.info("Ultimo timestamp:", lastTimestam);
+  // const prisma = new PrismaClient();
+  // prisma.$extends(withAccelerate());
+  // const leadThreadRepo = new LeadThreadRepository();
+  // const lastTimestam = await leadThreadRepo.getLastTimestamp(24410353);
+  // styled.info("Ultimo timestamp:", lastTimestam);
+
+  const openai = new OpenAIServices({ lead_id: 24410353 });
+  const userMessage = "That will pass the user USER_ID as 239482 and the USER_KEY as foobar. This is suitable for testing, however for production, you will probably be configuring some bash scripts to export variables";
+  const systemMessage = "#Sempre rode a tool **getIntent**. Você é um assistente virtual. Responda em português.";
+
+  const tools = [
+    {
+      type: "function",
+      function: {
+        name: "getIntent",
+        description: "Get the intent of the user message",
+        strict: true,
+        parameters: {
+          type: "object",
+          properties: {
+            intent: {
+              type: "string",
+            },
+          },
+          additionalProperties: false,
+          required: ["intent"],
+        },
+      }
+    }
+  ];
+
+  const availableTools = {
+    getIntent: async (args) => {
+      const { intent } = args;
+      return `A intenção do usuário é: ${intent}`;
+    }
+  };
+
+  const response = await openai.promptFull({ userMessage, systemMessage, availableTools, tools });
 }
 
 main();

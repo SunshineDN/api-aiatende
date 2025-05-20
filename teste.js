@@ -1,15 +1,10 @@
-const obj = {}
-
-const utm_content = 'asdasjk';
-const utm_medium = 'asdasjk';
-let utm_source;
-
-const obj_mount = (name, value) => {
-  if (value) {
-    obj[name] = value;
-  }
+const arr = ["tool_call1", "tool_call2", "tool_call3"];
+const arr2 = []
+const functionName = "tool_call1";
+const functionToCall = arr[arr.indexOf(functionName)];
+for (let i = 0; i < 0; i++) {
+  console.log("functionName", functionName);
+  console.log("functionToCall", functionToCall);
 }
 
-obj_mount('utm_content', utm_content);
-obj_mount('utm_medium', utm_medium);
-obj_mount('utm_source', utm_source);
+console.log(arr2.length * 2);
