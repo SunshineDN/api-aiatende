@@ -15,8 +15,13 @@ import styled from "./src/utils/log/styled.js";
 import StaticUtils from "./src/utils/StaticUtils.js";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import LeadThreadRepository from "./src/repositories/LeadThreadRepository.js";
-import { runEspecialistaAgendamento } from "./src/services/openai/tools/runEspecialistaAgendamento.js";
 import OpenAIServices from "./src/services/openai/OpenAIServices.js";
+import { runEspecialistaIntencao } from "./src/services/openai/tools/runEspecialistaIntencao.js";
+import { CalendarUtils } from "./src/utils/calendar/CalendarUtils.js";
+import CalendarServices from "./src/services/calendar/CalendarServices.js";
+import { runEspecialistaDados } from "./src/services/openai/tools/runEspecialistaDados.js";
+import ThreadRepository from "./src/repositories/ThreadRepository.js";
+import DateUtils from "./src/utils/DateUtils.js";
 
 async function main() {
   // const openaiIntegration = new OpenaiIntegrationServices({
@@ -97,39 +102,85 @@ async function main() {
   // const lastTimestam = await leadThreadRepo.getLastTimestamp(24410353);
   // styled.info("Ultimo timestamp:", lastTimestam);
 
-  const openai = new OpenAIServices({ lead_id: 24410353 });
-  const userMessage = "That will pass the user USER_ID as 239482 and the USER_KEY as foobar. This is suitable for testing, however for production, you will probably be configuring some bash scripts to export variables";
-  const systemMessage = "#Sempre rode a tool **getIntent**. Você é um assistente virtual. Responda em português.";
+  // const openai = new OpenAIServices({ lead_id: 24410353 });
+  // const userMessage = "Moro em Candeias. Gostaria de agendar uma consulta. Nasci no dia 11/03/2003";
+  // const systemMessage = "Rode a tool **especialista_dados** APENAS quando houver uma nova mensagem do 'user' e responda o usuário. Você é um assistente virtual. Responda em português.";
 
-  const tools = [
-    {
-      type: "function",
-      function: {
-        name: "getIntent",
-        description: "Get the intent of the user message",
-        strict: true,
-        parameters: {
-          type: "object",
-          properties: {
-            intent: {
-              type: "string",
-            },
-          },
-          additionalProperties: false,
-          required: ["intent"],
-        },
-      }
-    }
-  ];
+  // const tools = [
+  //   {
+  //     type: "function",
+  //     function: {
+  //       name: "especialista_dados",
+  //       description: "Verifica e captura os dados do paciente.",
+  //       "parameters": {
+  //         "type": "object",
+  //         "required": [
+  //           "resumo_historico",
+  //           "nome",
+  //           "bairro",
+  //           "data_nascimento",
+  //           "email",
+  //           "telefone"
+  //         ],
+  //         "properties": {
+  //           "resumo_historico": {
+  //             "type": "string",
+  //             "description": "Resumo das mensagens anteriores do usuário contendo informações relevantes para o atendimento."
+  //           },
+  //           "nome": {
+  //             "type": [
+  //               "string",
+  //               "null"
+  //             ],
+  //             "description": "Nome do usuário"
+  //           },
+  //           "bairro": {
+  //             "type": [
+  //               "string",
+  //               "null"
+  //             ],
+  //             "description": "Bairro onde o usuárioi reside"
+  //           },
+  //           "data_nascimento": {
+  //             "type": [
+  //               "string",
+  //               "null"
+  //             ],
+  //             "description": "Data de nascimento do usuário"
+  //           },
+  //           "email": {
+  //             "type": [
+  //               "string",
+  //               "null"
+  //             ],
+  //             "description": "Email de contato do usuário"
+  //           },
+  //           "telefone": {
+  //             "type": [
+  //               "string",
+  //               "null"
+  //             ],
+  //             "description": "Número de telefone do usuário"
+  //           }
+  //         },
+  //         "additionalProperties": false
+  //       }
+  //     }
+  //   }
+  // ];
 
-  const availableTools = {
-    getIntent: async (args) => {
-      const { intent } = args;
-      return `A intenção do usuário é: ${intent}`;
-    }
-  };
+  // const availableTools = {
+  //   especialista_dados: async (args) => {
+  //     const { resumo_historico, nome, bairro, data_nascimento, email, telefone } = args;
+  //     const response = await runEspecialistaDados(args);
+  //     return `A última resposta da função é: ${JSON.stringify(response)} `;
+  //   }
+  // };
 
-  const response = await openai.promptFull({ userMessage, systemMessage, availableTools, tools });
+  // const response = await openai.promptFull({ userMessage, systemMessage, availableTools, tools });
+
+  const formattedDate = DateUtils.getActualDatetimeInformation();
+  styled.info("Data formatada:", formattedDate);
 }
 
 main();

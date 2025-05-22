@@ -1,5 +1,5 @@
 import styled from '../../utils/log/styled.js';
-import OpenAIController from '../../controllers/OpenAIController.js';
+import OpenAIFirstController from '../../controllers/OpenAIFirstController.js';
 import { GetAccessToken } from '../kommo/GetAccessToken.js';
 import { GetCustomFields } from '../kommo/GetCustomFields.js';
 import { GetUser } from '../kommo/GetUser.js';
@@ -26,7 +26,7 @@ export const GetGptPromptMessage = async (payload, access_token = null) => {
     // });
 
     // console.log('Prompt:', prompt?.values[0]?.value);
-    const { message } = await OpenAIController.promptMessage(prompt?.values[0]?.value);
+    const { message } = await OpenAIFirstController.promptMessage(prompt?.values[0]?.value);
 
     // console.log('Mensagem do prompt:', message);
     const reqBody = {

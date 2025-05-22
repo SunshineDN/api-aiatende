@@ -1,6 +1,6 @@
 import { CalendarUtils } from "../../utils/calendar/CalendarUtils.js";
 import StaticUtils from "../../utils/StaticUtils.js";
-import OpenAIController from "../../controllers/OpenAIController.js";
+import OpenAIFirstController from "../../controllers/OpenAIFirstController.js";
 import KommoServices from "../kommo/KommoServices.js";
 import LeadUtils from "../../utils/LeadUtils.js";
 import styled from "../../utils/log/styled.js";
@@ -64,14 +64,14 @@ O retorno da resposta deve ser apenas a data escolhida, no formato "DD/MM/AAAA".
 
     // styled.info('Prompt para capturar a data:', datePrompt);
 
-    const { message: date } = await OpenAIController.promptMessage(datePrompt);
+    const { message: date } = await OpenAIFirstController.promptMessage(datePrompt);
 
     const events = await calendar.getChoiceDate(date);
 
     const text = this.#choiceDatePrompt(date, turno, profissional, events);
 
     // styled.info('Prompt para listar os valores iniciais:', text);
-    const { message } = await OpenAIController.promptMessage(text);
+    const { message } = await OpenAIFirstController.promptMessage(text);
     const obj = StaticUtils.extractJsonPrompt(message);
     return { ...obj, profissional: dentistaNome, turno };
   }
@@ -83,7 +83,7 @@ O retorno da resposta deve ser apenas a data escolhida, no formato "DD/MM/AAAA".
     const text = this.#choiceDatePrompt(data, turno, profissional, events);
 
     // styled.info('Prompt para data escolhida:', text);
-    const { message } = await OpenAIController.promptMessage(text);
+    const { message } = await OpenAIFirstController.promptMessage(text);
     const obj = StaticUtils.extractJsonPrompt(message);
     return { ...obj, profissional, turno };
   }

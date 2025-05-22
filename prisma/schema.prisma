@@ -21,8 +21,8 @@ model bk_funnels {
   turno        String?  @db.VarChar(255)
   objects      Json?    @db.Json
   funnel_id    String?  @db.VarChar(255)
-  created_at   DateTime @db.Timestamptz(6)
-  updated_at   DateTime @db.Timestamptz(6)
+  created_at   DateTime @default(now()) @db.Timestamptz(6)
+  updated_at   DateTime @default(now()) @updatedAt @db.Timestamptz(6)
 }
 
 model funnel_builder {
@@ -34,16 +34,16 @@ model funnel_builder {
   register           Json?    @db.Json
   period             Json?    @db.Json
   shift              Json?    @db.Json
-  created_at         DateTime @db.Timestamptz(6)
-  updated_at         DateTime @db.Timestamptz(6)
+  created_at         DateTime @default(now()) @db.Timestamptz(6)
+  updated_at         DateTime @default(now()) @updatedAt @db.Timestamptz(6)
 }
 
 model lead_messages {
   id         Int      @id @default(autoincrement())
   author_id  String?  @db.Uuid
   messages   Json[]   @db.Json
-  created_at DateTime @db.Timestamptz(6)
-  updated_at DateTime @db.Timestamptz(6)
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @default(now()) @updatedAt @db.Timestamptz(6)
 }
 
 model lead_threads {
@@ -63,10 +63,21 @@ model leads {
   data                  Json?               @db.Json
   details               Json?               @db.Json
   marketing_tracking_id String?             @db.Uuid
-  created_at            DateTime            @db.Timestamptz(6)
-  updated_at            DateTime            @db.Timestamptz(6)
+  created_at            DateTime            @default(now()) @db.Timestamptz(6)
+  updated_at            DateTime            @default(now()) @updatedAt @db.Timestamptz(6)
   marketing_tracking    marketing_tracking? @relation(fields: [marketing_tracking_id], references: [id])
   messages              messages[]
+  threads               thread[]
+}
+
+model thread {
+  id         String   @id @default(uuid()) @db.Uuid
+  lead_id    Int
+  thread_id  String   @unique @db.VarChar(255)
+  assistant  String   @unique @db.VarChar(255)
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+  leads      leads    @relation(fields: [lead_id], references: [lead_id], onDelete: Cascade)
 }
 
 model marketing_tracking {
@@ -85,8 +96,8 @@ model marketing_tracking {
   utm_term     String?  @db.VarChar(255)
   utm_referrer String?  @db.VarChar(255)
   referrer     String?  @db.VarChar(255)
-  created_at   DateTime @db.Timestamptz(6)
-  updated_at   DateTime @db.Timestamptz(6)
+  created_at   DateTime @default(now()) @db.Timestamptz(6)
+  updated_at   DateTime @default(now()) @updatedAt @db.Timestamptz(6)
   leads        leads[]
 }
 
@@ -96,8 +107,8 @@ model messages {
   agent_name String             @db.VarChar(255)
   role       enum_messages_role
   content    Json               @db.Json
-  created_at DateTime           @db.Timestamptz(6)
-  updated_at DateTime           @db.Timestamptz(6)
+  created_at DateTime           @db.Timestamptz(6) @default(now())
+  updated_at DateTime           @db.Timestamptz(6) @updatedAt @default(now())
   leads      leads              @relation(fields: [lead_id], references: [lead_id], onDelete: Cascade)
 }
 

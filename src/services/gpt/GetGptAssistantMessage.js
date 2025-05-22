@@ -1,5 +1,5 @@
 import styled from '../../utils/log/styled.js';
-import OpenAIController from '../../controllers/OpenAIController.js';
+import OpenAIFirstController from '../../controllers/OpenAIFirstController.js';
 import { GetAccessToken } from '../kommo/GetAccessToken.js';
 import { GetCustomFields } from '../kommo/GetCustomFields.js';
 import { GetUser } from '../kommo/GetUser.js';
@@ -36,7 +36,7 @@ export const GetGptAssistantMessage = async (payload, assistant_id, access_token
     //   text: prompt?.values[0]?.value,
     // });
 
-    const { message } = await OpenAIController.generateMessage(data);
+    const { message } = await OpenAIFirstController.generateMessage(data);
 
     styled.info('Mensagem do assistente:', message);
     const reqBody = {

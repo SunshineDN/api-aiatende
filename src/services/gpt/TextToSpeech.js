@@ -1,5 +1,5 @@
 import styled from '../../utils/log/styled.js';
-import OpenAIController from '../../controllers/OpenAIController.js';
+import OpenAIFirstController from '../../controllers/OpenAIFirstController.js';
 import { GetAccessToken } from '../kommo/GetAccessToken.js';
 import { GetCustomFields } from '../kommo/GetCustomFields.js';
 import { GetUser } from '../kommo/GetUser.js';
@@ -42,7 +42,7 @@ export const TextToSpeech = async (payload, text, access_token = null) => {
     
     // const response = await axios.post(URL, data);
     styled.info('Enviando áudio para o telefone:', phone);
-    await OpenAIController.textToAudio(text, voice, phone, payload?.account?.subdomain);
+    await OpenAIFirstController.textToAudio(text, voice, phone, payload?.account?.subdomain);
     styled.success('Áudio enviado com sucesso!');
 
     const kommoData = {

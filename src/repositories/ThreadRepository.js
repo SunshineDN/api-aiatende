@@ -1,0 +1,79 @@
+import BaseRepository from './BaseRepository.js';
+import prisma from '../prisma-client.js';
+
+export default class ThreadRepository extends BaseRepository {
+  #lead_id;
+
+  /**
+   * Repositório para a tabela de threads.
+   * @param {Object} params
+   * @param {number} params.lead_id - ID do lead.
+   * @constructor
+   */
+  constructor({ lead_id }) {
+    super(prisma.thread);
+    this.#lead_id = lead_id;
+  }
+
+  async findThread({ assistant_id } = {}) {
+
+    const thread = await this.findOne({
+      where: {
+        lead_id: this.#lead_id,
+        assistant: assistant_id,
+      }
+    });
+
+    if (!thread) {
+      return null;
+    }
+
+    return thread;
+  }
+
+  async createThread({ thread_id, assistant_id }) {
+    const thread = await this.create({
+      lead_id: this.#lead_id,
+      thread_id,
+      assistant: assistant_id
+    });
+
+    return thread;
+  }
+
+  async deleteThread({ assistant_id }) {
+    const thread = await this.delete({
+      where: {
+        lead_id: this.#lead_id,
+        assistant: assistant_id,
+      }
+    });
+
+    return thread;
+  }
+
+  async findThreads({ assistant_id }) {
+    const threads = await this.model.findMany({
+      where: {
+        lead_id: this.#lead_id,
+        assistant: assistant_id,
+      }
+    });
+
+    return threads;
+  }
+
+  async updateVoid({ assistant_id }) {
+    const thread = await this.model.update({
+      where: {
+        lead_id: this.#lead_id,
+        assistant: assistant_id,
+      },
+      data: {
+        updated_at: new Date(),
+      }
+    });
+
+    return thread;
+  }
+}

@@ -1,5 +1,5 @@
 
-const OpenAIController = require('../controllers/OpenAIController.js');
+const OpenAIFirstController = require('../controllers/OpenAIFirstController.js');
 const GetAccessToken = require('../services/kommo/GetAccessToken.js');
 const GetMessageReceived = require('../services/kommo/GetMessageReceived.js');
 const LeadQuery = require('../services/kommo/LeadQuery.js');
@@ -20,7 +20,7 @@ class AgendamentoVoz {
       console.log('Enviando para o assistente GPT...');
       access_token = GetAccessToken();
       console.log('Mensagem enviada para o assistente:', data.text);
-      const { message } = await OpenAIController.generateMessage(data);
+      const { message } = await OpenAIFirstController.generateMessage(data);
       console.log('Resposta recebida do assistente:', message);
       await SendMessage(req.body, true, message, access_token);
       res.status(200).send({ message: 'Mensagem enviada com sucesso para o assistente', response: message });
@@ -37,7 +37,7 @@ class AgendamentoVoz {
       console.log('Enviando prompt...');
       access_token = GetAccessToken();
       console.log('Mensagem enviada para o prompt:', text);
-      const { message } = await OpenAIController.promptMessage(text);
+      const { message } = await OpenAIFirstController.promptMessage(text);
       console.log('Resposta recebida do prompt:', message);
       await SendMessage(req.body, false, message, access_token);
       res.status(200).send({ message: 'Prompt enviado com sucesso', response: message });
@@ -60,7 +60,7 @@ class AgendamentoVoz {
 
 Por exemplo:
 Nome: Fulano de Tal; Bairro: Centro; Data de Nascimento: 01/01/2000; Dentista: Dr. João; Data do Agendamento: 01/01/2022 10:00; Motivo da Consulta: Avaliação Geral; Telefone: (11) 99999-9999`;
-      const { message: prompt_message } = await OpenAIController.promptMessage(prompt_text);
+      const { message: prompt_message } = await OpenAIFirstController.promptMessage(prompt_text);
       console.log('Prompt recebido do agendamento por VOZ:', prompt_message);
 
       const name = prompt_message.split('; ').filter(value => value.includes('Nome:'))[0]?.split(': ')[1] || 'null';

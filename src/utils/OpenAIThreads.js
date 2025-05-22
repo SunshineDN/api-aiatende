@@ -1,12 +1,12 @@
 // utils/openaiThreads.js
 // const { Op } = require('sequelize');
 // const { lead_threads } = require('../models');
-// const OpenAIController = require('./OpenAIController');
+// const OpenAIFirstController = require('./OpenAIFirstController');
 // const { openai } = require('../services/openai');
 
 import { Op } from 'sequelize';
 import models from '../models/index.js';
-import OpenAIController from '../controllers/OpenAIController.js';
+import OpenAIFirstController from '../controllers/OpenAIFirstController.js';
 import { openai } from '../services/gpt/AuthenticateOpenAI.js';
 
 const lead_threads = models.LeadThread;
@@ -28,7 +28,7 @@ async function ensureThread(leadID, assistantIdRaw) {
   });
 
   if (!thread) {
-    await OpenAIController.createThread(leadID, assistant);
+    await OpenAIFirstController.createThread(leadID, assistant);
     thread = await lead_threads.findOne({
       where: { leadID, assistant_id: { [Op.contains]: [assistant] } }
     });

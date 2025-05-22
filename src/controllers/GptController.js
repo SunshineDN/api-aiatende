@@ -1,4 +1,4 @@
-import OpenAIController from '../controllers/OpenAIController.js';
+import OpenAIFirstController from '../controllers/OpenAIFirstController.js';
 import { GetGptAssistantMessage } from '../services/gpt/GetGptAssistantMessage.js';
 import { GetGptPromptMessage } from '../services/gpt/GetGptPrompMessage.js';
 import { SpeechToText } from '../services/gpt/SpeechToText.js';
@@ -69,7 +69,7 @@ export default class GptController {
     const { lead_id } = req.body;
     try {
       const access_token = GetAccessToken();
-      await OpenAIController.deleteThread(lead_id);
+      await OpenAIFirstController.deleteThread(lead_id);
       await SendLog(req.body, 'Histórico de conversas no assistente apagados com sucesso!', access_token);
       res.status(200).json({ message: 'Histórico de conversas no assistente apagados com sucesso!' });
     } catch (error) {

@@ -129,4 +129,20 @@ export default class DateUtils {
       minutes: diffInMinutes % 60,
     };
   }
+
+  static getActualDatetimeInformation() {
+    const today = new Date();
+    const options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    };
+
+    const weekday = today.toLocaleDateString('pt-BR', { weekday: 'long' });
+
+    const formattedDatetime = today.toLocaleDateString('pt-BR', options);
+    return `${weekday.substring(0, 1).toUpperCase() + weekday.substring(1)}, ${formattedDatetime}`;
+  }
 }

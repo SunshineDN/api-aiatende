@@ -1,5 +1,5 @@
 
-const OpenAIController = require('../controllers/OpenAIController.js');
+const OpenAIFirstController = require('../controllers/OpenAIFirstController.js');
 // const TextToSpeech = require('../services/gpt/TextToSpeech');
 const GetAccessToken = require('../services/kommo/GetAccessToken.js');
 const GetAnswer = require('../services/kommo/GetAnswer.js');
@@ -28,7 +28,7 @@ class EsteiraConfirm {
       access_token = GetAccessToken();
       
       console.log('Mensagem enviada para o assistente:', data.text);
-      const { message } = await OpenAIController.generateMessage(data);
+      const { message } = await OpenAIFirstController.generateMessage(data);
       console.log('Resposta recebida do assistente:', message);
       await SendMessage(req.body, true, message, access_token);
       res.status(200).send({ message: 'Mensagem enviada com sucesso para o assistente', response: message });
@@ -45,7 +45,7 @@ class EsteiraConfirm {
       console.log('Enviando prompt...');
       access_token = GetAccessToken();
       console.log('Mensagem enviada para o prompt:', text);
-      const { message } = await OpenAIController.promptMessage(text);
+      const { message } = await OpenAIFirstController.promptMessage(text);
       console.log('Resposta recebida do prompt:', message);
       await SendMessage(req.body, false, message, access_token);
       res.status(200).send({ message: 'Prompt enviado com sucesso', response: message });

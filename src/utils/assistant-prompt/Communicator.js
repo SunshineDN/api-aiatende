@@ -1,5 +1,5 @@
 import styled from '../log/styled.js';
-import OpenAIController from '../../controllers/OpenAIController.js';
+import OpenAIFirstController from '../../controllers/OpenAIFirstController.js';
 import { SendLog } from '../../services/kommo/SendLog.js';
 import { SendMessage } from '../../services/kommo/SendMessage.js';
 
@@ -10,7 +10,7 @@ export class Communicator {
       styled.info('Enviando para o assistente GPT...');
       access_token = process.env.KOMMO_AUTH;
       styled.info('Mensagem enviada para o assistente:', data.text);
-      const { message } = await OpenAIController.generateMessage(data);
+      const { message } = await OpenAIFirstController.generateMessage(data);
       styled.success('Resposta recebida do assistente:', message);
       await SendMessage(req.body, true, message, access_token);
       res.status(200).send({ message: 'Mensagem enviada com sucesso para o assistente', response: message });
@@ -27,7 +27,7 @@ export class Communicator {
       styled.info('Enviando prompt...');
       access_token = process.env.KOMMO_AUTH;
       styled.info('Mensagem enviada para o prompt:', text);
-      const { message } = await OpenAIController.promptMessage(text);
+      const { message } = await OpenAIFirstController.promptMessage(text);
       styled.success('Resposta recebida do prompt:', message);
       await SendMessage(req.body, false, message, access_token);
       res.status(200).send({ message: 'Prompt enviado com sucesso', response: message });

@@ -28,6 +28,11 @@ export default class BaseRepository {
     return await this.model.findMany(query);
   }
 
+  /**
+   * Encontra um único registro no banco de dados.
+   * @param {Object} query - Query para encontrar o registro.
+   * @returns {Promise<Object>} - O registro encontrado.
+   */
   async findOne(query = {}) {
     // return await this.model.findOne(query);
     return await this.model.findFirst(query);

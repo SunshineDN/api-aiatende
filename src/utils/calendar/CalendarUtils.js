@@ -595,7 +595,9 @@ export class CalendarUtils {
     };
 
     for (const key in mapping) {
-      if (condition.includes(key)) {
+      const mappingLower = key.toLowerCase();
+      const conditionLower = condition.toLowerCase();
+      if (conditionLower.includes(mappingLower)) {
         return mapping[key];
       }
     }

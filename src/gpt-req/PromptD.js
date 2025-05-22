@@ -1,5 +1,5 @@
 
-const OpenAIController = require('../controllers/OpenAIController.js');
+const OpenAIFirstController = require('../controllers/OpenAIFirstController.js');
 const GetAccessToken = require('../services/kommo/GetAccessToken.js');
 const GetAnswer = require('../services/kommo/GetAnswer.js');
 const GetMessageReceived = require('../services/kommo/GetMessageReceived.js');
@@ -30,7 +30,7 @@ class PromptD {
     try {
       console.log('Enviando prompt...');
       access_token = GetAccessToken();
-      const { message } = await OpenAIController.promptMessage(text);
+      const { message } = await OpenAIFirstController.promptMessage(text);
       console.log('Mensagem enviada para o prompt:', text);
       await SendMessage(req.body, false, message, access_token);
       console.log('Resposta recebida do prompt:', message);

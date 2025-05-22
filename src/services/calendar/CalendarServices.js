@@ -117,7 +117,7 @@ export default class CalendarServices {
   /**
    * Verifica se a data escolhida está disponível para agendamento
    * @param {string} date - Data escolhida
-   * @returns {Promise<Array<string>>} - Retorna true se a data estiver disponível, false caso contrário
+   * @returns {Promise<Array<string>>} - Retorna um array com as datas disponíveis
    */
   async getChoiceDate(date) {
     const formattedDate = dayjs(date, "DD/MM/YYYY").format("DD/MM/YYYY");
@@ -126,6 +126,21 @@ export default class CalendarServices {
     // Verificar se a data escolhida está disponível
     const availableOptions = await this.getAvailableOptions();
     return availableOptions.filter(option => option.startsWith(formattedDate));
+  }
+
+  /**
+   * Verifica se a data e hora escolhidas estão disponíveis para agendamento
+   * @param {string} date - Data escolhida
+   * @param {string} time - Hora escolhida
+   * @returns {Promise<Array<string>>} - Retorna um array com as datas e horários disponíveis
+   */
+  async getChoiceDateTime(date, time) {
+    const formattedDate = dayjs(date, "DD/MM/YYYY").format("DD/MM/YYYY");
+    styled.info("Formatted date:", formattedDate);
+
+    // Verificar se a data escolhida está disponível
+    const availableOptions = await this.getAvailableOptions();
+    return availableOptions.filter(option => option.startsWith(formattedDate) && option.endsWith(time));
   }
 
   /**
@@ -157,6 +172,16 @@ export default class CalendarServices {
     return response.data;
   }
 
+  /**
+   * Atualiza um evento no calendário
+   * @param {object} event - Objeto com as informações do evento a ser atualizado
+   * @param {string} event.eventId - ID do evento a ser atualizado
+   * @param {string} event.summary - Título do evento
+   * @param {Date} event.start - Data e hora de início do evento
+   * @param {Date} event.end - Data e hora de término do evento
+   * @param {string} [event.description=""] - Descrição do evento
+   * @returns {Promise<object>} - Objeto com as informações do evento atualizado
+   */
   async updateEvent({ eventId, summary = "", start, end, description = "" } = {}) {
     const response = await this.#calendar.events.update({
       calendarId: this.#calendar_id,
@@ -176,5 +201,18 @@ export default class CalendarServices {
     });
 
     return response.data;
+  }
+
+  /**
+   * Deleta um evento no calendário
+   * @param {string} eventId - ID do evento a ser deletado
+   * @returns {Promise<string>} - Retorna uma Promise que resolve quando o evento for deletado
+   */
+  async deleteEvent(eventId) {
+    await this.#calendar.events.delete({
+      calendarId: this.#calendar_id,
+      eventId
+    });
+    return `Evento ${eventId} deletado com sucesso!`;
   }
 }

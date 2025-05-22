@@ -3,6 +3,7 @@
 services:
   database:
     image: postgres:16
+    restart: always
     environment:
       POSTGRES_USER: ${DB_USER} # Altere o usuário do banco de dados
       POSTGRES_PASSWORD: ${DB_PASS} # Altere a senha do banco de dados
@@ -11,15 +12,23 @@ services:
       - "5432:5432" # Altere a primeira porta que deseja expor
     volumes:
       - ./data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
+      interval: 10s
+      retries: 5
     networks:
       - aiatende-network
 
   aiatende:
     build: .
-    command: "npm run start"
+    command: >
+      sh -c "
+      npm run migrate &&
+      npm run start"
     working_dir: /home/node/app
     depends_on:
-      - database
+      database:
+        condition: service_healthy
     environment:
       - DOMAIN=${DOMAIN} # Domínio da aplicação
       - KOMMO_AUTH=${KOMMO_AUTH} # Token de acesso do Kommo
