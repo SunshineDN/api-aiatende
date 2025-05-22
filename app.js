@@ -15,6 +15,7 @@ import leadThreads from './src/routes/leadthreads.js';
 import admin from './src/routes/admin.js';
 import teste from './src/routes/teste.js';
 import wpp from './src/routes/wpp.js';
+import openai from './src/routes/openai.js';
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use('/lead-threads', leadThreads);
 app.use('/admin', admin);
 app.use('/teste', teste);
 app.use('/wpp', wpp);
+app.use('/atende360/v2', openai);
 
 app.use((_, res) => {
   res.status(404).json({error: 'Endpoint não encontrado!'});
