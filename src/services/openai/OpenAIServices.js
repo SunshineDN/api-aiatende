@@ -207,6 +207,8 @@ export default class OpenAIServices {
       // 2) se precisar rodar tool...
       if (status.status === "requires_action") {
         const call = status.required_action;
+        styled.info(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Ação requerida: ${call.type}`);
+        styled.infodir(call);
 
         if (call.type === "submit_tool_outputs") {
           // 2.1 descompactar chamada
