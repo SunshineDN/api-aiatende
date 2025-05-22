@@ -1,6 +1,7 @@
 import BaseRepository from "./BaseRepository.js";
 import models from "../models/index.js";
 import prisma from "../prisma-client.js";
+import styled from "../utils/log/styled.js";
 
 export default class LeadRepository extends BaseRepository {
   constructor() {
