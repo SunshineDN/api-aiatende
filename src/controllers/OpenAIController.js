@@ -1,4 +1,4 @@
-import LeadMessagesRepository from "../repositories/LeadMessagesRepository";
+import LeadMessagesRepository from "../repositories/LeadMessagesRepository.js";
 import OpenAIServices from "../services/openai/OpenAIServices.js";
 import styled from "../utils/log/styled.js";
 
