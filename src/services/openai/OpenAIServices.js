@@ -164,7 +164,7 @@ export default class OpenAIServices {
    * @param {string} [params.additional_instructions] - Instruções adicionais para o run.
    * @return {Promise<Object>} - O run criado.
    */
-  async handleCreateRun({ userMessage, assistant_id, additional_instructions = null }) {
+  async handleCreateRun({ userMessage = "", assistant_id, additional_instructions = null }) {
     const sanitizedText = (userMessage ?? "").trim();
 
     const runBody = {
