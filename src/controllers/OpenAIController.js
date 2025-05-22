@@ -9,6 +9,7 @@ export default class OpenAIController {
       res.status(200).json({ message: "OpenAI Controller is working!" });
     } catch (error) {
       styled.error(`[OpenAIController.index] Erro ao acessar o controlador: ${error?.message}`);
+      console.error(error);
       res.status(500).json({ error: error?.message });
     }
   }
@@ -29,6 +30,7 @@ export default class OpenAIController {
       res.status(200).json({ response });
     } catch (error) {
       styled.error(`[OpenAIController.runAssistant] Erro ao executar assistente: ${error?.message}`);
+      console.error(error);
       res.status(500).json({ error: error?.message });
     }
   }
