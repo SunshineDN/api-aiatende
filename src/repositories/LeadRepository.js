@@ -21,8 +21,8 @@ export default class LeadRepository extends BaseRepository {
 
     const lead = await this.findOrCreate({
       where: { lead_id: Number(id) },
-      update: obj,
-      create: { lead_id: Number(id), ...obj },
+      update: { data: obj },
+      create: { lead_id: Number(id), data: obj },
     });
 
     styled.success('[LeadRepository.findCreateAndUpdate] - Lead encontrado ou criado com sucesso!');
