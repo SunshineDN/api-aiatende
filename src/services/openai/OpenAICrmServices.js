@@ -76,7 +76,7 @@ export default class OpenAICrmServices {
   }
 
   async saveAssistantAnswer({ message }) {
-    const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields() });
+    const kommoUtils = new KommoUtils({ leads_custom_fields: await this.#kommo.getLeadsCustomFields() });
 
     const answerField = kommoUtils.findLeadsFieldByName("GPT | Answer");
     const logField = kommoUtils.findLeadsFieldByName("GPT | LOG");
