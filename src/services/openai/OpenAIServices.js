@@ -213,7 +213,7 @@ export default class OpenAIServices {
   async handleRetrieveRun({ run }) {
     const threadId = run.thread_id;
     const runId = run.id;
-    let status, count = 1;
+    let status, count = 2;
 
     while (true) {
       // 1) recuperar o status do run
@@ -236,7 +236,7 @@ export default class OpenAIServices {
 
             // 2.2 executar sua lógica local
             const result = await this.availableTools()[fnName](args);
-            styled.info(`[OpenAIServices.handleRetrieveRun] Tool Result: ${fnName}`, result);
+            styled.info(`[OpenAIServices.handleRetrieveRun] Tool Result: ${fnName}:`, JSON.stringify(result));
             // 2.3 submeter o resultado ao run
             await this.openai.beta.threads.runs.submitToolOutputs(threadId, runId, {
               tool_outputs: [
@@ -270,7 +270,7 @@ export default class OpenAIServices {
         styled.info(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Run em execução.`);
       }
 
-      await new Promise(r => setTimeout(r, 1000 * count));
+      await new Promise(r => setTimeout(r, 1000 * (count / 2)));
       count++;
     }
 
