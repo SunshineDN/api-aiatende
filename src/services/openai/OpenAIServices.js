@@ -9,7 +9,7 @@ import { runAgendamentoCriar } from "./tools/runAgendamentoCriar.js";
 import { runAgendamentoDeletar } from "./tools/runAgendamentoDeletar.js";
 import { runAgendamentoListarDatas } from "./tools/runAgendamentoListarDatas.js";
 import { runAgendamentoAtualizar } from "./tools/runAgendamentoAtualizar.js";
-import KommoServices from "../kommo/KommoServices.js";
+import { runAgendamentoVer } from "./tools/runAgendamentoVer.js";
 import OpenAICrmServices from "./OpenAICrmServices.js";
 
 export default class OpenAIServices {
@@ -116,27 +116,35 @@ export default class OpenAIServices {
    * @param {Object} params
    * @param {string} params.userMessage - Mensagem do usuário.
    * @param {string} params.assistant_id - ID do assistente.
+   * @param {string} [params.additional_instructions] - Instruções adicionais para o run.
+   * @param {string} [params.instructions] - Instruções para o run.
    * @return {Promise<Object>} - O run criado.
    */
-  async handleRunAssistant({ userMessage, assistant_id }) {
+  async handleRunAssistant({ userMessage = "", assistant_id, additional_instructions = null, instructions = null } = {}) {
 
     const crm_services = new OpenAICrmServices({ lead_id: this.#lead_id });
-    const lead = await crm_services.getLead();
+    await crm_services.getLead();
 
-    const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
-    const lead_additional_info = await kommo.getLeadAdditionalInfo({ id: this.#lead_id });
+    if (!additional_instructions) {
+      additional_instructions = await crm_services.getLeadAdditionalInfo();
+    }
+
+    await crm_services.verifyLeadMessageField();
 
     const run = await this.handleCreateRun({
       userMessage,
       assistant_id,
-      additional_instructions: lead_additional_info
+      additional_instructions,
+      ...(instructions && { instructions }),
     });
 
     styled.info(`[OpenAIServices.handleRunAssistant] Lead ID: ${this.#lead_id} - Run criado:`);
     styled.infodir(run);
+
     const message = await this.handleRetrieveRun({ run });
 
-
+    await crm_services.sendMessageToLead({ message });
+    await crm_services.saveAssistantAnswer({ message });
 
     return message;
   }
@@ -172,16 +180,8 @@ export default class OpenAIServices {
    * @param {string} [params.additional_instructions] - Instruções adicionais para o run.
    * @return {Promise<Object>} - O run criado.
    */
-  async handleCreateRun({ userMessage = "", assistant_id, additional_instructions = null }) {
+  async handleCreateRun({ userMessage = "", assistant_id, additional_instructions = null, instructions = null } = {}) {
     const sanitizedText = (userMessage ?? "").trim();
-
-    const runBody = {
-      assistant_id,
-    }
-
-    if (additional_instructions && additional_instructions !== "") {
-      runBody.additional_instructions = additional_instructions;
-    }
 
     const thread = await this.findOrCreateThread({ assistant_id });
 
@@ -190,7 +190,11 @@ export default class OpenAIServices {
       content: sanitizedText,
     });
 
-    const run = await this.openai.beta.threads.runs.create(thread.thread_id, runBody);
+    const run = await this.openai.beta.threads.runs.create(thread.thread_id, {
+      assistant_id,
+      ...(additional_instructions && { additional_instructions }),
+      ...(instructions && { instructions }),
+    });
 
     styled.info(`[OpenAIServices.handleCreateRun] Lead ID: ${this.#lead_id} - Run criado: ${run.id}`);
     return run;
@@ -302,6 +306,7 @@ export default class OpenAIServices {
       'agendamento_deletar': runAgendamentoDeletar,
       'agendamento_listar_datas': runAgendamentoListarDatas,
       'agendamento_atualizar': runAgendamentoAtualizar,
+      'agendamento_ver': runAgendamentoVer,
     }
   }
 

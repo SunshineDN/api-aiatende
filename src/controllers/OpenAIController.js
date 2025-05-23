@@ -36,4 +36,31 @@ export default class OpenAIController {
       res.status(500).json({ error: error?.message });
     }
   }
+
+  static async runAssistantScheduled(req, res) {
+    try {
+      const { lead_id } = req.body;
+      const assistant_id = req.params.assistant_id || process.env.OPENAI_ASSISTANT_ID;
+      const decryptedAssistantId = atob(assistant_id);
+
+      styled.info(`[OpenAIController.runAssistantScheduled] - Executando assistente para lead agendado...`);
+      const openai = new OpenAIServices({ lead_id });
+
+      const instructions = `
+Execute a ferramenta "agendamento_ver" para recuperar o evento / agendamento criado pelo usuário. Em seguida, calcule quanto tempo falta a partir do momento atual até esse evento, e apresente:
+- A data e hora exata do agendamento.
+- Quantos dias, horas e minutos faltam até o evento.
+
+Se não houver agendamentos, responda com: "❌ Nenhum agendamento encontrado."`
+
+      const response = await openai.handleRunAssistant({ assistant_id: decryptedAssistantId, instructions });
+      styled.success(`[OpenAIController.runAssistantScheduled] - Assistente executado com sucesso!`);
+      styled.successdir(response);
+      res.status(200).json({ response });
+    } catch (error) {
+      styled.error(`[OpenAIController.runAssistantScheduled] Erro ao executar assistente: ${error?.message}`);
+      console.error(error);
+      res.status(500).json({ error: error?.message });
+    }
+  }
 }

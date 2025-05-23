@@ -178,6 +178,16 @@ async function main() {
   // };
 
   // const response = await openai.promptFull({ userMessage, systemMessage, availableTools, tools });
+
+  const x = "";
+
+  const obj = {
+    n: 1,
+    y: 2,
+    ...(x && { x })
+  }
+
+  styled.infodir(obj);
 }
 
 main();

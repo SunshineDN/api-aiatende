@@ -122,7 +122,7 @@ export default class LeadMessagesRepository extends BaseRepository {
     }
   }
 
-  async getLastMessageOrigin(lead_id) {
+  async setBoolSendMessage(lead_id) {
     const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
     if (!lead_message?.messages?.length) return null;
 

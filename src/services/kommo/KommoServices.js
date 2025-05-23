@@ -165,28 +165,6 @@ export default class KommoServices {
   }
 
   /**
-   * Método para buscar informações adicionais do lead para o Assistente da OpenAI
-   * @param {object} objeto de busca do lead
-   * @param {string} objeto.id ID do lead
-   * @returns {Promise<string>} Retorna as informações adicionais do lead
-   */
-  async getLeadAdditionalInfo({ id }) {
-    const lead = await this.getLead({ id, withParams: 'contacts' });
-    const contact = lead.contact;
-
-    const phoneNumber = LeadUtils.getPhoneNumber({ contact });
-    const date = DateUtils.getActualDatetimeInformation();
-
-    return `
-    System Additional Informations:
-    Current date: ${date}
-
-    User data:
-    ID do lead: ${lead.id}
-    Número de telefone: ${phoneNumber}`
-  }
-
-  /**
    * Método para buscar um contato pelo ID
    * 
    * @param {string} id ID do contato

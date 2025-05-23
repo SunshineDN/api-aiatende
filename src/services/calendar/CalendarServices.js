@@ -173,6 +173,19 @@ export default class CalendarServices {
   }
 
   /**
+   * Obtém um evento do calendário
+   * @param {string} eventId - ID do evento a ser obtido
+   * @returns {Promise<object>} - Objeto com as informações do evento
+   */
+  async getEvent(eventId) {
+    const response = await this.#calendar.events.get({
+      calendarId: this.#calendar_id,
+      eventId
+    });
+    return response.data;
+  }
+
+  /**
    * Atualiza um evento no calendário
    * @param {object} event - Objeto com as informações do evento a ser atualizado
    * @param {string} event.eventId - ID do evento a ser atualizado
