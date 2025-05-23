@@ -179,15 +179,9 @@ async function main() {
 
   // const response = await openai.promptFull({ userMessage, systemMessage, availableTools, tools });
 
-  const x = "";
-
-  const obj = {
-    n: 1,
-    y: 2,
-    ...(x && { x })
-  }
-
-  styled.infodir(obj);
+  const repo = LeadThreadRepository();
+  const lead_id = 24410353;
+  await repo.updateLastEvent(lead_id)
 }
 
 main();

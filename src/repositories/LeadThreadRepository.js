@@ -13,6 +13,10 @@ export default class LeadThreadRepository extends BaseRepository {
     return;
   }
 
+  async updateLastEvent(lead_id) {
+    await this.model.update({ where: { lead_id: Number(lead_id) }, data: { updated_at: new Date() } });
+  }
+
   async getLastTimestamp(lead_id) {
     const upsertLastTimestamp = await this.findOrCreate({
       create: { lead_id: Number(lead_id), last_timestamp: new Date(), created_at: new Date(), updated_at: new Date() },

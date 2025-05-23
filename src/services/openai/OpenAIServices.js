@@ -122,6 +122,8 @@ export default class OpenAIServices {
    */
   async handleRunAssistant({ userMessage = "", assistant_id, additional_instructions = null, instructions = null } = {}) {
 
+    const repo = new ThreadRepository({ lead_id: this.#lead_id });
+
     const crm_services = new OpenAICrmServices({ lead_id: this.#lead_id });
     await crm_services.getLead();
 
@@ -130,6 +132,8 @@ export default class OpenAIServices {
     }
 
     await crm_services.verifyLeadMessageField();
+
+    await repo.updateVoid({ assistant_id });
 
     const run = await this.handleCreateRun({
       userMessage,
