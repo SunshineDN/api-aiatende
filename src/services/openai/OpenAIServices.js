@@ -10,6 +10,7 @@ import { runAgendamentoDeletar } from "./tools/runAgendamentoDeletar.js";
 import { runAgendamentoListarDatas } from "./tools/runAgendamentoListarDatas.js";
 import { runAgendamentoAtualizar } from "./tools/runAgendamentoAtualizar.js";
 import KommoServices from "../kommo/KommoServices.js";
+import OpenAICrmServices from "./OpenAICrmServices.js";
 
 export default class OpenAIServices {
   #lead_id;
@@ -119,6 +120,9 @@ export default class OpenAIServices {
    */
   async handleRunAssistant({ userMessage, assistant_id }) {
 
+    const crm_services = new OpenAICrmServices({ lead_id: this.#lead_id });
+    const lead = await crm_services.getLead();
+
     const kommo = new KommoServices({ auth: process.env.KOMMO_AUTH, url: process.env.KOMMO_URL });
     const lead_additional_info = await kommo.getLeadAdditionalInfo({ id: this.#lead_id });
 
@@ -127,9 +131,13 @@ export default class OpenAIServices {
       assistant_id,
       additional_instructions: lead_additional_info
     });
+
     styled.info(`[OpenAIServices.handleRunAssistant] Lead ID: ${this.#lead_id} - Run criado:`);
     styled.infodir(run);
     const message = await this.handleRetrieveRun({ run });
+
+
+
     return message;
   }
 
@@ -254,7 +262,7 @@ export default class OpenAIServices {
         styled.info(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Run em execução.`);
       }
 
-      await this.backOffLinear(count);
+      await new Promise(r => setTimeout(r, 1000 * count));
       count++;
     }
 
@@ -278,19 +286,6 @@ export default class OpenAIServices {
   async handleObtainMessage({ thread_id }) {
     const response = await this.openai.beta.threads.messages.list(thread_id);
     return response?.data[0]?.content[0]?.text?.value;
-  }
-
-  /**
-    * Aguarda um período que cresce exponencialmente com o contador.
-    * @param {number} [count=2] — número de tentativas (1 → base, 2 → 2×base, 3 → 4×base…)
-    * @param {number} [base=1000] — tempo base em ms
-    * @returns {Promise<void>}
-    */
-  async backOffLinear(count = 2, base = 1000) {
-    const time = base * (count / 2);
-    new Promise(r => {
-      setTimeout(r, time);
-    })
   }
 
   /**

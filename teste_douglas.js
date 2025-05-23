@@ -178,9 +178,6 @@ async function main() {
   // };
 
   // const response = await openai.promptFull({ userMessage, systemMessage, availableTools, tools });
-
-  const formattedDate = DateUtils.getActualDatetimeInformation();
-  styled.info("Data formatada:", formattedDate);
 }
 
 main();

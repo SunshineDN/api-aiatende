@@ -122,6 +122,25 @@ export default class LeadMessagesRepository extends BaseRepository {
     }
   }
 
+  async getLastMessageOrigin(lead_id) {
+    const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
+    if (!lead_message?.messages?.length) return null;
+
+    const origin = lead_message.messages[lead_message.messages.length - 1].origin;
+
+    if (!origin) return null;
+
+    if (origin === 'com.amocrm.amocrmwa') {
+      return true;
+    } else if (origin === 'instagram_business') {
+      return false;
+    } else if (origin === 'waba') {
+      return false;
+    }
+    
+    return false;
+  }
+
   async clearMessages(lead_id) {
     const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
     if (!lead_message?.messages?.length) return null;
