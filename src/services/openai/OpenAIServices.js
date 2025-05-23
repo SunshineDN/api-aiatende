@@ -147,7 +147,7 @@ export default class OpenAIServices {
 
     const message = await this.handleRetrieveRun({ run });
 
-    await crm_services.sendMessageToLead({ message });
+    // await crm_services.sendMessageToLead({ message });
     await crm_services.saveAssistantAnswer({ message });
 
     return message;
