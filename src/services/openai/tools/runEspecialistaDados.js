@@ -7,7 +7,7 @@ export async function runEspecialistaDados({ resumo_historico, nome = "", bairro
     "Bairro",
     "Data de Nascimento",
     "Email",
-    "Número de Telefone",
+    "Número de Telefone (Telefone)",
   ]
 
   const prompt = `Você é um especialista em dados e precisa analisar as informações fornecidas.
