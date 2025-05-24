@@ -23,6 +23,7 @@ export default class OpenAIServices {
   constructor({ lead_id = null } = {}) {
     this.#lead_id = lead_id;
     this.openai = new OpenAI(process.env.OPENAI_API_KEY);
+    this.assistant_name = "Assistente Gabriele";
   }
 
   /**
@@ -276,7 +277,7 @@ export default class OpenAIServices {
     if (status.status === "completed") {
       const obtainMessage = await this.handleObtainMessage({ thread_id: threadId });
       styled.success(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Mensagem obtida com sucesso.`);
-      return obtainMessage;
+      return `*${this.assistant_name}*:\n\n${obtainMessage}`;
     } else {
       styled.warning(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Mensagem não obtida.`);
       styled.warningdir(status);
