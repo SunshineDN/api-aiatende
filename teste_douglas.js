@@ -179,9 +179,7 @@ async function main() {
 
   // const response = await openai.promptFull({ userMessage, systemMessage, availableTools, tools });
 
-  const data_hora = "2025-05-26T13:00:00-03:00";
-  const data = new Date(data_hora);
-  console.log(data.toISOString())
+  
 }
 
 main();

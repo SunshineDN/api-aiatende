@@ -68,7 +68,7 @@ export default class ThreadRepository extends BaseRepository {
   }
 
   async findThreads({ assistant_id }) {
-    const threads = await this.model.findMany({
+    const threads = await this.model.findFirst({
       where: {
         lead_id: this.#lead_id,
         assistant: assistant_id,
