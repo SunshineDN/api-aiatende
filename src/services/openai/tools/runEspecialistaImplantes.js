@@ -30,7 +30,7 @@ Uma implantodontista experiente, empática, com sólida formação técnica e pr
 ${historico_resumo}`;
 
   const openai = new OpenAIServices();
-  const response = openai.chatCompletion({
+  const response = await openai.chatCompletion({
     userMessage: mensagem_atual,
     systemMessage: prompt,
   });
