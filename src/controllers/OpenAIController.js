@@ -21,7 +21,8 @@ export default class OpenAIController {
       const decryptedAssistantId = atob(assistant_id);
 
       const leadMessageRepo = new LeadMessagesRepository();
-      const userMessage = await leadMessageRepo.getLastMessages(lead_id);
+      const { recent_messages, last_messages } = await leadMessageRepo.getLastAndRecentMessages(lead_id);
+      const userMessage = recent_messages || last_messages;
 
       styled.info(`[OpenAIController.runAssistant] - User message: ${userMessage}`);
 
