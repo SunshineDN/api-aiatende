@@ -238,12 +238,14 @@ export default class OpenAIServices {
       run_id = run.id;
     } else {
       styled.info(`[OpenAIServices.handleCreateRun] Lead ID: ${this.#lead_id} - Run já ativo. Usando run existente.`);
+
+      await repo.updateVoid({ assistant_id });
+
       thread_id = thread.thread_id;
       run_id = thread.run_id;
     }
 
-    await repo.updateVoid({ assistant_id });
-    
+
     return {
       thread_id,
       run_id
