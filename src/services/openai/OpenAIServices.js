@@ -229,7 +229,7 @@ export default class OpenAIServices {
         if (call.type === "submit_tool_outputs") {
           // 2.1 descompactar chamada
           const toolCalls = call.submit_tool_outputs.tool_calls;
-
+          const tool_outputs_results = [];
           for (const toolCall of toolCalls) {
             const fnName = toolCall.function.name;
             const args = JSON.parse(toolCall.function.arguments);
@@ -237,16 +237,15 @@ export default class OpenAIServices {
             // 2.2 executar sua lógica local
             const result = await this.availableTools()[fnName](args);
             styled.info(`[OpenAIServices.handleRetrieveRun] Tool Result: ${fnName}:`, JSON.stringify(result));
-            // 2.3 submeter o resultado ao run
-            await this.openai.beta.threads.runs.submitToolOutputs(threadId, runId, {
-              tool_outputs: [
-                {
-                  tool_call_id: toolCall.id,
-                  output: JSON.stringify(result)
-                }
-              ]
+            tool_outputs_results.push({
+              tool_call_id: toolCall.id,
+              output: JSON.stringify(result)
             });
           }
+          // 2.3 submeter o resultado das ferramentas ao run
+          await this.openai.beta.threads.runs.submitToolOutputs(threadId, runId, {
+            tool_outputs: tool_outputs_results,
+          });
           continue;
         }
       }
