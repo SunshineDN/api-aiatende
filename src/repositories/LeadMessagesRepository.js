@@ -85,15 +85,18 @@ export default class LeadMessagesRepository extends BaseRepository {
     const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
     if (!lead_message?.messages?.length) return null;
 
-    const last_timestamp = await new LeadThreadRepository().getLastTimestamp(Number(lead_id));
-    last_timestamp?.setMilliseconds(last_timestamp.getMilliseconds() - 1000);
+    // const last_timestamp = await new LeadThreadRepository().getLastTimestamp(Number(lead_id));
+    // last_timestamp?.setMilliseconds(last_timestamp.getMilliseconds() - 1000);
+
+    const updated_at = lead_message.updated_at || lead_message.created_at;
+    updated_at.setMilliseconds(updated_at.getMilliseconds() - 1000);
 
     const messages = lead_message.messages;
     const recent_messages = [];
 
     for (const msg of messages) {
       const created_at = new Date(Number(msg.created_at) * 1000);
-      if (created_at > last_timestamp) {
+      if (created_at > updated_at) {
         recent_messages.push(msg.lead_message);
       }
     }
@@ -147,5 +150,15 @@ export default class LeadMessagesRepository extends BaseRepository {
 
     await this.update(Number(lead_id), { messages: [] });
     styled.success('[LeadMessagesRepository.clearMessages] - Mensagens limpas com sucesso!');
+  }
+
+  async getUpdatedAt(lead_id) {
+    const lead_message = await this.findOne({ where: { id: Number(lead_id) } });
+    if (!lead_message?.messages?.length) return null;
+
+    const last_message = lead_message.messages[lead_message.messages.length - 1];
+    if (!last_message || !last_message.created_at) return null;
+
+    return last_message.updated_at || last_message.created_at;
   }
 }
