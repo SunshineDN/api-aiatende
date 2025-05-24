@@ -48,6 +48,7 @@ export default class OpenAIServices {
     const completions = await this.openai.chat.completions.create({
       model,
       messages,
+      ...(this.#lead_id && { metadata: { lead_id: this.#lead_id.toString() } }),
     });
 
     return completions.choices[0].message.content;
@@ -84,6 +85,7 @@ export default class OpenAIServices {
         model,
         messages,
         tools,
+        ...(this.#lead_id && { metadata: { lead_id: this.#lead_id.toString() } }),
       });
 
       styled.info("[OpenAIServices.promptFull] Resposta da OpenAI:");
