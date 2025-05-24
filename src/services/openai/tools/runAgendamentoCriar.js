@@ -7,7 +7,7 @@ import CalendarServices from "../../calendar/CalendarServices.js";
  * @param {Object} params
  * 
  */
-export async function runAgendamentoCriar({ data_hora, especialista, titulo, descricao }) {
+export async function runAgendamentoCriar({ data_hora, especialista, titulo, motivo }) {
   const calendar_id = CalendarUtils.idValidate(especialista);
   const calendar = new CalendarServices(calendar_id);
   const startDate = new Date(data_hora);
@@ -16,7 +16,7 @@ export async function runAgendamentoCriar({ data_hora, especialista, titulo, des
     summary: titulo,
     start: startDate,
     end: endDate,
-    description: descricao,
+    description: motivo,
   });
   return {
     sucesso: true,
