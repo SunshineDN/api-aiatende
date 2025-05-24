@@ -362,7 +362,7 @@ export default class OpenAIServices {
     return {
       'especialista_dados': runEspecialistaDados,
       'especialista_invisalign': runEspecialistaInvisalign,
-      'especialista_implante': runEspecialistaImplantes,
+      'especialista_implantes': runEspecialistaImplantes,
       'especialista_intencao': runEspecialistaIntencao,
       'agendamento_criar': runAgendamentoCriar,
       'agendamento_deletar': runAgendamentoDeletar,
