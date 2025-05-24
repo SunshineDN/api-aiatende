@@ -50,7 +50,10 @@ export default class OpenAICrmServices {
 
   async verifyLeadMessageField() {
     const message_received = LeadUtils.findLeadField({ lead: this.#lead, field_name: "GPT | Message received" });
+    styled.info(`[OpenAICrmServices.verifyLeadMessageField] - Verificando se o campo "GPT | Message received" existe no lead...`);
+    styled.infodir(message_received);
     if (message_received) {
+      styled.info(`[OpenAICrmServices.verifyLeadMessageField] - Campo "GPT | Message received" encontrado!`);
       await StaticUtils.sleep(2);
       await this.#kommo.updateLead({ id: this.#lead_id, custom_fields_values: [{ field_id: message_received.field_id, values: [{ value: "" }] }] });
     }
