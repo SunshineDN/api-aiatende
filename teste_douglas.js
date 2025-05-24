@@ -179,9 +179,9 @@ async function main() {
 
   // const response = await openai.promptFull({ userMessage, systemMessage, availableTools, tools });
 
-  const repo = LeadThreadRepository();
-  const lead_id = 24410353;
-  await repo.updateLastEvent(lead_id)
+  const data_hora = "2025-05-26T13:00:00-03:00";
+  const data = new Date(data_hora);
+  console.log(data.toISOString())
 }
 
 main();

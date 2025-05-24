@@ -14,7 +14,7 @@ export async function runAgendamentoCriar({ data_hora, especialista, titulo, des
   const endDate = new Date(startDate.getTime() + 30 * 60 * 1000); // Adiciona 30 minutos à data/hora
   const response = await calendar.createEvent({
     summary: titulo,
-    start: data_hora,
+    start: startDate,
     end: endDate,
     description: descricao,
   });
