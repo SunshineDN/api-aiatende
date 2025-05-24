@@ -189,7 +189,7 @@ export default class OpenAIServices {
       const run = await this.openai.beta.threads.runs.retrieve(threads.thread_id, threads.run_id);
       styled.info(`[OpenAIServices.verifyRunIsActive] Lead ID: ${this.#lead_id} - Verificando run ativo...`);
       styled.infodir(run);
-      if (run.status === "running") {
+      if (run.status === "running" || run.status === "requires_action") {
         styled.info(`[OpenAIServices.verifyRunIsActive] Lead ID: ${this.#lead_id} - Run ativo.`);
         return true;
       } else {
