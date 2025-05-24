@@ -15,6 +15,21 @@ export default class ThreadRepository extends BaseRepository {
     this.#lead_id = lead_id;
   }
 
+  async updateRun({ assistant_id, run_id }) {
+    const thread = await this.model.update({
+      where: {
+        lead_id: this.#lead_id,
+        assistant: assistant_id,
+      },
+      data: {
+        run_id,
+        updated_at: new Date(),
+      }
+    });
+
+    return thread;
+  }
+
   async findThread({ assistant_id } = {}) {
 
     const thread = await this.findOne({

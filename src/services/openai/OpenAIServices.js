@@ -146,7 +146,10 @@ export default class OpenAIServices {
     styled.info(`[OpenAIServices.handleRunAssistant] Lead ID: ${this.#lead_id} - Run criado:`);
     styled.infodir(run);
 
-    const message = await this.handleRetrieveRun({ run });
+    const message = await this.handleRetrieveRun({
+      threadId: run.thread_id,
+      runId: run.run_id,
+    });
 
     // await crm_services.sendMessageToLead({ message });
     await crm_services.saveAssistantAnswer({ message });
@@ -178,31 +181,78 @@ export default class OpenAIServices {
   }
 
   /**
+   * Verifica se há um run ativo para o assistente.
+   * @param {Object} params
+   * @param {string} params.assistant_id - ID do assistente.
+   * @return {Promise<boolean>} - Retorna true se houver um run ativo, caso contrário false.
+   */
+  async verifyRunIsActive({ assistant_id }) {
+    const repo = new ThreadRepository({ lead_id: this.#lead_id });
+    const threads = await repo.findThreads({ assistant_id });
+
+    if (threads.run_id) {
+      const run = await this.openai.beta.threads.runs.retrieve(threads.thread_id, threads.run_id);
+      styled.info(`[OpenAIServices.verifyRunIsActive] Lead ID: ${this.#lead_id} - Verificando run ativo...`);
+      styled.infodir(run);
+      if (run.status === "running") {
+        styled.info(`[OpenAIServices.verifyRunIsActive] Lead ID: ${this.#lead_id} - Run ativo.`);
+        return true;
+      } else {
+        styled.warning(`[OpenAIServices.verifyRunIsActive] Lead ID: ${this.#lead_id} - Run não está ativo.`);
+        return false;
+      }
+    }
+    styled.warning(`[OpenAIServices.verifyRunIsActive] Lead ID: ${this.#lead_id} - Nenhum run ativo encontrado.`);
+    return false;
+  }
+
+  /**
    * Cria uma mensagem na thread e inicia o run.
    * @param {Object} params
    * @param {string} params.userMessage - Mensagem do usuário.
    * @param {string} params.assistant_id - ID do assistente.
    * @param {string} [params.additional_instructions] - Instruções adicionais para o run.
-   * @return {Promise<Object>} - O run criado.
+   * @return {Promise<Object>} - O run criado com o ID da thread e do run.
    */
   async handleCreateRun({ userMessage = "", assistant_id, additional_instructions = null, instructions = null } = {}) {
     const sanitizedText = (userMessage ?? "").trim();
 
     const thread = await this.findOrCreateThread({ assistant_id });
 
-    await this.openai.beta.threads.messages.create(thread.thread_id, {
-      role: "user",
-      content: sanitizedText,
-    });
+    let thread_id, run_id;
 
-    const run = await this.openai.beta.threads.runs.create(thread.thread_id, {
-      assistant_id,
-      ...(additional_instructions && { additional_instructions }),
-      ...(instructions && { instructions }),
-    });
+    const runIsActive = await this.verifyRunIsActive({ assistant_id });
 
-    styled.info(`[OpenAIServices.handleCreateRun] Lead ID: ${this.#lead_id} - Run criado: ${run.id}`);
-    return run;
+    if (!runIsActive) {
+      const repo = new ThreadRepository({ lead_id: this.#lead_id });
+
+      await this.openai.beta.threads.messages.create(thread.thread_id, {
+        role: "user",
+        content: sanitizedText,
+      });
+
+      const run = await this.openai.beta.threads.runs.create(thread.thread_id, {
+        assistant_id,
+        ...(additional_instructions && { additional_instructions }),
+        ...(instructions && { instructions }),
+      });
+
+      await repo.updateRun({ assistant_id, run_id: run.id });
+
+      styled.info(`[OpenAIServices.handleCreateRun] Lead ID: ${this.#lead_id} - Run criado: ${run.id}`);
+      thread_id = run.thread_id;
+      run_id = run.id;
+    } else {
+      styled.info(`[OpenAIServices.handleCreateRun] Lead ID: ${this.#lead_id} - Run já ativo. Usando run existente.`);
+      thread_id = thread.thread_id;
+      run_id = thread.run_id;
+    }
+
+
+    return {
+      thread_id,
+      run_id
+    };
   }
 
   /**
@@ -211,9 +261,7 @@ export default class OpenAIServices {
    * @param {Object} params.run - O run criado.
    * @return {Promise<string|null>} - A mensagem capturada ou null se não houver mensagem.
    * */
-  async handleRetrieveRun({ run }) {
-    const threadId = run.thread_id;
-    const runId = run.id;
+  async handleRetrieveRun({ threadId, runId }) {
     let status, count = 2;
 
     while (true) {
