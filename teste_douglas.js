@@ -179,8 +179,15 @@ async function main() {
 
   // const response = await openai.promptFull({ userMessage, systemMessage, availableTools, tools });
 
-  const repo = new ThreadRepository({ lead_id: 24410353 });
-  await repo.deleteThread({ assistant_id: "asst_epSsBL4xTTSse7v2yqk9E4IA" });
+  const date = new Date("2025-05-24T07:27:57.500Z");
+  date.setMilliseconds(date.getMilliseconds() - 1000);
+
+  const created_at = new Date(1748071676 * 1000);
+
+  console.log(date);
+  console.log(created_at);
+
+  console.log(created_at > date ? "Criado depois" : "Criado antes ou igual");
 }
 
 main();

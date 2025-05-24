@@ -88,15 +88,20 @@ export default class LeadMessagesRepository extends BaseRepository {
     // const last_timestamp = await new LeadThreadRepository().getLastTimestamp(Number(lead_id));
     // last_timestamp?.setMilliseconds(last_timestamp.getMilliseconds() - 1000);
 
-    const updated_at = lead_message.updated_at || lead_message.created_at;
-    updated_at.setMilliseconds(updated_at.getMilliseconds() - 1000);
+    // const updated_at = lead_message.updated_at || lead_message.created_at;
+    // updated_at.setMilliseconds(updated_at.getMilliseconds() - 1000);
 
     const messages = lead_message.messages;
     const recent_messages = [];
+    const seconds = 15; // Número de segundos para considerar recente, pode ser alterado conforme necessário
 
     for (const msg of messages) {
       const created_at = new Date(Number(msg.created_at) * 1000);
-      if (created_at > updated_at) {
+      const date_now = new Date();
+
+      // Verificar se a mensagem foi criada a menos de X segundos
+      const is_recent = (date_now - created_at) <= (seconds * 1000);
+      if (is_recent) {
         recent_messages.push(msg.lead_message);
       }
     }
@@ -140,7 +145,7 @@ export default class LeadMessagesRepository extends BaseRepository {
     } else if (origin === 'waba') {
       return false;
     }
-    
+
     return false;
   }
 

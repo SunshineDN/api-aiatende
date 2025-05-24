@@ -27,8 +27,6 @@ export default class LeadRepository extends BaseRepository {
     });
 
     styled.success('[LeadRepository.findCreateAndUpdate] - Lead encontrado ou criado com sucesso!');
-    styled.successdir(lead);
-
     return;
   }
 }

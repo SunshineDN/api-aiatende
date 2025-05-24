@@ -119,7 +119,6 @@ export default class KommoWebhookServices extends KommoServices {
     }
 
     await leadMessageRepository.verifyAndUpdate(lead_id, obj.message);
-    // const lead_messages = await leadMessageRepository.getLastMessages(lead_id);
     const { last_messages, recent_messages } = await leadMessageRepository.getLastAndRecentMessages(lead_id);
 
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields() });
