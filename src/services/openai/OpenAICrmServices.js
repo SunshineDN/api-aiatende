@@ -49,7 +49,7 @@ export default class OpenAICrmServices {
   }
 
   async verifyLeadMessageField() {
-    const message_received = LeadUtils.findLeadField({ lead: this.#lead, field_name: "GPT | Message received" });
+    const message_received = LeadUtils.findLeadField({ lead: this.#lead, fieldName: "GPT | Message received" });
     styled.info(`[OpenAICrmServices.verifyLeadMessageField] - Verificando se o campo "GPT | Message received" existe no lead...`);
     styled.infodir(message_received);
     if (message_received) {
