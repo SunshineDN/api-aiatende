@@ -215,39 +215,59 @@ export default class OpenAIServices {
 
     const thread = await this.findOrCreateThread({ assistant_id });
 
-    let thread_id, run_id;
+    let run_id;
 
     const runIsActive = await this.verifyRunIsActive({ assistant_id });
 
     if (!runIsActive) {
-      await this.openai.beta.threads.messages.create(thread.thread_id, {
-        role: "user",
-        content: sanitizedText,
-      });
+      // await this.openai.beta.threads.messages.create(thread.thread_id, {
+      //   role: "user",
+      //   content: sanitizedText,
+      // });
 
-      const run = await this.openai.beta.threads.runs.create(thread.thread_id, {
+      // const run = await this.openai.beta.threads.runs.create(thread.thread_id, {
+      //   assistant_id,
+      //   ...(additional_instructions && { additional_instructions }),
+      //   ...(instructions && { instructions }),
+      // });
+
+      // await repo.updateRun({ assistant_id, run_id: run.id });
+
+      // styled.info(`[OpenAIServices.handleCreateRun] Lead ID: ${this.#lead_id} - Run criado: ${run.id}`);
+      // thread_id = run.thread_id;
+      // run_id = run.id;
+
+      const payload = {
+        thread_id: thread.thread_id,
         assistant_id,
         ...(additional_instructions && { additional_instructions }),
         ...(instructions && { instructions }),
-      });
+      };
 
-      await repo.updateRun({ assistant_id, run_id: run.id });
+      if (sanitizedText) {
+        payload.additional_messages = [
+          {
+            role: "user",
+            content: sanitizedText,
+          }
+        ]
+      };
 
-      styled.info(`[OpenAIServices.handleCreateRun] Lead ID: ${this.#lead_id} - Run criado: ${run.id}`);
-      thread_id = run.thread_id;
+      const run = await this.openai.beta.threads.runs.create(payload);
       run_id = run.id;
+      await repo.updateRun({ assistant_id, run_id });
+      styled.info(`[OpenAIServices.handleCreateRun] Lead ID: ${this.#lead_id} - Run criado: ${run.id}`);
     } else {
       styled.info(`[OpenAIServices.handleCreateRun] Lead ID: ${this.#lead_id} - Run já ativo. Usando run existente.`);
 
       await repo.updateVoid({ assistant_id });
 
-      thread_id = thread.thread_id;
       run_id = thread.run_id;
     }
 
 
     return {
-      thread_id,
+      thread_id: thread.thread_id,
       run_id
     };
   }
