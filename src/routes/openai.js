@@ -9,8 +9,10 @@ router.use(kommoMiddleware);
 
 router.get('/', OpenAIController.index);
 
-router.post('/runAssistant/:assistant_id?', OpenAIController.runAssistant);
-
+// Rota para executar assistente (opcionalmente com ID de assistente) de agendamento concluido
 router.post('/runAssistant/:assistant_id?/scheduled', OpenAIController.runAssistantScheduled);
+
+// Rota para executar assistente (opcionalmente com ID de assistente) geral
+router.post('/runAssistant/:assistant_id?', OpenAIController.runAssistant);
 
 export default router;
