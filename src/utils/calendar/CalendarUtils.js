@@ -588,6 +588,12 @@ export class CalendarUtils {
    * @returns {string} - Id do calendário
    */
   static idValidate(condition = '') {
+
+    if (!condition || typeof condition !== 'string') {
+      styled.error('Condição inválida para validação do calendário');
+      return CalendarId.dentistas;
+    }
+
     const mapping = {
       'Juliana Leite': CalendarId.juliana,
       'Lucília Miranda': CalendarId.odontopediatria,
