@@ -183,7 +183,7 @@ export default class OpenAIServices {
    */
   async verifyRunIsActive({ assistant_id }) {
     const repo = new ThreadRepository({ lead_id: this.#lead_id });
-    const threads = await repo.findThreads({ assistant_id });
+    const threads = await repo.findThread({ assistant_id });
 
     if (threads.run_id) {
       const run = await this.openai.beta.threads.runs.retrieve(threads.thread_id, threads.run_id);

@@ -18,8 +18,10 @@ export default class ThreadRepository extends BaseRepository {
   async updateRun({ assistant_id, run_id }) {
     const thread = await this.model.update({
       where: {
-        lead_id: this.#lead_id,
-        assistant: assistant_id,
+        lead_id_assistant: {
+          lead_id: this.#lead_id,
+          assistant: assistant_id,
+        }
       },
       data: {
         run_id,
@@ -59,8 +61,10 @@ export default class ThreadRepository extends BaseRepository {
   async deleteThread({ assistant_id }) {
     const thread = await this.delete({
       where: {
-        lead_id: this.#lead_id,
-        assistant: assistant_id,
+        lead_id_assistant: {
+          lead_id: this.#lead_id,
+          assistant: assistant_id,
+        }
       }
     });
 
@@ -81,8 +85,10 @@ export default class ThreadRepository extends BaseRepository {
   async updateVoid({ assistant_id }) {
     const thread = await this.model.update({
       where: {
-        lead_id: this.#lead_id,
-        assistant: assistant_id,
+        lead_id_assistant: {
+          lead_id: this.#lead_id,
+          assistant: assistant_id,
+        }
       },
       data: {
         updated_at: new Date(),
