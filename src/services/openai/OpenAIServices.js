@@ -122,9 +122,6 @@ export default class OpenAIServices {
    * @return {Promise<Object>} - O run criado.
    */
   async handleRunAssistant({ userMessage = "", assistant_id, additional_instructions = null, instructions = null } = {}) {
-
-    const repo = new ThreadRepository({ lead_id: this.#lead_id });
-
     const crm_services = new OpenAICrmServices({ lead_id: this.#lead_id });
     await crm_services.getLead();
 
@@ -133,8 +130,6 @@ export default class OpenAIServices {
     }
 
     await crm_services.verifyLeadMessageField();
-
-    await repo.updateVoid({ assistant_id });
 
     const run = await this.handleCreateRun({
       userMessage,
@@ -215,6 +210,7 @@ export default class OpenAIServices {
    * @return {Promise<Object>} - O run criado com o ID da thread e do run.
    */
   async handleCreateRun({ userMessage = "", assistant_id, additional_instructions = null, instructions = null } = {}) {
+    const repo = new ThreadRepository({ lead_id: this.#lead_id });
     const sanitizedText = (userMessage ?? "").trim();
 
     const thread = await this.findOrCreateThread({ assistant_id });
@@ -224,8 +220,6 @@ export default class OpenAIServices {
     const runIsActive = await this.verifyRunIsActive({ assistant_id });
 
     if (!runIsActive) {
-      const repo = new ThreadRepository({ lead_id: this.#lead_id });
-
       await this.openai.beta.threads.messages.create(thread.thread_id, {
         role: "user",
         content: sanitizedText,
@@ -248,7 +242,8 @@ export default class OpenAIServices {
       run_id = thread.run_id;
     }
 
-
+    await repo.updateVoid({ assistant_id });
+    
     return {
       thread_id,
       run_id
