@@ -24,13 +24,12 @@ export default class LeadMessagesRepository extends BaseRepository {
   }
 
   async verifyAndUpdate(lead_id, message) {
-    const lead = await this.findOrCreate({
+    await this.findOrCreate({
       where: { id: Number(lead_id) },
       update: { messages: { push: message } },
       create: { id: Number(lead_id), messages: [message] },
     });
     styled.success('[LeadMessagesRepository.verifyAndUpdate] - Lead encontrado ou criado com sucesso!');
-    styled.successdir(lead);
     return;
   }
 

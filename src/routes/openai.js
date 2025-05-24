@@ -11,4 +11,6 @@ router.get('/', OpenAIController.index);
 
 router.post('/runAssistant/:assistant_id?', OpenAIController.runAssistant);
 
+router.post('/runAssistant/:assistant_id?/scheduled', OpenAIController.runAssistantScheduled);
+
 export default router;
