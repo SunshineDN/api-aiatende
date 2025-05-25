@@ -598,6 +598,7 @@ export class CalendarUtils {
       'Juliana Leite': CalendarId.juliana,
       'Lucília Miranda': CalendarId.odontopediatria,
       'Odontopediatria': CalendarId.odontopediatria,
+      'Odontopediatra': CalendarId.odontopediatria,
     };
 
     for (const key in mapping) {
