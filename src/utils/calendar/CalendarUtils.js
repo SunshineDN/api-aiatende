@@ -596,7 +596,7 @@ export class CalendarUtils {
 
     const mapping = {
       'Juliana Leite': CalendarId.juliana,
-      'Lucília Miranda': CalendarId.odontopediatria,
+      'Lucília': CalendarId.odontopediatria,
       'Odontopediatria': CalendarId.odontopediatria,
       'Odontopediatra': CalendarId.odontopediatria,
     };
