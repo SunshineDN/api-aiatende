@@ -243,6 +243,12 @@ export default class OpenAIServices {
         metadata: {
           lead_id: this.#lead_id.toString(),
         },
+        tool_choice: {
+          type: "function",
+          function: {
+            name: "especialista_intencao",
+          }
+        },
         ...(additional_instructions && { additional_instructions }),
         ...(instructions && { instructions }),
         ...(sanitizedText && { additional_messages: [{ role: "user", content: sanitizedText }] }),
