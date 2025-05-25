@@ -8,7 +8,15 @@ export async function runEspecialistaDados({ resumo_historico, nome = "", bairro
     "Data de Nascimento",
     "Email",
     "Número de Telefone (Telefone)",
-  ]
+  ];
+
+  const userMessage = `
+Aqui estão meus os dados do cliente:
+Nome: ${nome}
+Bairro: ${bairro}
+Data de Nascimento: ${data_nascimento}
+Email: ${email}
+Número de Telefone: ${telefone}`;
 
   const prompt = `Você é um especialista em dados e precisa analisar as informações fornecidas.
 
@@ -17,23 +25,17 @@ export async function runEspecialistaDados({ resumo_historico, nome = "", bairro
   Você deve considerar os seguintes dados como importantes:
   ${dados_importantes.join(", ")}
 
-  Aqui estão os dados do cliente:
-  Nome: ${nome}
-  Bairro: ${bairro}
-  Data de Nascimento: ${data_nascimento}
-  Email: ${email}
-  Número de Telefone: ${telefone}
   Resumo Histórico: ${resumo_historico}
   Responda de forma clara e concisa, destacando os pontos mais importantes.
   Evite incluir informações irrelevantes ou redundantes.
   Lembre-se de que a clareza e a precisão são fundamentais na sua análise.
   Se não houver informações relevantes, responda "Nenhuma informação relevante encontrada".
   `;
-  
+
   const openai = new OpenAIServices();
 
   const response = await openai.chatCompletion({
-    userMessage: resumo_historico,
+    userMessage,
     systemMessage: prompt,
   });
 
