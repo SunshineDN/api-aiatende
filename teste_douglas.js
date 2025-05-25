@@ -179,8 +179,11 @@ async function main() {
 
   // const response = await openai.promptFull({ userMessage, systemMessage, availableTools, tools });
 
-  const repo = new ThreadRepository({ lead_id: 24410353 });
-  await repo.deleteThread({ assistant_id: "asst_epSsBL4xTTSse7v2yqk9E4IA" })
+  // const repo = new ThreadRepository({ lead_id: 24410353 });
+  // await repo.deleteThread({ assistant_id: "asst_epSsBL4xTTSse7v2yqk9E4IA" })
+
+  const date = DateUtils.getActualDatetimeInformation();
+  console.log(date);
 }
 
 main();

@@ -1,3 +1,4 @@
+import DateUtils from "../../../utils/DateUtils.js";
 import OpenAIServices from "../OpenAIServices.js";
 
 export async function runEspecialistaDados({ resumo_historico, nome = "", bairro = "", data_nascimento = "", email = "", telefone = "" } = {}) {
@@ -18,7 +19,8 @@ Data de Nascimento: ${data_nascimento}
 Email: ${email}
 Número de Telefone: ${telefone}`;
 
-  const prompt = `Você é um especialista em dados e precisa analisar as informações fornecidas.
+  const prompt = `
+  Você é um especialista em dados e precisa analisar as informações fornecidas.
 
   Seu objetivo é identificar e verificar se há todos os dados necessários para o atendimento.
   Você deve analisar as informações do cliente e verificar se estão completas e corretas.
@@ -30,6 +32,9 @@ Número de Telefone: ${telefone}`;
   Evite incluir informações irrelevantes ou redundantes.
   Lembre-se de que a clareza e a precisão são fundamentais na sua análise.
   Se não houver informações relevantes, responda "Nenhuma informação relevante encontrada".
+
+  System informations:
+  ${DateUtils.getActualDatetimeInformation()}
   `;
 
   const openai = new OpenAIServices();

@@ -41,7 +41,7 @@ export default class OpenAICrmServices {
 
     return `
     System Additional Informations:
-    Current date: ${date}
+    ${date}
 
     User data:
     ID do lead: ${this.#lead_id}

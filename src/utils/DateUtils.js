@@ -132,17 +132,44 @@ export default class DateUtils {
 
   static getActualDatetimeInformation() {
     const today = new Date();
-    const options = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    };
+    const labels = ['Hoje', 'Amanhã', 'Depois de amanhã'];
+    const lines = [];
 
-    const weekday = today.toLocaleDateString('pt-BR', { weekday: 'long' });
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(today);
+      date.setDate(today.getDate() + i);
 
-    const formattedDatetime = today.toLocaleDateString('pt-BR', options);
-    return `${weekday.substring(0, 1).toUpperCase() + weekday.substring(1)}, ${formattedDatetime}`;
+      // Nome do dia da semana (com a primeira letra em maiúscula)
+      const weekday = date.toLocaleDateString('pt-BR', { weekday: 'long' });
+      const capWeekday = weekday.charAt(0).toUpperCase() + weekday.slice(1);
+
+      // Data no formato "25 de maio de 2025"
+      const formattedDate = date.toLocaleDateString('pt-BR', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      });
+
+      let line;
+      if (i === 0) {
+        // Hoje — inclui hora e minuto
+        const time = date.toLocaleTimeString('pt-BR', {
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+        line = `${labels[0]} é ${capWeekday}, ${formattedDate} às ${time}`;
+      } else if (i < 3) {
+        // Amanhã e Depois de amanhã — sem hora
+        line = `${labels[i]} é ${capWeekday}, ${formattedDate}`;
+      } else {
+        // Demais dias — apenas "DiaSemana, data"
+        line = `${capWeekday}, ${formattedDate}`;
+      }
+
+      lines.push(line);
+    }
+
+    // Une tudo com duas quebras de linha
+    return lines.join('\n\n');
   }
 }
