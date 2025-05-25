@@ -6,47 +6,79 @@ import OpenAIServices from "../OpenAIServices.js";
  * Detecta a intenção e atualiza a etapa do usuário no CRM a cada nova mensagem.
  * 
  * @param {Object} params
- * @param {string} params.history - Resumo do histórico do usuário.
+ * @param {string} params.conversation_summary - Resumo do histórico do usuário.
  * @param {string} params.lead_id - ID do lead no CRM.
  * @returns {Promise<Object>} Resultado da detecção de intenção e atualização do CRM.
  */
-export async function runEspecialistaIntencao({ history, lead_id } = {}) {
+export async function runEspecialistaIntencao({ conversation_summary, lead_id, intention_history } = {}) {
   if (typeof lead_id !== 'string' || !lead_id.trim()) {
     throw new Error('Parâmetro "lead_id" é obrigatório e deve ser uma string não vazia.');
   }
 
   const prompt = `
-  # 🎯 Objetivo
-Identificar a intenção principal de um lead ou cliente com base em sua mensagem, retornando **apenas o ID da intenção**, no formato "#Intencao".
+# Intenções do lead recebidas pelo sistema: [${intention_history || 'Nenhuma intenção anterior detectada.'}]
 
-## 👤 Persona
-Leads e clientes que interagem via WhatsApp, chatbot ou CRM, em diferentes etapas do funil do Atende360.
+# 🎯 Objetivo  
+Identificar com precisão **em qual estágio atual** do fluxo de atendimento o lead se encontra, com base em uma **mensagem-resumo da conversa completa**, retornando **apenas o ID da intenção**, no formato \`#Intencao\`, para direcionamento automatizado no CRM da Dental Santé.
 
-## ⚙️ Comportamento Esperado
-- Analisar o conteúdo textual da mensagem.
-- Identificar em qual etapa do fluxo a intenção se encaixa.
-- Retornar apenas o ID da intenção correspondente, conforme lista abaixo.
+## 👤 Persona  
+Leads e pacientes que interagem via WhatsApp, chatbot ou CRM nas etapas do funil de atendimento odontológico da Clínica Dental Santé. A mensagem a ser analisada será **um resumo da conversa** atual com o lead.
+
+## ⚙️ Comportamento Esperado  
+- Analisar profundamente a **mensagem-resumo** enviada.  
+- Considerar a **sequência lógica de evolução do lead** pelas etapas.  
+- **Nunca retornar uma intenção anterior** já superada, com exceção da intenção \`#Reagendamento\`, que pode levar o lead de volta para \`#PosAgendamento\`.  
+- Retornar apenas **um único ID de intenção atual** conforme a lista abaixo.  
+- Avaliar a **etapa mais avançada mencionada** ou implícita na mensagem, ignorando passos anteriores.
 
 ## 🗂️ Intenções Possíveis (IDs válidos)
-- "#RecepcaoVirtual" → Primeiro contato, dúvidas iniciais, cadastro básico.
-- "#Qualificado" → Demonstra interesse, responde perguntas, quer saber mais.
-- "#PreAgendamento" → Deseja atendimento, mas sem horário definido.
-- "#Agendamento" → Solicita ou confirma data e hora.
 
-## ✍️ Estilo de Resposta
-- Apenas o ID da intenção.
-- Sem explicações ou textos adicionais.
-- Case sensitivity opcional, mas manter o padrão com "#CamelCase".
+| ID | Descrição |
+|----|-----------|
+| \`#RecepcaoVirtual\` | Primeiro contato ou mensagem genérica. Sem sinais de interesse, dúvidas iniciais, saudações. |
+| \`#Qualificado\` | Demonstra interesse em saber mais sobre a clínica, tratamentos, convênios ou equipe, mas **ainda não manifesta intenção de agendar**. |
+| \`#PreAgendamento\` | Deseja agendar consulta, mas **ainda não forneceu dados nem escolheu horário**. Pode estar aguardando opções. |
+| \`#Agendamento\` | Está selecionando ou confirmando data e horário para consulta. |
+| \`#Cadastro\` | Está fornecendo ou disposto a fornecer **dados pessoais** (nome, telefone, nascimento, bairro). |
+| \`#PosAgendamento\` | Consulta já agendada; mensagens de confirmação, lembrete ou validação de endereço. |
+| \`#Reagendamento\` | Deseja remarcar uma consulta agendada ou responde a tentativa de reativação após ausência. |
+| \`#Cancelamento\` | Deseja cancelar ou desmarcar a consulta agendada. |
+| \`#InformacaoTratamento\` | Solicita informações específicas sobre tratamentos odontológicos como implantes, Invisalign, clareamento etc. |
+| \`#Indefinido\` | Mensagem ambígua, vaga ou sem contexto claro. Nenhuma intenção pode ser identificada.
 
-## 🔒 Restrições
-- Nunca retorne mensagens explicativas.
-- Nunca inclua múltiplos IDs.
-- Caso não identifique nenhuma intenção válida, retorne "#Indefinido".
-`;
+## 🔁 Regras de Progresso do Funil
+
+- A intenção **nunca deve regredir**. Por exemplo:
+  - Se o usuário está escolhendo data, **não pode retornar \`#Qualificado\`**, mesmo que mencione informações da clínica.
+  - Se a mensagem mostra que já houve agendamento, **não pode retornar \`#Agendamento\`**, deve ser \`#PosAgendamento\`.
+- **Exceção única**: Se o lead deseja reagendar (\`#Reagendamento\`), pode retornar apenas a \`#PosAgendamento\` após o reagendamento ser finalizado.
+
+## 🧠 Regras Inteligentes
+
+- Se a mensagem for apenas um “oi”, “boa tarde”, “posso tirar uma dúvida?”, aplicar \`#RecepcaoVirtual\`.  
+- Se for apenas interesse por tratamentos, valores, equipe ou convênio, aplicar \`#Qualificado\`.  
+- Se a pessoa deseja agendar, mas não forneceu dados nem confirmou horário, aplicar \`#PreAgendamento\`.  
+- Se está confirmando ou decidindo data/hora, aplicar \`#Agendamento\`.  
+- Se está fornecendo nome, telefone, data de nascimento, aplicar \`#Cadastro\`.  
+- Se a consulta já está marcada e está interagindo com lembretes ou confirmando dados, aplicar \`#PosAgendamento\`.  
+- Se quer remarcar (ou respondeu lembrete após faltar), aplicar \`#Reagendamento\`.  
+- Se quer cancelar, aplicar \`#Cancelamento\`.  
+- Se perguntar sobre Invisalign, implantes, clareamento, etc., aplicar \`#InformacaoTratamento\`.  
+- Se não for possível identificar a intenção, aplicar \`#Indefinido\`.
+
+## ✍️ Estilo de Resposta  
+- Retornar apenas o **ID da intenção**, como \`#Agendamento\`  
+- **Nunca** incluir qualquer explicação, frase adicional ou observação.  
+- **Nunca** retornar mais de um ID.
+
+## 🔒 Restrições  
+- Não retornar etapas anteriores já superadas (exceto regra especial para \`#Reagendamento\`).  
+- Não explicar a intenção.  
+- Retornar exatamente \`#Indefinido\` se nenhuma intenção válida puder ser reconhecida.`;
 
   const openai = new OpenAIServices();
   const response = await openai.chatCompletion({
-    userMessage: history,
+    userMessage: conversation_summary,
     systemMessage: prompt,
   });
 
