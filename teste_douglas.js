@@ -182,8 +182,6 @@ async function main() {
   // const repo = new ThreadRepository({ lead_id: 24410353 });
   // await repo.deleteThread({ assistant_id: "asst_epSsBL4xTTSse7v2yqk9E4IA" })
 
-  const date = DateUtils.getActualDatetimeInformation();
-  console.log(date);
 }
 
 main();

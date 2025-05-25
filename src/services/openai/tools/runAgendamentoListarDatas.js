@@ -12,6 +12,13 @@ import CalendarServices from "../../calendar/CalendarServices.js";
  */
 export async function runAgendamentoListarDatas({ preferred_date, time, specialist } = {}) {
 
+  if (preferred_date) {
+    const regex = /(\d{4})-(\d{2})-(\d{2})/;
+    if (regex.test(preferred_date)) {
+      preferred_date = preferred_date.replace(/(\d{4})-(\d{2})-(\d{2})/, "$3/$2/$1");
+    }
+  }
+
   const calendar_id = CalendarUtils.idValidate(specialist);
   const calendar = new CalendarServices(calendar_id);
   let avaiableDates;
