@@ -92,7 +92,7 @@ export default class LeadMessagesRepository extends BaseRepository {
 
     const messages = lead_message.messages;
     const recent_messages = [];
-    const seconds = 15; // Número de segundos para considerar recente, pode ser alterado conforme necessário
+    const seconds = 20; // Número de segundos para considerar recente, pode ser alterado conforme necessário
 
     for (const msg of messages) {
       const created_at = new Date(Number(msg.created_at) * 1000);
