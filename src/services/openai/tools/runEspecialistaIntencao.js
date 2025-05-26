@@ -95,44 +95,44 @@ Leads e pacientes que interagem via WhatsApp, chatbot ou CRM nas etapas do funil
 
   if (intent.includes('recepcao')) {
     status = kommoUtils.findStatusByName('recepção virtual');
-    styled.log(`Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Intenção detectada: ${intent} - Status: ${status.name}`);
 
   } else if (intent.includes('qualificado')) {
     status = kommoUtils.findStatusByName('qualificado');
-    styled.log(`Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Intenção detectada: ${intent} - Status: ${status.name}`);
 
   } else if (intent.includes('tratamento')) {
     status = kommoUtils.findStatusByName('informações do tratamento');
-    styled.log(`Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Intenção detectada: ${intent} - Status: ${status.name}`);
 
   } else if (intent.includes('preagendamento')) {
     status = kommoUtils.findStatusByName('pré-agendamento');
-    styled.log(`Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Intenção detectada: ${intent} - Status: ${status.name}`);
 
   } else if (intent.includes('agendamento')) {
     status = kommoUtils.findStatusByName('pré-agendamento');
-    styled.log(`Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Intenção detectada: ${intent} - Status: ${status.name}`);
 
   } else if (intent.includes('cadastro')) {
     status = kommoUtils.findStatusByName('dados cadastrais');
-    styled.log(`Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Intenção detectada: ${intent} - Status: ${status.name}`);
 
   } else if (intent.includes('posagendamento')) {
     status = kommoUtils.findStatusByCode('pré-agendamento', 142);
-    styled.log(`Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Intenção detectada: ${intent} - Status: ${status.name}`);
 
   } else if (intent.includes('reagendamento')) {
     status = kommoUtils.findStatusByName('reagendamento');
-    styled.log(`Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Intenção detectada: ${intent} - Status: ${status.name}`);
 
   } else if (intent.includes('desmarcar')) {
     status = kommoUtils.findStatusByName('desmarcado');
-    styled.log(`Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Intenção detectada: ${intent} - Status: ${status.name}`);
 
   } else {
     status = kommoUtils.findStatusByName('indefinido');
-    styled.log(`Intenção detectada: ${intent} - Status: ${status.name}`);
-    
+    styled.info(`Intenção detectada: ${intent} - Status: ${status.name}`);
+
   }
 
   const update = await kommo.updateLead({
