@@ -95,43 +95,43 @@ Leads e pacientes que interagem via WhatsApp, chatbot ou CRM nas etapas do funil
 
   if (intent.includes('recepcao')) {
     status = kommoUtils.findStatusByName('recepção virtual');
-    styled.info(`Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Recepção Virtual - Intenção detectada: ${intent} - Status: ${status.name}`);
 
   } else if (intent.includes('qualificado')) {
     status = kommoUtils.findStatusByName('qualificado');
-    styled.info(`Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Qualificado - Intenção detectada: ${intent} - Status: ${status.name}`);
 
   } else if (intent.includes('tratamento')) {
     status = kommoUtils.findStatusByName('informações do tratamento');
-    styled.info(`Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Tratamentos - Intenção detectada: ${intent} - Status: ${status.name}`);
 
   } else if (intent.includes('preagendamento')) {
     status = kommoUtils.findStatusByName('pré-agendamento');
-    styled.info(`Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Pré-Agendamento - Intenção detectada: ${intent} - Status: ${status.name}`);
 
   } else if (intent.includes('agendamento')) {
     status = kommoUtils.findStatusByName('pré-agendamento');
-    styled.info(`Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Agendamento - Intenção detectada: ${intent} - Status: ${status.name}`);
 
   } else if (intent.includes('cadastro')) {
     status = kommoUtils.findStatusByName('dados cadastrais');
-    styled.info(`Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Cadastro - Intenção detectada: ${intent} - Status: ${status.name}`);
 
   } else if (intent.includes('posagendamento')) {
     status = kommoUtils.findStatusByCode('pré-agendamento', 142);
-    styled.info(`Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Pós-Agendamento - Intenção detectada: ${intent} - Status: ${status.name}`);
 
   } else if (intent.includes('reagendamento')) {
     status = kommoUtils.findStatusByName('reagendamento');
-    styled.info(`Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Reagendamento - Intenção detectada: ${intent} - Status: ${status.name}`);
 
   } else if (intent.includes('desmarcar')) {
     status = kommoUtils.findStatusByName('desmarcado');
-    styled.info(`Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Desmarcado - Intenção detectada: ${intent} - Status: ${status.name}`);
 
   } else {
     status = kommoUtils.findStatusByName('indefinido');
-    styled.info(`Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Indefinido - Intenção detectada: ${intent} - Status: ${status.name}`);
 
   }
 
