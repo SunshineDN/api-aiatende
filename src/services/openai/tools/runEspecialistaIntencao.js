@@ -78,6 +78,8 @@ Leads e pacientes que interagem via WhatsApp, chatbot ou CRM nas etapas do funil
 - Não explicar a intenção.  
 - Retornar exatamente \`#Indefinido\` se nenhuma intenção válida puder ser reconhecida.`;
 
+  styled.info(prompt);
+
   const openai = new OpenAIServices();
   const response = await openai.chatCompletion({
     userMessage: conversation_summary,
