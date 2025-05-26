@@ -18,7 +18,7 @@ export default class OpenAIServices {
   constructor({ lead_id = null } = {}) {
     this.#lead_id = lead_id;
     this.openai = new OpenAI(process.env.OPENAI_API_KEY);
-    this.assistant_name = process.env.ASSISTANT_NAME || "Atendente";
+    this.assistant_name = process.env.ASSISTANT_NAME ? `Atendente ${process.env.ASSISTANT_NAME}` : "Atendente";
   }
 
   /**
