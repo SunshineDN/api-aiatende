@@ -94,7 +94,7 @@ export default class KommoCalendarServices {
     const eventSummaryField = kommoUtils.findLeadsFieldByName('Título do Evento');
     const eventDescriptionField = kommoUtils.findLeadsFieldByName('Descrição do Evento');
 
-    const closedWon = kommoUtils.findStatusByCode('03 - PRÉ-AGENDAMENTO', 142);
+    const closedWon = kommoUtils.findStatusByCode('PRÉ-AGENDAMENTO', 142);
 
     const custom_fields = [
       {

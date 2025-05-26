@@ -1,4 +1,6 @@
+import KommoUtils from "../../../utils/KommoUtils.js";
 import styled from "../../../utils/log/styled.js";
+import KommoServices from "../../kommo/KommoServices.js";
 import OpenAIServices from "../OpenAIServices.js";
 
 /**
@@ -37,13 +39,13 @@ Leads e pacientes que interagem via WhatsApp, chatbot ou CRM nas etapas do funil
 |----|-----------|
 | \`#RecepcaoVirtual\` | Primeiro contato ou mensagem genérica. Sem sinais de interesse, dúvidas iniciais, saudações. |
 | \`#Qualificado\` | Demonstra interesse em saber mais sobre a clínica, tratamentos, convênios ou equipe, mas **ainda não manifesta intenção de agendar**. |
+| \`#InformacaoTratamento\` | Solicita informações específicas sobre tratamentos odontológicos como implantes, Invisalign, clareamento etc. |
 | \`#PreAgendamento\` | Deseja agendar consulta, mas **ainda não forneceu dados nem escolheu horário**. Pode estar aguardando opções. |
 | \`#Agendamento\` | Está selecionando ou confirmando data e horário para consulta. |
 | \`#Cadastro\` | Está fornecendo ou disposto a fornecer **dados pessoais** (nome, telefone, nascimento, bairro). |
 | \`#PosAgendamento\` | Consulta já agendada; mensagens de confirmação, lembrete ou validação de endereço. |
 | \`#Reagendamento\` | Deseja remarcar uma consulta agendada ou responde a tentativa de reativação após ausência. |
-| \`#Cancelamento\` | Deseja cancelar ou desmarcar a consulta agendada. |
-| \`#InformacaoTratamento\` | Solicita informações específicas sobre tratamentos odontológicos como implantes, Invisalign, clareamento etc. |
+| \`#Desmarcar\` | Deseja cancelar ou desmarcar a consulta agendada. |
 | \`#Indefinido\` | Mensagem ambígua, vaga ou sem contexto claro. Nenhuma intenção pode ser identificada.
 
 ## 🔁 Regras de Progresso do Funil
@@ -62,7 +64,7 @@ Leads e pacientes que interagem via WhatsApp, chatbot ou CRM nas etapas do funil
 - Se está fornecendo nome, telefone, data de nascimento, aplicar \`#Cadastro\`.  
 - Se a consulta já está marcada e está interagindo com lembretes ou confirmando dados, aplicar \`#PosAgendamento\`.  
 - Se quer remarcar (ou respondeu lembrete após faltar), aplicar \`#Reagendamento\`.  
-- Se quer cancelar, aplicar \`#Cancelamento\`.  
+- Se quer cancelar, aplicar \`#Desmarcar\`.  
 - Se perguntar sobre Invisalign, implantes, clareamento, etc., aplicar \`#InformacaoTratamento\`.  
 - Se não for possível identificar a intenção, aplicar \`#Indefinido\`.
 
@@ -82,8 +84,55 @@ Leads e pacientes que interagem via WhatsApp, chatbot ou CRM nas etapas do funil
     systemMessage: prompt,
   });
 
+  const kommo = new KommoServices({
+    auth: process.env.KOMMO_AUTH,
+    url: process.env.KOMMO_URL
+  });
+  const kommoUtils = new KommoUtils({ pipelines: await kommo.getPipelines() });
+
+  const intent = response.toLowerCase().trim();
+  let status;
+
+  if (intent.includes('recepcao')) {
+    status = kommoUtils.findStatusByName('recepção virtual');
+
+  } else if (intent.includes('qualificado')) {
+    status = kommoUtils.findStatusByName('qualificado');
+
+  } else if (intent.includes('tratamento')) {
+    status = kommoUtils.findStatusByName('informações do tratamento');
+
+  } else if (intent.includes('preagendamento')) {
+    status = kommoUtils.findStatusByName('pré-agendamento');
+
+  } else if (intent.includes('agendamento')) {
+    status = kommoUtils.findStatusByName('pré-agendamento');
+
+  } else if (intent.includes('cadastro')) {
+    status = kommoUtils.findStatusByName('dados cadastrais');
+
+  } else if (intent.includes('posagendamento')) {
+    status = kommoUtils.findStatusByCode('pré-agendamento', 142);
+
+  } else if (intent.includes('reagendamento')) {
+    status = kommoUtils.findStatusByName('reagendamento');
+
+  } else if (intent.includes('desmarcar')) {
+    status = kommoUtils.findStatusByName('desmarcado');
+
+  } else {
+    status = kommoUtils.findStatusByName('indefinido');
+  }
+
+  const update = await kommo.updateLead({
+    id: lead_id,
+    status_id: status.id,
+    pipeline_id: status.pipeline_id
+  });
+
   return {
     sucesso: true,
     intencaoDetectada: response,
+    updateLead: update
   };
 };

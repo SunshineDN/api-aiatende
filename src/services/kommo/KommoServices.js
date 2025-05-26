@@ -262,6 +262,108 @@ export default class KommoServices {
   }
 
   /**
+   * Método para atualizar o lead e o contato do lead
+   * @param {object} objeto de atualização do lead
+   * @param {string} [objeto.id] ID do lead
+   * @param {string} [objeto.name] Nome do lead
+   * @param {string} [objeto.email] Email do lead
+   * @param {string} [objeto.phone] Telefone do lead
+   * @param {string} [objeto.phoneCode] Código do campo do Telefone
+   * @param {array} [objeto.lead_custom_fields_values] Campos customizados do lead
+   * @param {array} [objeto.contact_custom_fields_values] Campos customizados do contato
+   * @returns {Promise<object>} Retorna o lead atualizado e o contato atualizado
+   */
+  async updateLeadComplex({ id, status_id = '', pipeline_id = '', name = '', email = '', phone = '', phoneCode = '', lead_custom_fields_values = [], contact_custom_fields_values = [] } = {}) {
+    if (!id) {
+      throw new Error('Lead ID is required');
+    }
+
+    const lead = await this.getLead({ id, withParams: 'contacts' });
+    const contact_id = lead.contact.id;
+
+    const lead_options = {
+      method: 'PATCH',
+      url: `${this.url}/api/v4/leads/${id}`,
+      headers: {
+        'accept': 'application/json',
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${this.auth}`
+      },
+      data: {
+        custom_fields_values: lead_custom_fields_values
+      }
+    };
+
+    if (status_id) {
+      lead_options.data.status_id = status_id;
+    }
+
+    if (pipeline_id) {
+      lead_options.data.pipeline_id = pipeline_id;
+    }
+
+    const response = {};
+
+    if (name || email || phone || contact_custom_fields_values.length > 0) {
+      const kommoUtils = new KommoUtils({ contacts_custom_fields: await this.getContactsCustomFields() });
+
+      const contact_options = {
+        method: 'PATCH',
+        url: `${this.url}/api/v4/contacts/${contact_id}`,
+        headers: {
+          'accept': 'application/json',
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${this.auth}`
+        },
+        data: {
+          custom_fields_values: contact_custom_fields_values
+        }
+      };
+
+      if (name) {
+        contact_options.data.name = name;
+      }
+
+      if (email || phone) {
+        if (email) {
+          const emailField = kommoUtils.findContactsFieldByCode('EMAIL') || kommoUtils.findContactsFieldByName('E-mail');
+          contact_options.data.custom_fields_values.push({
+            field_id: emailField.id,
+            values: [
+              {
+                value: email,
+                enum_code: 'WORK'
+              }
+            ]
+          });
+        }
+
+        if (phone) {
+          const phoneField = kommoUtils.findContactsFieldByCode(phoneCode || 'PHONE') || kommoUtils.findContactsFieldByName('Telefone');
+          contact_options.data.custom_fields_values.push({
+            field_id: phoneField.id,
+            values: [
+              {
+                value: kommoUtils.formatPhone(phone),
+                enum_code: 'WORK'
+              }
+            ]
+          });
+        }
+      }
+
+      const { data: contactData } = await axios.request(contact_options);
+      styled.success('[KommoServices.updateLeadComplex] - Contact updated');
+      response.contact = contactData;
+    }
+
+    const { data: leadData } = await axios.request(lead_options);
+    styled.success('[KommoServices.updateLeadComplex] - Lead updated');
+    response.lead = leadData;
+    return response;
+  }
+
+  /**
    * Método para buscar leads com base em uma consulta
    * 
    * @param {object} object

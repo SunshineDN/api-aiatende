@@ -1,7 +1,10 @@
 import DateUtils from "../../../utils/DateUtils.js";
+import KommoUtils from "../../../utils/KommoUtils.js";
+import StaticUtils from "../../../utils/StaticUtils.js";
+import KommoServices from "../../kommo/KommoServices.js";
 import OpenAIServices from "../OpenAIServices.js";
 
-export async function runEspecialistaDados({ resumo_historico, nome = "", bairro = "", data_nascimento = "", email = "", telefone = "" } = {}) {
+export async function runEspecialistaDados({ resumo_historico, nome = "", bairro = "", data_nascimento = "", email = "", telefone = "", lead_id = "" } = {}) {
 
   const dados_importantes = [
     "Nome",
@@ -12,7 +15,7 @@ export async function runEspecialistaDados({ resumo_historico, nome = "", bairro
   ];
 
   const userMessage = `
-Aqui estão meus os dados do cliente:
+Aqui estão meus dados:
 Nome: ${nome}
 Bairro: ${bairro}
 Data de Nascimento: ${data_nascimento}
@@ -43,6 +46,33 @@ Número de Telefone: ${telefone}`;
     userMessage,
     systemMessage: prompt,
   });
+
+  const kommo = new KommoServices({
+    auth: process.env.KOMMO_AUTH,
+    url: process.env.KOMMO_URL
+  });
+  const kommoUtils = new KommoUtils({ contacts_custom_fields: await kommo.getContactsCustomFields(), leads_custom_fields: await kommo.getLeadsCustomFields() });
+
+  const lead_custom_fields = [];
+
+  if (bairro) {
+    const bairroField = kommoUtils.findCustomFieldByName("Bairro");
+    if (bairroField) {
+      lead_custom_fields.push({ field_id: bairroField.id, values: [{ value: bairro }] });
+    }
+  }
+
+  if (data_nascimento) {
+    const dataNascimentoField = kommoUtils.findCustomFieldByName("Data de Nascimento");
+    if (dataNascimentoField) {
+      const validDate = kommoUtils.convertDateToMs(StaticUtils.normalizeDate(data_nascimento));
+      if (validDate) {
+        lead_custom_fields.push({ field_id: dataNascimentoField.id, values: [{ value: validDate }] });
+      }
+    }
+  }
+
+  await kommo.updateLeadComplex({ id: lead_id, name: nome, email, phone: kommoUtils.formatPhone(telefone), phoneCode: 'MOB', lead_custom_fields_values: lead_custom_fields }) 
 
   return {
     sucesso: true,
