@@ -38,43 +38,22 @@ Leads e pacientes que interagem via WhatsApp, chatbot ou CRM nas etapas do funil
 | ID | Descrição |
 |----|-----------|
 | \`#RecepcaoVirtual\` | Primeiro contato ou mensagem genérica. Sem sinais de interesse, dúvidas iniciais, saudações. |
-| \`#Qualificado\` | Demonstra interesse em saber mais sobre a clínica, tratamentos, convênios ou equipe, mas **ainda não manifesta intenção de agendar**. |
-| \`#InformacaoTratamento\` | Solicita informações específicas sobre tratamentos odontológicos como implantes, Invisalign, clareamento etc. |
-| \`#PreAgendamento\` | Deseja agendar consulta, mas **ainda não forneceu dados nem escolheu horário**. Pode estar aguardando opções. |
-| \`#Agendamento\` | Está selecionando ou confirmando data e horário para consulta. |
-| \`#Cadastro\` | Está fornecendo ou disposto a fornecer **dados pessoais** (nome, telefone, nascimento, bairro). |
-| \`#PosAgendamento\` | Consulta já agendada; mensagens de confirmação, lembrete ou validação de endereço. |
-| \`#Reagendamento\` | Deseja remarcar uma consulta agendada ou responde a tentativa de reativação após ausência. |
-| \`#Desmarcar\` | Deseja cancelar ou desmarcar a consulta agendada. |
+| \`#Qualificado\` | Demonstra interesse em saber mais sobre a empresa, produtos, serviços, combos, valores, etc. |
 | \`#Indefinido\` | Mensagem ambígua, vaga ou sem contexto claro. Nenhuma intenção pode ser identificada.
-
-## 🔁 Regras de Progresso do Funil
-
-- A intenção **nunca deve regredir**. Por exemplo:
-  - Se o usuário está escolhendo data, **não pode retornar \`#Qualificado\`**, mesmo que mencione informações da clínica.
-  - Se a mensagem mostra que já houve agendamento, **não pode retornar \`#Agendamento\`**, deve ser \`#PosAgendamento\`.
-- **Exceção única**: Se o lead deseja reagendar (\`#Reagendamento\`), pode retornar apenas a \`#PosAgendamento\` após o reagendamento ser finalizado.
 
 ## 🧠 Regras Inteligentes
 
 - Se a mensagem for apenas um “oi”, “boa tarde”, “posso tirar uma dúvida?”, aplicar \`#RecepcaoVirtual\`.  
 - Se for apenas interesse por tratamentos, valores, equipe ou convênio, aplicar \`#Qualificado\`.  
-- Se a pessoa deseja agendar, mas não forneceu dados nem confirmou horário, aplicar \`#PreAgendamento\`.  
-- Se está confirmando ou decidindo data/hora, aplicar \`#Agendamento\`.  
-- Se está fornecendo nome, telefone, data de nascimento, aplicar \`#Cadastro\`.  
-- Se a consulta já está marcada e está interagindo com lembretes ou confirmando dados, aplicar \`#PosAgendamento\`.  
-- Se quer remarcar (ou respondeu lembrete após faltar), aplicar \`#Reagendamento\`.  
-- Se quer cancelar, aplicar \`#Desmarcar\`.  
-- Se perguntar sobre Invisalign, implantes, clareamento, etc., aplicar \`#InformacaoTratamento\`.  
 - Se não for possível identificar a intenção, aplicar \`#Indefinido\`.
 
 ## ✍️ Estilo de Resposta  
-- Retornar apenas o **ID da intenção**, como \`#Agendamento\`  
+- Retornar apenas o **ID da intenção**, como \`#Qualificado\`  
 - **Nunca** incluir qualquer explicação, frase adicional ou observação.  
 - **Nunca** retornar mais de um ID.
 
 ## 🔒 Restrições  
-- Não retornar etapas anteriores já superadas (exceto regra especial para \`#Reagendamento\`).  
+- Não retornar etapas anteriores já superadas.  
 - Não explicar a intenção.  
 - Retornar exatamente \`#Indefinido\` se nenhuma intenção válida puder ser reconhecida.`;
 
@@ -101,35 +80,7 @@ Leads e pacientes que interagem via WhatsApp, chatbot ou CRM nas etapas do funil
     status = kommoUtils.findStatusByName('qualificado');
     styled.info(`Qualificado - Intenção detectada: ${intent} - Status: ${status.name}`);
 
-  } else if (intent.includes('tratamento')) {
-    status = kommoUtils.findStatusByName('informações do tratamento');
-    styled.info(`Tratamentos - Intenção detectada: ${intent} - Status: ${status.name}`);
-
-  } else if (intent.includes('preagendamento')) {
-    status = kommoUtils.findStatusByName('pré-agendamento');
-    styled.info(`Pré-Agendamento - Intenção detectada: ${intent} - Status: ${status.name}`);
-
-  }else if (intent.includes('cadastro')) {
-    status = kommoUtils.findStatusByName('dados cadastrais');
-    styled.info(`Cadastro - Intenção detectada: ${intent} - Status: ${status.name}`);
-
-  } else if (intent.includes('posagendamento')) {
-    status = kommoUtils.findStatusByCode('pré-agendamento', 142);
-    styled.info(`Pós-Agendamento - Intenção detectada: ${intent} - Status: ${status.name}`);
-
-  } else if (intent.includes('agendamento')) {
-    status = kommoUtils.findStatusByName('pré-agendamento');
-    styled.info(`Agendamento - Intenção detectada: ${intent} - Status: ${status.name}`);
-
-  } else if (intent.includes('reagendamento')) {
-    status = kommoUtils.findStatusByName('reagendamento');
-    styled.info(`Reagendamento - Intenção detectada: ${intent} - Status: ${status.name}`);
-
-  } else if (intent.includes('desmarcar')) {
-    status = kommoUtils.findStatusByName('desmarcado');
-    styled.info(`Desmarcado - Intenção detectada: ${intent} - Status: ${status.name}`);
-
-  } else {
+  }  else {
     status = kommoUtils.findStatusByName('indefinido');
     styled.info(`Indefinido - Intenção detectada: ${intent} - Status: ${status.name}`);
 

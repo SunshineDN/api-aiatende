@@ -2,15 +2,10 @@ import OpenAI from "openai";
 import styled from "../../utils/log/styled.js";
 import ThreadRepository from "../../repositories/ThreadRepository.js";
 import { runEspecialistaDados } from "./tools/runEspecialistaDados.js";
-import { runEspecialistaInvisalign } from "./tools/runEspecialistaInvisalign.js";
-import { runEspecialistaImplantes } from "./tools/runEspecialistaImplantes.js";
 import { runEspecialistaIntencao } from "./tools/runEspecialistaIntencao.js";
-import { runAgendamentoCriar } from "./tools/runAgendamentoCriar.js";
-import { runAgendamentoDeletar } from "./tools/runAgendamentoDeletar.js";
-import { runAgendamentoListarDatas } from "./tools/runAgendamentoListarDatas.js";
-import { runAgendamentoAtualizar } from "./tools/runAgendamentoAtualizar.js";
-import { runAgendamentoVer } from "./tools/runAgendamentoVer.js";
+import { runMostrarFrete } from "./tools/runMostrarFrete.js";
 import OpenAICrmServices from "./OpenAICrmServices.js";
+import { runTransferirAssistente } from "./tools/runTransferirAssistente.js";
 
 export default class OpenAIServices {
   #lead_id;
@@ -367,14 +362,9 @@ export default class OpenAIServices {
   availableTools() {
     return {
       'especialista_dados': runEspecialistaDados,
-      'especialista_invisalign': runEspecialistaInvisalign,
-      'especialista_implantes': runEspecialistaImplantes,
       'especialista_intencao': runEspecialistaIntencao,
-      'agendamento_criar': runAgendamentoCriar,
-      'agendamento_deletar': runAgendamentoDeletar,
-      'agendamento_listar_datas': runAgendamentoListarDatas,
-      'agendamento_atualizar': runAgendamentoAtualizar,
-      'agendamento_ver': runAgendamentoVer,
+      'mostrar_frete': runMostrarFrete,
+      'transferir_assistente': runTransferirAssistente,
     }
   }
 

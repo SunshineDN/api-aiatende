@@ -4,44 +4,54 @@ import StaticUtils from "../../../utils/StaticUtils.js";
 import KommoServices from "../../kommo/KommoServices.js";
 import OpenAIServices from "../OpenAIServices.js";
 
-export async function runEspecialistaDados({ resumo_historico, nome = "", bairro = "", data_nascimento = "", email = "", telefone = "", lead_id = "" } = {}) {
-
-  const dados_importantes = [
+export async function runEspecialistaDados({ resumo_historico = "", nome, telefone, endereco, email = "", cpf = "", tipo_cliente, empresa = "", cnpj = "", inscricao_estadual = "", responsavel = "", lead_id = "" } = {}) {
+  // Definição de dados importantes baseada no tipo de cliente
+  const dados_importantes_base = [
     "Nome",
-    "Bairro",
-    "Data de Nascimento",
-    "Email",
-    "Número de Telefone (Telefone)",
+    "Telefone",
+    "Endereço",
+    "Tipo de Cliente",
+    "Responsável"
   ];
+  let dados_importantes = [...dados_importantes_base];
+  if (tipo_cliente === "pessoa_fisica") {
+    dados_importantes.push("Email", "CPF");
+  } else if (tipo_cliente === "pessoa_juridica") {
+    dados_importantes.push("Empresa", "CNPJ", "Inscrição Estadual");
+  }
 
   const userMessage = `
 Aqui estão meus dados:
 Nome: ${nome}
-Bairro: ${bairro}
-Data de Nascimento: ${data_nascimento}
-Email: ${email}
-Número de Telefone: ${telefone}`;
+Telefone: ${telefone}
+Endereço: ${endereco}
+Tipo de Cliente: ${tipo_cliente}
+${email ? `Email: ${email}` : ""}
+${cpf ? `CPF: ${cpf}` : ""}
+${empresa ? `Empresa: ${empresa}` : ""}
+${cnpj ? `CNPJ: ${cnpj}` : ""}
+${inscricao_estadual ? `Inscrição Estadual: ${inscricao_estadual}` : ""}
+${responsavel ? `Responsável: ${responsavel}` : ""}
+`;
 
   const prompt = `
-  Você é um especialista em dados e precisa analisar as informações fornecidas.
+Você é um especialista em dados e precisa analisar as informações fornecidas.
 
-  Seu objetivo é identificar e verificar se há todos os dados necessários para o atendimento.
-  Você deve analisar as informações do cliente e verificar se estão completas e corretas.
-  Você deve considerar os seguintes dados como importantes:
-  ${dados_importantes.join(", ")}
+Seu objetivo é identificar e verificar se há todos os dados necessários para o atendimento.
+Você deve analisar as informações do cliente e verificar se estão completas e corretas.
+Você deve considerar os seguintes dados como importantes:
+${dados_importantes.join(", ")}
 
-  Resumo Histórico: ${resumo_historico}
-  Responda de forma clara e concisa, destacando os pontos mais importantes.
-  Evite incluir informações irrelevantes ou redundantes.
-  Lembre-se de que a clareza e a precisão são fundamentais na sua análise.
-  Se não houver informações relevantes, responda "Nenhuma informação relevante encontrada".
+Resumo Histórico: ${resumo_historico}
+Responda de forma clara e concisa, destacando os pontos mais importantes.
+Evite incluir informações irrelevantes ou redundantes.
+Lembre-se de que a clareza e a precisão são fundamentais na sua análise.
 
-  System informations:
-  ${DateUtils.getActualDatetimeInformation()}
+System informations:
+${DateUtils.getActualDatetimeInformation()}
   `;
 
   const openai = new OpenAIServices();
-
   const response = await openai.chatCompletion({
     userMessage,
     systemMessage: prompt,
@@ -55,28 +65,62 @@ Número de Telefone: ${telefone}`;
 
   const lead_custom_fields = [];
 
-  if (bairro) {
-    const bairroField = kommoUtils.findCustomFieldByName("Bairro");
-    if (bairroField) {
-      lead_custom_fields.push({ field_id: bairroField.id, values: [{ value: bairro }] });
+  // Mapeamento de campos de acordo com os parâmetros recebidos
+  if (endereco) {
+    const field = kommoUtils.findLeadsFieldByName("Endereço");
+    if (field) {
+      lead_custom_fields.push({ field_id: field.id, values: [{ value: endereco }] });
+    }
+  }
+  if (tipo_cliente) {
+    const field = kommoUtils.findLeadsFieldByName("Tipo de Cliente");
+    if (field) {
+      lead_custom_fields.push({ field_id: field.id, values: [{ value: tipo_cliente }] });
+    }
+  }
+  if (email) {
+    const field = kommoUtils.findLeadsFieldByName("Email");
+    if (field) {
+      lead_custom_fields.push({ field_id: field.id, values: [{ value: email }] });
+    }
+  }
+  if (cpf) {
+    const field = kommoUtils.findLeadsFieldByName("CPF");
+    if (field) {
+      lead_custom_fields.push({ field_id: field.id, values: [{ value: cpf }] });
+    }
+  }
+  if (empresa) {
+    const field = kommoUtils.findLeadsFieldByName("Empresa");
+    if (field) {
+      lead_custom_fields.push({ field_id: field.id, values: [{ value: empresa }] });
+    }
+  }
+  if (cnpj) {
+    const field = kommoUtils.findLeadsFieldByName("CNPJ");
+    if (field) {
+      lead_custom_fields.push({ field_id: field.id, values: [{ value: cnpj }] });
+    }
+  }
+  if (inscricao_estadual) {
+    const field = kommoUtils.findLeadsFieldByName("Inscrição Estadual");
+    if (field) {
+      lead_custom_fields.push({ field_id: field.id, values: [{ value: inscricao_estadual }] });
+    }
+  }
+  if (responsavel) {
+    const field = kommoUtils.findLeadsFieldByName("Responsável");
+    if (field) {
+      lead_custom_fields.push({ field_id: field.id, values: [{ value: responsavel }] });
     }
   }
 
-  if (data_nascimento) {
-    const dataNascimentoField = kommoUtils.findCustomFieldByName("Data de Nascimento");
-    if (dataNascimentoField) {
-      const validDate = kommoUtils.convertDateToMs(StaticUtils.normalizeDate(data_nascimento));
-      if (validDate) {
-        lead_custom_fields.push({ field_id: dataNascimentoField.id, values: [{ value: validDate }] });
-      }
-    }
-  }
-
-  await kommo.updateLeadComplex({ id: lead_id, name: nome, email, phone: kommoUtils.formatPhone(telefone), phoneCode: 'MOB', lead_custom_fields_values: lead_custom_fields }) 
+  // Atualiza lead no Kommo
+  await kommo.updateLeadComplex({ id: lead_id, name: nome, email, phone: kommoUtils.formatPhone(telefone), phoneCode: 'MOB', lead_custom_fields_values: lead_custom_fields });
 
   return {
     sucesso: true,
-    mensagem: "Análise de dados concluída com sucesso.",
+    mensagem: "Coleta de dados concluída com sucesso.",
     dados: response,
   };
 }
