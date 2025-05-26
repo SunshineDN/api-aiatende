@@ -18,7 +18,7 @@ export async function runEspecialistaIntencao({ conversation_summary, lead_id, i
   }
 
   const prompt = `
-# Intenções do lead recebidas pelo sistema: [${intention_history || 'Nenhuma intenção anterior detectada.'}]
+# Intenções do lead recebidas pelo sistema: [${intention_history.join(', ') || 'Nenhuma intenção anterior detectada.'}]
 
 # 🎯 Objetivo  
 Identificar com precisão **em qual estágio atual** do fluxo de atendimento o lead se encontra, com base em uma **mensagem-resumo da conversa completa**, retornando **apenas o ID da intenção**, no formato \`#Intencao\`, para direcionamento automatizado no CRM da Dental Santé.
