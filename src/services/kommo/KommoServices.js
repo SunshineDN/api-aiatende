@@ -122,12 +122,13 @@ export default class KommoServices {
    * 
    * @param {object} objeto de atualização do lead
    * @param {string} objeto.id ID do lead
-   * @param {string} objeto.status_id ID do status
-   * @param {string} objeto.pipeline_id ID do pipeline
-   * @param {array} objeto.custom_fields_values Campos customizados do lead
+   * @param {string} [objeto.status_id] ID do status
+   * @param {string} [objeto.pipeline_id] ID do pipeline
+   * @param {number} [objeto.responsible_user_id] ID do usuário responsável pelo lead
+   * @param {array} [objeto.custom_fields_values] Campos customizados do lead
    * @returns {Promise<object>} Retorna o lead atualizado
    */
-  async updateLead({ id, status_id = '', pipeline_id = '', custom_fields_values = [] } = {}) {
+  async updateLead({ id, status_id = '', pipeline_id = '', responsible_user_id = 0, custom_fields_values = [] } = {}) {
     if (!id) {
       throw new Error('Lead ID is required');
     }
@@ -153,6 +154,10 @@ export default class KommoServices {
 
     if (pipeline_id) {
       options.data.pipeline_id = pipeline_id;
+    }
+
+    if (responsible_user_id) {
+      options.data.responsible_user_id = responsible_user_id;
     }
 
     if (custom_fields_values.length) {
@@ -472,6 +477,67 @@ export default class KommoServices {
 
     const { data: { _embedded: { pipelines } } } = await axios.request(options);
     return pipelines;
+  }
+
+  /**
+   * Método para buscar os usuários
+   * @returns {Promise<object[]>} Retorna os dados dos usuários
+   */
+  async getUsers() {
+    const options = {
+      method: 'GET',
+      url: `${this.url}/api/v4/users`,
+      headers: {
+        'accept': 'application/json',
+        'Authorization': `Bearer ${this.auth}`
+      }
+    }
+    const { data: { _embedded: { users } } } = await axios.request(options);
+    styled.success('[KommoServices.getUsers] - Users fetched');
+    return users;
+  }
+
+  /**
+   * Método para criar uma tarefa em um lead
+   * @param {object} objeto de criação da tarefa
+   * @param {number} objeto.lead_id ID do lead
+   * @param {string} objeto.text Texto da tarefa
+   * @param {number} [objeto.responsible_user_id] ID do usuário responsável pela tarefa
+   * @param {number} [objeto.complete_till] Data de conclusão da tarefa em segundos (Unix timestamp)
+   * @param {number} [objeto.task_type_id] ID do tipo de tarefa (padrão é 1)
+   * @returns {Promise<object>} Retorna a tarefa criada
+   */
+  async createTaskInLead({ lead_id, text, responsible_user_id = 0, complete_till = 0, task_type_id = 1 }) {
+    const options = {
+      method: 'POST',
+      url: `${this.url}/api/v4/tasks`,
+      headers: {
+        'accept': 'application/json',
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${this.auth}`
+      },
+      data: [
+        {
+          entity_type: 'leads',
+          entity_id: lead_id,
+          text,
+          task_type_id,
+          ...(responsible_user_id && { responsible_user_id }),
+        }
+      ]
+    };
+
+    if (complete_till) {
+      options.data[0].complete_till = complete_till;
+    } else {
+      const now = new Date();
+      const nowInSeconds = Math.floor(now.getTime() / 1000);
+      options.data[0].complete_till = nowInSeconds + 600 // 10 minutos a partir de agora
+    }
+
+    const { data } = await axios.request(options);
+    styled.success('[KommoServices.createTaskInLead] - Task created in lead');
+    return { code: 201, response: data };
   }
 
   /**

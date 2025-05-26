@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 
 export default class KommoUtils {
-  constructor({ leads_custom_fields = [], contacts_custom_fields = [], pipelines = [] } = {}) {
+  constructor({ leads_custom_fields = [], contacts_custom_fields = [], pipelines = [], users = [] } = {}) {
     this.leads_custom_fields = leads_custom_fields;
     this.contacts_custom_fields = contacts_custom_fields;
     this.pipelines = pipelines;
@@ -39,6 +39,25 @@ export default class KommoUtils {
 
   findContactsFieldByCode(code) {
     return this.contacts_custom_fields.filter(field => field.code === code)[0] || null;
+  }
+
+  /**
+   * Encontra um usuário pelo nome.
+   * @param {string} name - Nome do usuário a ser encontrado.
+   * @return {object|null} Retorna o usuário encontrado ou null se não houver correspondência.
+   */
+  findUserByName(name) {
+    name = name.toLowerCase().trim();
+    return this.users.filter(user => user.name.toLowerCase().trim() === name)[0] || null;
+  }
+
+  /**
+   * Encontra um usuário pelo ID.
+   * @param {number} id - ID do usuário a ser encontrado.
+   * @return {object|null} Retorna o usuário encontrado ou null se não houver correspondência.
+   */
+  findUserById(id) {
+    return this.users.filter(user => user.id === Number(id))[0] || null;
   }
 
   convertDateToMs(dateString = '') {
