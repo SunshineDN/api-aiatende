@@ -109,17 +109,17 @@ Leads e pacientes que interagem via WhatsApp, chatbot ou CRM nas etapas do funil
     status = kommoUtils.findStatusByName('pré-agendamento');
     styled.info(`Pré-Agendamento - Intenção detectada: ${intent} - Status: ${status.name}`);
 
-  } else if (intent.includes('agendamento')) {
-    status = kommoUtils.findStatusByName('pré-agendamento');
-    styled.info(`Agendamento - Intenção detectada: ${intent} - Status: ${status.name}`);
-
-  } else if (intent.includes('cadastro')) {
+  }else if (intent.includes('cadastro')) {
     status = kommoUtils.findStatusByName('dados cadastrais');
     styled.info(`Cadastro - Intenção detectada: ${intent} - Status: ${status.name}`);
 
   } else if (intent.includes('posagendamento')) {
     status = kommoUtils.findStatusByCode('pré-agendamento', 142);
     styled.info(`Pós-Agendamento - Intenção detectada: ${intent} - Status: ${status.name}`);
+
+  } else if (intent.includes('agendamento')) {
+    status = kommoUtils.findStatusByName('pré-agendamento');
+    styled.info(`Agendamento - Intenção detectada: ${intent} - Status: ${status.name}`);
 
   } else if (intent.includes('reagendamento')) {
     status = kommoUtils.findStatusByName('reagendamento');
