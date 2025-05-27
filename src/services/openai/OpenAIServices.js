@@ -221,34 +221,17 @@ export default class OpenAIServices {
     let run_id;
 
     if (!runIsActive) {
-      // await this.openai.beta.threads.messages.create(thread.thread_id, {
-      //   role: "user",
-      //   content: sanitizedText,
-      // });
-
-      // const run = await this.openai.beta.threads.runs.create(thread.thread_id, {
-      //   assistant_id,
-      //   ...(additional_instructions && { additional_instructions }),
-      //   ...(instructions && { instructions }),
-      // });
-
-      // await repo.updateRun({ assistant_id, run_id: run.id });
-
-      // styled.info(`[OpenAIServices.handleCreateRun] Lead ID: ${this.#lead_id} - Run criado: ${run.id}`);
-      // thread_id = run.thread_id;
-      // run_id = run.id;
-
       const run = await this.openai.beta.threads.runs.create(thread.thread_id, {
         assistant_id,
         metadata: {
           lead_id: this.#lead_id.toString(),
         },
-        tool_choice: {
-          type: "function",
-          function: {
-            name: "especialista_intencao",
-          }
-        },
+        // tool_choice: {
+        //   type: "function",
+        //   function: {
+        //     name: "especialista_intencao",
+        //   }
+        // },
         ...(additional_instructions && { additional_instructions }),
         ...(instructions && { instructions }),
         ...(sanitizedText && { additional_messages: [{ role: "user", content: sanitizedText }] }),
