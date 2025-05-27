@@ -344,13 +344,13 @@ export default class KommoServices {
         }
 
         if (phone) {
-          const phoneField = kommoUtils.findContactsFieldByCode(phoneCode || 'PHONE') || kommoUtils.findContactsFieldByName('Telefone');
+          const phoneField = kommoUtils.findContactsFieldByCode("PHONE") || kommoUtils.findContactsFieldByName('Telefone');
           contact_options.data.custom_fields_values.push({
             field_id: phoneField.id,
             values: [
               {
                 value: kommoUtils.formatPhone(phone),
-                enum_code: 'WORK'
+                enum_code: phoneCode || 'WORK'
               }
             ]
           });

@@ -72,7 +72,14 @@ Número de Telefone: ${telefone}`;
     }
   }
 
-  await kommo.updateLeadComplex({ id: lead_id, name: nome, email, lead_custom_fields_values: lead_custom_fields }) 
+  await kommo.updateLeadComplex({
+    id: lead_id,
+    name: nome,
+    email,
+    phone: kommoUtils.formatPhone(telefone),
+    phoneCode: 'MOB',
+    lead_custom_fields_values: lead_custom_fields
+  });
 
   return {
     sucesso: true,
