@@ -183,18 +183,12 @@ async function main() {
   // const repo = new ThreadRepository({ lead_id: 24410353 });
   // await repo.deleteThread({ assistant_id: "asst_epSsBL4xTTSse7v2yqk9E4IA" })
 
-  const kommo = new KommoServices({
-    auth: process.env.KOMMO_AUTH,
-    url: process.env.KOMMO_URL
-  });
-  const lead_id = 24410353;
-  const kommoUtils = new KommoUtils({
-    contacts_custom_fields: await kommo.getContactsCustomFields(),
-    leads_custom_fields: await kommo.getLeadsCustomFields()
-  });
-  const phoneField = kommoUtils.findContactsFieldByCode("PHONE");
-  styled.info("Campo de telefone encontrado");
-  styled.infodir(phoneField);
+  const date = new Date("a");
+  if (date instanceof Date && !isNaN(date)) {
+    styled.info("Data válida:", DateUtils.formatDate(date));
+  } else {
+    styled.error("Data inválida: A data fornecida não é válida.");
+  }
 }
 
 main();
