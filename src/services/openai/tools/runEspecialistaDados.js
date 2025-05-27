@@ -56,14 +56,14 @@ Número de Telefone: ${telefone}`;
   const lead_custom_fields = [];
 
   if (bairro) {
-    const bairroField = kommoUtils.findCustomFieldByName("Bairro");
+    const bairroField = kommoUtils.findLeadsFieldByName("Bairro");
     if (bairroField) {
       lead_custom_fields.push({ field_id: bairroField.id, values: [{ value: bairro }] });
     }
   }
 
   if (data_nascimento) {
-    const dataNascimentoField = kommoUtils.findCustomFieldByName("Data de Nascimento");
+    const dataNascimentoField = kommoUtils.findLeadsFieldByName("Data de Nascimento");
     if (dataNascimentoField) {
       const validDate = kommoUtils.convertDateToMs(StaticUtils.normalizeDate(data_nascimento));
       if (validDate) {
