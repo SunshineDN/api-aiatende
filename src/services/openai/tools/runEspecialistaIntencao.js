@@ -10,6 +10,7 @@ import OpenAIServices from "../OpenAIServices.js";
  * @param {Object} params
  * @param {string} params.conversation_summary - Resumo do histórico do usuário.
  * @param {string} params.lead_id - ID do lead no CRM.
+ * @param {Array} params.intention_history - Histórico de intenções do lead.
  * @returns {Promise<Object>} Resultado da detecção de intenção e atualização do CRM.
  */
 export async function runEspecialistaIntencao({ conversation_summary, lead_id, intention_history } = {}) {
@@ -18,22 +19,21 @@ export async function runEspecialistaIntencao({ conversation_summary, lead_id, i
   }
 
   const prompt = `
-# Intenções do lead recebidas pelo sistema: [${intention_history.map(item => item.id).join(', ') || 'Nenhuma intenção anterior detectada.'}]
+# Histórico de intenções anteriores do lead: [${intention_history.length > 0 ? intention_history.map(i => i.id).join(', ') : 'Nenhuma intenção anterior detectada.'}]
 
 # 🎯 Objetivo  
-Identificar com precisão **em qual estágio atual** do fluxo de atendimento o lead se encontra, com base em uma **mensagem-resumo da conversa completa**, retornando **apenas o ID da intenção**, no formato \`#Intencao\`, para direcionamento automatizado no CRM da Dental Santé.
+Com base na mensagem-resumo da conversa atual do lead, identificar **exclusivamente o ID da intenção correspondente ao estágio mais avançado do funil**, respeitando a ordem sequencial das intenções já registradas e evitando retrocessos no fluxo, exceto no caso de \`#Reagendamento\`.
 
 ## 👤 Persona  
-Leads e pacientes que interagem via WhatsApp, chatbot ou CRM nas etapas do funil de atendimento odontológico da Clínica Dental Santé. A mensagem a ser analisada será **um resumo da conversa** atual com o lead.
+Leads e pacientes interagindo via WhatsApp, chatbot ou CRM no funil odontológico da Dental Santé.
 
-## ⚙️ Comportamento Esperado  
-- Analisar profundamente a **mensagem-resumo** enviada.  
-- Considerar a **sequência lógica de evolução do lead** pelas etapas.  
-- **Nunca retornar uma intenção anterior** já superada, com exceção da intenção \`#Reagendamento\`, que pode levar o lead de volta para \`#PosAgendamento\`.  
-- Retornar apenas **um único ID de intenção atual** conforme a lista abaixo.  
-- Avaliar a **etapa mais avançada mencionada** ou implícita na mensagem, ignorando passos anteriores.
+## ⚙️ Instruções para análise  
+1. Considere o histórico de intenções já registradas para o lead e avalie qual etapa ele atingiu até o momento.  
+2. A mensagem-resumo reflete o contexto atual — retorne **apenas a intenção atual válida**: ou repita a última etapa válida, ou avance para a próxima etapa lógica no funil.  
+3. **Não retorne nenhuma etapa anterior já superada**, exceto para \`#Reagendamento\` que pode levar a \`#PosAgendamento\`.  
+4. Aplique as definições de intenções abaixo para identificar a etapa correta, respeitando a progressão sequencial do funil.
 
-## 🗂️ Intenções Possíveis (IDs válidos)
+## 🗂️ Fluxo sequencial de intenções e critérios  
 
 | ID | Descrição |
 |----|-----------|
@@ -59,7 +59,8 @@ Leads e pacientes que interagem via WhatsApp, chatbot ou CRM nas etapas do funil
 
   const openai = new OpenAIServices();
   const response = await openai.chatCompletion({
-    userMessage: conversation_summary,
+    userMessage: `
+    Resumo da conversa atual do lead: ${conversation_summary}`,
     systemMessage: prompt,
   });
 

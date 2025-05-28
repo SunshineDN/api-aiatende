@@ -22,6 +22,7 @@ import CalendarServices from "./src/services/calendar/CalendarServices.js";
 import { runEspecialistaDados } from "./src/services/openai/tools/runEspecialistaDados.js";
 import ThreadRepository from "./src/repositories/ThreadRepository.js";
 import DateUtils from "./src/utils/DateUtils.js";
+import KommoUtils from "./src/utils/KommoUtils.js";
 
 async function main() {
   // const openaiIntegration = new OpenaiIntegrationServices({
@@ -182,10 +183,12 @@ async function main() {
   // const repo = new ThreadRepository({ lead_id: 24410353 });
   // await repo.deleteThread({ assistant_id: "asst_epSsBL4xTTSse7v2yqk9E4IA" })
 
-  // const args = "{\"conversation_summary\":\"Usuário demonstrou interesse específico no tratamento Invisalign e pediu uma explicação sobre o que é.\",\"lead_id\":\"24410353\",\"intention_history\":[{\"id\":\"#RecepcaoVirtual\"},{\"id\":\"#Cadastro\"},{\"id\":\"#Qualificado\"}]}"
-  // const args2 = JSON.parse(args);
-  // const itention = args2.intention_history.map(item => item.id).join(", ");
-  // styled.info("Intenção histórica:", itention);
+  const date = new Date("a");
+  if (date instanceof Date && !isNaN(date)) {
+    styled.info("Data válida:", DateUtils.formatDate(date));
+  } else {
+    styled.error("Data inválida: A data fornecida não é válida.");
+  }
 }
 
 main();

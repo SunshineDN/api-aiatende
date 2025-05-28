@@ -136,11 +136,23 @@ export default class CalendarServices {
    */
   async getChoiceDateTime(date, time) {
     const formattedDate = dayjs(date, "DD/MM/YYYY").format("DD/MM/YYYY");
-    styled.info("Formatted date:", formattedDate);
 
-    // Verificar se a data escolhida está disponível
-    const availableOptions = await this.getAvailableOptions();
-    return availableOptions.filter(option => option.startsWith(formattedDate) && option.endsWith(time));
+    let availableOptions;
+    if (formattedDate instanceof Date && !isNaN(date) && time) {
+      styled.info("Data válida:", formattedDate);
+
+      // Verificar se a data escolhida está disponível
+      availableOptions = await this.getAvailableOptions();
+      return availableOptions.filter(option => option.startsWith(formattedDate) && option.endsWith(time));
+    } else if (formattedDate instanceof Date && !isNaN(date)) {
+
+      availableOptions = await this.getAvailableOptions();
+      return availableOptions.filter(option => option.startsWith(formattedDate));
+    } else {
+      
+      availableOptions = await this.getAvailableOptions();
+      return availableOptions;
+    }
   }
 
   /**
