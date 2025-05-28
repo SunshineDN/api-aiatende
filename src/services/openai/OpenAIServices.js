@@ -23,7 +23,7 @@ export default class OpenAIServices {
   constructor({ lead_id = null } = {}) {
     this.#lead_id = lead_id;
     this.openai = new OpenAI(process.env.OPENAI_API_KEY);
-    this.assistant_name = process.env.ASSISTANT_NAME ? `Atendente ${process.env.ASSISTANT_NAME}` : "Atendente";
+    this.assistant_name = process.env.OPENAI_ASSISTANT_NAME ? `Atendente ${process.env.OPENAI_ASSISTANT_NAME}` : "Atendente";
   }
 
   /**
@@ -164,12 +164,15 @@ export default class OpenAIServices {
     const repo = new ThreadRepository({ lead_id: this.#lead_id });
     let thread = await repo.findThread({ assistant_id });
 
+    const vector_store_id = process.env.OPENAI_VECTOR_STORE_ID;
+
     if (!thread) {
       styled.db("Thread não encontrada. Criando nova thread...");
       const newThread = await this.openai.beta.threads.create({
         metadata: {
           lead_id: this.#lead_id.toString(),
-        }
+        },
+        ...(vector_store_id && { tool_resources: { file_search: { vector_store_ids: [vector_store_id] } } }),
       });
       thread = await repo.createThread({ thread_id: newThread.id, assistant_id });
     }
@@ -226,12 +229,12 @@ export default class OpenAIServices {
         metadata: {
           lead_id: this.#lead_id.toString(),
         },
-        // tool_choice: {
-        //   type: "function",
-        //   function: {
-        //     name: "especialista_intencao",
-        //   }
-        // },
+        tool_choice: {
+          type: "function",
+          function: {
+            name: "especialista_intencao",
+          }
+        },
         ...(additional_instructions && { additional_instructions }),
         ...(instructions && { instructions }),
         ...(sanitizedText && { additional_messages: [{ role: "user", content: sanitizedText }] }),
