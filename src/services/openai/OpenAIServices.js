@@ -188,9 +188,9 @@ export default class OpenAIServices {
     if (threads.run_id) {
       const run = await this.openai.beta.threads.runs.retrieve(threads.thread_id, threads.run_id);
       styled.info(`[OpenAIServices.verifyRunIsActive] Lead ID: ${this.#lead_id} - Verificando run ativo...`);
-      styled.infodir(run);
       if (run.status === "running" || run.status === "requires_action") {
         styled.info(`[OpenAIServices.verifyRunIsActive] Lead ID: ${this.#lead_id} - Run ativo.`);
+        styled.infodir(run);
         return true;
       } else {
         styled.warning(`[OpenAIServices.verifyRunIsActive] Lead ID: ${this.#lead_id} - Run não está ativo.`);
@@ -234,6 +234,7 @@ export default class OpenAIServices {
         ...(instructions && { instructions }),
         ...(sanitizedText && { additional_messages: [{ role: "user", content: sanitizedText }] }),
       });
+      styled.infodir(run);
       run_id = run.id;
       await repo.updateRun({ assistant_id, run_id });
       styled.info(`[OpenAIServices.handleCreateRun] Lead ID: ${this.#lead_id} - Run criado: ${run.id}`);
