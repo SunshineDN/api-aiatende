@@ -23,6 +23,7 @@ import { runEspecialistaDados } from "./src/services/openai/tools/runEspecialist
 import ThreadRepository from "./src/repositories/ThreadRepository.js";
 import DateUtils from "./src/utils/DateUtils.js";
 import KommoUtils from "./src/utils/KommoUtils.js";
+import OpenAI from "openai";
 
 async function main() {
   // const openaiIntegration = new OpenaiIntegrationServices({
@@ -183,12 +184,17 @@ async function main() {
   // const repo = new ThreadRepository({ lead_id: 24410353 });
   // await repo.deleteThread({ assistant_id: "asst_epSsBL4xTTSse7v2yqk9E4IA" })
 
-  const date = new Date("a");
-  if (date instanceof Date && !isNaN(date)) {
-    styled.info("Data válida:", DateUtils.formatDate(date));
-  } else {
-    styled.error("Data inválida: A data fornecida não é válida.");
-  }
+  // const date = new Date("a");
+  // if (date instanceof Date && !isNaN(date)) {
+  //   styled.info("Data válida:", DateUtils.formatDate(date));
+  // } else {
+  //   styled.error("Data inválida: A data fornecida não é válida.");
+  // }
+
+  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  const assistant_id = atob(process.env.OPENAI_ASSISTANT_ID)
+  const assistant = await openai.beta.assistants.retrieve(assistant_id);
+  styled.infodir(assistant);
 }
 
 main();

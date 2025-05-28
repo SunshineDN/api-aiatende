@@ -168,12 +168,7 @@ export default class OpenAIServices {
 
     if (!thread) {
       styled.db("Thread não encontrada. Criando nova thread...");
-      const newThread = await this.openai.beta.threads.create({
-        metadata: {
-          lead_id: this.#lead_id.toString(),
-        },
-        ...(vector_store_id && { tool_resources: { file_search: { vector_store_ids: [vector_store_id] } } }),
-      });
+      const newThread = await this.openai.beta.threads.create();
       thread = await repo.createThread({ thread_id: newThread.id, assistant_id });
     }
 
