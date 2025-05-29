@@ -1,8 +1,6 @@
 node_modules
-.env
-.env.caa
-.env.aiatende
-.env.dentalsante
+.env*
+!.env.example
 *data
 *service_account*.json
 backup_docker_logs.sh

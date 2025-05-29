@@ -191,10 +191,7 @@ async function main() {
   //   styled.error("Data inválida: A data fornecida não é válida.");
   // }
 
-  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-  const assistant_id = atob(process.env.OPENAI_ASSISTANT_ID)
-  const assistant = await openai.beta.assistants.retrieve(assistant_id);
-  styled.infodir(assistant);
+  const openai = new OpenAIServices({ lead_id: 24410353 });
 }
 
 main();
