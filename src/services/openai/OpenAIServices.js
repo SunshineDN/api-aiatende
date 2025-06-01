@@ -392,4 +392,28 @@ export default class OpenAIServices {
       throw new Error(error);
     }
   }
+
+  async getThreadMessages({ thread_id }) {
+    const response = await this.openai.beta.threads.messages.list(thread_id);
+    if (response.data && response.data.length > 0) {
+      return response.data.map(message => ({
+        role: message.role,
+        content: message.content.map(content => {
+          if (content.type === "text") {
+            return content.text.value;
+          } else if (content.type === "file") {
+            return {
+              type: "file",
+              file_id: content.file.id,
+              file_name: content.file.name,
+              file_url: content.file.url
+            };
+          } else {
+            return content;
+          }
+        })[0] || null
+      }));
+    }
+    return;
+  }
 }

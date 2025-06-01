@@ -1,5 +1,6 @@
 import { CalendarUtils } from "../../../utils/calendar/CalendarUtils.js";
 import CalendarServices from "../../calendar/CalendarServices.js";
+import OpenAICrmServices from "../OpenAICrmServices.js";
 
 /**
  * Função para deletar um agendamento
@@ -8,10 +9,14 @@ import CalendarServices from "../../calendar/CalendarServices.js";
  * @param {string} params.especialista - ID do especialista
  * @return {Promise<Object>} Resultado da operação
  */
-export async function runAgendamentoDeletar({ agendamento_id, especialista }) {
+export async function runAgendamentoDeletar({ agendamento_id, especialista, lead_id }) {
   const calendar_id = CalendarUtils.idValidate(especialista);
   const calendar = new CalendarServices(calendar_id);
   const response = await calendar.deleteEvent(agendamento_id);
+
+  const openaiCrm = new OpenAICrmServices({ lead_id });
+  await openaiCrm.emptyAppointmentDate();
+
   return {
     sucesso: true,
     mensagem: "Agendamento deletado com sucesso.",

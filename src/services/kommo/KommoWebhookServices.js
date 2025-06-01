@@ -16,28 +16,9 @@ export default class KommoWebhookServices extends KommoServices {
 
     const lead = await this.getLead({ id });
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields() });
-    const calendario = LeadUtils.findLeadField({ lead, fieldName: 'Calendário', value: true });
     const criacao = LeadUtils.findLeadField({ lead, fieldName: 'Data de Criação', value: true });
 
     const custom_fields_values = [];
-
-    if (calendar) {
-      if (!calendario) {
-        const calendarField = kommoUtils.findLeadsFieldByName('Calendário');
-        const calendarLink = StaticUtils.calendarLink(id);
-
-        custom_fields_values.push({
-          field_id: calendarField.id,
-          values: [
-            {
-              value: calendarLink
-            }
-          ]
-        });
-      } else {
-        styled.warning('[KommoWebhookServices.createLead] - Calendário já existe no Lead');
-      }
-    }
 
     if (created_at) {
       if (!criacao) {

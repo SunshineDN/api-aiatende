@@ -1,5 +1,6 @@
 import { CalendarUtils } from "../../../utils/calendar/CalendarUtils.js";
 import CalendarServices from "../../calendar/CalendarServices.js";
+import OpenAICrmServices from "../OpenAICrmServices.js";
 
 /**
  * Tool/função para atualizar um agendamento no Google Calendar.
@@ -12,7 +13,7 @@ import CalendarServices from "../../calendar/CalendarServices.js";
  * @param {string} params.descricao - Descrição do evento.
  * @returns {Promise<Object>} Resultado da atualização do agendamento.
  */
-export async function runAgendamentoAtualizar({ id_agendamento, nova_data, especialista, titulo, descricao }) {
+export async function runAgendamentoAtualizar({ id_agendamento, nova_data, especialista, titulo, descricao, lead_id }) {
   const calendar_id = CalendarUtils.idValidate(especialista);
   const calendar = new CalendarServices(calendar_id);
   const startDate = new Date(nova_data);
@@ -23,6 +24,12 @@ export async function runAgendamentoAtualizar({ id_agendamento, nova_data, espec
     summary: titulo,
     start: startDate,
     end: endDate,
+    description: descricao,
+  });
+
+  const openaiCrm = new OpenAICrmServices({ lead_id });
+  await openaiCrm.updateAppointmentDate({
+    date: response.start.dateTime || nova_data,
     description: descricao,
   });
 

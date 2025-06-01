@@ -60,6 +60,136 @@ export default class OpenAICrmServices {
     return;
   }
 
+  async setAppointmentDate({ date, htmlLink, event_id, description }) {
+
+    const to_date = new Date(date);
+    const date_in_seconds = DateUtils.dateToSeconds(to_date);
+
+    const kommoUtils = new KommoUtils({ leads_custom_fields: await this.#kommo.getLeadsCustomFields() });
+
+    const lastAppointmentField = kommoUtils.findLeadsFieldByName("Último compromisso");
+    const actualAppointmentField = kommoUtils.findLeadsFieldByName("Data do Compromisso");
+    const eventLinkField = kommoUtils.findLeadsFieldByName("Link do Evento");
+    const eventIdField = kommoUtils.findLeadsFieldByName("ID do Evento");
+    const appointmentReasonField = kommoUtils.findLeadsFieldByName("Motivo do Compromisso");
+
+    const lead = await this.getLead();
+
+    const leadLastAppointmentField = LeadUtils.findLeadField({ lead, fieldName: "Último compromisso", value: true });
+    const leadActualAppointmentField = LeadUtils.findLeadField({ lead, fieldName: "Data do Compromisso", value: true });
+
+    const custom_fields_values = [];
+
+    if (!leadLastAppointmentField) {
+      custom_fields_values.push({
+        field_id: lastAppointmentField.id,
+        values: [{ value: date_in_seconds }],
+      });
+    } else {
+      custom_fields_values.push({
+        field_id: lastAppointmentField.id,
+        values: [{ value: leadActualAppointmentField }],
+      });
+    }
+
+    if (date_in_seconds && actualAppointmentField) {
+      custom_fields_values.push({
+        field_id: actualAppointmentField.id,
+        values: [{ value: date_in_seconds }],
+      });
+    }
+
+    if (htmlLink && eventLinkField) {
+      custom_fields_values.push({
+        field_id: eventLinkField.id,
+        values: [{ value: htmlLink }],
+      });
+    }
+
+    if (event_id && eventIdField) {
+      custom_fields_values.push({
+        field_id: eventIdField.id,
+        values: [{ value: event_id }],
+      });
+    }
+
+    if (description && appointmentReasonField) {
+      custom_fields_values.push({
+        field_id: appointmentReasonField.id,
+        values: [{ value: description }],
+      });
+    }
+
+    await this.#kommo.updateLead({ id: this.#lead_id, custom_fields_values });
+    styled.success(`[OpenAICrmServices.setAppointmentDate] - Data do compromisso atualizada com sucesso!`);
+    return;
+  }
+
+  async emptyAppointmentDate() {
+    const kommoUtils = new KommoUtils({ leads_custom_fields: await this.#kommo.getLeadsCustomFields() });
+
+    const actualAppointmentField = kommoUtils.findLeadsFieldByName("Data do Compromisso");
+    const eventLinkField = kommoUtils.findLeadsFieldByName("Link do Evento");
+    const eventIdField = kommoUtils.findLeadsFieldByName("ID do Evento");
+
+    const custom_fields_values = [];
+
+    if (actualAppointmentField) {
+      custom_fields_values.push({
+        field_id: actualAppointmentField.id,
+        values: [{ value: "" }],
+      });
+    }
+
+    if (eventLinkField) {
+      custom_fields_values.push({
+        field_id: eventLinkField.id,
+        values: [{ value: "" }],
+      });
+    }
+
+    if (eventIdField) {
+      custom_fields_values.push({
+        field_id: eventIdField.id,
+        values: [{ value: "" }],
+      });
+    }
+
+    await this.#kommo.updateLead({ id: this.#lead_id, custom_fields_values });
+    styled.success(`[OpenAICrmServices.emptyAppointmentDate] - Data do compromisso esvaziada com sucesso!`);
+    return;
+  }
+
+  async updateAppointmentDate({ date, description }) {
+    const to_date = new Date(date);
+    const date_in_seconds = DateUtils.dateToSeconds(to_date);
+
+    const kommoUtils = new KommoUtils({ leads_custom_fields: await this.#kommo.getLeadsCustomFields() });
+
+    const actualAppointmentField = kommoUtils.findLeadsFieldByName("Data do Compromisso");
+    const appointmentReasonField = kommoUtils.findLeadsFieldByName("Motivo do Compromisso");
+
+    const custom_fields_values = [];
+
+    if (date_in_seconds && actualAppointmentField) {
+      custom_fields_values.push({
+        field_id: actualAppointmentField.id,
+        values: [{ value: date_in_seconds }],
+      });
+    }
+
+    if (description && appointmentReasonField) {
+      custom_fields_values.push({
+        field_id: appointmentReasonField.id,
+        values: [{ value: description }],
+      });
+    }
+
+    await this.#kommo.updateLead({ id: this.#lead_id, custom_fields_values });
+    styled.success(`[OpenAICrmServices.updateAppointmentDate] - Data do compromisso atualizada com sucesso!`);
+    return;
+  }
+
   async sendMessageToLead({ message }) {
     const leadMessageRepo = new LeadMessagesRepository();
     const send_message = await leadMessageRepo.setBoolSendMessage(this.#lead_id);

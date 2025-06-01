@@ -19,7 +19,7 @@ export async function runEspecialistaIntencao({ conversation_messages, lead_id, 
   }
 
   const prompt = `
-Você é um especialista em análise de fluxo de atendimento virtual. Sua tarefa é ler e analisar o histórico de conversa entre um usuário e uma assistente virtual. A partir desse histórico, identifique em qual etapa do fluxo de atendimento o usuário se encontra.
+Você é um especialista em análise de fluxo de atendimento virtual. Sua tarefa é ler e analisar o histórico de conversa entre um usuário e uma assistente virtual. A partir desse histórico, identifique em qual etapa do fluxo de atendimento o usuário se encontra. 
 
 O fluxo é estruturado como um funil sequencial, ou seja, as etapas não voltam, apenas descem. Existem oito etapas principais, além de duas ramificações que podem ocorrer entre as etapas 7 e 8. O histórico pode conter mensagens do usuário e da assistente.
 
@@ -37,8 +37,10 @@ Você também receberá um campo adicional chamado: **ETAPAS_CONCLUIDAS**, que �
 8 - Confirmação (2 etapa): O usuário confirmou a segunda etapa da vinda (geralmente 3h antes).
 
 # ⚠️ Ramificações possíveis **apenas após a etapa 6**:  
-- Reagendamento: O usuário deseja reagendar. Ele permanece nesta etapa até confirmar novo agendamento.  
-- Desmarcado: O usuário expressa claramente que deseja cancelar ou desmarcar o agendamento.
+- Reagendamento: O usuário deseja reagendar. Ele permanece nesta etapa até confirmar um novo agendamento.  
+- Desmarcado: O usuário expressa claramente que deseja cancelar ou desmarcar o agendamento.  
+
+⚠️ Importante: Após entrar nas etapas "Reagendamento" ou "Desmarcado", o usuário **só pode avançar para "Agendado"** caso um novo agendamento tenha sido claramente realizado. Do contrário, permanece em "Reagendamento" ou "Desmarcado".
 
 # ⚠️ Situações fora do fluxo direto:  
 - Fora do fluxo: O usuário interrompe o fluxo com uma pergunta geral, interesse em outros serviços, mudança de assunto ou tentativa de alteração de dados/datas já fornecidos. Nessa situação, o usuário não avança nem retrocede no fluxo principal.
@@ -124,7 +126,7 @@ Você também receberá um campo adicional chamado: **ETAPAS_CONCLUIDAS**, que �
       updateLead: update
     };
   };
-  
+
   return {
     sucesso: true,
     intencaoDetectada: response,

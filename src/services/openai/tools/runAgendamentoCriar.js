@@ -1,5 +1,6 @@
 import { CalendarUtils } from "../../../utils/calendar/CalendarUtils.js";
 import CalendarServices from "../../calendar/CalendarServices.js";
+import OpenAICrmServices from "../OpenAICrmServices.js";
 
 /**
  * Tool/função para criar um agendamento no Google Calendar.
@@ -7,7 +8,7 @@ import CalendarServices from "../../calendar/CalendarServices.js";
  * @param {Object} params
  * 
  */
-export async function runAgendamentoCriar({ data_hora, especialista, titulo, motivo }) {
+export async function runAgendamentoCriar({ data_hora, especialista, titulo, motivo, lead_id }) {
   const calendar_id = CalendarUtils.idValidate(especialista);
   const calendar = new CalendarServices(calendar_id);
   const startDate = new Date(data_hora);
@@ -18,6 +19,15 @@ export async function runAgendamentoCriar({ data_hora, especialista, titulo, mot
     end: endDate,
     description: motivo,
   });
+
+  const openaiCrm = new OpenAICrmServices({ lead_id });
+  await openaiCrm.setAppointmentDate({
+    date: response.start.dateTime || data_hora,
+    htmlLink: response.htmlLink,
+    event_id: response.id,
+    description: motivo,
+  });
+
   return {
     sucesso: true,
     mensagem: "Agendamento criado com sucesso.",
