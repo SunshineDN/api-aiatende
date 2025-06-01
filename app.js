@@ -16,10 +16,25 @@ import admin from './src/routes/admin.js';
 import teste from './src/routes/teste.js';
 import wpp from './src/routes/wpp.js';
 import openai from './src/routes/openai.js';
+import prisma from './src/prisma-client.js';
 
 const app = express();
 
 app.use(cors());
+
+app.get('/health', async (_req, res) => {
+  try {
+    await prisma.$queryRaw`SELECT 1`;
+    res.status(200).json({ status: 'UP', database: 'OK' });
+  } catch (error) {
+    return res.status(503).json({
+      status: 'DOWN',
+      database: 'ERROR',
+      message: error.message
+    });
+  }
+});
+
 app.use('/account', accountRouter);
 app.use('/api-docs', apiDocs);
 app.use('/bkfunnels', bkFunnelRouter);
@@ -38,7 +53,7 @@ app.use('/wpp', wpp);
 app.use('/atende360/v2', openai);
 
 app.use((_, res) => {
-  res.status(404).json({error: 'Endpoint não encontrado!'});
+  res.status(404).json({ error: 'Endpoint não encontrado!' });
 });
 
 export default app;
