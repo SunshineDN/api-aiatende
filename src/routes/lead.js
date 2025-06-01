@@ -1,6 +1,5 @@
 import express from 'express';
 import LeadController from '../controllers/LeadController.js';
-import kommoMiddleware from '../middlewares/kommoMiddleware.js';
 import WebhookMiddleware from '../middlewares/WebhookMiddleware.js';
 
 const router = express.Router();

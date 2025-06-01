@@ -19,53 +19,33 @@ export async function runEspecialistaIntencao({ conversation_summary, lead_id, i
   }
 
   const prompt = `
-# Histórico de intenções anteriores do lead: [${intention_history.length > 0 ? intention_history.map(i => i.id).join(', ') : 'Nenhuma intenção anterior detectada.'}]
+Você é um especialista em análise de fluxo de atendimento virtual. Sua tarefa é ler e analisar o histórico de conversa entre um usuário e uma assistente virtual. A partir desse histórico, identifique em qual etapa do fluxo de atendimento o usuário se encontra.
 
-# 🎯 Objetivo  
-Com base na mensagem-resumo da conversa atual do lead, identificar **exclusivamente o ID da intenção correspondente ao estágio mais avançado do funil**, respeitando a ordem sequencial das intenções já registradas e evitando retrocessos no fluxo, exceto no caso de \`#Reagendamento\`.
+O fluxo é estruturado como um funil sequencial, ou seja, as etapas não voltam, apenas descem. Existem oito etapas principais, além de duas ramificações que podem ocorrer entre as etapas 7 e 8. O histórico pode conter mensagens do usuário e da assistente.
 
-## 👤 Persona  
-Leads e pacientes interagindo via WhatsApp, chatbot ou CRM no funil odontológico da Dental Santé.
+Liste a **etapa atual** do usuário de acordo com o seguinte fluxo:
 
-## ⚙️ Instruções para análise  
-1. Considere o histórico de intenções já registradas para o lead e avalie qual etapa ele atingiu até o momento.  
-2. A mensagem-resumo reflete o contexto atual — retorne **apenas a intenção atual válida**: ou repita a última etapa válida, ou avance para a próxima etapa lógica no funil.  
-3. **Não retorne nenhuma etapa anterior já superada**, exceto para \`#Reagendamento\` que pode levar a \`#PosAgendamento\`.  
-4. Aplique as definições de intenções abaixo para identificar a etapa correta, respeitando a progressão sequencial do funil.
+1 - Recepção Virtual: O usuário mandou mensagem pela primeira vez, uma saudação ou iniciou a conversa.  
+2 - Qualificado: O usuário demonstrou interesse em continuar. Nesta etapa, é ideal capturar o nome do usuário.  
+3 - Pré-agendamento (datas): O usuário mostrou desejo de visualizar ou selecionar datas.  
+4 - Pré-agendamento (cadastro): O usuário escolheu uma data e está fornecendo dados.  
+5 - Pré-agendamento (confirmação): O usuário já forneceu todos os dados e está confirmando os dados e a data escolhida.  
+6 - Agendado: O usuário confirmou o agendamento.  
+7 - Confirmação (1 etapa): O usuário confirmou a primeira etapa da vinda (geralmente 24h antes).  
+8 - Confirmação (2 etapa): O usuário confirmou a segunda etapa da vinda (geralmente 3h antes).
 
-## 🗂️ Fluxo sequencial de intenções e critérios  
+⚠️ Ramificações possíveis **apenas após a etapa 6**:  
+- Reagendamento: O usuário deseja reagendar. Ele permanece nesta etapa até confirmar novo agendamento.  
+- Desmarcado: O usuário expressa claramente que deseja cancelar ou desmarcar o agendamento.
 
-| ID                | Descrição                                                                                   |
-|-------------------|---------------------------------------------------------------------------------------------|
-| \`#RecepcaoVirtual\`    | Primeiro contato, saudações ou dúvidas iniciais sem interesse claro.                        |
-| \`#Qualificado\`        | Interesse geral em tratamentos, convênios, equipe, mas sem intenção de agendar.          |
-| \`#InformacaoTratamento\` | Pedido específico sobre tratamentos (implantes, clareamento, Invisalign, etc.).          |
-| \`#PreAgendamento\`     | Desejo de agendar, porém sem dados ou escolha de horário definida.                        |
-| \`#Agendamento\`        | Seleção ou confirmação de data e horário para consulta.                                  |
-| \`#Cadastro\`           | Fornecimento de dados pessoais para agendamento (nome, telefone, nascimento, bairro).    |
-| \`#PosAgendamento\`     | Consulta agendada; confirmações, lembretes, validações de endereço.                       |
-| \`#Reagendamento\`      | Pedido para remarcar consulta ou resposta a tentativa de reativação após ausência.        |
-| \`#Desmarcar\`          | Solicitação de cancelamento ou desmarcação da consulta.                                  |
-| \`#Indefinido\`         | Mensagem vaga, ambígua ou sem intenção clara.                                            |
+⚠️ Situações fora do fluxo direto:  
+- Fora do fluxo: O usuário interrompe o fluxo com uma pergunta geral, interesse em outros serviços, mudança de assunto ou tentativa de alteração de dados/datas já fornecidos. Nessa situação, o usuário não avança nem retrocede no fluxo principal.
 
-## 🔁 Regras adicionais  
-- Se o histórico estiver vazio, o lead deve começar obrigatoriamente por \`#RecepcaoVirtual\`.  
-- Caso o lead já tenha passado por etapas anteriores, ele só pode repetir a última etapa ou avançar para a próxima imediatamente posterior.  
-- Exceção especial: a partir de \`#Reagendamento\`, o lead pode retornar a \`#PosAgendamento\` após reagendar.  
-- Mensagens genéricas como “oi”, “posso tirar dúvida?” retornam \`#RecepcaoVirtual\`.  
-- Interesse genérico em tratamentos/convênios retorna \`#Qualificado\`.  
-- Pedidos específicos de tratamento retornam \`#InformacaoTratamento\`.  
-- Desejo de agendar sem dados retorna \`#PreAgendamento\`.  
-- Escolha/confirmar horário retorna \`#Agendamento\`.  
-- Fornecimento de dados pessoais retorna \`#Cadastro\`.  
-- Consulta já agendada e confirmação retorna \`#PosAgendamento\`.  
-- Pedido para remarcar retorna \`#Reagendamento\`.  
-- Pedido para cancelar retorna \`#Desmarcar\`.  
-- Caso não seja possível identificar a intenção, retorne \`#Indefinido\`.
-
-## ✍️ Formato da resposta  
-- Retorne **apenas o ID da intenção atual**, no formato \`#Intencao\`.  
-- **Nunca inclua explicações, múltiplas intenções ou qualquer texto adicional.**`;
+Regras importantes:
+- Sempre retorne **apenas a etapa mais atual e válida** com base no histórico.  
+- O usuário não pode retornar a uma etapa anterior do funil.  
+- Retorne o nome exato da etapa como um dos seguintes valores (retorno único e preciso, em texto):  
+  "Recepção Virtual", "Qualificado", "Pré-agendamento (datas)", "Pré-agendamento (cadastro)", "Pré-agendamento (confirmação)", "Agendado", "Confirmação (1 etapa)", "Confirmação (2 etapa)", "Reagendamento", "Desmarcado", "Fora do fluxo"`;
 
   const openai = new OpenAIServices();
   const response = await openai.chatCompletion({
@@ -83,57 +63,67 @@ Leads e pacientes interagindo via WhatsApp, chatbot ou CRM no funil odontológic
   const intent = response.toLowerCase().trim();
   let status;
 
-  if (intent.includes('recepcao')) {
-    status = kommoUtils.findStatusByName('recepção virtual');
+  if (intent.includes('recepção virtual')) {
+    status = kommoUtils.findStatusByPipelineAndName('recepção virtual', 'recepção virtual');
     styled.info(`Recepção Virtual - Intenção detectada: ${intent} - Status: ${status.name}`);
 
   } else if (intent.includes('qualificado')) {
-    status = kommoUtils.findStatusByName('qualificado');
+    status = kommoUtils.findStatusByPipelineAndName('qualificado', 'qualificado');
     styled.info(`Qualificado - Intenção detectada: ${intent} - Status: ${status.name}`);
 
-  } else if (intent.includes('tratamento')) {
-    status = kommoUtils.findStatusByName('informações do tratamento');
-    styled.info(`Tratamentos - Intenção detectada: ${intent} - Status: ${status.name}`);
-
-  } else if (intent.includes('preagendamento')) {
-    status = kommoUtils.findStatusByName('pré-agendamento');
+  } else if (intent.includes('pré-agendamento (datas)')) {
+    status = kommoUtils.findStatusByPipelineAndName('pré-agendamento', 'pré-agendamento');
     styled.info(`Pré-Agendamento - Intenção detectada: ${intent} - Status: ${status.name}`);
 
-  } else if (intent.includes('cadastro')) {
-    status = kommoUtils.findStatusByName('dados cadastrais');
+  } else if (intent.includes('pré-agendamento (cadastro)')) {
+    status = kommoUtils.findStatusByPipelineAndName('pré-agendamento', 'dados cadastrais');
     styled.info(`Cadastro - Intenção detectada: ${intent} - Status: ${status.name}`);
 
-  } else if (intent.includes('posagendamento')) {
-    status = kommoUtils.findStatusByCode('pré-agendamento', 142);
+  } else if (intent.includes('pré-agendamento (confirmação)')) {
+    status = kommoUtils.findStatusByPipelineAndName('pré-agendamento', 'confirmação');
     styled.info(`Pós-Agendamento - Intenção detectada: ${intent} - Status: ${status.name}`);
 
-  } else if (intent.includes('agendamento')) {
-    status = kommoUtils.findStatusByName('pré-agendamento');
+  } else if (intent.includes('agendado')) {
+    status = kommoUtils.findStatusByCode('pré-agendamento', 142);
     styled.info(`Agendamento - Intenção detectada: ${intent} - Status: ${status.name}`);
 
-  } else if (intent.includes('reagendamento')) {
-    status = kommoUtils.findStatusByName('reagendamento');
+  } else if (intent.includes('confirmação (1 etapa)')) {
+    status = kommoUtils.findStatusByPipelineAndName('confirmação', 'confirmação 24h');
     styled.info(`Reagendamento - Intenção detectada: ${intent} - Status: ${status.name}`);
 
-  } else if (intent.includes('desmarcar')) {
-    status = kommoUtils.findStatusByName('desmarcado');
+  } else if (intent.includes('confirmação (2 etapa)')) {
+    status = kommoUtils.findStatusByPipelineAndName('confirmação', 'confirmação 3h');
+    styled.info(`Desmarcado - Intenção detectada: ${intent} - Status: ${status.name}`);
+
+  } else if (intent.includes('reagendamento')) {
+    status = kommoUtils.findStatusByPipelineAndName('confirmação', 'reagendamento');
+    styled.info(`Reagendamento - Intenção detectada: ${intent} - Status: ${status.name}`);
+
+  } else if (intent.includes('desmarcado')) {
+    status = kommoUtils.findStatusByPipelineAndName('confirmação', 'desmarcado');
     styled.info(`Desmarcado - Intenção detectada: ${intent} - Status: ${status.name}`);
 
   } else {
-    status = kommoUtils.findStatusByName('indefinido');
-    styled.info(`Indefinido - Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Fora do Fluxo - Intenção detectada: ${intent}`);
 
   }
 
-  const update = await kommo.updateLead({
-    id: lead_id,
-    status_id: status.id,
-    pipeline_id: status.pipeline_id
-  });
-
+  if (status) {
+    const update = await kommo.updateLead({
+      id: lead_id,
+      status_id: status.id,
+      pipeline_id: status.pipeline_id
+    });
+    return {
+      sucesso: true,
+      intencaoDetectada: response,
+      updateLead: update
+    };
+  };
+  
   return {
     sucesso: true,
     intencaoDetectada: response,
-    updateLead: update
+    mensagem: 'Intenção detectada, mas não foi possível atualizar o status do lead.'
   };
 };

@@ -65,7 +65,7 @@ Número de Telefone: ${telefone}`;
   if (data_nascimento) {
     const dataNascimentoField = kommoUtils.findLeadsFieldByName("Data de Nascimento");
     if (dataNascimentoField) {
-      const validDate = kommoUtils.convertDateToMs(StaticUtils.normalizeDate(data_nascimento));
+      const validDate = DateUtils.formatDateToSeconds(StaticUtils.normalizeDate(data_nascimento), 'DD/MM/YYYY');
       if (validDate) {
         lead_custom_fields.push({ field_id: dataNascimentoField.id, values: [{ value: validDate }] });
       }
@@ -77,7 +77,6 @@ Número de Telefone: ${telefone}`;
     name: nome,
     email,
     phone: kommoUtils.formatPhone(telefone),
-    phoneCode: 'MOB',
     lead_custom_fields_values: lead_custom_fields
   });
 

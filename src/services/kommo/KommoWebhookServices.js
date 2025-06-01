@@ -4,10 +4,7 @@ import styled from "../../utils/log/styled.js";
 import StaticUtils from "../../utils/StaticUtils.js";
 import OpenAIServices from "../gpt/OpenAIServices.js";
 import KommoServices from "./KommoServices.js";
-import KommoWebhookUtils from "../../utils/KommoWebhookUtils.js";
 import LeadMessagesRepository from "../../repositories/LeadMessagesRepository.js";
-import MarketingTrackingRepository from "../../repositories/MarketingTrackingRepository.js";
-import WppServices from "../wpp/WppServices.js";
 
 export default class KommoWebhookServices extends KommoServices {
   constructor({ auth, url }) {

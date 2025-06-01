@@ -29,6 +29,17 @@ export default class KommoUtils {
     return statuses.filter(status => status.name.toLowerCase().trim() === name)[0] || null;
   }
 
+  findStatusByPipelineAndName(pipelineName, statusName) {
+    const pipeline = this.findPipelineByName(pipelineName);
+    if (!pipeline) {
+      return null;
+    }
+
+    const statuses = pipeline._embedded.statuses;
+    statusName = statusName.toLowerCase().trim();
+    return statuses.filter(status => status.name.toLowerCase().trim() === statusName)[0] || null;
+  }
+
   findLeadsFieldByName(name) {
     return this.leads_custom_fields.filter(field => field.name === name)[0] || null;
   }
