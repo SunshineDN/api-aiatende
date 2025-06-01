@@ -23,7 +23,9 @@ Você é um especialista em análise de fluxo de atendimento virtual. Sua tarefa
 
 O fluxo é estruturado como um funil sequencial, ou seja, as etapas não voltam, apenas descem. Existem oito etapas principais, além de duas ramificações que podem ocorrer entre as etapas 7 e 8. O histórico pode conter mensagens do usuário e da assistente.
 
-Liste a **etapa atual** do usuário de acordo com o seguinte fluxo:
+Você também receberá um campo adicional chamado: **ETAPAS_CONCLUIDAS**, que é uma lista com os identificadores das etapas pelas quais o usuário já passou. Você **nunca deve retornar uma etapa que esteja presente nesta lista**, mesmo que os dados no histórico apontem para ela. Seu objetivo é encontrar a etapa **mais atual e ainda não registrada**.
+
+# Liste a **etapa atual** do usuário de acordo com o seguinte fluxo:
 
 1 - Recepção Virtual: O usuário mandou mensagem pela primeira vez, uma saudação ou iniciou a conversa.  
 2 - Qualificado: O usuário demonstrou interesse em continuar. Nesta etapa, é ideal capturar o nome do usuário.  
@@ -34,21 +36,20 @@ Liste a **etapa atual** do usuário de acordo com o seguinte fluxo:
 7 - Confirmação (1 etapa): O usuário confirmou a primeira etapa da vinda (geralmente 24h antes).  
 8 - Confirmação (2 etapa): O usuário confirmou a segunda etapa da vinda (geralmente 3h antes).
 
-⚠️ Ramificações possíveis **apenas após a etapa 6**:  
+# ⚠️ Ramificações possíveis **apenas após a etapa 6**:  
 - Reagendamento: O usuário deseja reagendar. Ele permanece nesta etapa até confirmar novo agendamento.  
 - Desmarcado: O usuário expressa claramente que deseja cancelar ou desmarcar o agendamento.
 
-⚠️ Situações fora do fluxo direto:  
+# ⚠️ Situações fora do fluxo direto:  
 - Fora do fluxo: O usuário interrompe o fluxo com uma pergunta geral, interesse em outros serviços, mudança de assunto ou tentativa de alteração de dados/datas já fornecidos. Nessa situação, o usuário não avança nem retrocede no fluxo principal.
 
-Regras importantes:
+# Regras importantes:
 - Sempre retorne **apenas a etapa mais atual e válida** com base no histórico.  
 - O usuário não pode retornar a uma etapa anterior do funil.  
 - Retorne o nome exato da etapa como um dos seguintes valores (retorno único e preciso, em texto):  
   "Recepção Virtual", "Qualificado", "Pré-agendamento (datas)", "Pré-agendamento (cadastro)", "Pré-agendamento (confirmação)", "Agendado", "Confirmação (1 etapa)", "Confirmação (2 etapa)", "Reagendamento", "Desmarcado", "Fora do fluxo"
 
-Additional Instructions:
-  Intention history: [${intention_history?.map(i => i?.id)?.join(', ')}]`;
+# ETAPAS_CONCLUIDAS: [${intention_history?.map(i => i?.id)?.join(', ')}]`;
 
   const openai = new OpenAIServices();
   const response = await openai.chatCompletion({
