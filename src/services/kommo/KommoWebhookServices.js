@@ -73,25 +73,25 @@ export default class KommoWebhookServices extends KommoServices {
     const { lead_id } = obj;
     const { attachment = {}, text = '' } = obj.message;
 
-    const haveHash = KommoWebhookUtils.handleEncounterHash(text);
+    // const haveHash = KommoWebhookUtils.handleEncounterHash(text);
 
-    if (haveHash) {
-      styled.info('[KommoWebhookServices.messageReceived] - Mensagem contém hash, buscando no banco de dados...');
+    // if (haveHash) {
+    //   styled.info('[KommoWebhookServices.messageReceived] - Mensagem contém hash, buscando no banco de dados...');
 
-      const marketingTrackingRepository = new MarketingTrackingRepository();
-      const utms = await marketingTrackingRepository.findOne({ where: { hash: haveHash } });
+    //   const marketingTrackingRepository = new MarketingTrackingRepository();
+    //   const utms = await marketingTrackingRepository.findOne({ where: { hash: haveHash } });
 
-      if (utms) {
-        styled.success('[KommoWebhookServices.messageReceived] - Hash encontrada, processando...');
+    //   if (utms) {
+    //     styled.success('[KommoWebhookServices.messageReceived] - Hash encontrada, processando...');
 
-        const wppServices = new WppServices();
-        const custom_fields = await wppServices.handleCustomFields({ utms });
-        await this.updateLead({ id: lead_id, custom_fields_values: custom_fields });
-        styled.success('[KommoWebhookServices.messageReceived] - Campos personalizados atualizados com sucesso.');
-      } else {
-        styled.warning('[KommoWebhookServices.messageReceived] - Nenhuma hash identificada corretamente na mensagem.');
-      }
-    }
+    //     const wppServices = new WppServices();
+    //     const custom_fields = await wppServices.handleCustomFields({ utms });
+    //     await this.updateLead({ id: lead_id, custom_fields_values: custom_fields });
+    //     styled.success('[KommoWebhookServices.messageReceived] - Campos personalizados atualizados com sucesso.');
+    //   } else {
+    //     styled.warning('[KommoWebhookServices.messageReceived] - Nenhuma hash identificada corretamente na mensagem.');
+    //   }
+    // }
 
     const leadMessageRepository = new LeadMessagesRepository();
 
