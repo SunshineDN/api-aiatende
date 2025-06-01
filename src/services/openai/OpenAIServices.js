@@ -11,6 +11,7 @@ import { runAgendamentoListarDatas } from "./tools/runAgendamentoListarDatas.js"
 import { runAgendamentoAtualizar } from "./tools/runAgendamentoAtualizar.js";
 import { runAgendamentoVer } from "./tools/runAgendamentoVer.js";
 import OpenAICrmServices from "./OpenAICrmServices.js";
+import OpenAIUtils from "../../utils/OpenAIUtils.js";
 
 export default class OpenAIServices {
   #lead_id;
@@ -362,5 +363,29 @@ export default class OpenAIServices {
 
   async getDocument({ documentId }) {
 
+  }
+
+  async transcribeAudio(link, file_name) {
+    try {
+      const openaiUtils = new OpenAIUtils();
+
+      styled.info('Downloading audio...');
+      await openaiUtils.downloadFile(link, file_name);
+      styled.success('Success\n');
+
+      styled.info('Transcribing audio...');
+      const transcription = await openaiUtils.transcribeAudio(file_name);
+      styled.success('Success\n');
+
+      styled.info('Deleting temporary file...');
+      await openaiUtils.deleteTempFile(file_name);
+      styled.success('Success\n');
+
+      return transcription;
+    } catch (error) {
+      styled.error('Erro ao gravar audio no armazenamento:');
+      console.error(error);
+      throw new Error(error);
+    }
   }
 }

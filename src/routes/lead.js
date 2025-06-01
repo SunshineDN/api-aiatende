@@ -11,14 +11,6 @@ const leadController = new LeadController();
 
 router.get('/', leadController.index);
 
-router.post('/data-hora', kommoMiddleware, leadController.setDataWeek);
-
-router.post('/split-fields/data', kommoMiddleware, leadController.setSplitDataFields);
-
-router.post('/split-fields/scheduling', kommoMiddleware, leadController.setSplitSchedulingFields);
-
-router.post('/add-tel', kommoMiddleware, leadController.addTelephone);
-
 router.post('/webhook/create', WebhookMiddleware.createLead, leadController.webhookCreate);
 
 export default router;
