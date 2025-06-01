@@ -191,7 +191,6 @@ export default class OpenAIServices {
       styled.info(`[OpenAIServices.verifyRunIsActive] Lead ID: ${this.#lead_id} - Verificando run ativo...`);
       if (run.status === "running" || run.status === "requires_action") {
         styled.info(`[OpenAIServices.verifyRunIsActive] Lead ID: ${this.#lead_id} - Run ativo.`);
-        styled.infodir(run);
         return true;
       } else {
         styled.warning(`[OpenAIServices.verifyRunIsActive] Lead ID: ${this.#lead_id} - Run não está ativo.`);
@@ -235,7 +234,6 @@ export default class OpenAIServices {
         ...(instructions && { instructions }),
         ...(sanitizedText && { additional_messages: [{ role: "user", content: sanitizedText }] }),
       });
-      styled.infodir(run);
       run_id = run.id;
       await repo.updateRun({ assistant_id, run_id });
       styled.info(`[OpenAIServices.handleCreateRun] Lead ID: ${this.#lead_id} - Run criado: ${run.id}`);
@@ -266,6 +264,12 @@ export default class OpenAIServices {
     while (true) {
       // 1) recuperar o status do run
       status = await this.openai.beta.threads.runs.retrieve(threadId, runId);
+
+      if (count === 2) {
+        styled.info(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Recuperando status do run...`);
+        styled.infodir(status);
+      }
+
       styled.info(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Status do run: ${status.status}`);
 
       // 2) se precisar rodar tool...
