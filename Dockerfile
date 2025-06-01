@@ -14,8 +14,5 @@ COPY --chown=node:node . .
 # 4) Gera o prisma client
 RUN npm run prisma:generate
 
-# 5) Expõe a porta 3000
-EXPOSE 3000
-
-# 6) Comando para iniciar a aplicação
+# 5) Comando para iniciar a aplicação
 CMD [ "npm", "run", "start" ]
