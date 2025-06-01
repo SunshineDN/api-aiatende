@@ -65,56 +65,45 @@ Regras importantes:
 
   if (intent.includes('recepção virtual')) {
     status = kommoUtils.findStatusByPipelineAndName('recepção virtual', 'recepção virtual');
-    styled.infodir(status)
-    styled.info(`Recepção Virtual - Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Recepção Virtual - Intenção detectada: ${intent} - Status: ${status?.name}`);
 
   } else if (intent.includes('qualificado')) {
     status = kommoUtils.findStatusByPipelineAndName('qualificado', 'qualificado');
-    styled.infodir(status)
-    styled.info(`Qualificado - Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Qualificado - Intenção detectada: ${intent} - Status: ${status?.name}`);
 
   } else if (intent.includes('pré-agendamento (datas)')) {
     status = kommoUtils.findStatusByPipelineAndName('pré-agendamento', 'pré-agendamento');
-    styled.infodir(status)
-    styled.info(`Pré-Agendamento - Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Pré-Agendamento - Intenção detectada: ${intent} - Status: ${status?.name}`);
 
   } else if (intent.includes('pré-agendamento (cadastro)')) {
     status = kommoUtils.findStatusByPipelineAndName('pré-agendamento', 'dados cadastrais');
-    styled.infodir(status)
-    styled.info(`Cadastro - Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Cadastro - Intenção detectada: ${intent} - Status: ${status?.name}`);
 
   } else if (intent.includes('pré-agendamento (confirmação)')) {
     status = kommoUtils.findStatusByPipelineAndName('pré-agendamento', 'confirmação');
-    styled.infodir(status)
-    styled.info(`Pós-Agendamento - Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Pós-Agendamento - Intenção detectada: ${intent} - Status: ${status?.name}`);
 
   } else if (intent.includes('agendado')) {
     status = kommoUtils.findStatusByCode('pré-agendamento', 142);
-    styled.infodir(status)
-    styled.info(`Agendamento - Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Agendamento - Intenção detectada: ${intent} - Status: ${status?.name}`);
 
   } else if (intent.includes('confirmação (1 etapa)')) {
     status = kommoUtils.findStatusByPipelineAndName('confirmação', 'confirmação 24h');
-    styled.infodir(status)
-    styled.info(`Reagendamento - Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Reagendamento - Intenção detectada: ${intent} - Status: ${status?.name}`);
 
   } else if (intent.includes('confirmação (2 etapa)')) {
     status = kommoUtils.findStatusByPipelineAndName('confirmação', 'confirmação 3h');
-    styled.infodir(status)
-    styled.info(`Desmarcado - Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Desmarcado - Intenção detectada: ${intent} - Status: ${status?.name}`);
 
   } else if (intent.includes('reagendamento')) {
     status = kommoUtils.findStatusByPipelineAndName('confirmação', 'reagendamento');
-    styled.infodir(status)
-    styled.info(`Reagendamento - Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Reagendamento - Intenção detectada: ${intent} - Status: ${status?.name}`);
 
   } else if (intent.includes('desmarcado')) {
     status = kommoUtils.findStatusByPipelineAndName('confirmação', 'desmarcado');
-    styled.infodir(status)
-    styled.info(`Desmarcado - Intenção detectada: ${intent} - Status: ${status.name}`);
+    styled.info(`Desmarcado - Intenção detectada: ${intent} - Status: ${status?.name}`);
 
   } else {
-    styled.infodir(status)
     styled.info(`Fora do Fluxo - Intenção detectada: ${intent}`);
 
   }

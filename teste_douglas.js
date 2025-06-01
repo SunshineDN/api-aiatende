@@ -1,4 +1,7 @@
+import KommoServices from "./src/services/kommo/KommoServices.js";
 import DateUtils from "./src/utils/DateUtils.js";
+import KommoUtils from "./src/utils/KommoUtils.js";
+import styled from "./src/utils/log/styled.js";
 import StaticUtils from "./src/utils/StaticUtils.js";
 
 async function main() {
@@ -167,8 +170,15 @@ async function main() {
   //   styled.error("Data inválida: A data fornecida não é válida.");
   // }
 
-  const date = DateUtils.formatDateToSeconds(StaticUtils.normalizeDate("11/03/2003"), "DD/MM/YYYY");
-  console.log(date);
+  const kommo = new KommoServices({ 
+    auth: process.env.KOMMO_AUTH,
+    url: process.env.KOMMO_URL
+  });
+  const kommoUtils = new KommoUtils({
+    pipelines: await kommo.getPipelines()
+  });
+  const status = kommoUtils.findStatusByPipelineAndName("qualificado", "qualificado");
+  styled.infodir(status);
 
   // const openai = new OpenAIServices({ lead_id: 21778599 });
   // const assistant_id = atob(process.env.OPENAI_ASSISTANT_ID);
