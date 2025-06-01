@@ -137,7 +137,7 @@ export default class OpenAICrmServices {
     if (actualAppointmentField) {
       custom_fields_values.push({
         field_id: actualAppointmentField.id,
-        values: [{ value: "" }],
+        values: [{ value: 0 }],
       });
     }
 
