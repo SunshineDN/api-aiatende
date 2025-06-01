@@ -177,7 +177,7 @@ async function main() {
   const kommoUtils = new KommoUtils({
     pipelines: await kommo.getPipelines()
   });
-  const status = kommoUtils.findStatusByPipelineAndName("qualificado", "qualificado");
+  const status = kommoUtils.findStatusByPipelineAndName("recepção virtual", "recepção virtual");
   styled.infodir(status);
 
   // const openai = new OpenAIServices({ lead_id: 21778599 });

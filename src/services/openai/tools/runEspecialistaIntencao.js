@@ -8,12 +8,12 @@ import OpenAIServices from "../OpenAIServices.js";
  * Detecta a intenção e atualiza a etapa do usuário no CRM a cada nova mensagem.
  * 
  * @param {Object} params
- * @param {string} params.conversation_summary - Resumo do histórico do usuário.
+ * @param {string} params.conversation_messages - Resumo do histórico do usuário.
  * @param {string} params.lead_id - ID do lead no CRM.
  * @param {Array} params.intention_history - Histórico de intenções do lead.
  * @returns {Promise<Object>} Resultado da detecção de intenção e atualização do CRM.
  */
-export async function runEspecialistaIntencao({ conversation_summary, lead_id, intention_history } = {}) {
+export async function runEspecialistaIntencao({ conversation_messages, lead_id, intention_history } = {}) {
   if (typeof lead_id !== 'string' || !lead_id.trim()) {
     throw new Error('Parâmetro "lead_id" é obrigatório e deve ser uma string não vazia.');
   }
@@ -45,12 +45,20 @@ Regras importantes:
 - Sempre retorne **apenas a etapa mais atual e válida** com base no histórico.  
 - O usuário não pode retornar a uma etapa anterior do funil.  
 - Retorne o nome exato da etapa como um dos seguintes valores (retorno único e preciso, em texto):  
-  "Recepção Virtual", "Qualificado", "Pré-agendamento (datas)", "Pré-agendamento (cadastro)", "Pré-agendamento (confirmação)", "Agendado", "Confirmação (1 etapa)", "Confirmação (2 etapa)", "Reagendamento", "Desmarcado", "Fora do fluxo"`;
+  "Recepção Virtual", "Qualificado", "Pré-agendamento (datas)", "Pré-agendamento (cadastro)", "Pré-agendamento (confirmação)", "Agendado", "Confirmação (1 etapa)", "Confirmação (2 etapa)", "Reagendamento", "Desmarcado", "Fora do fluxo"
+
+Additional Instructions:
+  Intention history: [${intention_history?.map(i => i?.id)?.join(', ')}]`;
+
+  const messages = conversation_messages?.map(message => ({
+    role: message?.role,
+    content: message?.content
+  })) || [];
 
   const openai = new OpenAIServices();
   const response = await openai.chatCompletion({
     userMessage: `
-    Resumo da conversa atual do lead: ${conversation_summary}`,
+    Histórico da conversa: ${messages.map(m => `${m.role}: ${m.content}`).join('\n')}`,
     systemMessage: prompt,
   });
 
