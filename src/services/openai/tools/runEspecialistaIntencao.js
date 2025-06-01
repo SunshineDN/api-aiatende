@@ -50,15 +50,10 @@ Regras importantes:
 Additional Instructions:
   Intention history: [${intention_history?.map(i => i?.id)?.join(', ')}]`;
 
-  const messages = conversation_messages?.map(message => ({
-    role: message?.role,
-    content: message?.content
-  })) || [];
-
   const openai = new OpenAIServices();
   const response = await openai.chatCompletion({
     userMessage: `
-    Histórico da conversa: ${messages.map(m => `${m.role}: ${m.content}`).join('\n')}`,
+    Histórico da conversa: ${conversation_messages.map(m => `${m.role}: ${m.content}`).join('\n')}`,
     systemMessage: prompt,
   });
 

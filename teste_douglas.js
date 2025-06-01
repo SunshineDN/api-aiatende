@@ -170,16 +170,6 @@ async function main() {
   //   styled.error("Data inválida: A data fornecida não é válida.");
   // }
 
-  const kommo = new KommoServices({ 
-    auth: process.env.KOMMO_AUTH,
-    url: process.env.KOMMO_URL
-  });
-  const kommoUtils = new KommoUtils({
-    pipelines: await kommo.getPipelines()
-  });
-  const status = kommoUtils.findStatusByPipelineAndName("recepção virtual", "recepção virtual");
-  styled.infodir(status);
-
   // const openai = new OpenAIServices({ lead_id: 21778599 });
   // const assistant_id = atob(process.env.OPENAI_ASSISTANT_ID);
   // const userMessage = "Bom dia! Voces tem salgadinhos? Me envie o cardápio completo com preços e sabores disponíveis."; 

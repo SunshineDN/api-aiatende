@@ -35,8 +35,6 @@ export default class KommoUtils {
       return null;
     }
 
-    console.log(`Pipeline encontrado: ${pipeline.name} - Status: ${statusName}`);
-
     const statuses = pipeline._embedded.statuses;
     statusName = statusName.toLowerCase().trim();
     return statuses.filter(status => status.name.toLowerCase().trim() === statusName)[0] || null;
