@@ -99,7 +99,32 @@ export default class ThreadRepository extends BaseRepository {
   }
 
   async storeMessage({ assistant_id, userMessage, assistantMessage }) {
-    const thread = await this.model.update({
+    const thread = await this.model.findUnique({
+      where: {
+        lead_id_assistant: {
+          lead_id: this.#lead_id,
+          assistant: assistant_id,
+        }
+      },
+      select: {
+        messages: true,
+      }
+    });
+
+    const messages = thread?.messages || [];
+
+    messages.push({
+      role: 'user',
+      content: userMessage,
+      created_at: new Date(),
+    });
+    messages.push({
+      role: 'assistant',
+      content: assistantMessage,
+      created_at: new Date(),
+    });
+
+    const updatedThread = await this.model.update({
       where: {
         lead_id_assistant: {
           lead_id: this.#lead_id,
@@ -107,22 +132,10 @@ export default class ThreadRepository extends BaseRepository {
         }
       },
       data: {
-        messages: {
-          push: {
-            role: 'user',
-            content: userMessage,
-            created_at: new Date(),
-          },
-          push: {
-            role: 'assistant',
-            content: assistantMessage,
-            created_at: new Date(),
-          }
-        },
+        messages,
         updated_at: new Date(),
       }
     });
-
-    return thread;
+    return updatedThread;
   }
 }
