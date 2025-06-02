@@ -152,6 +152,10 @@ export default class OpenAIServices {
     // await crm_services.sendMessageToLead({ message });
     await crm_services.saveAssistantAnswer({ message });
 
+    const repo = new ThreadRepository({ lead_id: this.#lead_id });
+    const updated = await repo.storeMessage({ assistant_id, userMessage, assistantMessage: message });
+    await runEspecialistaIntencao({ conversation_messages: updated.messages, lead_id: this.#lead_id })
+
     return message;
   }
 
@@ -223,12 +227,6 @@ export default class OpenAIServices {
         assistant_id,
         metadata: {
           lead_id: this.#lead_id.toString(),
-        },
-        tool_choice: {
-          type: "function",
-          function: {
-            name: "especialista_intencao",
-          }
         },
         ...(additional_instructions && { additional_instructions }),
         ...(instructions && { instructions }),

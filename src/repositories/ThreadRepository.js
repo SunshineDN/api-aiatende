@@ -97,4 +97,34 @@ export default class ThreadRepository extends BaseRepository {
 
     return thread;
   }
+
+  async storeMessage({ assistant_id, userMessage, assistantMessage }) {
+    const thread = await this.model.update({
+      where: {
+        lead_id_assistant: {
+          lead_id: this.#lead_id,
+          assistant: assistant_id,
+        }
+      },
+      data: {
+        messages: {
+          push: [
+            {
+              role: 'user',
+              content: userMessage,
+              created_at: new Date(),
+            },
+            {
+              role: 'assistant',
+              content: assistantMessage,
+              created_at: new Date(),
+            }
+          ]
+        },
+        updated_at: new Date(),
+      }
+    });
+
+    return thread;
+  }
 }

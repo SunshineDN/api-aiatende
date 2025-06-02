@@ -76,6 +76,7 @@ model thread {
   thread_id  String   @unique @db.VarChar(255)
   run_id     String   @default("") @db.VarChar(255)
   assistant  String   @db.VarChar(255)
+  messages   Json[]   @db.Json
   created_at DateTime @default(now()) @db.Timestamptz(6)
   updated_at DateTime @default(now()) @updatedAt @db.Timestamptz(6)
   leads      leads    @relation(fields: [lead_id], references: [lead_id], onDelete: Cascade)

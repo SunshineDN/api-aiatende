@@ -10,10 +10,10 @@ import OpenAIServices from "../OpenAIServices.js";
  * @param {Object} params
  * @param {string} params.conversation_messages - Resumo do histórico do usuário.
  * @param {string} params.lead_id - ID do lead no CRM.
- * @param {Array} params.intention_history - Histórico de intenções do lead.
+ * @param {Array} [params.intention_history] - Histórico de intenções do lead.
  * @returns {Promise<Object>} Resultado da detecção de intenção e atualização do CRM.
  */
-export async function runEspecialistaIntencao({ conversation_messages, lead_id, intention_history } = {}) {
+export async function runEspecialistaIntencao({ conversation_messages, lead_id, intention_history = null } = {}) {
   if (typeof lead_id !== 'string' || !lead_id.trim()) {
     throw new Error('Parâmetro "lead_id" é obrigatório e deve ser uma string não vazia.');
   }
@@ -22,8 +22,6 @@ export async function runEspecialistaIntencao({ conversation_messages, lead_id, 
 Você é um especialista em análise de fluxo de atendimento virtual. Sua tarefa é ler e analisar o histórico de conversa entre um usuário e uma assistente virtual. A partir desse histórico, identifique em qual etapa do fluxo de atendimento o usuário se encontra. 
 
 O fluxo é estruturado como um funil sequencial, ou seja, as etapas não voltam, apenas descem. Existem oito etapas principais, além de duas ramificações que podem ocorrer entre as etapas 7 e 8. O histórico pode conter mensagens do usuário e da assistente.
-
-Você também receberá um campo adicional chamado: **ETAPAS_CONCLUIDAS**, que é uma lista com os identificadores das etapas pelas quais o usuário já passou. Você **nunca deve retornar uma etapa que esteja presente nesta lista**, mesmo que os dados no histórico apontem para ela. Seu objetivo é encontrar a etapa **mais atual e ainda não registrada**.
 
 # Liste a **etapa atual** do usuário de acordo com o seguinte fluxo:
 
@@ -49,9 +47,7 @@ Você também receberá um campo adicional chamado: **ETAPAS_CONCLUIDAS**, que �
 - Sempre retorne **apenas a etapa mais atual e válida** com base no histórico.  
 - O usuário não pode retornar a uma etapa anterior do funil.  
 - Retorne o nome exato da etapa como um dos seguintes valores (retorno único e preciso, em texto):  
-  "Recepção Virtual", "Qualificado", "Pré-agendamento (datas)", "Pré-agendamento (cadastro)", "Pré-agendamento (confirmação)", "Agendado", "Confirmação (1 etapa)", "Confirmação (2 etapa)", "Reagendamento", "Desmarcado", "Fora do fluxo"
-
-# ETAPAS_CONCLUIDAS: [${intention_history?.map(i => i?.id)?.join(', ')}]`;
+  "Recepção Virtual", "Qualificado", "Pré-agendamento (datas)", "Pré-agendamento (cadastro)", "Pré-agendamento (confirmação)", "Agendado", "Confirmação (1 etapa)", "Confirmação (2 etapa)", "Reagendamento", "Desmarcado", "Fora do fluxo"`;
 
   const openai = new OpenAIServices();
   const response = await openai.chatCompletion({

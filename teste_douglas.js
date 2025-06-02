@@ -170,7 +170,7 @@ async function main() {
   // } else {
   //   styled.error("Data inválida: A data fornecida não é válida.");
   // }
-
+  
   // const assistant_id = atob(process.env.OPENAI_ASSISTANT_ID);
   // const userMessage = "Bom dia! Voces tem salgadinhos? Me envie o cardápio completo com preços e sabores disponíveis."; 
   // const response = await openai.handleRunAssistant({ userMessage, assistant_id });
