@@ -120,7 +120,6 @@ ${DateUtils.getActualDatetimeInformation()}
     name: nome,
     email,
     phone: kommoUtils.formatPhone(telefone),
-    phoneCode: 'MOB',
     lead_custom_fields_values: lead_custom_fields
   });
 

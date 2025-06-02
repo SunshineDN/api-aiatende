@@ -6,6 +6,7 @@ import { runEspecialistaIntencao } from "./tools/runEspecialistaIntencao.js";
 import { runMostrarFrete } from "./tools/runMostrarFrete.js";
 import OpenAICrmServices from "./OpenAICrmServices.js";
 import { runTransferirAssistente } from "./tools/runTransferirAssistente.js";
+import OpenAIUtils from "../../utils/OpenAIUtils.js";
 
 export default class OpenAIServices {
   #lead_id;
@@ -146,6 +147,10 @@ export default class OpenAIServices {
     // await crm_services.sendMessageToLead({ message });
     await crm_services.saveAssistantAnswer({ message });
 
+    const repo = new ThreadRepository({ lead_id: this.#lead_id });
+    const updated = await repo.storeMessage({ assistant_id, userMessage, assistantMessage: message });
+    await runEspecialistaIntencao({ conversation_messages: updated.messages, lead_id: this.#lead_id });
+
     return message;
   }
 
@@ -185,7 +190,6 @@ export default class OpenAIServices {
       styled.info(`[OpenAIServices.verifyRunIsActive] Lead ID: ${this.#lead_id} - Verificando run ativo...`);
       if (run.status === "running" || run.status === "requires_action") {
         styled.info(`[OpenAIServices.verifyRunIsActive] Lead ID: ${this.#lead_id} - Run ativo.`);
-        styled.infodir(run);
         return true;
       } else {
         styled.warning(`[OpenAIServices.verifyRunIsActive] Lead ID: ${this.#lead_id} - Run não está ativo.`);
@@ -216,20 +220,10 @@ export default class OpenAIServices {
     if (!runIsActive) {
       const run = await this.openai.beta.threads.runs.create(thread.thread_id, {
         assistant_id,
-        metadata: {
-          lead_id: this.#lead_id.toString(),
-        },
-        tool_choice: {
-          type: "function",
-          function: {
-            name: "especialista_intencao",
-          }
-        },
         ...(additional_instructions && { additional_instructions }),
         ...(instructions && { instructions }),
         ...(sanitizedText && { additional_messages: [{ role: "user", content: sanitizedText }] }),
       });
-      styled.infodir(run);
       run_id = run.id;
       await repo.updateRun({ assistant_id, run_id });
       styled.info(`[OpenAIServices.handleCreateRun] Lead ID: ${this.#lead_id} - Run criado: ${run.id}`);
@@ -260,6 +254,12 @@ export default class OpenAIServices {
     while (true) {
       // 1) recuperar o status do run
       status = await this.openai.beta.threads.runs.retrieve(threadId, runId);
+
+      if (count === 2) {
+        styled.info(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Recuperando status do run...`);
+        styled.infodir(status);
+      }
+
       styled.info(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Status do run: ${status.status}`);
 
       // 2) se precisar rodar tool...
@@ -352,5 +352,53 @@ export default class OpenAIServices {
 
   async getDocument({ documentId }) {
 
+  }
+
+  async transcribeAudio(link, file_name) {
+    try {
+      const openaiUtils = new OpenAIUtils();
+
+      styled.info('Downloading audio...');
+      await openaiUtils.downloadFile(link, file_name);
+      styled.success('Success\n');
+
+      styled.info('Transcribing audio...');
+      const transcription = await openaiUtils.transcribeAudio(file_name);
+      styled.success('Success\n');
+
+      styled.info('Deleting temporary file...');
+      await openaiUtils.deleteTempFile(file_name);
+      styled.success('Success\n');
+
+      return transcription;
+    } catch (error) {
+      styled.error('Erro ao gravar audio no armazenamento:');
+      console.error(error);
+      throw new Error(error);
+    }
+  }
+
+  async getThreadMessages({ thread_id }) {
+    const response = await this.openai.beta.threads.messages.list(thread_id);
+    if (response.data && response.data.length > 0) {
+      return response.data.map(message => ({
+        role: message.role,
+        content: message.content.map(content => {
+          if (content.type === "text") {
+            return content.text.value;
+          } else if (content.type === "file") {
+            return {
+              type: "file",
+              file_id: content.file.id,
+              file_name: content.file.name,
+              file_url: content.file.url
+            };
+          } else {
+            return content;
+          }
+        })[0] || null
+      }));
+    }
+    return;
   }
 }

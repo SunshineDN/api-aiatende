@@ -1,5 +1,4 @@
 import BaseRepository from "./BaseRepository.js";
-import models from "../models/index.js";
 import prisma from "../prisma-client.js";
 import LeadThreadRepository from "./LeadThreadRepository.js";
 import styled from "../utils/log/styled.js";

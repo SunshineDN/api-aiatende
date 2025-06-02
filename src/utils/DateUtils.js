@@ -90,6 +90,16 @@ export default class DateUtils {
     return Math.round(date.getTime() / 1000);
   }
 
+  static formatDateToSeconds(date, format = 'DD/MM/YYYY HH:mm') {
+    dayjs.extend(customParseFormat);
+    const dateObj = dayjs(date, format);
+    if (!dateObj.isValid()) {
+      styled.error('Data inválida:', date);
+      return null;
+    }
+    return Math.round(dateObj.valueOf() / 1000);
+  }
+
   /**
    * Formata uma data
    * @param {object} options - Opções para formatar a data

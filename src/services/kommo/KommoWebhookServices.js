@@ -4,10 +4,7 @@ import styled from "../../utils/log/styled.js";
 import StaticUtils from "../../utils/StaticUtils.js";
 import OpenAIServices from "../gpt/OpenAIServices.js";
 import KommoServices from "./KommoServices.js";
-import KommoWebhookUtils from "../../utils/KommoWebhookUtils.js";
 import LeadMessagesRepository from "../../repositories/LeadMessagesRepository.js";
-import MarketingTrackingRepository from "../../repositories/MarketingTrackingRepository.js";
-import WppServices from "../wpp/WppServices.js";
 
 export default class KommoWebhookServices extends KommoServices {
   constructor({ auth, url }) {
@@ -19,28 +16,9 @@ export default class KommoWebhookServices extends KommoServices {
 
     const lead = await this.getLead({ id });
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields() });
-    const calendario = LeadUtils.findLeadField({ lead, fieldName: 'Calendário', value: true });
     const criacao = LeadUtils.findLeadField({ lead, fieldName: 'Data de Criação', value: true });
 
     const custom_fields_values = [];
-
-    if (calendar) {
-      if (!calendario) {
-        const calendarField = kommoUtils.findLeadsFieldByName('Calendário');
-        const calendarLink = StaticUtils.calendarLink(id);
-
-        custom_fields_values.push({
-          field_id: calendarField.id,
-          values: [
-            {
-              value: calendarLink
-            }
-          ]
-        });
-      } else {
-        styled.warning('[KommoWebhookServices.createLead] - Calendário já existe no Lead');
-      }
-    }
 
     if (created_at) {
       if (!criacao) {
@@ -73,25 +51,25 @@ export default class KommoWebhookServices extends KommoServices {
     const { lead_id } = obj;
     const { attachment = {}, text = '' } = obj.message;
 
-    const haveHash = KommoWebhookUtils.handleEncounterHash(text);
+    // const haveHash = KommoWebhookUtils.handleEncounterHash(text);
 
-    if (haveHash) {
-      styled.info('[KommoWebhookServices.messageReceived] - Mensagem contém hash, buscando no banco de dados...');
+    // if (haveHash) {
+    //   styled.info('[KommoWebhookServices.messageReceived] - Mensagem contém hash, buscando no banco de dados...');
 
-      const marketingTrackingRepository = new MarketingTrackingRepository();
-      const utms = await marketingTrackingRepository.findOne({ where: { hash: haveHash } });
+    //   const marketingTrackingRepository = new MarketingTrackingRepository();
+    //   const utms = await marketingTrackingRepository.findOne({ where: { hash: haveHash } });
 
-      if (utms) {
-        styled.success('[KommoWebhookServices.messageReceived] - Hash encontrada, processando...');
+    //   if (utms) {
+    //     styled.success('[KommoWebhookServices.messageReceived] - Hash encontrada, processando...');
 
-        const wppServices = new WppServices();
-        const custom_fields = await wppServices.handleCustomFields({ utms });
-        await this.updateLead({ id: lead_id, custom_fields_values: custom_fields });
-        styled.success('[KommoWebhookServices.messageReceived] - Campos personalizados atualizados com sucesso.');
-      } else {
-        styled.warning('[KommoWebhookServices.messageReceived] - Nenhuma hash identificada corretamente na mensagem.');
-      }
-    }
+    //     const wppServices = new WppServices();
+    //     const custom_fields = await wppServices.handleCustomFields({ utms });
+    //     await this.updateLead({ id: lead_id, custom_fields_values: custom_fields });
+    //     styled.success('[KommoWebhookServices.messageReceived] - Campos personalizados atualizados com sucesso.');
+    //   } else {
+    //     styled.warning('[KommoWebhookServices.messageReceived] - Nenhuma hash identificada corretamente na mensagem.');
+    //   }
+    // }
 
     const leadMessageRepository = new LeadMessagesRepository();
 

@@ -1,29 +1,10 @@
-import { PrismaClient } from "@prisma/client";
-import LeadMessagesRepository from "./src/repositories/LeadMessagesRepository.js";
-import LeadRepository from "./src/repositories/LeadRepository.js";
-import MarketingTrackingRepository from "./src/repositories/MarketingTrackingRepository.js";
-import EvolutionApiServices from "./src/services/evolutionapi/EvolutionApiServices.js";
-import GoogleServices from "./src/services/google/GoogleServices.js";
-import KommoServices from "./src/services/kommo/KommoServices.js";
-import AgentManager from "./src/services/openai/AgentManager.js";
-import ToolsServices from "./src/services/openai/ToolsServices.js";
-import OpenaiIntegrationServices from "./src/services/openaiIntegration/OpenaiIntegrationServices.js";
-import WppServices from "./src/services/wpp/WppServices.js";
-import KommoWebhookUtils from "./src/utils/KommoWebhookUtils.js";
-import LeadUtils from "./src/utils/LeadUtils.js";
-import styled from "./src/utils/log/styled.js";
-import StaticUtils from "./src/utils/StaticUtils.js";
-import { withAccelerate } from "@prisma/extension-accelerate";
-import LeadThreadRepository from "./src/repositories/LeadThreadRepository.js";
-import OpenAIServices from "./src/services/openai/OpenAIServices.js";
-import { runEspecialistaIntencao } from "./src/services/openai/tools/runEspecialistaIntencao.js";
-import { CalendarUtils } from "./src/utils/calendar/CalendarUtils.js";
-import CalendarServices from "./src/services/calendar/CalendarServices.js";
-import { runEspecialistaDados } from "./src/services/openai/tools/runEspecialistaDados.js";
 import ThreadRepository from "./src/repositories/ThreadRepository.js";
+import KommoServices from "./src/services/kommo/KommoServices.js";
+import OpenAIServices from "./src/services/openai/OpenAIServices.js";
 import DateUtils from "./src/utils/DateUtils.js";
 import KommoUtils from "./src/utils/KommoUtils.js";
-import OpenAI from "openai";
+import styled from "./src/utils/log/styled.js";
+import StaticUtils from "./src/utils/StaticUtils.js";
 
 async function main() {
   // const openaiIntegration = new OpenaiIntegrationServices({
@@ -190,11 +171,17 @@ async function main() {
   // } else {
   //   styled.error("Data inválida: A data fornecida não é válida.");
   // }
+  
+  // const assistant_id = atob(process.env.OPENAI_ASSISTANT_ID);
+  // const userMessage = "Bom dia! Voces tem salgadinhos? Me envie o cardápio completo com preços e sabores disponíveis."; 
+  // const response = await openai.handleRunAssistant({ userMessage, assistant_id });
+  // styled.info("Resposta do assistente:");
+  // styled.infodir(response);
 
-  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-  const assistant_id = atob(process.env.OPENAI_ASSISTANT_ID)
-  const assistant = await openai.beta.assistants.retrieve(assistant_id);
-  styled.infodir(assistant);
+  const threadRepo = new ThreadRepository({ lead_id: 24410353 });
+  const thread = await threadRepo.findThread({ assistant_id: "asst_epSsBL4xTTSse7v2yqk9E4IA" });
+  styled.info("Thread encontrada:");
+  styled.infodir(thread);
 }
 
 main();

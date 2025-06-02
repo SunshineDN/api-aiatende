@@ -2,7 +2,6 @@ import axios from "axios";
 import KommoUtils from "../../utils/KommoUtils.js";
 import StaticUtils from "../../utils/StaticUtils.js";
 import styled from "../../utils/log/styled.js";
-import LeadUtils from "../../utils/LeadUtils.js";
 import LeadRepository from "../../repositories/LeadRepository.js";
 import DateUtils from "../../utils/DateUtils.js";
 
@@ -278,7 +277,7 @@ export default class KommoServices {
    * @param {array} [objeto.contact_custom_fields_values] Campos customizados do contato
    * @returns {Promise<object>} Retorna o lead atualizado e o contato atualizado
    */
-  async updateLeadComplex({ id, status_id = '', pipeline_id = '', name = '', email = '', phone = '', phoneCode = '', lead_custom_fields_values = [], contact_custom_fields_values = [] } = {}) {
+  async updateLeadComplex({ id, status_id = '', pipeline_id = '', name = '', email = '', emailCode = '', phone = '', phoneCode = '', lead_custom_fields_values = [], contact_custom_fields_values = [] } = {}) {
     if (!id) {
       throw new Error('Lead ID is required');
     }
@@ -337,7 +336,7 @@ export default class KommoServices {
             values: [
               {
                 value: email,
-                enum_code: 'WORK'
+                enum_code: emailCode || 'WORK'
               }
             ]
           });

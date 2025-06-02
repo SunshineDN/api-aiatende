@@ -1,1 +1,0 @@
-export const CONFIRMACAO_BOT_ID = 41614; // #Aqui você coloca o ID do bot de Confirmação
