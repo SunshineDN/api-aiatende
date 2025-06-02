@@ -74,7 +74,7 @@ export async function runConsultarCardapio({ mensagem_usuario } = {}) {
 
 📐 **MEDIDAS E FORMATOS DOS BOLOS**
 
-| Forma | Porções | Redondo     | Retangular   |
+| Forma | Fatias | Redondo     | Retangular   |
 |-------|---------|-------------|--------------|
 | F5    | 5       | Ø15 cm      | -            |
 | F10   | 10      | Ø18 cm      | 12x24 cm     |
@@ -89,6 +89,46 @@ export async function runConsultarCardapio({ mensagem_usuario } = {}) {
 - Raspa escura: Marmorizado, Regente, Ferrero Rocher, Perdição  
 - Suspiro: África, Bariloche, Doçura de Morango, Supremo de Morango  
 - Ameixa: Gabriela  
+
+---
+
+## 💵 TABELA DE PREÇOS – BOLOS E TORTAS (2025)
+
+**Bolos Tradicionais** (ex: Brigadeiro, Maravilha, Doçura de Morango)  
+- F5 – R$ 45,00  
+- F10 – R$ 89,00  
+- F20 – R$ 129,00  
+- F25 – R$ 169,00  
+- F30 – R$ 209,00  
+- F40 – R$ 249,00  
+- F50 – R$ 299,00  
+
+**Bolos Premium / Frutas / Com Bombons / Nozes** (ex: Ferrero Rocher, Cristal, Melina, Tirolês)  
+- F5 – R$ 59,00  
+- F10 – R$ 109,00  
+- F20 – R$ 149,00  
+- F25 – R$ 189,00  
+- F30 – R$ 229,00  
+- F40 – R$ 269,00  
+- F50 – R$ 319,00  
+
+**Bolos Diet e Sem Lactose**  
+- F5 – R$ 55,00  
+- F10 – R$ 95,00  
+- F20 – R$ 139,00  
+- F25 – R$ 179,00  
+- F30 – R$ 215,00  
+- F40 – R$ 259,00  
+- F50 – R$ 309,00  
+
+**Tortas Cremosas (ex: Mousse de Chocolate, Maracujá, Frutas Tropicais)**  
+- F5 – R$ 49,00  
+- F10 – R$ 99,00  
+- F20 – R$ 139,00  
+- F25 – R$ 179,00  
+- F30 – R$ 219,00  
+- F40 – R$ 259,00  
+- F50 – R$ 309,00  
 
 ---
 
@@ -346,31 +386,27 @@ Massa de chocolate, brigadeiro, morangos, chantilly e raspas de chocolate.
 
 ---
 
-🎉 **KITS DE FESTA**
+## 🎉 COMBOS DE FESTA DOCE MANIA
 
-**Kit Festa Office** (com Bem Casado e Salgados fritos)  
+**Kit Festa Office** (com bem casado e salgados fritos):  
+| Nome       | Forma | Salgados | Bebidas | Valor     |
+|------------|--------|----------|---------|-----------|
+| Office 10  | F10    | 70       | 2       | R$ 289,90 |
+| Office 15  | F20    | 100      | 3       | R$ 289,90 |
+| Office 20  | F25    | 130      | 3       | R$ 289,90 |
+| Office 25  | F30    | 170      | 4       | R$ 289,90 |
 
-| Nome     | Forma | Salgados mín. | Bebidas sugeridas | Valor inicial |
-|----------|--------|----------------|--------------------|----------------|
-| Office 10 | F10    | 70             | 2                  | R$ 289,90      |
-| Office 15 | F20    | 100            | 3                  | R$ 289,90      |
-| Office 20 | F25    | 130            | 3                  | R$ 289,90      |
-| Office 25 | F30    | 170            | 4                  | R$ 289,90      |
+**Kit Festa Kids** (com bem casado, docinhos e salgados fritos):  
+| Nome       | Forma | Salgados | Doces | Bebidas | Valor     |
+|------------|--------|----------|-------|---------|-----------|
+| Kids 10    | F10    | 40       | 30    | 2       | R$ 289,90 |
+| Kids 15    | F20    | 60       | 45    | 3       | R$ 289,90 |
+| Kids 20    | F25    | 80       | 60    | 4       | R$ 289,90 |
+| Kids 25    | F30    | 100      | 75    | 5       | R$ 289,90 |
 
-**Kit Festa Infantil** (com Bem Casado, Docinhos e Salgados fritos)
-
-| Nome     | Forma | Salgados | Docinhos | Bebidas | Valor inicial |
-|----------|--------|----------|-----------|---------|----------------|
-| Kids 10  | F10    | 40       | 30        | 2       | R$ 289,90      |
-| Kids 15  | F20    | 60       | 45        | 3       | R$ 289,90      |
-| Kids 20  | F25    | 80       | 60        | 4       | R$ 289,90      |
-| Kids 25  | F30    | 100      | 75        | 5       | R$ 289,90      |
-
----
-
-💰 **DESCONTOS APLICÁVEIS**  
+**Descontos aplicáveis:**  
 - 8% sobre preço de lista  
-- + 5% de promoção do mês  
+- +5% de promoção do mês 
 
 ---
 
