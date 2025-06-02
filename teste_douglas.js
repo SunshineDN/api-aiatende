@@ -1,3 +1,4 @@
+import ThreadRepository from "./src/repositories/ThreadRepository.js";
 import KommoServices from "./src/services/kommo/KommoServices.js";
 import OpenAIServices from "./src/services/openai/OpenAIServices.js";
 import DateUtils from "./src/utils/DateUtils.js";
@@ -176,6 +177,11 @@ async function main() {
   // const response = await openai.handleRunAssistant({ userMessage, assistant_id });
   // styled.info("Resposta do assistente:");
   // styled.infodir(response);
+
+  const threadRepo = new ThreadRepository({ lead_id: 24410353 });
+  const thread = await threadRepo.findThread({ assistant_id: "asst_epSsBL4xTTSse7v2yqk9E4IA" });
+  styled.info("Thread encontrada:");
+  styled.infodir(thread);
 }
 
 main();

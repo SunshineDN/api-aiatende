@@ -108,18 +108,16 @@ export default class ThreadRepository extends BaseRepository {
       },
       data: {
         messages: {
-          push: [
-            {
-              role: 'user',
-              content: userMessage,
-              created_at: new Date(),
-            },
-            {
-              role: 'assistant',
-              content: assistantMessage,
-              created_at: new Date(),
-            }
-          ]
+          push: {
+            role: 'user',
+            content: userMessage,
+            created_at: new Date(),
+          },
+          push: {
+            role: 'assistant',
+            content: assistantMessage,
+            created_at: new Date(),
+          }
         },
         updated_at: new Date(),
       }
