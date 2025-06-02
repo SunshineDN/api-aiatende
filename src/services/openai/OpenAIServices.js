@@ -154,7 +154,7 @@ export default class OpenAIServices {
 
     const repo = new ThreadRepository({ lead_id: this.#lead_id });
     const updated = await repo.storeMessage({ assistant_id, userMessage, assistantMessage: message });
-    await runEspecialistaIntencao({ conversation_messages: updated.messages, lead_id: this.#lead_id })
+    await runEspecialistaIntencao({ conversation_messages: updated.messages, lead_id: this.#lead_id });
 
     return message;
   }

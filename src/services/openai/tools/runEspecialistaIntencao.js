@@ -14,10 +14,6 @@ import OpenAIServices from "../OpenAIServices.js";
  * @returns {Promise<Object>} Resultado da detecção de intenção e atualização do CRM.
  */
 export async function runEspecialistaIntencao({ conversation_messages, lead_id, intention_history = null } = {}) {
-  if (typeof lead_id !== 'string' || !lead_id.trim()) {
-    throw new Error('Parâmetro "lead_id" é obrigatório e deve ser uma string não vazia.');
-  }
-
   const prompt = `
 Você é um especialista em análise de fluxo de atendimento virtual. Sua tarefa é ler e analisar o histórico de conversa entre um usuário e uma assistente virtual. A partir desse histórico, identifique em qual etapa do fluxo de atendimento o usuário se encontra. 
 
