@@ -225,9 +225,6 @@ export default class OpenAIServices {
     if (!runIsActive) {
       const run = await this.openai.beta.threads.runs.create(thread.thread_id, {
         assistant_id,
-        metadata: {
-          lead_id: this.#lead_id.toString(),
-        },
         ...(additional_instructions && { additional_instructions }),
         ...(instructions && { instructions }),
         ...(sanitizedText && { additional_messages: [{ role: "user", content: sanitizedText }] }),
