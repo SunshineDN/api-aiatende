@@ -307,8 +307,13 @@ export default class OpenAIServices {
         break;
       }
 
-      if (status.status === "canceled") {
+      if (status.status === "cancelled") {
         styled.warning(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Run cancelado.`);
+        break;
+      }
+
+      if (status.status === "expired") {
+        styled.warning(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Run expirado.`);
         break;
       }
 
