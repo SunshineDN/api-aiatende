@@ -1,10 +1,8 @@
 import ThreadRepository from "./src/repositories/ThreadRepository.js";
-import KommoServices from "./src/services/kommo/KommoServices.js";
-import OpenAIServices from "./src/services/openai/OpenAIServices.js";
-import DateUtils from "./src/utils/DateUtils.js";
-import KommoUtils from "./src/utils/KommoUtils.js";
 import styled from "./src/utils/log/styled.js";
-import StaticUtils from "./src/utils/StaticUtils.js";
+import { runMostrarFrete } from "./src/services/openai/tools/runMostrarFrete.js";
+import OpenAIServices from "./src/services/openai/OpenAIServices.js";
+import { runConsultarCardapio } from "./src/services/openai/tools/runConsultarCardapio.js";
 
 async function main() {
   // const openaiIntegration = new OpenaiIntegrationServices({
@@ -178,10 +176,10 @@ async function main() {
   // styled.info("Resposta do assistente:");
   // styled.infodir(response);
 
-  const threadRepo = new ThreadRepository({ lead_id: 24410353 });
-  const thread = await threadRepo.findThread({ assistant_id: "asst_epSsBL4xTTSse7v2yqk9E4IA" });
-  styled.info("Thread encontrada:");
-  styled.infodir(thread);
+  const text = "Quais sabores de bolos voces tem?"
+  const response = await runConsultarCardapio({ mensagem_usuario: text });
+  styled.info("Resposta do cardápio:");
+  styled.infodir(response);
 }
 
 main();

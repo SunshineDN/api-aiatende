@@ -1,11 +1,11 @@
 import OpenAI from "openai";
 import styled from "../../utils/log/styled.js";
 import ThreadRepository from "../../repositories/ThreadRepository.js";
-import { runEspecialistaDados } from "./tools/runEspecialistaDados.js";
-import { runEspecialistaIntencao } from "./tools/runEspecialistaIntencao.js";
-import { runMostrarFrete } from "./tools/runMostrarFrete.js";
 import OpenAICrmServices from "./OpenAICrmServices.js";
+import { runEspecialistaIntencao } from "./tools/runEspecialistaIntencao.js";
 import { runTransferirAssistente } from "./tools/runTransferirAssistente.js";
+import { runMostrarFrete } from "./tools/runMostrarFrete.js";
+import { runConsultarCardapio } from "./tools/runConsultarCardapio.js";
 import OpenAIUtils from "../../utils/OpenAIUtils.js";
 
 export default class OpenAIServices {
@@ -343,10 +343,9 @@ export default class OpenAIServices {
    */
   availableTools() {
     return {
-      'especialista_dados': runEspecialistaDados,
-      'especialista_intencao': runEspecialistaIntencao,
       'mostrar_frete': runMostrarFrete,
       'transferir_assistente': runTransferirAssistente,
+      'consultar_cardapio': runConsultarCardapio,
     }
   }
 

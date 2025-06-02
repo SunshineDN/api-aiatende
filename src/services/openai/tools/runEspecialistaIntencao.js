@@ -22,28 +22,17 @@ O fluxo é estruturado como um funil sequencial, ou seja, as etapas não voltam,
 # Liste a **etapa atual** do usuário de acordo com o seguinte fluxo:
 
 1 - Recepção Virtual: O usuário mandou mensagem pela primeira vez, uma saudação ou iniciou a conversa.  
-2 - Qualificado: O usuário demonstrou interesse em continuar. Nesta etapa, é ideal capturar o nome do usuário.  
-3 - Pré-agendamento (datas): O usuário mostrou desejo de visualizar ou selecionar datas.  
-4 - Pré-agendamento (cadastro): O usuário escolheu uma data e está fornecendo dados.  
-5 - Pré-agendamento (confirmação): O usuário já forneceu todos os dados e está confirmando os dados e a data escolhida.  
-6 - Agendado: O usuário confirmou o agendamento.  
-7 - Confirmação (1 etapa): O usuário confirmou a primeira etapa da vinda (geralmente 24h antes).  
-8 - Confirmação (2 etapa): O usuário confirmou a segunda etapa da vinda (geralmente 3h antes).
-
-# ⚠️ Ramificações possíveis **apenas após a etapa 6**:  
-- Reagendamento: O usuário deseja reagendar. Ele permanece nesta etapa até confirmar um novo agendamento.  
-- Desmarcado: O usuário expressa claramente que deseja cancelar ou desmarcar o agendamento.  
-
-⚠️ Importante: Após entrar nas etapas "Reagendamento" ou "Desmarcado", o usuário **só pode avançar para "Agendado"** caso um novo agendamento tenha sido claramente realizado. Do contrário, permanece em "Reagendamento" ou "Desmarcado".
+2 - Qualificado: O usuário demonstrou interesse em continuar. Nesta etapa, é ideal capturar o nome do usuário.
+3 - Transferencia: O usuário foi transferido para um especialista ou outro canal de atendimento.
 
 # ⚠️ Situações fora do fluxo direto:  
-- Fora do fluxo: O usuário interrompe o fluxo com uma pergunta geral, interesse em outros serviços, mudança de assunto ou tentativa de alteração de dados/datas já fornecidos. Nessa situação, o usuário não avança nem retrocede no fluxo principal.
+- Fora do fluxo: O usuário interrompe o fluxo com uma pergunta geral, interesse em outros serviços, mudança de assunto. Nessa situação, o usuário não avança nem retrocede no fluxo principal.
 
 # Regras importantes:
 - Sempre retorne **apenas a etapa mais atual e válida** com base no histórico.  
 - O usuário não pode retornar a uma etapa anterior do funil.  
 - Retorne o nome exato da etapa como um dos seguintes valores (retorno único e preciso, em texto):  
-  "Recepção Virtual", "Qualificado", "Pré-agendamento (datas)", "Pré-agendamento (cadastro)", "Pré-agendamento (confirmação)", "Agendado", "Confirmação (1 etapa)", "Confirmação (2 etapa)", "Reagendamento", "Desmarcado", "Fora do fluxo"`;
+  "Recepção Virtual", "Qualificado", "Transferencia", "Fora do Fluxo".`
 
   const openai = new OpenAIServices();
   const response = await openai.chatCompletion({
@@ -69,37 +58,9 @@ O fluxo é estruturado como um funil sequencial, ou seja, as etapas não voltam,
     status = kommoUtils.findStatusByPipelineAndName('qualificado', 'qualificado');
     styled.info(`Qualificado - Intenção detectada: ${intent} - Status: ${status?.name}`);
 
-  } else if (intent.includes('pré-agendamento (datas)')) {
-    status = kommoUtils.findStatusByPipelineAndName('pré-agendamento', 'pré-agendamento');
-    styled.info(`Pré-Agendamento - Intenção detectada: ${intent} - Status: ${status?.name}`);
-
-  } else if (intent.includes('pré-agendamento (cadastro)')) {
-    status = kommoUtils.findStatusByPipelineAndName('pré-agendamento', 'dados cadastrais');
-    styled.info(`Cadastro - Intenção detectada: ${intent} - Status: ${status?.name}`);
-
-  } else if (intent.includes('pré-agendamento (confirmação)')) {
-    status = kommoUtils.findStatusByPipelineAndName('pré-agendamento', 'confirmação');
-    styled.info(`Pós-Agendamento - Intenção detectada: ${intent} - Status: ${status?.name}`);
-
-  } else if (intent.includes('agendado')) {
-    status = kommoUtils.findStatusByCode('pré-agendamento', 142);
-    styled.info(`Agendamento - Intenção detectada: ${intent} - Status: ${status?.name}`);
-
-  } else if (intent.includes('confirmação (1 etapa)')) {
-    status = kommoUtils.findStatusByPipelineAndName('confirmação', 'confirmação 24h');
-    styled.info(`Reagendamento - Intenção detectada: ${intent} - Status: ${status?.name}`);
-
-  } else if (intent.includes('confirmação (2 etapa)')) {
-    status = kommoUtils.findStatusByPipelineAndName('confirmação', 'confirmação 3h');
-    styled.info(`Desmarcado - Intenção detectada: ${intent} - Status: ${status?.name}`);
-
-  } else if (intent.includes('reagendamento')) {
-    status = kommoUtils.findStatusByPipelineAndName('confirmação', 'reagendamento');
-    styled.info(`Reagendamento - Intenção detectada: ${intent} - Status: ${status?.name}`);
-
-  } else if (intent.includes('desmarcado')) {
-    status = kommoUtils.findStatusByPipelineAndName('confirmação', 'desmarcado');
-    styled.info(`Desmarcado - Intenção detectada: ${intent} - Status: ${status?.name}`);
+  } else if (intent.includes('transferencia')) {
+     status = kommoUtils.findStatusByPipelineAndName('qualificado', 'transferencia');
+     styled.info(`Transferência - Intenção detectada: ${intent} - Status: ${status?.name}`);
 
   } else {
     styled.info(`Fora do Fluxo - Intenção detectada: ${intent}`);
