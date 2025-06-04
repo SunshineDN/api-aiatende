@@ -1,3 +1,5 @@
+import OpenAIServices from "../OpenAIServices.js";
+
 export async function runConsultarBodykit({ marca = '', modelo = '', ano = '', versao = '' } = {}) {
   const prompt = `
   # 🧠 Prompt: Especialista em Bodykits – Consulta Inteligente

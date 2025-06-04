@@ -25,7 +25,7 @@ export async function runTransferirAssistente({ motivo, lead_id = "" } = {}) {
     }
   }
 
-  const responsibleUser = kommoUtils.findUserByName("Doce Mania");
+  const responsibleUser = kommoUtils.findUserByName("AI Atende");
 
   const updateLead = await kommo.updateLead({ id: lead_id, custom_fields_values, responsible_user_id: responsibleUser.id });
 
