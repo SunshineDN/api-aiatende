@@ -16,7 +16,7 @@ export async function runTransferirAssistente({ motivo, lead_id = "" } = {}) {
   let custom_fields_values = [];
 
   if (motivo) {
-    const motivoField = kommoUtils.getCustomFieldByName("Motivo");
+    const motivoField = kommoUtils.findLeadsFieldByName("Motivo");
     if (motivoField) {
       custom_fields_values.push({
         field_id: motivoField.id,
