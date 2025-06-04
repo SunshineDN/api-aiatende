@@ -2,10 +2,11 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 
 export default class KommoUtils {
-  constructor({ leads_custom_fields = [], contacts_custom_fields = [], pipelines = [] } = {}) {
+  constructor({ users = [], leads_custom_fields = [], contacts_custom_fields = [], pipelines = [] } = {}) {
     this.leads_custom_fields = leads_custom_fields;
     this.contacts_custom_fields = contacts_custom_fields;
     this.pipelines = pipelines;
+    this.users = users;
   }
 
   findPipelineByName(name) {
