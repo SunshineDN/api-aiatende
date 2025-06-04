@@ -23,7 +23,6 @@ O fluxo é estruturado como um funil sequencial, ou seja, as etapas não voltam,
 
 1 - Recepção Virtual: O usuário mandou mensagem pela primeira vez, uma saudação ou iniciou a conversa.  
 2 - Qualificado: O usuário demonstrou interesse em continuar. Nesta etapa, é ideal capturar o nome do usuário.
-3 - Transferência: O usuário está sendo transferido para um atendente humano.
 
 # ⚠️ Situações fora do fluxo direto:  
 - Fora do fluxo: O usuário interrompe o fluxo com uma pergunta geral, interesse em outros serviços, mudança de assunto ou tentativa de alteração de dados/datas já fornecidos. Nessa situação, o usuário não avança nem retrocede no fluxo principal.
@@ -32,7 +31,7 @@ O fluxo é estruturado como um funil sequencial, ou seja, as etapas não voltam,
 - Sempre retorne **apenas a etapa mais atual e válida** com base no histórico.  
 - O usuário não pode retornar a uma etapa anterior do funil.  
 - Retorne o nome exato da etapa como um dos seguintes valores (retorno único e preciso, em texto):  
-  "Recepção Virtual", "Qualificado", "Transferência" e "Fora do fluxo"`;
+  "Recepção Virtual", "Qualificado" e "Fora do fluxo"`;
 
   const openai = new OpenAIServices();
   const response = await openai.chatCompletion({
@@ -57,10 +56,6 @@ O fluxo é estruturado como um funil sequencial, ou seja, as etapas não voltam,
   } else if (intent.includes('qualificado')) {
     status = kommoUtils.findStatusByPipelineAndName('qualificado', 'qualificado');
     styled.info(`Qualificado - Intenção detectada: ${intent} - Status: ${status?.name}`);
-
-  } else if (intent.includes('transferência')) {
-    status = kommoUtils.findStatusByCode('qualificado', 142);
-    styled.info(`Desmarcado - Intenção detectada: ${intent} - Status: ${status?.name}`);
 
   } else {
     styled.info(`Fora do Fluxo - Intenção detectada: ${intent}`);
