@@ -3,7 +3,7 @@ import styled from "../../utils/log/styled.js";
 import ThreadRepository from "../../repositories/ThreadRepository.js";
 import { runConsultarAcessorios } from "./tools/runConsultarAcessorios.js";
 import { runConsultarBodykit } from "./tools/runConsultarBodykit.js";
-import { runTransferirAssistente } from "./tools/runTrasnferirAssistente.js";
+import { runTransferirAssistente } from "./tools/runTransferirAssistente.js";
 import { runEspecialistaIntencao } from "./tools/runEspecialistaIntencao.js";
 import OpenAICrmServices from "./OpenAICrmServices.js";
 import OpenAIUtils from "../../utils/OpenAIUtils.js";
