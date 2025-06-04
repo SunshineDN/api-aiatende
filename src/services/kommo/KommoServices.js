@@ -518,7 +518,7 @@ export default class KommoServices {
       data: [
         {
           entity_type,
-          entity_id,
+          entity_id: Number(entity_id),
           text,
           task_type_id,
           ...(responsible_user_id && { responsible_user_id }),
