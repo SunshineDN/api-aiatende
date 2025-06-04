@@ -506,7 +506,7 @@ export default class KommoServices {
    * @param {number} [objeto.task_type_id] ID do tipo de tarefa (padrão é 1)
    * @returns {Promise<object>} Retorna a tarefa criada
    */
-  async createTaskInLead({ lead_id, text, responsible_user_id = 0, complete_till = 0, task_type_id = 1 }) {
+  async createTaskInLead({ entity_type = 'leads', entity_id, text, responsible_user_id = 0, complete_till = 0, task_type_id = 1 }) {
     const options = {
       method: 'POST',
       url: `${this.url}/api/v4/tasks`,
@@ -517,8 +517,8 @@ export default class KommoServices {
       },
       data: [
         {
-          entity_type: 'leads',
-          entity_id: lead_id,
+          entity_type,
+          entity_id,
           text,
           task_type_id,
           ...(responsible_user_id && { responsible_user_id }),
