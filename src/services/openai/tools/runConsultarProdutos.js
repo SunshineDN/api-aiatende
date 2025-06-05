@@ -1,6 +1,6 @@
 import OpenAIServices from "../OpenAIServices.js";
 
-export async function runConsultarProdutos({ mensagem_usuario }) {
+export async function runConsultarProdutos({ informacoes = '' }) {
   const prompt = `
 # 🧠 Prompt Avançado — Assistente Especialista em Consulta de Produtos
 
@@ -253,7 +253,8 @@ A assistente **NÃO deve agir como vendedora**, **NÃO deve tentar convencer**, 
 
   const openai = new OpenAIServices();
   const response = await openai.chatCompletion({
-    userMessage: mensagem_usuario,
+    userMessage: `
+    Olá, preciso de ajuda para consultar informações sobre produtos. Por favor, forneça os detalhes solicitados: ${informacoes}`,
     systemMessage: prompt,
   });
 

@@ -1,6 +1,6 @@
 import OpenAIServices from "../OpenAIServices.js";
 
-export async function runConsultarBolosETortas({ mensagem_usuario } = {}) {
+export async function runConsultarBolosETortas({ informacao_adicional = '', bolo_torta = '', fatia = '', forma = '' } = {}) {
   const prompt = `
 # Prompt para Assistente Especialista em Bolos
 
@@ -664,7 +664,12 @@ Disponível nas seguintes formas:
 
   const openai = new OpenAIServices();
   const response = await openai.chatCompletion({
-    userMessage: mensagem_usuario,
+    userMessage: `
+    Olá, preciso de ajuda para consultar informações sobre bolos e tortas. Por favor, forneça os detalhes solicitados:
+    Informação adicional: ${informacao_adicional},
+    Bolo/Torta: ${bolo_torta},
+    Fatia(s): ${fatia},
+    Forma: ${forma}`,
     systemMessage: prompt
   });
 
