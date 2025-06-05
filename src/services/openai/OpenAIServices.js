@@ -6,6 +6,8 @@ import { runEspecialistaIntencao } from "./tools/runEspecialistaIntencao.js";
 import { runTransferirAssistente } from "./tools/runTransferirAssistente.js";
 import { runMostrarFrete } from "./tools/runMostrarFrete.js";
 import { runConsultarCardapio } from "./tools/runConsultarCardapio.js";
+import { runConsultarBolosETortas } from "./tools/runConsultarBolosETortas.js";
+import { runConsultarProdutos } from "./tools/runConsultarProdutos.js";
 import OpenAIUtils from "../../utils/OpenAIUtils.js";
 
 export default class OpenAIServices {
@@ -351,6 +353,8 @@ export default class OpenAIServices {
       'mostrar_frete': runMostrarFrete,
       'transferir_assistente': runTransferirAssistente,
       'consultar_cardapio': runConsultarCardapio,
+      'consultar_bolos_e_tortas': runConsultarBolosETortas,
+      'consultar_produtos': runConsultarProdutos,
     }
   }
 
