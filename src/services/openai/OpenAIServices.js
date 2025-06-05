@@ -33,7 +33,7 @@ export default class OpenAIServices {
    * @param {string} params.systemMessage - Mensagem do sistema.
    * @return {Promise<string>} - A resposta do modelo.
    */
-  async chatCompletion({ model = "gpt-4o-mini", userMessage = "", systemMessage = "" }) {
+  async chatCompletion({ model = "gpt-4.1-mini", userMessage = "", systemMessage = "" }) {
     const messages = [];
 
     if (systemMessage) {
