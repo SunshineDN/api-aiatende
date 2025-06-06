@@ -18,15 +18,24 @@ export default class LeadMessagesRepository extends BaseRepository {
   }
 
   async verifyAndUpdate({ contact_id, message, lead_id = null } = {}) {
-    await this.findOrCreate({
-      where: { contact_id: Number(contact_id) },
-      update: { messages: { push: message }, lead_id },
-      create: {
-        contact_id: Number(contact_id),
-        messages: [message],
-        lead_id,
-      }
-    });
+    const entry = await this.findOne({ where: { contact_id: Number(contact_id) } });
+    if (entry) {
+      await this.model.update({
+        where: { contact_id: Number(contact_id) },
+        data: {
+          messages: { push: message },
+          ...(lead_id && { lead_id: Number(lead_id) })
+        }
+      });
+    } else {
+      await this.model.create({
+        data: {
+          contact_id: Number(contact_id),
+          messages: [message],
+          ...(lead_id && { lead_id: Number(lead_id) })
+        }
+      });
+    }
     styled.success('[LeadMessagesRepository.verifyAndUpdate] - Mensagem registrada com sucesso!');
   }
 
