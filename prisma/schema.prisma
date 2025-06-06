@@ -39,8 +39,9 @@ model funnel_builder {
 }
 
 model lead_messages {
-  id         Int      @id @default(autoincrement())
-  author_id  String?  @db.Uuid
+  id         String   @id @default(uuid()) @db.Uuid
+  lead_id    Int?
+  contact_id Int      @default(0)
   messages   Json[]   @db.Json
   created_at DateTime @default(now()) @db.Timestamptz(6)
   updated_at DateTime @default(now()) @updatedAt @db.Timestamptz(6)

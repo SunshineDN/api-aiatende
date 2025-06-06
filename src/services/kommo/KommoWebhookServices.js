@@ -46,35 +46,14 @@ export default class KommoWebhookServices extends KommoServices {
   }
 
   async messageReceived(obj) {
-    //{ lead_id, attachment = {}, text = '' } = {}
     styled.function('[KommoWebhookServices.messageReceived]');
-    const { lead_id } = obj;
+    const { lead_id, contact_id } = obj;
     const { attachment = {}, text = '' } = obj.message;
-
-    // const haveHash = KommoWebhookUtils.handleEncounterHash(text);
-
-    // if (haveHash) {
-    //   styled.info('[KommoWebhookServices.messageReceived] - Mensagem contém hash, buscando no banco de dados...');
-
-    //   const marketingTrackingRepository = new MarketingTrackingRepository();
-    //   const utms = await marketingTrackingRepository.findOne({ where: { hash: haveHash } });
-
-    //   if (utms) {
-    //     styled.success('[KommoWebhookServices.messageReceived] - Hash encontrada, processando...');
-
-    //     const wppServices = new WppServices();
-    //     const custom_fields = await wppServices.handleCustomFields({ utms });
-    //     await this.updateLead({ id: lead_id, custom_fields_values: custom_fields });
-    //     styled.success('[KommoWebhookServices.messageReceived] - Campos personalizados atualizados com sucesso.');
-    //   } else {
-    //     styled.warning('[KommoWebhookServices.messageReceived] - Nenhuma hash identificada corretamente na mensagem.');
-    //   }
-    // }
 
     const leadMessageRepository = new LeadMessagesRepository();
 
     const send_at = obj?.message?.created_at;
-    const repeated = await leadMessageRepository.verifySendDate(lead_id, send_at);
+    const repeated = await leadMessageRepository.verifySendDate({ contact_id, seconds: send_at });
 
     if (repeated) {
       styled.warning('[KommoWebhookServices.messageReceived] - Mensagem repetida');
@@ -87,7 +66,7 @@ export default class KommoWebhookServices extends KommoServices {
     if (Object.keys(attachment).length > 0) {
       if (attachment?.type === 'voice' || attachment?.type === 'audio') {
         const extension = attachment?.file_name.split('.').pop();
-        const file_name = `${lead_id}.${extension}`;
+        const file_name = `${contact_id}.${extension}`;
         obj.message.lead_message = await openaiServices.transcribeAudio(attachment?.link, file_name);
 
       } else {
@@ -96,8 +75,14 @@ export default class KommoWebhookServices extends KommoServices {
       }
     }
 
-    await leadMessageRepository.verifyAndUpdate(lead_id, obj.message);
-    const { last_messages, recent_messages } = await leadMessageRepository.getLastAndRecentMessages(lead_id);
+    await leadMessageRepository.verifyAndUpdate({ contact_id, message: obj.message, lead_id });
+
+    if (!lead_id) {
+      styled.warning('[KommoWebhookServices.messageReceived] - Nenhum lead_id encontrado, atualizando apenas mensagens.');
+      return { code: 200, response: { updated: false } };
+    }
+
+    const { last_messages, recent_messages } = await leadMessageRepository.getLastAndRecentMessages({ contact_id });
 
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.getLeadsCustomFields() });
     const lastMessages = kommoUtils.findLeadsFieldByName('GPT | Last messages');

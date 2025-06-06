@@ -192,7 +192,7 @@ export default class OpenAICrmServices {
 
   async sendMessageToLead({ message }) {
     const leadMessageRepo = new LeadMessagesRepository();
-    const send_message = await leadMessageRepo.setBoolSendMessage(this.#lead_id);
+    const send_message = await leadMessageRepo.setBoolSendMessage({ lead_id: this.#lead_id});
 
     if (!send_message) {
       styled.warning(`[OpenAICrmServices.sendMessageToLead] - A origem do lead não é do WhatsApp Lite!`);
