@@ -93,7 +93,7 @@ export default class KommoWebhookServices extends KommoServices {
         field_id: lastMessages.id,
         values: [
           {
-            value: last_messages
+            value: last_messages || ""
           }
         ]
       },
@@ -101,7 +101,7 @@ export default class KommoWebhookServices extends KommoServices {
         field_id: message_received.id,
         values: [
           {
-            value: recent_messages
+            value: recent_messages || ""
           }
         ]
       }
