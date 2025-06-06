@@ -1,5 +1,6 @@
 import KommoServices from "../services/kommo/KommoServices.js";
 import BaseRepository from "./BaseRepository.js";
+import styled from "../utils/log/styled.js";
 
 export default class LeadMessagesRepository extends BaseRepository {
   constructor() {
@@ -91,16 +92,13 @@ export default class LeadMessagesRepository extends BaseRepository {
     }
     if (!entry?.messages?.length) return null;
 
-    const last_timestamp = await new LeadThreadRepository().getLastTimestamp(entry.lead_id || 0);
-    if (!last_timestamp) return null;
-    last_timestamp.setMilliseconds(last_timestamp.getMilliseconds() - 1000);
-
-    const recent = entry.messages.filter(msg => {
+    const seconds = 20;
+    const now = new Date();
+    const recentMessages = entry.messages.filter(msg => {
       const msgDate = new Date(Number(msg.created_at) * 1000);
-      return msgDate > last_timestamp;
+      return (now - msgDate) <= (seconds * 1000);
     });
-
-    return recent.map(m => m.lead_message).join('\n') || null;
+    return recentMessages.map(msg => msg.lead_message).join('\n') || null;
   }
 
   async getLastAndRecentMessages({ lead_id = null, contact_id = null, limit = 3 } = {}) {
