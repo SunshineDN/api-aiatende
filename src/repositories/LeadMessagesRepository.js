@@ -21,7 +21,7 @@ export default class LeadMessagesRepository extends BaseRepository {
     const entry = await this.findOne({ where: { contact_id: Number(contact_id) } });
     if (entry) {
       await this.model.update({
-        where: { contact_id: Number(contact_id) },
+        where: { id: entry.id },
         data: {
           messages: { push: message },
           ...(lead_id && { lead_id: Number(lead_id) })
