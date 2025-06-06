@@ -48,7 +48,6 @@ export default class KommoWebhookServices extends KommoServices {
   async messageReceived(obj) {
     styled.function('[KommoWebhookServices.messageReceived]');
     const { lead_id, contact_id } = obj;
-    styled.info(`[KommoWebhookServices.messageReceived] - lead_id: ${lead_id}, contact_id: ${contact_id}`);
     const { attachment = {}, text = '' } = obj.message;
 
     const leadMessageRepository = new LeadMessagesRepository();
