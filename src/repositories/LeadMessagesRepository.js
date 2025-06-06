@@ -1,6 +1,7 @@
 import KommoServices from "../services/kommo/KommoServices.js";
 import BaseRepository from "./BaseRepository.js";
 import styled from "../utils/log/styled.js";
+import prisma from "../prisma-client.js";
 
 export default class LeadMessagesRepository extends BaseRepository {
   constructor() {
