@@ -1,4 +1,5 @@
 import KommoServices from "../services/kommo/KommoServices.js";
+import BaseRepository from "./BaseRepository.js";
 
 export default class LeadMessagesRepository extends BaseRepository {
   constructor() {
