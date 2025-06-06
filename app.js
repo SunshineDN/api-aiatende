@@ -1,15 +1,10 @@
-import express from 'express';
 import cors from 'cors';
-import apiDocs from './src/routes/api-docs.js';
-import bkFunnelRouter from './src/routes/bkfunnels.js';
-import leadRouter from './src/routes/lead.js';
-import detectContent from './src/routes/detect-content.js';
-import webhook from './src/routes/webhook.js';
-import leadThreads from './src/routes/leadthreads.js';
-import admin from './src/routes/admin.js';
-import teste from './src/routes/teste.js';
-import openai from './src/routes/openai.js';
+import express from 'express';
 import prisma from './src/prisma-client.js';
+import apiDocs from './src/routes/api-docs.js';
+import detectContent from './src/routes/detect-content.js';
+import openai from './src/routes/openai.js';
+import webhook from './src/routes/webhook.js';
 
 const app = express();
 
@@ -29,13 +24,8 @@ app.get('/health', async (_req, res) => {
 });
 
 app.use('/api-docs', apiDocs);
-app.use('/bkfunnels', bkFunnelRouter);
-app.use('/lead', leadRouter);
 app.use('/content', detectContent);
 app.use('/webhook', webhook);
-app.use('/lead-threads', leadThreads);
-app.use('/admin', admin);
-app.use('/teste', teste);
 app.use('/atende360/v2', openai);
 
 app.use((_, res) => {

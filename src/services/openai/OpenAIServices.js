@@ -1,17 +1,17 @@
 import OpenAI from "openai";
-import styled from "../../utils/log/styled.js";
 import ThreadRepository from "../../repositories/ThreadRepository.js";
-import { runEspecialistaDados } from "./tools/runEspecialistaDados.js";
-import { runEspecialistaInvisalign } from "./tools/runEspecialistaInvisalign.js";
-import { runEspecialistaImplantes } from "./tools/runEspecialistaImplantes.js";
-import { runEspecialistaIntencao } from "./tools/runEspecialistaIntencao.js";
+import styled from "../../utils/log/styled.js";
+import OpenAIUtils from "../../utils/OpenAIUtils.js";
+import OpenAICrmServices from "./OpenAICrmServices.js";
+import { runAgendamentoAtualizar } from "./tools/runAgendamentoAtualizar.js";
 import { runAgendamentoCriar } from "./tools/runAgendamentoCriar.js";
 import { runAgendamentoDeletar } from "./tools/runAgendamentoDeletar.js";
 import { runAgendamentoListarDatas } from "./tools/runAgendamentoListarDatas.js";
-import { runAgendamentoAtualizar } from "./tools/runAgendamentoAtualizar.js";
 import { runAgendamentoVer } from "./tools/runAgendamentoVer.js";
-import OpenAICrmServices from "./OpenAICrmServices.js";
-import OpenAIUtils from "../../utils/OpenAIUtils.js";
+import { runEspecialistaDados } from "./tools/runEspecialistaDados.js";
+import { runEspecialistaImplantes } from "./tools/runEspecialistaImplantes.js";
+import { runEspecialistaIntencao } from "./tools/runEspecialistaIntencao.js";
+import { runEspecialistaInvisalign } from "./tools/runEspecialistaInvisalign.js";
 
 export default class OpenAIServices {
   #lead_id;
@@ -333,6 +333,68 @@ export default class OpenAIServices {
       styled.warning(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Mensagem não obtida.`);
       styled.warningdir(status);
       return null;
+    }
+  }
+
+  async handleCreateAndPoolRun({ userMessage = "", assistant_id, additional_instructions = null, instructions = null }) {
+    const repo = new ThreadRepository({ lead_id: this.#lead_id });
+    const sanitizedText = (userMessage ?? "").trim();
+
+    const thread = await this.findOrCreateThread({ assistant_id });
+
+    let run;
+    while (true) {
+      run = await this.openai.beta.threads.runs.createAndPoll(thread.thread_id, {
+        assistant_id,
+        ...(additional_instructions && { additional_instructions }),
+        ...(instructions && { instructions }),
+        ...(sanitizedText && { additional_messages: [{ role: "user", content: sanitizedText }] }),
+      }, {
+        pollIntervalMs: 1000,
+        timeout: 60000,
+      });
+
+      styled.info(`[OpenAIServices.handleCreateAndPoolRun] Lead ID: ${this.#lead_id} - Run criado e aguardando resposta...`);
+      styled.infodir(run);
+      await repo.updateRun({ assistant_id, run_id: run.id });
+
+      if (run.status === "requires_action") {
+        const call = run.required_action;
+        styled.info(`[OpenAIServices.handleCreateAndPoolRun] Lead ID: ${this.#lead_id} - Ação requerida: ${call.type}`);
+        styled.infodir(call);
+
+        if (call.type === "submit_tool_outputs") {
+          const toolCalls = call.submit_tool_outputs.tool_calls;
+          const tool_outputs_results = [];
+          for (const toolCall of toolCalls) {
+            const fnName = toolCall.function.name;
+            const args = JSON.parse(toolCall.function.arguments);
+
+            // Executar a lógica local
+            const result = await this.availableTools()[fnName](args);
+            styled.info(`[OpenAIServices.handleCreateAndPoolRun] Tool Result: ${fnName}:`, JSON.stringify(result));
+            tool_outputs_results.push({
+              tool_call_id: toolCall.id,
+              output: JSON.stringify(result)
+            });
+          }
+          // Submeter o resultado das ferramentas ao run
+          await this.openai.beta.threads.runs.submitToolOutputs(thread.thread_id, run.id, {
+            tool_outputs: tool_outputs_results,
+          });
+          continue;
+        }
+      }
+      break;
+    }
+
+    if (run.status === "completed") {
+      const obtainMessage = await this.handleObtainMessage({ thread_id: thread.thread_id });
+      styled.success(`[OpenAIServices.handleCreateAndPoolRun] Lead ID: ${this.#lead_id}  - Mensagem obtida com sucesso.`);
+      return `*${this.assistant_name}*:\n\n${obtainMessage}`;
+    } else {
+      styled.warning(`[OpenAIServices.handleCreateAndPoolRun] Lead ID: ${this.#lead_id} - Mensagem não obtida.`);
+      throw new Error(`Erro ao obter mensagem do run: ${JSON.stringify(run)}`);
     }
   }
 
