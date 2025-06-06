@@ -1,5 +1,6 @@
 import KommoServices from "../services/kommo/KommoServices.js";
 import BaseRepository from "./BaseRepository.js";
+import LeadRepository from "./LeadRepository.js";
 import styled from "../utils/log/styled.js";
 import prisma from "../prisma-client.js";
 
@@ -18,6 +19,13 @@ export default class LeadMessagesRepository extends BaseRepository {
   }
 
   async verifyAndUpdate({ contact_id, message, lead_id = null } = {}) {
+
+    if (lead_id) {
+      const leadRepository = new LeadRepository();
+      await leadRepository.findOrCreateLead({ lead_id, contact_id });
+      styled.success('[LeadMessagesRepository.verifyAndUpdate] - Lead atualizado com sucesso!');
+    }
+
     const entry = await this.findOne({ where: { contact_id: Number(contact_id) } });
     if (entry) {
       await this.model.update({
