@@ -76,8 +76,8 @@ Número de Telefone: ${telefone}`;
     id: lead_id,
     name: nome,
     email,
-    phone: kommoUtils.formatPhone(telefone),
-    lead_custom_fields_values: lead_custom_fields
+    lead_custom_fields_values: lead_custom_fields,
+    ...(telefone && { phone: kommoUtils.formatPhone(telefone) })
   });
 
   return {
