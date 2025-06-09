@@ -143,6 +143,10 @@ export default class OpenAIServices {
       additional_instructions,
       ...(sanitizedText && { additional_messages: [{ role: "user", content: sanitizedText }] }),
       ...(instructions && { instructions }),
+    }, {
+      pollIntervalMs: 1000,
+      timeout: 15000,
+      maxRetries: 2,
     });
 
     const message = await this.handleStatusRun({ run, thread_id: thread.thread_id });
