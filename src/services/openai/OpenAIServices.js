@@ -135,19 +135,26 @@ export default class OpenAIServices {
 
     await crm_services.verifyLeadMessageField();
 
-    const run = await this.handleCreateRun({
+    // const run = await this.handleCreateRun({
+    //   userMessage,
+    //   assistant_id,
+    //   additional_instructions,
+    //   ...(instructions && { instructions }),
+    // });
+
+    // styled.info(`[OpenAIServices.handleRunAssistant] Lead ID: ${this.#lead_id} - Run criado:`);
+    // styled.infodir(run);
+
+    // const message = await this.handleRetrieveRun({
+    //   threadId: run.thread_id,
+    //   runId: run.run_id,
+    // });
+
+    const message = await this.handleCreateAndPoolRun({
       userMessage,
       assistant_id,
       additional_instructions,
       ...(instructions && { instructions }),
-    });
-
-    styled.info(`[OpenAIServices.handleRunAssistant] Lead ID: ${this.#lead_id} - Run criado:`);
-    styled.infodir(run);
-
-    const message = await this.handleRetrieveRun({
-      threadId: run.thread_id,
-      runId: run.run_id,
     });
 
     // await crm_services.sendMessageToLead({ message });
