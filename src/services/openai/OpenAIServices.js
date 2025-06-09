@@ -212,6 +212,9 @@ export default class OpenAIServices {
   }
 
   async handleStatusRun({ run, thread_id }) {
+    styled.info(`[OpenAIServices.handleStatusRun] Lead ID: ${this.#lead_id} - Status do run: ${run.status}`);
+    styled.infodir(run);
+
     if (run.status === "completed") {
       const obtainMessage = await this.handleObtainMessage({ thread_id });
       styled.success(`[OpenAIServices.handleStatusRun] Lead ID: ${this.#lead_id} - Mensagem obtida com sucesso.`);
