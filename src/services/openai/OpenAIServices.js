@@ -391,7 +391,7 @@ export default class OpenAIServices {
             });
           }
           // Submeter o resultado das ferramentas ao run
-          await this.openai.beta.threads.runs.submitToolOutputs(thread.thread_id, run.id, {
+          await this.openai.beta.threads.runs.submitToolOutputsAndPoll(thread.thread_id, run.id, {
             tool_outputs: tool_outputs_results,
           });
           continue;
