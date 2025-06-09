@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 import ThreadRepository from "../../repositories/ThreadRepository.js";
+import CustomError from "../../utils/CustomError.js";
 import styled from "../../utils/log/styled.js";
 import OpenAIUtils from "../../utils/OpenAIUtils.js";
 import OpenAICrmServices from "./OpenAICrmServices.js";
@@ -330,9 +331,13 @@ export default class OpenAIServices {
       styled.success(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Mensagem obtida com sucesso.`);
       return `*${this.assistant_name}*:\n\n${obtainMessage}`;
     } else {
-      styled.warning(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Mensagem não obtida.`);
-      styled.warningdir(status);
-      return null;
+      styled.error(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Mensagem não obtida.`);
+      styled.errordir(status);
+      throw new CustomError({
+        statusCode: 500,
+        message: `Erro ao obter mensagem do run. Status: ${status.status}`,
+        lead_id: this.#lead_id
+      });
     }
   }
 
@@ -393,8 +398,13 @@ export default class OpenAIServices {
       styled.success(`[OpenAIServices.handleCreateAndPoolRun] Lead ID: ${this.#lead_id}  - Mensagem obtida com sucesso.`);
       return `*${this.assistant_name}*:\n\n${obtainMessage}`;
     } else {
-      styled.warning(`[OpenAIServices.handleCreateAndPoolRun] Lead ID: ${this.#lead_id} - Mensagem não obtida.`);
-      throw new Error(`Erro ao obter mensagem do run: ${JSON.stringify(run)}`);
+      styled.error(`[OpenAIServices.handleCreateAndPoolRun] Lead ID: ${this.#lead_id} - Mensagem não obtida.`);
+      styled.errordir(run);
+      throw new CustomError({
+        statusCode: 500,
+        message: `Erro ao obter mensagem do run. Status: ${run.status}`,
+        lead_id: this.#lead_id
+      });
     }
   }
 
