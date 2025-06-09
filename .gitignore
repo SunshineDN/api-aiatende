@@ -3,6 +3,7 @@ node_modules
 !.env.example
 *data
 *service_account*.json
+teste*.js
 backup_docker_logs.sh
 backup_logs
 generated/prisma/
