@@ -35,13 +35,6 @@ export default class StaticUtils {
         return mensagem.replace(regexEmoji, '[emoji]');
     }
 
-    static calendarLink(id) {
-        id = id.toString();
-        const encodedString = StaticUtils.encodeString(id);
-        const domain = process.env.DOMAIN || 'https://teste.aiatende.dev.br';
-        return `${domain}/site/calendar/${encodedString}`;
-    }
-
     static encodeString(string) {
         let base64 = btoa(string);
         return base64.replace(/=/g, '');
