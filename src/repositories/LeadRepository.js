@@ -7,18 +7,18 @@ export default class LeadRepository extends BaseRepository {
     super(prisma.leads);
   }
 
+  async findOrCreateLead({ lead_id, contact_id }) {
+    const lead = await this.findOrCreate({
+      where: { lead_id: Number(lead_id) },
+      update: { contact_id: Number(contact_id) },
+      create: { lead_id: Number(lead_id), contact_id: Number(contact_id) },
+    });
+
+    styled.success('[LeadRepository.findOrCreateLead] - Lead encontrado ou criado com sucesso!');
+    return lead;
+  }
+
   async findCreateAndUpdate(id, obj) {
-    // const [lead, created] = await this.findOrCreate({
-    //   where: { lead_id: id },
-    //   defaults: {
-    //     data: obj
-    //   },
-    // });
-
-    // if (!created) {
-    //   await lead.update(obj);
-    // }
-
     const lead = await this.findOrCreate({
       where: { lead_id: Number(id) },
       update: { data: obj },

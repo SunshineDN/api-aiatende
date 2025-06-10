@@ -1,12 +1,13 @@
 import OpenAI from "openai";
-import styled from "../../utils/log/styled.js";
 import ThreadRepository from "../../repositories/ThreadRepository.js";
+import CustomError from "../../utils/CustomError.js";
+import styled from "../../utils/log/styled.js";
+import OpenAIUtils from "../../utils/OpenAIUtils.js";
+import OpenAICrmServices from "./OpenAICrmServices.js";
 import { runConsultarAcessorios } from "./tools/runConsultarAcessorios.js";
 import { runConsultarBodykit } from "./tools/runConsultarBodykit.js";
-import { runTransferirAssistente } from "./tools/runTransferirAssistente.js";
 import { runEspecialistaIntencao } from "./tools/runEspecialistaIntencao.js";
-import OpenAICrmServices from "./OpenAICrmServices.js";
-import OpenAIUtils from "../../utils/OpenAIUtils.js";
+import { runTransferirAssistente } from "./tools/runTransferirAssistente.js";
 
 export default class OpenAIServices {
   #lead_id;
@@ -31,7 +32,7 @@ export default class OpenAIServices {
    * @param {string} params.systemMessage - Mensagem do sistema.
    * @return {Promise<string>} - A resposta do modelo.
    */
-  async chatCompletion({ model = "gpt-4o-mini", userMessage = "", systemMessage = "" }) {
+  async chatCompletion({ model = "gpt-4.1-mini", userMessage = "", systemMessage = "" }) {
     const messages = [];
 
     if (systemMessage) {
@@ -129,20 +130,21 @@ export default class OpenAIServices {
 
     await crm_services.verifyLeadMessageField();
 
-    const run = await this.handleCreateRun({
-      userMessage,
+    const thread = await this.findOrCreateThread({ assistant_id });
+
+    const sanitizedText = (userMessage ?? "").trim();
+    const run = await this.openai.beta.threads.runs.createAndPoll(thread.thread_id, {
       assistant_id,
       additional_instructions,
+      ...(sanitizedText && { additional_messages: [{ role: "user", content: sanitizedText }] }),
       ...(instructions && { instructions }),
+    }, {
+      pollIntervalMs: 1000,
+      timeout: 15000,
+      maxRetries: 2,
     });
 
-    styled.info(`[OpenAIServices.handleRunAssistant] Lead ID: ${this.#lead_id} - Run criado:`);
-    styled.infodir(run);
-
-    const message = await this.handleRetrieveRun({
-      threadId: run.thread_id,
-      runId: run.run_id,
-    });
+    const message = await this.handleStatusRun({ run, thread_id: thread.thread_id });
 
     // await crm_services.sendMessageToLead({ message });
     await crm_services.saveAssistantAnswer({ message });
@@ -175,159 +177,58 @@ export default class OpenAIServices {
     return thread;
   }
 
-  /**
-   * Verifica se há um run ativo para o assistente.
-   * @param {Object} params
-   * @param {string} params.assistant_id - ID do assistente.
-   * @return {Promise<boolean>} - Retorna true se houver um run ativo, caso contrário false.
-   */
-  async verifyRunIsActive({ assistant_id }) {
-    const repo = new ThreadRepository({ lead_id: this.#lead_id });
-    const threads = await repo.findThread({ assistant_id });
+  async handleRequiresAction({ run, thread_id }) {
+    styled.info(`[OpenAIServices.handleRequiresAction] Lead ID: ${this.#lead_id} - Ação requerida: ${run.required_action.type}`);
+    styled.infodir(run.required_action);
 
-    if (threads.run_id) {
-      const run = await this.openai.beta.threads.runs.retrieve(threads.thread_id, threads.run_id);
-      styled.info(`[OpenAIServices.verifyRunIsActive] Lead ID: ${this.#lead_id} - Verificando run ativo...`);
-      if (run.status === "running" || run.status === "requires_action") {
-        styled.info(`[OpenAIServices.verifyRunIsActive] Lead ID: ${this.#lead_id} - Run ativo.`);
-        return true;
-      } else {
-        styled.warning(`[OpenAIServices.verifyRunIsActive] Lead ID: ${this.#lead_id} - Run não está ativo.`);
-        return false;
+    if (run.required_action.type === "submit_tool_outputs") {
+      const toolCalls = run.required_action.submit_tool_outputs.tool_calls;
+      const tool_outputs_results = [];
+      for (const toolCall of toolCalls) {
+        const fnName = toolCall.function.name;
+        const args = JSON.parse(toolCall.function.arguments);
+
+        // Executar a lógica local
+        const result = await this.availableTools()[fnName](args);
+        styled.info(`[OpenAIServices.handleRequiresAction] Tool Result: ${fnName}:`, JSON.stringify(result));
+        tool_outputs_results.push({
+          tool_call_id: toolCall.id,
+          output: JSON.stringify(result)
+        });
       }
-    }
-    styled.warning(`[OpenAIServices.verifyRunIsActive] Lead ID: ${this.#lead_id} - Nenhum run ativo encontrado.`);
-    return false;
-  }
-
-  /**
-   * Cria uma mensagem na thread e inicia o run.
-   * @param {Object} params
-   * @param {string} params.userMessage - Mensagem do usuário.
-   * @param {string} params.assistant_id - ID do assistente.
-   * @param {string} [params.additional_instructions] - Instruções adicionais para o run.
-   * @return {Promise<Object>} - O run criado com o ID da thread e do run.
-   */
-  async handleCreateRun({ userMessage = "", assistant_id, additional_instructions = null, instructions = null } = {}) {
-    const repo = new ThreadRepository({ lead_id: this.#lead_id });
-    const sanitizedText = (userMessage ?? "").trim();
-
-    const thread = await this.findOrCreateThread({ assistant_id });
-
-    const runIsActive = await this.verifyRunIsActive({ assistant_id });
-    let run_id;
-
-    if (!runIsActive) {
-      const run = await this.openai.beta.threads.runs.create(thread.thread_id, {
-        assistant_id,
-        ...(additional_instructions && { additional_instructions }),
-        ...(instructions && { instructions }),
-        ...(sanitizedText && { additional_messages: [{ role: "user", content: sanitizedText }] }),
+      run = await this.openai.beta.threads.runs.submitToolOutputsAndPoll(thread_id, run.id, {
+        tool_outputs: tool_outputs_results
       });
-      run_id = run.id;
-      await repo.updateRun({ assistant_id, run_id });
-      styled.info(`[OpenAIServices.handleCreateRun] Lead ID: ${this.#lead_id} - Run criado: ${run.id}`);
+      styled.info(`[OpenAIServices.handleRequiresAction] Lead ID: ${this.#lead_id} - Resultado das ferramentas submetido com sucesso.`);
+      return await this.handleStatusRun({ run, thread_id });
     } else {
-      styled.info(`[OpenAIServices.handleCreateRun] Lead ID: ${this.#lead_id} - Run já ativo. Usando run existente.`);
-
-      await repo.updateVoid({ assistant_id });
-
-      run_id = thread.run_id;
+      throw new CustomError({
+        statusCode: 400,
+        message: `Ação requerida não suportada: ${run.required_action.type}`,
+        lead_id: this.#lead_id
+      });
     }
-
-
-    return {
-      thread_id: thread.thread_id,
-      run_id
-    };
   }
 
-  /**
-   * Captura a mensagem do run.
-   * @param {Object} params
-   * @param {Object} params.run - O run criado.
-   * @return {Promise<string|null>} - A mensagem capturada ou null se não houver mensagem.
-   * */
-  async handleRetrieveRun({ threadId, runId }) {
-    let status, count = 2;
+  async handleStatusRun({ run, thread_id }) {
+    styled.info(`[OpenAIServices.handleStatusRun] Lead ID: ${this.#lead_id} - Status do run: ${run.status}`);
+    styled.infodir(run);
 
-    while (true) {
-      // 1) recuperar o status do run
-      status = await this.openai.beta.threads.runs.retrieve(threadId, runId);
-
-      if (count === 2) {
-        styled.info(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Recuperando status do run...`);
-        styled.infodir(status);
-      }
-
-      styled.info(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Status do run: ${status.status}`);
-
-      // 2) se precisar rodar tool...
-      if (status.status === "requires_action") {
-        const call = status.required_action;
-        styled.info(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Ação requerida: ${call.type}`);
-        styled.infodir(call);
-
-        if (call.type === "submit_tool_outputs") {
-          // 2.1 descompactar chamada
-          const toolCalls = call.submit_tool_outputs.tool_calls;
-          const tool_outputs_results = [];
-          for (const toolCall of toolCalls) {
-            const fnName = toolCall.function.name;
-            const args = JSON.parse(toolCall.function.arguments);
-
-            // 2.2 executar sua lógica local
-            const result = await this.availableTools()[fnName](args);
-            styled.info(`[OpenAIServices.handleRetrieveRun] Tool Result: ${fnName}:`, JSON.stringify(result));
-            tool_outputs_results.push({
-              tool_call_id: toolCall.id,
-              output: JSON.stringify(result)
-            });
-          }
-          // 2.3 submeter o resultado das ferramentas ao run
-          await this.openai.beta.threads.runs.submitToolOutputs(threadId, runId, {
-            tool_outputs: tool_outputs_results,
-          });
-          continue;
-        }
-      }
-
-      if (status.status === "completed") {
-        styled.info(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Run finalizado com sucesso.`);
-        break;
-      }
-
-      if (status.status === "failed") {
-        styled.error(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Run falhou.`);
-        break;
-      }
-
-      if (status.status === "cancelled") {
-        styled.warning(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Run cancelado.`);
-        break;
-      }
-
-      if (status.status === "expired") {
-        styled.warning(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Run expirado.`);
-        break;
-      }
-
-      if (status.status === "running") {
-        styled.info(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Run em execução.`);
-      }
-
-      await new Promise(r => setTimeout(r, 1000 * (count / 2)));
-      count++;
-    }
-
-    if (status.status === "completed") {
-      const obtainMessage = await this.handleObtainMessage({ thread_id: threadId });
-      styled.success(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Mensagem obtida com sucesso.`);
+    if (run.status === "completed") {
+      const obtainMessage = await this.handleObtainMessage({ thread_id });
+      styled.success(`[OpenAIServices.handleStatusRun] Lead ID: ${this.#lead_id} - Mensagem obtida com sucesso.`);
       return `*${this.assistant_name}*:\n\n${obtainMessage}`;
+    } else if (run.status === "requires_action") {
+      styled.info(`[OpenAIServices.handleStatusRun] Lead ID: ${this.#lead_id} - Ação requerida: ${run.required_action.type}`);
+      return await this.handleRequiresAction({ run, thread_id });
     } else {
-      styled.warning(`[OpenAIServices.handleRetrieveRun] Lead ID: ${this.#lead_id} - Mensagem não obtida.`);
-      styled.warningdir(status);
-      return null;
+      styled.error(`[OpenAIServices.handleStatusRun] Lead ID: ${this.#lead_id} - Mensagem não obtida.`);
+      styled.errordir(run);
+      throw new CustomError({
+        statusCode: 500,
+        message: `Erro ao obter mensagem do run. Status: ${run.status}`,
+        lead_id: this.#lead_id
+      });
     }
   }
 
