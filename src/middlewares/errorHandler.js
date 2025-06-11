@@ -1,6 +1,9 @@
 import KommoServices from '../services/kommo/KommoServices.js';
 
 export const errorHandler = async (err, req, res, next) => {
+  console.error("Erro capturado:", err);
+  console.error("Stack trace:", err.stack);
+
   const statusCode = err.statusCode || 500;
   const lead_id = err.lead_id || req.body?.lead_id || null;
 
