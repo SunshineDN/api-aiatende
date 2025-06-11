@@ -25,7 +25,7 @@ export async function runTransferirAssistente({ motivo, lead_id = "" } = {}) {
     }
   }
 
-  const responsibleUser = kommoUtils.findUserByName("Doce Mania");
+  const responsibleUser = kommoUtils.findUserByName("Dpto Vendas");
 
   const status = kommoUtils.findStatusByCode("qualificado", 142);
 
