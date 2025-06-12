@@ -233,7 +233,7 @@ export default class KommoCalendarServices {
 `;
 
     const openai = new OpenAIServices({ lead_id: this.#lead_id });
-    const res = await openai.handleRunAssistant({ userMessage: eventResponseMessage });
+    const res = await openai.handleRunAssistant({ userMessage: eventResponseMessage, assistant_id: process.env.OPENAI_ASSISTANT_ID });
     return { event: eventResponse, assistant_response: res };
   }
 }
