@@ -25,8 +25,8 @@ O fluxo é estruturado como um funil sequencial, ou seja, as etapas não voltam,
 2 - Qualificado: O usuário demonstrou interesse em continuar. Nesta etapa, é ideal capturar o nome do usuário.  
 3 - Pré-agendamento (datas): O usuário mostrou desejo de visualizar ou selecionar datas.  
 4 - Pré-agendamento (cadastro): O usuário escolheu uma data e está fornecendo dados.  
-5 - Pré-agendamento (confirmação): O usuário já forneceu todos os dados e está confirmando os dados e a data escolhida.  
-6 - Agendado: O usuário confirmou o agendamento.  
+5 - Pré-agendamento (confirmação): O usuário já forneceu todos os dados e está confirmando os dados e a data escolhida.
+6 - Agendado: O usuário confirmou o agendamento (apenas se o lead confirmar o agendamento na primeira confirmação após os agendamentos / reagendamentos, se houver duas confirmações, ele não entra nesta etapa e retorna "Fora do fluxo").
 7 - Confirmação (1 etapa): O usuário confirmou a primeira etapa da vinda (geralmente 24h antes).  
 8 - Confirmação (2 etapa): O usuário confirmou a segunda etapa da vinda (geralmente 3h antes).
 
@@ -43,7 +43,7 @@ O fluxo é estruturado como um funil sequencial, ou seja, as etapas não voltam,
 - Sempre retorne **apenas a etapa mais atual e válida** com base no histórico.  
 - O usuário não pode retornar a uma etapa anterior do funil.  
 - Retorne o nome exato da etapa como um dos seguintes valores (retorno único e preciso, em texto):  
-  "Recepção Virtual", "Qualificado", "Pré-agendamento (datas)", "Pré-agendamento (cadastro)", "Pré-agendamento (confirmação)", "Agendado", "Confirmação (1 etapa)", "Confirmação (2 etapa)", "Reagendamento", "Desmarcado", "Fora do fluxo"`;
+  "Recepção Virtual", "Qualificado", "Pré-agendamento (datas)", "Pré-agendamento (cadastro)", "Pré-agendamento (confirmação)", "Agendado", "Confirmação (1 etapa)", "Confirmação (2 etapa)", "Reagendamento", "Desmarcado" e "Fora do fluxo"`;
 
   const openai = new OpenAIServices();
   const response = await openai.chatCompletion({
@@ -86,11 +86,11 @@ O fluxo é estruturado como um funil sequencial, ou seja, as etapas não voltam,
     styled.info(`Agendamento - Intenção detectada: ${intent} - Status: ${status?.name}`);
 
   } else if (intent.includes('confirmação (1 etapa)')) {
-    status = kommoUtils.findStatusByPipelineAndName('confirmação', 'confirmação 24h');
+    status = kommoUtils.findStatusByPipelineAndName('confirmação', 'confirmação 3h');
     styled.info(`Reagendamento - Intenção detectada: ${intent} - Status: ${status?.name}`);
 
   } else if (intent.includes('confirmação (2 etapa)')) {
-    status = kommoUtils.findStatusByPipelineAndName('confirmação', 'confirmação 3h');
+    status = kommoUtils.findStatusByPipelineAndName('confirmação', 'lembrete 1h');
     styled.info(`Desmarcado - Intenção detectada: ${intent} - Status: ${status?.name}`);
 
   } else if (intent.includes('reagendamento')) {
