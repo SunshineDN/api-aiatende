@@ -123,6 +123,7 @@ export default class OpenAIServices {
    * @param {string} params.assistant_id - ID do assistente.
    * @param {string} [params.additional_instructions] - Instruções adicionais para o run.
    * @param {string} [params.instructions] - Instruções para o run.
+   * @param {boolean} [params.intention=true] - Se deve executar a intenção do especialista.
    * @return {Promise<Object>} - O run criado.
    */
   async handleRunAssistant({ userMessage = "", assistant_id, additional_instructions = null, instructions = null, intention = true } = {}) {

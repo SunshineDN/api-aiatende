@@ -234,7 +234,7 @@ export default class KommoCalendarServices {
 
     const openai = new OpenAIServices({ lead_id: this.#lead_id });
     const assistant_id = atob(process.env.OPENAI_ASSISTANT_ID);
-    const res = await openai.handleRunAssistant({ userMessage: eventResponseMessage, assistant_id });
+    const res = await openai.handleRunAssistant({ userMessage: eventResponseMessage, assistant_id, intention: false });
     return { event: eventResponse, assistant_response: res };
   }
 }
