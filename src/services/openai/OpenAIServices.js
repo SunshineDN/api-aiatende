@@ -125,7 +125,7 @@ export default class OpenAIServices {
    * @param {string} [params.instructions] - Instruções para o run.
    * @return {Promise<Object>} - O run criado.
    */
-  async handleRunAssistant({ userMessage = "", assistant_id, additional_instructions = null, instructions = null } = {}) {
+  async handleRunAssistant({ userMessage = "", assistant_id, additional_instructions = null, instructions = null, intention = true } = {}) {
     const crm_services = new OpenAICrmServices({ lead_id: this.#lead_id });
     await crm_services.getLead();
 
@@ -156,7 +156,9 @@ export default class OpenAIServices {
 
     const repo = new ThreadRepository({ lead_id: this.#lead_id });
     const updated = await repo.storeMessage({ assistant_id, userMessage, assistantMessage: message });
-    await runEspecialistaIntencao({ conversation_messages: updated.messages, lead_id: this.#lead_id });
+    if (intention) {
+      await runEspecialistaIntencao({ conversation_messages: updated.messages, lead_id: this.#lead_id });
+    }
 
     return message;
   }
