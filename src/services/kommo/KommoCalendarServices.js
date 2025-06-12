@@ -60,7 +60,7 @@ export default class KommoCalendarServices {
       const leadEventDate = LeadUtils.findLeadField({ lead, fieldName: 'Data do Evento', value: true });
 
       if (!leadEventDate) {
-        throw new CustomError({ message: 'Data do Evento não encontrada no lead', lead_id: this.#lead_id });
+        throw new CustomError({ statusCode: 404, message: 'Data do Evento não encontrada no lead', lead_id: this.#lead_id });
       }
 
       startDateTime = DateUtils.secondsToDate(Number(leadEventDate));
@@ -77,7 +77,7 @@ export default class KommoCalendarServices {
       profissional = LeadUtils.findLeadField({ lead, fieldName: 'Profissional', value: true });
 
       if (!profissional) {
-        throw new Error('Profissional não encontrado no lead');
+        throw new CustomError({ statusCode: 404, message: 'Profissional não encontrado no lead', lead_id: this.#lead_id });
       }
 
       calendar_id = CalendarUtils.idValidate(profissional);
