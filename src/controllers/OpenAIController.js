@@ -57,7 +57,7 @@ Execute a ferramenta "agendamento_ver" para recuperar o evento / agendamento cri
 
 Se não houver agendamentos, responda com: "❌ Nenhum agendamento encontrado."`
 
-      const response = await openai.handleRunAssistant({ assistant_id: decryptedAssistantId, instructions });
+      const response = await openai.handleRunAssistant({ assistant_id: decryptedAssistantId, instructions, intention: false });
       styled.success(`[OpenAIController.runAssistantScheduled] - Assistente executado com sucesso!`);
       styled.successdir(response);
       res.status(200).json({ response });
