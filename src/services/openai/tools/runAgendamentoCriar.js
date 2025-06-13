@@ -8,8 +8,8 @@ import OpenAICrmServices from "../OpenAICrmServices.js";
  * @param {Object} params
  * 
  */
-export async function runAgendamentoCriar({ data_hora, especialista, titulo, motivo, lead_id }) {
-  const calendar_id = CalendarUtils.idValidate(especialista);
+export async function runAgendamentoCriar({ data_hora, titulo, motivo, lead_id }) {
+  const calendar_id = CalendarUtils.idValidate();
   const calendar = new CalendarServices(calendar_id);
   const startDate = new Date(data_hora);
   const endDate = new Date(startDate.getTime() + 30 * 60 * 1000); // Adiciona 30 minutos à data/hora

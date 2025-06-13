@@ -1,44 +1,40 @@
 import DateUtils from "../../../utils/DateUtils.js";
 import KommoUtils from "../../../utils/KommoUtils.js";
-import StaticUtils from "../../../utils/StaticUtils.js";
 import KommoServices from "../../kommo/KommoServices.js";
 import OpenAIServices from "../OpenAIServices.js";
 
-export async function runEspecialistaDados({ resumo_historico, nome = "", bairro = "", data_nascimento = "", email = "", telefone = "", lead_id = "" } = {}) {
-
-  const dados_importantes = [
-    "Nome",
-    "Bairro",
-    "Data de Nascimento",
-    "Email",
-    "Número de Telefone (Telefone)",
-  ];
-
+export async function runEspecialistaDados({ nome = "", convenio = "", telefone = "", lead_id = "" } = {}) {
   const userMessage = `
 Aqui estão meus dados:
 Nome: ${nome}
-Bairro: ${bairro}
-Data de Nascimento: ${data_nascimento}
-Email: ${email}
-Número de Telefone: ${telefone}`;
+Número de Telefone: ${telefone}
+Plano de Saúde / Convênio: ${convenio}`;
 
   const prompt = `
-  Você é um especialista em dados e precisa analisar as informações fornecidas.
+  Você é um especialista em dados responsável por validar informações cadastrais fornecidas por um cliente.
 
-  Seu objetivo é identificar e verificar se há todos os dados necessários para o atendimento.
-  Você deve analisar as informações do cliente e verificar se estão completas e corretas.
-  Você deve considerar os seguintes dados como importantes:
-  ${dados_importantes.join(", ")}
+  ## ✅ Objetivo:
+  - Verificar se os dados obrigatórios foram informados corretamente.
+  - Validar se o **plano de saúde/convênio informado é um dos aceitos** pela clínica.
 
-  Resumo Histórico: ${resumo_historico}
-  Responda de forma clara e concisa, destacando os pontos mais importantes.
-  Evite incluir informações irrelevantes ou redundantes.
-  Lembre-se de que a clareza e a precisão são fundamentais na sua análise.
-  Se não houver informações relevantes, responda "Nenhuma informação relevante encontrada".
+  ## 📋 Dados fornecidos:
+  Nome: ${nome}  
+  Telefone: ${telefone}  
+  Plano de Saúde / Convênio: ${convenio}
 
-  System informations:
-  ${DateUtils.getActualDatetimeInformation()}
-  `;
+  ## 🛑 Lista de planos aceitos:
+  UNIMED, AMIL, UNAFISCO, FACHESF, TRT-6, SAÚDE CAIXA, PLAN-ASSISTES, MEDISERVICE, STELLANTIS, ALLIANZ SAÚDE, CAMED, ASSEFAZ, CAPESAUDE, POSTAL SAÚDE, GEAP, BANCO CENTRAL, AMEPE/CAMPE, CONAB, PF SAÚDE, FISCO SAÚDE, EMBRATEL, LIFE, PROASA
+
+  ## 📌 Instruções:
+  - Responda de forma clara e objetiva.
+  - Destaque **quais dados estão corretos** e **quais estão ausentes ou inválidos**.
+  - Se o plano informado **não estiver na lista**, informe isso claramente.
+  - Se **faltarem informações**, oriente que o cliente precisa completá-las.
+  - Se **todos os dados estiverem corretos**, informe que está tudo pronto para seguir com o atendimento.
+
+  ## 🕒 System Info:
+  ${DateUtils.getActualDatetimeInformation()}`;
+
 
   const openai = new OpenAIServices();
 
@@ -55,20 +51,10 @@ Número de Telefone: ${telefone}`;
 
   const lead_custom_fields = [];
 
-  if (bairro) {
-    const bairroField = kommoUtils.findLeadsFieldByName("Bairro");
-    if (bairroField) {
-      lead_custom_fields.push({ field_id: bairroField.id, values: [{ value: bairro }] });
-    }
-  }
-
-  if (data_nascimento) {
-    const dataNascimentoField = kommoUtils.findLeadsFieldByName("Data de Nascimento");
-    if (dataNascimentoField) {
-      const validDate = DateUtils.formatDateToSeconds(StaticUtils.normalizeDate(data_nascimento), 'DD/MM/YYYY');
-      if (validDate) {
-        lead_custom_fields.push({ field_id: dataNascimentoField.id, values: [{ value: validDate }] });
-      }
+  if (convenio) {
+    const convenioField = kommoUtils.findLeadsFieldByName("Convênio");
+    if (convenioField) {
+      lead_custom_fields.push({ field_id: convenioField.id, values: [{ value: convenio }] });
     }
   }
 

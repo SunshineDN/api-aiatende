@@ -6,11 +6,10 @@ import OpenAICrmServices from "../OpenAICrmServices.js";
  * Função para deletar um agendamento
  * @param {Object} params - Parâmetros da função
  * @param {string} params.agendamento_id - ID do agendamento a ser deletado
- * @param {string} params.especialista - ID do especialista
  * @return {Promise<Object>} Resultado da operação
  */
-export async function runAgendamentoDeletar({ agendamento_id, especialista, lead_id }) {
-  const calendar_id = CalendarUtils.idValidate(especialista);
+export async function runAgendamentoDeletar({ agendamento_id, lead_id }) {
+  const calendar_id = CalendarUtils.idValidate();
   const calendar = new CalendarServices(calendar_id);
   const response = await calendar.deleteEvent(agendamento_id);
 

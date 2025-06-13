@@ -584,31 +584,31 @@ export class CalendarUtils {
 
   /**
    * Valida o nome do profissional para retornar o id do calendário correspondente
-   * @param {string} condition - Nome do profissional ou condição para validar o calendário
    * @returns {string} - Id do calendário
    */
-  static idValidate(condition = '') {
+  static idValidate() {
+    return CalendarId.nelsoncoutinho;
 
-    if (!condition || typeof condition !== 'string') {
-      styled.error('Condição inválida para validação do calendário');
-      return CalendarId.dentistas;
-    }
+    // if (!condition || typeof condition !== 'string') {
+    //   styled.error('Condição inválida para validação do calendário');
+    //   return CalendarId.dentistas;
+    // }
 
-    const mapping = {
-      'Juliana Leite': CalendarId.juliana,
-      'Lucília': CalendarId.odontopediatria,
-      'Odontopediatria': CalendarId.odontopediatria,
-      'Odontopediatra': CalendarId.odontopediatria,
-    };
+    // const mapping = {
+    //   'Juliana Leite': CalendarId.juliana,
+    //   'Lucília': CalendarId.odontopediatria,
+    //   'Odontopediatria': CalendarId.odontopediatria,
+    //   'Odontopediatra': CalendarId.odontopediatria,
+    // };
 
-    for (const key in mapping) {
-      const mappingLower = key.toLowerCase();
-      const conditionLower = condition.toLowerCase();
-      if (conditionLower.includes(mappingLower)) {
-        return mapping[key];
-      }
-    }
+    // for (const key in mapping) {
+    //   const mappingLower = key.toLowerCase();
+    //   const conditionLower = condition.toLowerCase();
+    //   if (conditionLower.includes(mappingLower)) {
+    //     return mapping[key];
+    //   }
+    // }
 
-    return CalendarId.dentistas;
+    // return CalendarId.dentistas;
   }
 }

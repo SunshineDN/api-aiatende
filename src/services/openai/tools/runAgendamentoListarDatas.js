@@ -7,10 +7,9 @@ import CalendarServices from "../../calendar/CalendarServices.js";
  * @param {Object} params - Parâmetros da função
  * @param {string} params.preferred_date - Data preferida para agendamento
  * @param {string} params.time - Horário preferido para agendamento
- * @param {string} params.specialist - ID do especialista
  * @return {Promise<Object>} Resultado da operação
  */
-export async function runAgendamentoListarDatas({ preferred_date, time, specialist } = {}) {
+export async function runAgendamentoListarDatas({ preferred_date, time } = {}) {
 
   if (preferred_date) {
     const regex = /(\d{4})-(\d{2})-(\d{2})/;
@@ -19,7 +18,7 @@ export async function runAgendamentoListarDatas({ preferred_date, time, speciali
     }
   }
 
-  const calendar_id = CalendarUtils.idValidate(specialist);
+  const calendar_id = CalendarUtils.idValidate();
   const calendar = new CalendarServices(calendar_id);
   let avaiableDates;
 
