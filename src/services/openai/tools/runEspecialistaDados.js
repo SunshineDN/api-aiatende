@@ -61,7 +61,6 @@ Plano de Saúde / Convênio: ${convenio}`;
   await kommo.updateLeadComplex({
     id: lead_id,
     name: nome,
-    email,
     lead_custom_fields_values: lead_custom_fields,
     ...(telefone && { phone: kommoUtils.formatPhone(telefone) })
   });
