@@ -29,136 +29,47 @@ export default class CalendarServices {
     AuthCalendar.authenticate();
   }
 
-  /**
-   * Retorna as datas e horários disponíveis para agendamento
-   * @returns {Promise<Array<string>>} - Array com as datas e horários disponíveis para agendamento
-   */
-  async getAvailableOptions() {
-    // const now = dayjs("2025-02-05T10:29:00");
-    const now = dayjs().tz("America/Sao_Paulo");
-    const startDate = now.startOf("day");
-    const endDate = now.add(30, "day").endOf("day");
-
-    // Horário de funcionamento atualizado
-    const businessHours = {
-      weekday: { start: 8, end: 19, endMinutes: 30 }, // Segunda a sexta até 19:30
-      saturday: { start: 8, end: 12, endMinutes: 30 } // Sábado até 12:30
-    };
-
-    const getWorkingHours = (date) => {
-      const day = date.day();
-      if (day === 0) return null; // Domingo fechado
-      return day === 6 ? businessHours.saturday : businessHours.weekday;
-    };
-
-    //Corrigir o horário inicial para garantir 1h depois da data atual
-    let startSearchTime = now.add(1, "hour").startOf("minute");
-
-    let workingHours = getWorkingHours(startSearchTime);
-
-    if (!workingHours || startSearchTime.hour() >= workingHours.end) {
-      // Se estiver fora do expediente, pula para o próximo dia útil às 8h
-      do {
-        startSearchTime = startSearchTime.add(1, "day").hour(8).minute(0);
-        workingHours = getWorkingHours(startSearchTime);
-      } while (!workingHours);
-    } else if (startSearchTime.hour() < workingHours.start) {
-      // Se for antes do expediente, ajusta para as 8h
-      startSearchTime = startSearchTime.hour(workingHours.start).minute(0);
-    } else if (![0, 30].includes(startSearchTime.minute())) {
-      // Ajusta para o próximo múltiplo de 30 minutos
-      startSearchTime = startSearchTime.minute() < 30 ? startSearchTime.minute(30) : startSearchTime.add(1, "hour").minute(0);
-    }
-
-    // Buscar eventos no calendário
-    const events = await this.#calendar.events.list({
-      calendarId: this.#calendar_id,
-      timeMin: startDate.toISOString(),
-      timeMax: endDate.toISOString(),
-      singleEvents: true,
-      orderBy: "startTime",
-    });
-
-    let eventSlots = events.data.items.map(event => ({
-      start: dayjs(event.start.dateTime || event.start.date),
-      end: dayjs(event.end.dateTime || event.end.date)
-    }));
-
-    let availableSlots = new Set();
-    let currentTime = startSearchTime;
-
-    while (currentTime.isBefore(endDate)) {
-      const workingHours = getWorkingHours(currentTime);
-      if (!workingHours) {
-        currentTime = currentTime.add(1, "day").hour(8).minute(0);
-        continue;
-      }
-
-      let slotStart = currentTime.startOf("minute");
-      if (![0, 30].includes(slotStart.minute())) {
-        slotStart = slotStart.minute() < 30 ? slotStart.minute(30) : slotStart.add(1, "hour").minute(0);
-      }
-
-      const dayEnd = slotStart.hour(workingHours.end).minute(workingHours.endMinutes);
-
-      while (slotStart.isSameOrBefore(dayEnd)) {
-        if (!eventSlots.some(event => slotStart.isBetween(event.start, event.end, null, "[)"))) {
-          availableSlots.add(slotStart.format("DD/MM/YYYY HH:mm"));
-        }
-        slotStart = slotStart.add(30, "minute");
-      }
-
-      currentTime = currentTime.add(1, "day").hour(8).minute(0);
-    }
-
-    return Array.from(availableSlots);
-  }
-
-  // Método comentado para evitar duplicação de lógica
-  // Método para obter as opções de agendamento disponíveis baseado em dias e horários de funcionamento
   // /**
-  //  * Obtém as opções de agendamento disponíveis
-  //  * @returns {Promise<Array<string>>} - Array com as opções de agendamento disponíveis
+  //  * Retorna as datas e horários disponíveis para agendamento
+  //  * @returns {Promise<Array<string>>} - Array com as datas e horários disponíveis para agendamento
   //  */
   // async getAvailableOptions() {
-  //   // Hora atual em São Paulo
+  //   // const now = dayjs("2025-02-05T10:29:00");
   //   const now = dayjs().tz("America/Sao_Paulo");
   //   const startDate = now.startOf("day");
   //   const endDate = now.add(30, "day").endOf("day");
-  
-  //   // Horários de funcionamento (Segunda, Terça e Quinta)
+
+  //   // Horário de funcionamento atualizado
   //   const businessHours = {
-  //     1: { startHour: 12, startMinute: 0, endHour: 15, endMinute: 0 }, // Segunda
-  //     2: { startHour: 17, startMinute: 0, endHour: 20, endMinute: 0 }, // Terça
-  //     4: { startHour: 17, startMinute: 0, endHour: 20, endMinute: 0 }  // Quinta
+  //     weekday: { start: 8, end: 19, endMinutes: 30 }, // Segunda a sexta até 19:30
+  //     saturday: { start: 8, end: 12, endMinutes: 30 } // Sábado até 12:30
   //   };
-  
-  //   // Retorna horários de trabalho para um dia ou null se fechado
+
   //   const getWorkingHours = (date) => {
   //     const day = date.day();
-  //     return businessHours[day] || null;
+  //     if (day === 0) return null; // Domingo fechado
+  //     return day === 6 ? businessHours.saturday : businessHours.weekday;
   //   };
-  
-  //   // Inicia busca a partir de 1h após agora
-  //   let currentTime = now.add(1, "hour").startOf("minute");
-  //   let working = getWorkingHours(currentTime);
-  
-  //   // Se fora do expediente, pula para próximo dia válido
-  //   if (!working || currentTime.hour() >= working.endHour) {
+
+  //   //Corrigir o horário inicial para garantir 1h depois da data atual
+  //   let startSearchTime = now.add(1, "hour").startOf("minute");
+
+  //   let workingHours = getWorkingHours(startSearchTime);
+
+  //   if (!workingHours || startSearchTime.hour() >= workingHours.end) {
+  //     // Se estiver fora do expediente, pula para o próximo dia útil às 8h
   //     do {
-  //       currentTime = currentTime.add(1, "day").hour(8).minute(0).startOf("minute");
-  //       working = getWorkingHours(currentTime);
-  //     } while (!working);
-  //   } else if (currentTime.hour() < working.startHour) {
-  //     // Se antes do expediente do dia, ajusta início
-  //     currentTime = currentTime.hour(working.startHour).minute(working.startMinute);
-  //   } else if (![0, 30].includes(currentTime.minute())) {
-  //     // Ajusta para próximo múltiplo de 30 minutos
-  //     currentTime = currentTime.minute() < 30
-  //       ? currentTime.minute(30)
-  //       : currentTime.add(1, "hour").minute(0);
+  //       startSearchTime = startSearchTime.add(1, "day").hour(8).minute(0);
+  //       workingHours = getWorkingHours(startSearchTime);
+  //     } while (!workingHours);
+  //   } else if (startSearchTime.hour() < workingHours.start) {
+  //     // Se for antes do expediente, ajusta para as 8h
+  //     startSearchTime = startSearchTime.hour(workingHours.start).minute(0);
+  //   } else if (![0, 30].includes(startSearchTime.minute())) {
+  //     // Ajusta para o próximo múltiplo de 30 minutos
+  //     startSearchTime = startSearchTime.minute() < 30 ? startSearchTime.minute(30) : startSearchTime.add(1, "hour").minute(0);
   //   }
-  
+
   //   // Buscar eventos no calendário
   //   const events = await this.#calendar.events.list({
   //     calendarId: this.#calendar_id,
@@ -167,46 +78,135 @@ export default class CalendarServices {
   //     singleEvents: true,
   //     orderBy: "startTime",
   //   });
-  
-  //   // Mapear eventos para dayjs
-  //   const eventSlots = events.data.items.map(ev => ({
-  //     start: dayjs(ev.start.dateTime || ev.start.date),
-  //     end: dayjs(ev.end.dateTime || ev.end.date)
+
+  //   let eventSlots = events.data.items.map(event => ({
+  //     start: dayjs(event.start.dateTime || event.start.date),
+  //     end: dayjs(event.end.dateTime || event.end.date)
   //   }));
-  
-  //   const availableSlots = new Set();
-  //   const limit = endDate;
-  
-  //   // Itera dias até o limite
-  //   while (currentTime.isBefore(limit)) {
-  //     const hours = getWorkingHours(currentTime);
-  //     if (!hours) {
+
+  //   let availableSlots = new Set();
+  //   let currentTime = startSearchTime;
+
+  //   while (currentTime.isBefore(endDate)) {
+  //     const workingHours = getWorkingHours(currentTime);
+  //     if (!workingHours) {
   //       currentTime = currentTime.add(1, "day").hour(8).minute(0);
   //       continue;
   //     }
-  
-  //     // Define início e fim do expediente do dia
-  //     let slot = currentTime.startOf("minute");
-  //     if (![0, 30].includes(slot.minute())) {
-  //       slot = slot.minute() < 30 ? slot.minute(30) : slot.add(1, "hour").minute(0);
+
+  //     let slotStart = currentTime.startOf("minute");
+  //     if (![0, 30].includes(slotStart.minute())) {
+  //       slotStart = slotStart.minute() < 30 ? slotStart.minute(30) : slotStart.add(1, "hour").minute(0);
   //     }
-  //     const dayEnd = slot.hour(hours.endHour).minute(hours.endMinute);
-  
-  //     // Gera intervalos de 30 min
-  //     while (slot.isSameOrBefore(dayEnd)) {
-  //       const occupied = eventSlots.some(ev => slot.isBetween(ev.start, ev.end, null, "[)"));
-  //       if (!occupied) {
-  //         availableSlots.add(slot.format("DD/MM/YYYY HH:mm"));
+
+  //     const dayEnd = slotStart.hour(workingHours.end).minute(workingHours.endMinutes);
+
+  //     while (slotStart.isSameOrBefore(dayEnd)) {
+  //       if (!eventSlots.some(event => slotStart.isBetween(event.start, event.end, null, "[)"))) {
+  //         availableSlots.add(slotStart.format("DD/MM/YYYY HH:mm"));
   //       }
-  //       slot = slot.add(30, "minute");
+  //       slotStart = slotStart.add(30, "minute");
   //     }
-  
-  //     // Próximo dia útil
+
   //     currentTime = currentTime.add(1, "day").hour(8).minute(0);
   //   }
-  
+
   //   return Array.from(availableSlots);
   // }
+
+  // Método comentado para evitar duplicação de lógica
+  // Método para obter as opções de agendamento disponíveis baseado em dias e horários de funcionamento
+  /**
+   * Obtém as opções de agendamento disponíveis
+   * @returns {Promise<Array<string>>} - Array com as opções de agendamento disponíveis
+   */
+  async getAvailableOptions() {
+    // Hora atual em São Paulo
+    const now = dayjs().tz("America/Sao_Paulo");
+    const startDate = now.startOf("day");
+    const endDate = now.add(30, "day").endOf("day");
+  
+    // Horários de funcionamento (Segunda, Terça e Quinta)
+    const businessHours = {
+      1: { startHour: 12, startMinute: 0, endHour: 15, endMinute: 0 }, // Segunda
+      2: { startHour: 17, startMinute: 0, endHour: 20, endMinute: 0 }, // Terça
+      4: { startHour: 17, startMinute: 0, endHour: 20, endMinute: 0 }  // Quinta
+    };
+  
+    // Retorna horários de trabalho para um dia ou null se fechado
+    const getWorkingHours = (date) => {
+      const day = date.day();
+      return businessHours[day] || null;
+    };
+  
+    // Inicia busca a partir de 1h após agora
+    let currentTime = now.add(1, "hour").startOf("minute");
+    let working = getWorkingHours(currentTime);
+  
+    // Se fora do expediente, pula para próximo dia válido
+    if (!working || currentTime.hour() >= working.endHour) {
+      do {
+        currentTime = currentTime.add(1, "day").hour(8).minute(0).startOf("minute");
+        working = getWorkingHours(currentTime);
+      } while (!working);
+    } else if (currentTime.hour() < working.startHour) {
+      // Se antes do expediente do dia, ajusta início
+      currentTime = currentTime.hour(working.startHour).minute(working.startMinute);
+    } else if (![0, 30].includes(currentTime.minute())) {
+      // Ajusta para próximo múltiplo de 30 minutos
+      currentTime = currentTime.minute() < 30
+        ? currentTime.minute(30)
+        : currentTime.add(1, "hour").minute(0);
+    }
+  
+    // Buscar eventos no calendário
+    const events = await this.#calendar.events.list({
+      calendarId: this.#calendar_id,
+      timeMin: startDate.toISOString(),
+      timeMax: endDate.toISOString(),
+      singleEvents: true,
+      orderBy: "startTime",
+    });
+  
+    // Mapear eventos para dayjs
+    const eventSlots = events.data.items.map(ev => ({
+      start: dayjs(ev.start.dateTime || ev.start.date),
+      end: dayjs(ev.end.dateTime || ev.end.date)
+    }));
+  
+    const availableSlots = new Set();
+    const limit = endDate;
+  
+    // Itera dias até o limite
+    while (currentTime.isBefore(limit)) {
+      const hours = getWorkingHours(currentTime);
+      if (!hours) {
+        currentTime = currentTime.add(1, "day").hour(8).minute(0);
+        continue;
+      }
+  
+      // Define início e fim do expediente do dia
+      let slot = currentTime.startOf("minute");
+      if (![0, 30].includes(slot.minute())) {
+        slot = slot.minute() < 30 ? slot.minute(30) : slot.add(1, "hour").minute(0);
+      }
+      const dayEnd = slot.hour(hours.endHour).minute(hours.endMinute);
+  
+      // Gera intervalos de 30 min
+      while (slot.isSameOrBefore(dayEnd)) {
+        const occupied = eventSlots.some(ev => slot.isBetween(ev.start, ev.end, null, "[)"));
+        if (!occupied) {
+          availableSlots.add(slot.format("DD/MM/YYYY HH:mm"));
+        }
+        slot = slot.add(30, "minute");
+      }
+  
+      // Próximo dia útil
+      currentTime = currentTime.add(1, "day").hour(8).minute(0);
+    }
+  
+    return Array.from(availableSlots);
+  }
 
   /**
    * Verifica se a data escolhida está disponível para agendamento
