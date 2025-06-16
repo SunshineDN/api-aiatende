@@ -128,9 +128,9 @@ export default class CalendarServices {
   
   //   // Horários de funcionamento (Segunda, Terça e Quinta)
   //   const businessHours = {
-  //     1: { startHour: 12, startMinute: 0, endHour: 15, endMinute: 0 }, // Segunda
-  //     2: { startHour: 17, startMinute: 0, endHour: 20, endMinute: 0 }, // Terça
-  //     4: { startHour: 17, startMinute: 0, endHour: 20, endMinute: 0 }  // Quinta
+  //     1: { startHour: 9, startMinute: 0, endHour: 12, endMinute: 0 }, // Segunda
+  //     2: { startHour: 14, startMinute: 0, endHour: 17, endMinute: 0 }, // Terça
+  //     4: { startHour: 14, startMinute: 0, endHour: 17, endMinute: 0 }  // Quinta
   //   };
   
   //   // Retorna horários de trabalho para um dia ou null se fechado
