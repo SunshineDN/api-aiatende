@@ -3,7 +3,6 @@ import ThreadRepository from "../../repositories/ThreadRepository.js";
 import CustomError from "../../utils/CustomError.js";
 import styled from "../../utils/log/styled.js";
 import OpenAIUtils from "../../utils/OpenAIUtils.js";
-import OpenAICrmServices from "./OpenAICrmServices.js";
 import { runAgendamentoAtualizar } from "./tools/runAgendamentoAtualizar.js";
 import { runAgendamentoCriar } from "./tools/runAgendamentoCriar.js";
 import { runAgendamentoDeletar } from "./tools/runAgendamentoDeletar.js";
@@ -11,7 +10,6 @@ import { runAgendamentoListarDatas } from "./tools/runAgendamentoListarDatas.js"
 import { runAgendamentoVer } from "./tools/runAgendamentoVer.js";
 import { runEspecialistaDados } from "./tools/runEspecialistaDados.js";
 import { runEspecialistaImplantes } from "./tools/runEspecialistaImplantes.js";
-import { runEspecialistaIntencao } from "./tools/runEspecialistaIntencao.js";
 import { runEspecialistaInvisalign } from "./tools/runEspecialistaInvisalign.js";
 
 export default class OpenAIServices {
@@ -123,19 +121,9 @@ export default class OpenAIServices {
    * @param {string} params.assistant_id - ID do assistente.
    * @param {string} [params.additional_instructions] - Instruções adicionais para o run.
    * @param {string} [params.instructions] - Instruções para o run.
-   * @param {boolean} [params.intention=true] - Se deve executar a intenção do especialista.
-   * @return {Promise<Object>} - O run criado.
+   * @return {Promise<Object>} - A resposta do run e o histórico de mensagens atualizado.
    */
-  async handleRunAssistant({ userMessage = "", assistant_id, additional_instructions = null, instructions = null, intention = true } = {}) {
-    const crm_services = new OpenAICrmServices({ lead_id: this.#lead_id });
-    await crm_services.getLead();
-
-    if (!additional_instructions) {
-      additional_instructions = await crm_services.getLeadAdditionalInfo();
-    }
-
-    await crm_services.verifyLeadMessageField();
-
+  async handleRunAssistant({ userMessage = "", assistant_id, additional_instructions = null, instructions = null } = {}) {
     const thread = await this.findOrCreateThread({ assistant_id });
 
     const sanitizedText = (userMessage ?? "").trim();
@@ -152,16 +140,11 @@ export default class OpenAIServices {
 
     const message = await this.handleStatusRun({ run, thread_id: thread.thread_id });
 
-    // await crm_services.sendMessageToLead({ message });
-    await crm_services.saveAssistantAnswer({ message });
-
     const repo = new ThreadRepository({ lead_id: this.#lead_id });
     const updated = await repo.storeMessage({ assistant_id, userMessage, assistantMessage: message });
-    if (intention) {
-      await runEspecialistaIntencao({ conversation_messages: updated.messages, lead_id: this.#lead_id });
-    }
+    const messages_history = updated.messages;
 
-    return message;
+    return { message, messages_history };
   }
 
   /**
@@ -260,7 +243,6 @@ export default class OpenAIServices {
       'especialista_dados': runEspecialistaDados,
       'especialista_invisalign': runEspecialistaInvisalign,
       'especialista_implantes': runEspecialistaImplantes,
-      'especialista_intencao': runEspecialistaIntencao,
       'agendamento_criar': runAgendamentoCriar,
       'agendamento_deletar': runAgendamentoDeletar,
       'agendamento_listar_datas': runAgendamentoListarDatas,
