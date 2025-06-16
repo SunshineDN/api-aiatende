@@ -3,7 +3,6 @@ import ThreadRepository from "../../repositories/ThreadRepository.js";
 import CustomError from "../../utils/CustomError.js";
 import styled from "../../utils/log/styled.js";
 import OpenAIUtils from "../../utils/OpenAIUtils.js";
-import OpenAICrmServices from "./OpenAICrmServices.js";
 import { runAgendamentoAtualizar } from "./tools/runAgendamentoAtualizar.js";
 import { runAgendamentoCriar } from "./tools/runAgendamentoCriar.js";
 import { runAgendamentoDeletar } from "./tools/runAgendamentoDeletar.js";
@@ -11,7 +10,6 @@ import { runAgendamentoListarDatas } from "./tools/runAgendamentoListarDatas.js"
 import { runAgendamentoVer } from "./tools/runAgendamentoVer.js";
 import { runEspecialistaDados } from "./tools/runEspecialistaDados.js";
 import { runEspecialistaImplantes } from "./tools/runEspecialistaImplantes.js";
-import { runEspecialistaIntencao } from "./tools/runEspecialistaIntencao.js";
 import { runEspecialistaInvisalign } from "./tools/runEspecialistaInvisalign.js";
 
 export default class OpenAIServices {
@@ -245,7 +243,6 @@ export default class OpenAIServices {
       'especialista_dados': runEspecialistaDados,
       'especialista_invisalign': runEspecialistaInvisalign,
       'especialista_implantes': runEspecialistaImplantes,
-      'especialista_intencao': runEspecialistaIntencao,
       'agendamento_criar': runAgendamentoCriar,
       'agendamento_deletar': runAgendamentoDeletar,
       'agendamento_listar_datas': runAgendamentoListarDatas,
