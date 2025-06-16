@@ -47,8 +47,8 @@ export default class OpenAIController {
       await intentionSpecialist({ conversation_messages: messages_history, lead_id });
 
       styled.success(`[OpenAIController.runAssistant] - Assistente executado com sucesso!`);
-      styled.successdir(response);
-      res.status(200).json({ response });
+      styled.successdir(message);
+      res.status(200).json({ message });
     } catch (error) {
       if (!(error instanceof CustomError)) {
         styled.error(`[OpenAIController.runAssistant] - Erro inesperado ao executar assistente: ${error.message}`);
@@ -83,8 +83,8 @@ export default class OpenAIController {
       await intentionSpecialist({ conversation_messages: messages_history, lead_id });
 
       styled.success(`[OpenAIController.runAssistant] - Assistente executado com sucesso!`);
-      styled.successdir(response);
-      res.status(200).json({ response });
+      styled.successdir(message);
+      res.status(200).json({ message });
     } catch (error) {
       if (!(error instanceof CustomError)) {
         styled.error(`[OpenAIController.runAssistant] - Erro inesperado ao executar assistente: ${error.message}`);
@@ -120,8 +120,8 @@ Se não houver agendamentos, responda com: "❌ Nenhum agendamento encontrado."`
       await crm_services.saveAssistantAnswer({ message });
 
       styled.success(`[OpenAIController.runAssistantScheduled] - Assistente executado com sucesso!`);
-      styled.successdir(response);
-      res.status(200).json({ response });
+      styled.successdir(message);
+      res.status(200).json({ message });
     } catch (error) {
       if (!(error instanceof CustomError)) {
         styled.error(`[OpenAIController.runAssistantScheduled] - Erro inesperado ao executar assistente: ${error.message}`);
