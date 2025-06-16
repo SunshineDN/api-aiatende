@@ -123,19 +123,9 @@ export default class OpenAIServices {
    * @param {string} params.assistant_id - ID do assistente.
    * @param {string} [params.additional_instructions] - Instruções adicionais para o run.
    * @param {string} [params.instructions] - Instruções para o run.
-   * @param {boolean} [params.intention=true] - Se deve executar a intenção do especialista.
-   * @return {Promise<Object>} - O run criado.
+   * @return {Promise<Object>} - A resposta do run e o histórico de mensagens atualizado.
    */
-  async handleRunAssistant({ userMessage = "", assistant_id, additional_instructions = null, instructions = null, intention = true } = {}) {
-    const crm_services = new OpenAICrmServices({ lead_id: this.#lead_id });
-    await crm_services.getLead();
-
-    if (!additional_instructions) {
-      additional_instructions = await crm_services.getLeadAdditionalInfo();
-    }
-
-    await crm_services.verifyLeadMessageField();
-
+  async handleRunAssistant({ userMessage = "", assistant_id, additional_instructions = null, instructions = null } = {}) {
     const thread = await this.findOrCreateThread({ assistant_id });
 
     const sanitizedText = (userMessage ?? "").trim();
@@ -152,16 +142,11 @@ export default class OpenAIServices {
 
     const message = await this.handleStatusRun({ run, thread_id: thread.thread_id });
 
-    // await crm_services.sendMessageToLead({ message });
-    await crm_services.saveAssistantAnswer({ message });
-
     const repo = new ThreadRepository({ lead_id: this.#lead_id });
     const updated = await repo.storeMessage({ assistant_id, userMessage, assistantMessage: message });
-    if (intention) {
-      await runEspecialistaIntencao({ conversation_messages: updated.messages, lead_id: this.#lead_id });
-    }
+    const messages_history = updated.messages;
 
-    return message;
+    return { message, messages_history };
   }
 
   /**
