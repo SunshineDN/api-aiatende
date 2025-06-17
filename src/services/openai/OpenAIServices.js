@@ -19,11 +19,12 @@ export default class OpenAIServices {
    * 
    * @param {Object} params
    * @param {number} params.lead_id - ID do lead. 
+   * @param {string} [params.assistant_name] - Nome do assistente.
    */
-  constructor({ lead_id = null } = {}) {
+  constructor({ lead_id = null, assistant_name = null } = {}) {
     this.#lead_id = lead_id;
     this.openai = new OpenAI(process.env.OPENAI_API_KEY);
-    this.assistant_name = process.env.OPENAI_ASSISTANT_NAME ? `Atendente ${process.env.OPENAI_ASSISTANT_NAME}` : "Atendente";
+    this.assistant_name = assistant_name;
   }
 
   /**
@@ -156,8 +157,6 @@ export default class OpenAIServices {
   async findOrCreateThread({ assistant_id } = {}) {
     const repo = new ThreadRepository({ lead_id: this.#lead_id });
     let thread = await repo.findThread({ assistant_id });
-
-    const vector_store_id = process.env.OPENAI_VECTOR_STORE_ID;
 
     if (!thread) {
       styled.db("Thread não encontrada. Criando nova thread...");
