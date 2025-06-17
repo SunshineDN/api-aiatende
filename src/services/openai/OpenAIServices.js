@@ -207,7 +207,7 @@ export default class OpenAIServices {
     if (run.status === "completed") {
       const obtainMessage = await this.handleObtainMessage({ thread_id });
       styled.success(`[OpenAIServices.handleStatusRun] Lead ID: ${this.#lead_id} - Mensagem obtida com sucesso.`);
-      return `*${this.assistant_name}*:\n\n${obtainMessage}`;
+      return this.assistant_name ? `*${this.assistant_name}*:\n\n${obtainMessage}` : obtainMessage;
     } else if (run.status === "requires_action") {
       styled.info(`[OpenAIServices.handleStatusRun] Lead ID: ${this.#lead_id} - Ação requerida: ${run.required_action.type}`);
       return await this.handleRequiresAction({ run, thread_id });
