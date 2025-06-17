@@ -37,7 +37,7 @@ export default class OpenAIWebController {
     }
   }
 
-  static async custom_assistant(req, res, next) {
+  static async customAI(req, res, next) {
     const { niche } = req.body;
 
     try {
