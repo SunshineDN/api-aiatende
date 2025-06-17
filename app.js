@@ -5,6 +5,7 @@ import prisma from './src/prisma-client.js';
 import apiDocs from './src/routes/api-docs.js';
 import detectContent from './src/routes/detect-content.js';
 import openai from './src/routes/openai.js';
+import openaiWeb from './src/routes/openai-web.js';
 import webhook from './src/routes/webhook.js';
 import kommoCalendar from './src/routes/kommo-calendar.js';
 
@@ -30,6 +31,7 @@ app.use('/content', detectContent);
 app.use('/webhook', webhook);
 app.use('/atende360/v2', openai);
 app.use('/kommo-calendar', kommoCalendar);
+app.use('/openai-web', openaiWeb);
 
 app.use((_, res) => {
   res.status(404).json({ error: 'Endpoint não encontrado!' });

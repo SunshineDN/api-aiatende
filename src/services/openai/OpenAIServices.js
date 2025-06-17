@@ -302,4 +302,24 @@ export default class OpenAIServices {
     }
     return;
   }
+
+  async createAssistant({ name, instructions, model = "gpt-4o-mini", tools = [] }) {
+    if (!name || !instructions) {
+      throw new CustomError({
+        statusCode: 400,
+        message: "Nome e instruções são obrigatórios para criar um assistente.",
+        lead_id: this.#lead_id
+      });
+    }
+
+    const response = await this.openai.beta.assistants.create({
+      name,
+      instructions,
+      model,
+      ...(tools.length > 0 && { tools }),
+    });
+
+    styled.success(`[OpenAIServices.createAssistant] Assistente criado com sucesso: ${response.id}`);
+    return response;
+  }
 }
