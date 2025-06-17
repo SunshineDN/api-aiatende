@@ -191,6 +191,8 @@ export default class OpenAIWebController {
 
       styled.info(`[OpenAIWebController.executeAiPhone] - Calling assistant with phone number: ${phone_number} and assistant ID: ${assistant_id}`);
 
+      const phone = `+55${phone_number.replace(/[^0-9]/g, "")}`; // Ensure phone number is in E.164 format
+
       const response = await vapi.callToAssistant({ assistant_id, phone_number });
 
       styled.success(`[OpenAIWebController.executeAiPhone] - Assistant called successfully!`);
