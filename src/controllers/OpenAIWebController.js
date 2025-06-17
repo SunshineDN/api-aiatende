@@ -132,7 +132,8 @@ export default class OpenAIWebController {
 
       const assistant = await openai.createAssistant({
         name: `IA Especialista em ${niche}`,
-        instructions
+        instructions,
+        model: "gpt-4.1-mini"
       });
 
       const prompt = `
