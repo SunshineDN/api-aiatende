@@ -1,4 +1,5 @@
 import OpenAIServices from "../services/openai/OpenAIServices.js";
+import VApiServices from "../services/vapi/VApiServices.js";
 import DateUtils from "../utils/DateUtils.js";
 import styled from "../utils/log/styled.js";
 
@@ -176,5 +177,30 @@ export default class OpenAIWebController {
       }
     }
 
+  }
+
+  static async executeAiPhone(req, res, next) {
+    const { phoneNumber: phone_number, aiId: assistant_id } = req.body;
+
+    try {
+      if (!phone_number || !assistant_id) {
+        throw new Error("phone_number and assistant_id are required");
+      }
+
+      const vapi = new VApiServices({ token: process.env.VAPI_API_KEY });
+
+      styled.info(`[OpenAIWebController.executeAiPhone] - Calling assistant with phone number: ${phone_number} and assistant ID: ${assistant_id}`);
+
+      const response = await vapi.callToAssistant({ assistant_id, phone_number });
+
+      styled.success(`[OpenAIWebController.executeAiPhone] - Assistant called successfully!`);
+      styled.successdir(response);
+      res.status(200).json(response);
+    } catch (error) {
+      if (!(error instanceof CustomError)) {
+        styled.error(`[OpenAIWebController.executeAiPhone] - Error calling assistant: ${error.message}`);
+        return next(error);
+      }
+    }
   }
 }

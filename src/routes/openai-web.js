@@ -13,4 +13,6 @@ router.post('/send-message/:assistant_id?', OpenAIWebController.send_message);
 // Rota para criar assistente personalizado
 router.post('/custom-ai', OpenAIWebController.customAI);
 
+router.post('/execute-ai-phone', OpenAIWebController.executeAiPhone);
+
 export default router;
