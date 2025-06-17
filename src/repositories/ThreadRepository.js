@@ -1,5 +1,6 @@
 import BaseRepository from './BaseRepository.js';
 import prisma from '../prisma-client.js';
+import styled from '../utils/log/styled.js';
 
 export default class ThreadRepository extends BaseRepository {
   #lead_id;
@@ -73,9 +74,9 @@ export default class ThreadRepository extends BaseRepository {
           updated_at: new Date(),
         }
       });
-      console.log(`Lead com ID ${this.#lead_id} criado na tabela de leads.`);
+      styled.success(`Lead com ID ${this.#lead_id} criado na tabela de leads.`);
     } else {
-      console.log(`Lead com ID ${this.#lead_id} já existe na tabela de leads.`);
+      styled.info(`Lead com ID ${this.#lead_id} já existe na tabela de leads.`);
     }
 
     const thread = await this.create({
