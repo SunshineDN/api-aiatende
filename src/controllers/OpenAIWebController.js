@@ -1,5 +1,4 @@
 import OpenAIServices from "../services/openai/OpenAIServices.js";
-import CustomError from "../utils/CustomError.js";
 import styled from "../utils/log/styled.js";
 
 export default class OpenAIWebController {
@@ -10,7 +9,9 @@ export default class OpenAIWebController {
     } catch (error) {
       if (!(error instanceof CustomError)) {
         styled.error(`[OpenAIWebController.index] - Erro inesperado na rota principal: ${error.message}`);
-        return next(new CustomError({ statusCode: 500, message: error.message }));
+        return next(
+          new Error("Erro inesperado na rota principal do OpenAI Controller")
+        );
       }
     }
   }
@@ -32,7 +33,7 @@ export default class OpenAIWebController {
     } catch (error) {
       if (!(error instanceof CustomError)) {
         styled.error(`[OpenAIWebController.runAssistant] - Erro inesperado ao executar assistente: ${error.message}`);
-        return next(new CustomError({ statusCode: 500, message: error.message, lead_id }));
+        return next(error);
       }
     }
   }
@@ -83,7 +84,7 @@ export default class OpenAIWebController {
     } catch (error) {
       if (!(error instanceof CustomError)) {
         styled.error(`[OpenAIWebController.custom_assistant] - Erro inesperado ao criar assistente personalizado: ${error.message}`);
-        return next(new CustomError({ statusCode: 500, message: error.message }));
+        return next(error);
       }
     }
 

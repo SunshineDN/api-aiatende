@@ -12,6 +12,7 @@ export default class ThreadRepository extends BaseRepository {
    */
   constructor({ lead_id }) {
     super(prisma.thread);
+    this.leadModel = prisma.leads;
     this.#lead_id = lead_id;
   }
 
@@ -49,6 +50,34 @@ export default class ThreadRepository extends BaseRepository {
   }
 
   async createThread({ thread_id, assistant_id }) {
+
+    // Verifica se já existe um thread para o lead e assistente
+    const existingThread = await this.findThread({ assistant_id });
+
+
+    if (existingThread) {
+      return existingThread;
+    }
+
+    // Verifica se existe o lead_id na tabela de leads
+    const leadExists = await this.leadModel.findUnique({
+      where: {
+        lead_id: this.#lead_id,
+      }
+    });
+    if (!leadExists) {
+      await this.leadModel.create({
+        data: {
+          lead_id: this.#lead_id,
+          created_at: new Date(),
+          updated_at: new Date(),
+        }
+      });
+      console.log(`Lead com ID ${this.#lead_id} criado na tabela de leads.`);
+    } else {
+      console.log(`Lead com ID ${this.#lead_id} já existe na tabela de leads.`);
+    }
+
     const thread = await this.create({
       lead_id: this.#lead_id,
       thread_id,
