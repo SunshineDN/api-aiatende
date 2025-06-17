@@ -197,7 +197,7 @@ export default class OpenAIWebController {
 
       styled.success(`[OpenAIWebController.executeAiPhone] - Assistant called successfully!`);
       styled.successdir(response);
-      res.status(200).json(response);
+      res.status(200).json({ ...response, message: "IA executada com sucesso para o número fornecido", executionId: `exec-${Date.now()}`, success: true });
     } catch (error) {
       styled.error(`[OpenAIWebController.executeAiPhone] - Error calling assistant: ${error.message}`);
       return next(error);
