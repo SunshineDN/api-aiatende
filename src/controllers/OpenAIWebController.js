@@ -66,7 +66,7 @@ export default class OpenAIWebController {
       niche: "Odontologia Estética"
 
       Saída esperada:
-      "{\\"id\\":\\"custom-1718642345678\\",\\"name\\":\\"IA Odontologia Estética\\",\\"description\\":\\"Especialista em Odontologia Estética com conhecimento avançado do setor\\",\\"status\\":\\"online\\",\\"avatar\\":\\"🦷\\",\\"specialties\\":[\\"Odontologia Estética\\",\\"Automação\\",\\"Análise de Dados\\"],\\"isCustom\\":true}"`
+      "{\"id\":\"custom-1718642345678\",\"name\":\"IA Odontologia Estética\",\"description\":\"Especialista em Odontologia Estética com conhecimento avançado do setor\",\"status\":\"online\",\"avatar\":\"🦷\",\"specialties\":[\"Odontologia Estética\",\"Automação\",\"Análise de Dados\"],\"isCustom\":true}"`
 
       const responseJsonStringify = await openai.chatCompletion({
         systemMessage: prompt,
