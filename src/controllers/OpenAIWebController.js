@@ -1,4 +1,5 @@
 import OpenAIServices from "../services/openai/OpenAIServices.js";
+import DateUtils from "../utils/DateUtils.js";
 import styled from "../utils/log/styled.js";
 
 export default class OpenAIWebController {
@@ -25,7 +26,13 @@ export default class OpenAIWebController {
 
       styled.info(`[OpenAIWebController.runAssistant] - User message: ${userMessage}`);
 
-      const { message, messages_history } = await openai.handleRunAssistant({ assistant_id, userMessage });
+      const date = DateUtils.getActualDatetimeInformation();
+
+      const additional_instructions = `
+      System Additional Informations:
+      ${date}`
+
+      const { message, messages_history } = await openai.handleRunAssistant({ assistant_id, userMessage, additional_instructions });
 
       styled.success(`[OpenAIWebController.runAssistant] - Assistente executado com sucesso!`);
       styled.successdir(message);
@@ -121,7 +128,7 @@ export default class OpenAIWebController {
       - Ex: nicho = "Mentoria Jurídica" → Tom técnico e respeitoso, voltado ao crescimento profissional. 
       
       ---
-      `;      
+      `;
 
       const assistant = await openai.createAssistant({
         name: `IA Especialista em ${niche}`,
