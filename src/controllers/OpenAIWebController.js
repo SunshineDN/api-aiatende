@@ -199,10 +199,8 @@ export default class OpenAIWebController {
       styled.successdir(response);
       res.status(200).json(response);
     } catch (error) {
-      if (!(error instanceof CustomError)) {
-        styled.error(`[OpenAIWebController.executeAiPhone] - Error calling assistant: ${error.message}`);
-        return next(error);
-      }
+      styled.error(`[OpenAIWebController.executeAiPhone] - Error calling assistant: ${error.message}`);
+      return next(error);
     }
   }
 }
