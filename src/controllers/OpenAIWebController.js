@@ -9,12 +9,8 @@ export default class OpenAIWebController {
     try {
       res.status(200).json({ message: "OpenAI Controller is working!" });
     } catch (error) {
-      if (!(error instanceof CustomError)) {
-        styled.error(`[OpenAIWebController.index] - Erro inesperado na rota principal: ${error.message}`);
-        return next(
-          new Error("Erro inesperado na rota principal do OpenAI Controller")
-        );
-      }
+      styled.error(`[OpenAIWebController.index] - Erro inesperado na rota principal: ${error.message}`);
+      return next(error);
     }
   }
 
@@ -39,10 +35,8 @@ export default class OpenAIWebController {
       styled.successdir(message);
       res.status(200).json({ message });
     } catch (error) {
-      if (!(error instanceof CustomError)) {
-        styled.error(`[OpenAIWebController.runAssistant] - Erro inesperado ao executar assistente: ${error.message}`);
-        return next(error);
-      }
+      styled.error(`[OpenAIWebController.runAssistant] - Erro inesperado ao executar assistente: ${error.message}`);
+      return next(error);
     }
   }
 
@@ -171,10 +165,8 @@ export default class OpenAIWebController {
       styled.successdir(parsedResponse);
       res.status(200).json(parsedResponse);
     } catch (error) {
-      if (!(error instanceof CustomError)) {
-        styled.error(`[OpenAIWebController.custom_assistant] - Erro inesperado ao criar assistente personalizado: ${error.message}`);
-        return next(error);
-      }
+      styled.error(`[OpenAIWebController.custom_assistant] - Erro inesperado ao criar assistente personalizado: ${error.message}`);
+      return next(error);
     }
 
   }
