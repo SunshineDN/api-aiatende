@@ -145,6 +145,7 @@ export default class OpenAIServices {
     const updated = await repo.storeMessage({ assistant_id, userMessage, assistantMessage: message });
     const messages_history = updated.messages;
 
+    styled.success(`[OpenAIServices.handleRunAssistant] Lead ID: ${this.#lead_id} - Assistente executado com sucesso!`);
     return { message, messages_history };
   }
 
