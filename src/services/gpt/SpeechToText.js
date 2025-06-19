@@ -1,5 +1,5 @@
 import styled from '../../utils/log/styled.js';
-import OpenAIController from '../../controllers/OpenAIController.js';
+import OpenAIFirstController from '../../controllers/OpenAIFirstController.js';
 import { GetAccessToken } from '../kommo/GetAccessToken.js';
 import { GetCustomFields } from '../kommo/GetCustomFields.js';
 import { UpdateLead } from '../kommo/UpdateLead.js';
@@ -31,7 +31,7 @@ export const SpeechToText = async (payload, access_token = null) => {
     const message_received_field = custom_fields?.filter(field => field.name === 'GPT | Message received')[0];
     const send_audio_field = custom_fields?.filter(field => field.name === 'GPT | Sent Audio')[0];
 
-    const transcription = await OpenAIController.audioToText(text_audio, lead_id);
+    const transcription = await OpenAIFirstController.audioToText(text_audio, lead_id);
     styled.info('Mensagem transcrita:', transcription);
     const last_message = {
       type: 'voice',

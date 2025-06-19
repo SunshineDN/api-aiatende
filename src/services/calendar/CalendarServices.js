@@ -114,10 +114,104 @@ export default class CalendarServices {
     return Array.from(availableSlots);
   }
 
+  // Método comentado para evitar duplicação de lógica
+  // Método para obter as opções de agendamento disponíveis baseado em dias e horários de funcionamento
+  // /**
+  //  * Obtém as opções de agendamento disponíveis
+  //  * @returns {Promise<Array<string>>} - Array com as opções de agendamento disponíveis
+  //  */
+  // async getAvailableOptions() {
+  //   // Hora atual em São Paulo
+  //   const now = dayjs().tz("America/Sao_Paulo");
+  //   const startDate = now.startOf("day");
+  //   const endDate = now.add(30, "day").endOf("day");
+  
+  //   // Horários de funcionamento (Segunda, Terça e Quinta)
+  //   const businessHours = {
+  //     1: { startHour: 12, startMinute: 0, endHour: 15, endMinute: 0 }, // Segunda
+  //     2: { startHour: 17, startMinute: 0, endHour: 20, endMinute: 0 }, // Terça
+  //     4: { startHour: 17, startMinute: 0, endHour: 20, endMinute: 0 }  // Quinta
+  //   };
+  
+  //   // Retorna horários de trabalho para um dia ou null se fechado
+  //   const getWorkingHours = (date) => {
+  //     const day = date.day();
+  //     return businessHours[day] || null;
+  //   };
+  
+  //   // Inicia busca a partir de 1h após agora
+  //   let currentTime = now.add(1, "hour").startOf("minute");
+  //   let working = getWorkingHours(currentTime);
+  
+  //   // Se fora do expediente, pula para próximo dia válido
+  //   if (!working || currentTime.hour() >= working.endHour) {
+  //     do {
+  //       currentTime = currentTime.add(1, "day").hour(8).minute(0).startOf("minute");
+  //       working = getWorkingHours(currentTime);
+  //     } while (!working);
+  //   } else if (currentTime.hour() < working.startHour) {
+  //     // Se antes do expediente do dia, ajusta início
+  //     currentTime = currentTime.hour(working.startHour).minute(working.startMinute);
+  //   } else if (![0, 30].includes(currentTime.minute())) {
+  //     // Ajusta para próximo múltiplo de 30 minutos
+  //     currentTime = currentTime.minute() < 30
+  //       ? currentTime.minute(30)
+  //       : currentTime.add(1, "hour").minute(0);
+  //   }
+  
+  //   // Buscar eventos no calendário
+  //   const events = await this.#calendar.events.list({
+  //     calendarId: this.#calendar_id,
+  //     timeMin: startDate.toISOString(),
+  //     timeMax: endDate.toISOString(),
+  //     singleEvents: true,
+  //     orderBy: "startTime",
+  //   });
+  
+  //   // Mapear eventos para dayjs
+  //   const eventSlots = events.data.items.map(ev => ({
+  //     start: dayjs(ev.start.dateTime || ev.start.date),
+  //     end: dayjs(ev.end.dateTime || ev.end.date)
+  //   }));
+  
+  //   const availableSlots = new Set();
+  //   const limit = endDate;
+  
+  //   // Itera dias até o limite
+  //   while (currentTime.isBefore(limit)) {
+  //     const hours = getWorkingHours(currentTime);
+  //     if (!hours) {
+  //       currentTime = currentTime.add(1, "day").hour(8).minute(0);
+  //       continue;
+  //     }
+  
+  //     // Define início e fim do expediente do dia
+  //     let slot = currentTime.startOf("minute");
+  //     if (![0, 30].includes(slot.minute())) {
+  //       slot = slot.minute() < 30 ? slot.minute(30) : slot.add(1, "hour").minute(0);
+  //     }
+  //     const dayEnd = slot.hour(hours.endHour).minute(hours.endMinute);
+  
+  //     // Gera intervalos de 30 min
+  //     while (slot.isSameOrBefore(dayEnd)) {
+  //       const occupied = eventSlots.some(ev => slot.isBetween(ev.start, ev.end, null, "[)"));
+  //       if (!occupied) {
+  //         availableSlots.add(slot.format("DD/MM/YYYY HH:mm"));
+  //       }
+  //       slot = slot.add(30, "minute");
+  //     }
+  
+  //     // Próximo dia útil
+  //     currentTime = currentTime.add(1, "day").hour(8).minute(0);
+  //   }
+  
+  //   return Array.from(availableSlots);
+  // }
+
   /**
    * Verifica se a data escolhida está disponível para agendamento
    * @param {string} date - Data escolhida
-   * @returns {Promise<Array<string>>} - Retorna true se a data estiver disponível, false caso contrário
+   * @returns {Promise<Array<string>>} - Retorna um array com as datas disponíveis
    */
   async getChoiceDate(date) {
     const formattedDate = dayjs(date, "DD/MM/YYYY").format("DD/MM/YYYY");
@@ -126,6 +220,33 @@ export default class CalendarServices {
     // Verificar se a data escolhida está disponível
     const availableOptions = await this.getAvailableOptions();
     return availableOptions.filter(option => option.startsWith(formattedDate));
+  }
+
+  /**
+   * Verifica se a data e hora escolhidas estão disponíveis para agendamento
+   * @param {string} date - Data escolhida
+   * @param {string} time - Hora escolhida
+   * @returns {Promise<Array<string>>} - Retorna um array com as datas e horários disponíveis
+   */
+  async getChoiceDateTime(date, time) {
+    const formattedDate = dayjs(date, "DD/MM/YYYY").format("DD/MM/YYYY");
+
+    let availableOptions;
+    if (formattedDate instanceof Date && !isNaN(date) && time) {
+      styled.info("Data válida:", formattedDate);
+
+      // Verificar se a data escolhida está disponível
+      availableOptions = await this.getAvailableOptions();
+      return availableOptions.filter(option => option.startsWith(formattedDate) && option.endsWith(time));
+    } else if (formattedDate instanceof Date && !isNaN(date)) {
+
+      availableOptions = await this.getAvailableOptions();
+      return availableOptions.filter(option => option.startsWith(formattedDate));
+    } else {
+      
+      availableOptions = await this.getAvailableOptions();
+      return availableOptions;
+    }
   }
 
   /**
@@ -157,6 +278,29 @@ export default class CalendarServices {
     return response.data;
   }
 
+  /**
+   * Obtém um evento do calendário
+   * @param {string} eventId - ID do evento a ser obtido
+   * @returns {Promise<object>} - Objeto com as informações do evento
+   */
+  async getEvent(eventId) {
+    const response = await this.#calendar.events.get({
+      calendarId: this.#calendar_id,
+      eventId
+    });
+    return response.data;
+  }
+
+  /**
+   * Atualiza um evento no calendário
+   * @param {object} event - Objeto com as informações do evento a ser atualizado
+   * @param {string} event.eventId - ID do evento a ser atualizado
+   * @param {string} event.summary - Título do evento
+   * @param {Date} event.start - Data e hora de início do evento
+   * @param {Date} event.end - Data e hora de término do evento
+   * @param {string} [event.description=""] - Descrição do evento
+   * @returns {Promise<object>} - Objeto com as informações do evento atualizado
+   */
   async updateEvent({ eventId, summary = "", start, end, description = "" } = {}) {
     const response = await this.#calendar.events.update({
       calendarId: this.#calendar_id,
@@ -176,5 +320,18 @@ export default class CalendarServices {
     });
 
     return response.data;
+  }
+
+  /**
+   * Deleta um evento no calendário
+   * @param {string} eventId - ID do evento a ser deletado
+   * @returns {Promise<string>} - Retorna uma Promise que resolve quando o evento for deletado
+   */
+  async deleteEvent(eventId) {
+    await this.#calendar.events.delete({
+      calendarId: this.#calendar_id,
+      eventId
+    });
+    return `Evento ${eventId} deletado com sucesso!`;
   }
 }

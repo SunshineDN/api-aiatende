@@ -1,13 +1,13 @@
-import KommoUtils from "../../utils/KommoUtils.js";
-import KommoServices from "./KommoServices.js";
-import CalendarServices from "../calendar/CalendarServices.js";
+import CustomError from "../../utils/CustomError.js";
 import DateUtils from "../../utils/DateUtils.js";
+import KommoUtils from "../../utils/KommoUtils.js";
 import LeadUtils from "../../utils/LeadUtils.js";
-import { CalendarUtils } from "../../utils/calendar/CalendarUtils.js";
 import StaticUtils from "../../utils/StaticUtils.js";
+import { CalendarUtils } from "../../utils/calendar/CalendarUtils.js";
 import styled from "../../utils/log/styled.js";
-import OpenaiIntegrationServices from "../openaiIntegration/OpenaiIntegrationServices.js";
-import { CONFIRMACAO_BOT_ID } from "../../config/bot_ids.js";
+import CalendarServices from "../calendar/CalendarServices.js";
+import OpenAIServices from "../openai/OpenAIServices.js";
+import KommoServices from "./KommoServices.js";
 
 export default class KommoCalendarServices {
   #lead_id;
@@ -42,7 +42,7 @@ export default class KommoCalendarServices {
 
     const kommoUtils = new KommoUtils({ leads_custom_fields: await this.#kommo.getLeadsCustomFields(), pipelines: await this.#kommo.getPipelines() });
 
-    const leadScheduledDate = LeadUtils.findLeadField({ lead, fieldName: 'Data do Agendamento', value: true });
+    const leadScheduledDate = LeadUtils.findLeadField({ lead, fieldName: 'Data do Compromisso', value: true });
     const leadScheduleStatus = LeadUtils.findLeadField({ lead, fieldName: 'Status do Agendamento', value: true });
 
     const service = LeadUtils.findLeadField({ lead, fieldName: 'Serviço', value: true });
@@ -60,7 +60,7 @@ export default class KommoCalendarServices {
       const leadEventDate = LeadUtils.findLeadField({ lead, fieldName: 'Data do Evento', value: true });
 
       if (!leadEventDate) {
-        throw new Error('Data do Evento não encontrada no lead');
+        throw new CustomError({ statusCode: 404, message: 'Data do Evento não encontrada no lead', lead_id: this.#lead_id });
       }
 
       startDateTime = DateUtils.secondsToDate(Number(leadEventDate));
@@ -77,14 +77,14 @@ export default class KommoCalendarServices {
       profissional = LeadUtils.findLeadField({ lead, fieldName: 'Profissional', value: true });
 
       if (!profissional) {
-        throw new Error('Profissional não encontrado no lead');
+        throw new CustomError({ statusCode: 404, message: 'Profissional não encontrado no lead', lead_id: this.#lead_id });
       }
 
       calendar_id = CalendarUtils.idValidate(profissional);
     }
 
-    const scheduledDateField = kommoUtils.findLeadsFieldByName('Data do Agendamento');
-    const lastScheduleField = kommoUtils.findLeadsFieldByName('Último agendamento');
+    const scheduledDateField = kommoUtils.findLeadsFieldByName('Data do Compromisso');
+    const lastScheduleField = kommoUtils.findLeadsFieldByName('Último compromisso');
     const scheduleStatusField = kommoUtils.findLeadsFieldByName('Status do Agendamento');
     const profissionalField = kommoUtils.findLeadsFieldByName('Profissional');
     const whenScheduledField = kommoUtils.findLeadsFieldByName('Quando foi agendado');
@@ -94,7 +94,7 @@ export default class KommoCalendarServices {
     const eventSummaryField = kommoUtils.findLeadsFieldByName('Título do Evento');
     const eventDescriptionField = kommoUtils.findLeadsFieldByName('Descrição do Evento');
 
-    const closedWon = kommoUtils.findStatusByCode('03 - PRÉ-AGENDAMENTO', 142);
+    const closedWon = kommoUtils.findStatusByCode('PRÉ-AGENDAMENTO', 142);
 
     const custom_fields = [
       {
@@ -224,13 +224,17 @@ export default class KommoCalendarServices {
     });
 
     const eventResponseMessage = `
-📅 **Usuário agendado com sucesso!**
+**System Message:**
+📅 **Usuário agendado com sucesso para o profissional ${profissional}!**
 - **Data:** ${DateUtils.formatDate({ date: startDateTime, withWeekday: true })}
-- **Profissional:** ${profissional}
+- **Link do Evento:** ${eventResponse.htmlLink}
+- **ID do Evento:** ${eventResponse.id}
+- **Full Calendar Response:** ${JSON.stringify(eventResponse)}
 `;
 
-    await OpenaiIntegrationServices.assistantWithoutSending(this.#lead_id, eventResponseMessage, process.env.OPENAI_ASSISTANT_ID);
-    await this.#kommo.launchBot(this.#lead_id, CONFIRMACAO_BOT_ID);
-    return eventResponse;
+    const openai = new OpenAIServices({ lead_id: this.#lead_id });
+    const assistant_id = atob(process.env.OPENAI_ASSISTANT_ID);
+    const res = await openai.handleRunAssistant({ userMessage: eventResponseMessage, assistant_id, intention: false });
+    return { event: eventResponse, assistant_response: res };
   }
 }

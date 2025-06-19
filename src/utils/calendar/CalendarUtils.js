@@ -588,14 +588,23 @@ export class CalendarUtils {
    * @returns {string} - Id do calendário
    */
   static idValidate(condition = '') {
+
+    if (!condition || typeof condition !== 'string') {
+      styled.error('Condição inválida para validação do calendário');
+      return CalendarId.dentistas;
+    }
+
     const mapping = {
       'Juliana Leite': CalendarId.juliana,
-      'Lucília Miranda': CalendarId.odontopediatria,
+      'Lucília': CalendarId.odontopediatria,
       'Odontopediatria': CalendarId.odontopediatria,
+      'Odontopediatra': CalendarId.odontopediatria,
     };
 
     for (const key in mapping) {
-      if (condition.includes(key)) {
+      const mappingLower = key.toLowerCase();
+      const conditionLower = condition.toLowerCase();
+      if (conditionLower.includes(mappingLower)) {
         return mapping[key];
       }
     }

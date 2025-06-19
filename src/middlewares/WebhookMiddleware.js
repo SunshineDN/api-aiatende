@@ -134,6 +134,7 @@ export default class WebhookMiddleware {
 
     req.body = {
       lead_id,
+      contact_id,
       account: {
         id: account_id,
         subdomain: account_subdomain,

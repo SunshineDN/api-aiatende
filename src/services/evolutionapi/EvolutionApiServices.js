@@ -1,4 +1,5 @@
 import axios from "axios";
+import styled from "../../utils/log/styled.js";
 
 export default class EvolutionApiServices {
   #apiKey;
@@ -27,6 +28,10 @@ export default class EvolutionApiServices {
    * @returns {Promise<Object>} - Resposta da API
    */
   async sendMessage({ message, number } = {}) {
+    if (!message || !number) {
+      styled.warning(`[EvolutionApiServices.sendMessage] - Mensagem ou número não fornecido. /n Mensagem: ${message} /n Número: ${number}`);
+      return;
+    }
 
     const text = `*Assistente Virtual - Gabriele:*
 
