@@ -18,11 +18,12 @@ export default class OpenAIServices {
    * 
    * @param {Object} params
    * @param {number} params.lead_id - ID do lead. 
+   * @param {string} [params.assistant_name] - Nome do assistente.
    */
-  constructor({ lead_id = null } = {}) {
+  constructor({ lead_id = null, assistant_name = null } = {}) {
     this.#lead_id = lead_id;
     this.openai = new OpenAI(process.env.OPENAI_API_KEY);
-    this.assistant_name = process.env.OPENAI_ASSISTANT_NAME ? `Atendente ${process.env.OPENAI_ASSISTANT_NAME}` : "Atendente";
+    this.assistant_name = assistant_name;
   }
 
   /**
@@ -120,18 +121,9 @@ export default class OpenAIServices {
    * @param {string} params.assistant_id - ID do assistente.
    * @param {string} [params.additional_instructions] - Instruções adicionais para o run.
    * @param {string} [params.instructions] - Instruções para o run.
-   * @return {Promise<Object>} - O run criado.
+   * @return {Promise<Object>} - A resposta do run e o histórico de mensagens atualizado.
    */
   async handleRunAssistant({ userMessage = "", assistant_id, additional_instructions = null, instructions = null } = {}) {
-    const crm_services = new OpenAICrmServices({ lead_id: this.#lead_id });
-    await crm_services.getLead();
-
-    if (!additional_instructions) {
-      additional_instructions = await crm_services.getLeadAdditionalInfo();
-    }
-
-    await crm_services.verifyLeadMessageField();
-
     const thread = await this.findOrCreateThread({ assistant_id });
 
     const sanitizedText = (userMessage ?? "").trim();
@@ -148,14 +140,12 @@ export default class OpenAIServices {
 
     const message = await this.handleStatusRun({ run, thread_id: thread.thread_id });
 
-    // await crm_services.sendMessageToLead({ message });
-    await crm_services.saveAssistantAnswer({ message });
-
     const repo = new ThreadRepository({ lead_id: this.#lead_id });
     const updated = await repo.storeMessage({ assistant_id, userMessage, assistantMessage: message });
-    await runEspecialistaIntencao({ conversation_messages: updated.messages, lead_id: this.#lead_id });
+    const messages_history = updated.messages;
 
-    return message;
+    styled.success(`[OpenAIServices.handleRunAssistant] Lead ID: ${this.#lead_id} - Assistente executado com sucesso!`);
+    return { message, messages_history };
   }
 
   /**
@@ -167,8 +157,6 @@ export default class OpenAIServices {
   async findOrCreateThread({ assistant_id } = {}) {
     const repo = new ThreadRepository({ lead_id: this.#lead_id });
     let thread = await repo.findThread({ assistant_id });
-
-    const vector_store_id = process.env.OPENAI_VECTOR_STORE_ID;
 
     if (!thread) {
       styled.db("Thread não encontrada. Criando nova thread...");
@@ -219,7 +207,7 @@ export default class OpenAIServices {
     if (run.status === "completed") {
       const obtainMessage = await this.handleObtainMessage({ thread_id });
       styled.success(`[OpenAIServices.handleStatusRun] Lead ID: ${this.#lead_id} - Mensagem obtida com sucesso.`);
-      return `*${this.assistant_name}*:\n\n${obtainMessage}`;
+      return this.assistant_name ? `*${this.assistant_name}*:\n\n${obtainMessage}` : obtainMessage;
     } else if (run.status === "requires_action") {
       styled.info(`[OpenAIServices.handleStatusRun] Lead ID: ${this.#lead_id} - Ação requerida: ${run.required_action.type}`);
       return await this.handleRequiresAction({ run, thread_id });
@@ -251,11 +239,22 @@ export default class OpenAIServices {
    */
   availableTools() {
     return {
+<<<<<<< HEAD
       'mostrar_frete': runMostrarFrete,
       'transferir_assistente': runTransferirAssistente,
       'consultar_cardapio': runConsultarCardapio,
       'consultar_bolos_e_tortas': runConsultarBolosETortas,
       'consultar_produtos': runConsultarProdutos,
+=======
+      'especialista_dados': runEspecialistaDados,
+      'especialista_invisalign': runEspecialistaInvisalign,
+      'especialista_implantes': runEspecialistaImplantes,
+      'agendamento_criar': runAgendamentoCriar,
+      'agendamento_deletar': runAgendamentoDeletar,
+      'agendamento_listar_datas': runAgendamentoListarDatas,
+      'agendamento_atualizar': runAgendamentoAtualizar,
+      'agendamento_ver': runAgendamentoVer,
+>>>>>>> dev
     }
   }
 
@@ -309,5 +308,25 @@ export default class OpenAIServices {
       }));
     }
     return;
+  }
+
+  async createAssistant({ name, instructions, model = "gpt-4o-mini", tools = [] }) {
+    if (!name || !instructions) {
+      throw new CustomError({
+        statusCode: 400,
+        message: "Nome e instruções são obrigatórios para criar um assistente.",
+        lead_id: this.#lead_id
+      });
+    }
+
+    const response = await this.openai.beta.assistants.create({
+      name,
+      instructions,
+      model,
+      ...(tools.length > 0 && { tools }),
+    });
+
+    styled.success(`[OpenAIServices.createAssistant] Assistente criado com sucesso: ${response.id}`);
+    return response;
   }
 }

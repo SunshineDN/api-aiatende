@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASS} # Altere a senha do banco de dados
       POSTGRES_DB: ${DB_NAME} # Altere o nome do banco de dados
     ports:
-      - "5432:5432" # Altere a primeira porta que deseja expor
+      - "${HOST_PORT_DB:-4000}:5432" # Altere a primeira porta que deseja expor
     volumes:
       - ./data:/var/lib/postgresql/data
     healthcheck:
@@ -19,7 +19,7 @@ services:
     networks:
       - aiatende-network
 
-  aiatende:
+  ia:
     build: .
     command: >
       sh -c "
@@ -30,18 +30,20 @@ services:
       database:
         condition: service_healthy
     environment:
-      - DOMAIN=${DOMAIN} # Domínio da aplicação
+      - TZ=${GENERIC_TIMEZONE} # Fuso horário da aplicação
       - KOMMO_AUTH=${KOMMO_AUTH} # Token de acesso do Kommo
       - KOMMO_URL=${KOMMO_URL} # URL do Kommo
       - DB_URL=postgres://${DB_USER}:${DB_PASS}@database:5432/${DB_NAME}?schema=public # URL de conexão com o banco de dados (postgres://DB_USER:DB_PASS@DB_HOST:DB_PORT/DB_NAME)
-      - TZ=${GENERIC_TIMEZONE} # Fuso horário da aplicação
       - OPENAI_API_KEY=${OPENAI_API_KEY} # Chave de API do OpenAI
       - OPENAI_ASSISTANT_ID=${OPENAI_ASSISTANT_ID} # ID do assistente do OpenAI
+      - OPENAI_ASSISTANT_NAME=${OPENAI_ASSISTANT_NAME} # Nome do assistente do OpenAI
       - EVOLUTION_API_BASE_URL=${EVOLUTION_API_BASE_URL} # URL base da API do Evolution API
       - EVOLUTION_API_INSTANCE_ID=${EVOLUTION_API_INSTANCE_ID} # ID da instância da API do Evolution API
       - EVOLUTION_API_KEY=${EVOLUTION_API_KEY} # Chave de API do Evolution API
+      - VAPI_API_KEY=${VAPI_API_KEY} # Chave de API do VAPI
+      - VAPI_PHONE_ID=${VAPI_PHONE_ID} # ID do telefone do VAPI
     ports:
-      - "3000:3000" # Altere a primeira porta para a que deseja expor
+      - "${HOST_PORT_IA:-3000}:3000"
     networks:
       - aiatende-network
 
