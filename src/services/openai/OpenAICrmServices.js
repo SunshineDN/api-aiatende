@@ -232,6 +232,9 @@ export default class OpenAICrmServices {
       },
     ];
 
+    styled.info(`[OpenAICrmServices.saveAssistantAnswer] - Lead ID: ${this.#lead_id}`);
+    styled.info(`[OpenAICrmServices.saveAssistantAnswer] - Salvando resposta do assistente no CRM...`);
+    styled.infodir(custom_fields_values);
     await this.#kommo.updateLead({ id: this.#lead_id, custom_fields_values });
     styled.success(`[OpenAICrmServices.saveAssistantAnswer] - Resposta do assistente salva com sucesso no CRM!`);
     return;
