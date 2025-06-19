@@ -19,11 +19,12 @@ export default class OpenAIServices {
    * 
    * @param {Object} params
    * @param {number} params.lead_id - ID do lead. 
+   * @param {string} [params.assistant_name] - Nome do assistente.
    */
-  constructor({ lead_id = null } = {}) {
+  constructor({ lead_id = null, assistant_name = null } = {}) {
     this.#lead_id = lead_id;
     this.openai = new OpenAI(process.env.OPENAI_API_KEY);
-    this.assistant_name = process.env.OPENAI_ASSISTANT_NAME ? `Atendente ${process.env.OPENAI_ASSISTANT_NAME}` : "Atendente";
+    this.assistant_name = assistant_name;
   }
 
   /**
@@ -144,6 +145,7 @@ export default class OpenAIServices {
     const updated = await repo.storeMessage({ assistant_id, userMessage, assistantMessage: message });
     const messages_history = updated.messages;
 
+    styled.success(`[OpenAIServices.handleRunAssistant] Lead ID: ${this.#lead_id} - Assistente executado com sucesso!`);
     return { message, messages_history };
   }
 
@@ -156,8 +158,6 @@ export default class OpenAIServices {
   async findOrCreateThread({ assistant_id } = {}) {
     const repo = new ThreadRepository({ lead_id: this.#lead_id });
     let thread = await repo.findThread({ assistant_id });
-
-    const vector_store_id = process.env.OPENAI_VECTOR_STORE_ID;
 
     if (!thread) {
       styled.db("Thread não encontrada. Criando nova thread...");
@@ -208,7 +208,7 @@ export default class OpenAIServices {
     if (run.status === "completed") {
       const obtainMessage = await this.handleObtainMessage({ thread_id });
       styled.success(`[OpenAIServices.handleStatusRun] Lead ID: ${this.#lead_id} - Mensagem obtida com sucesso.`);
-      return `*${this.assistant_name}*:\n\n${obtainMessage}`;
+      return this.assistant_name ? `*${this.assistant_name}*:\n\n${obtainMessage}` : obtainMessage;
     } else if (run.status === "requires_action") {
       styled.info(`[OpenAIServices.handleStatusRun] Lead ID: ${this.#lead_id} - Ação requerida: ${run.required_action.type}`);
       return await this.handleRequiresAction({ run, thread_id });
@@ -301,5 +301,25 @@ export default class OpenAIServices {
       }));
     }
     return;
+  }
+
+  async createAssistant({ name, instructions, model = "gpt-4o-mini", tools = [] }) {
+    if (!name || !instructions) {
+      throw new CustomError({
+        statusCode: 400,
+        message: "Nome e instruções são obrigatórios para criar um assistente.",
+        lead_id: this.#lead_id
+      });
+    }
+
+    const response = await this.openai.beta.assistants.create({
+      name,
+      instructions,
+      model,
+      ...(tools.length > 0 && { tools }),
+    });
+
+    styled.success(`[OpenAIServices.createAssistant] Assistente criado com sucesso: ${response.id}`);
+    return response;
   }
 }

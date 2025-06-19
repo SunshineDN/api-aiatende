@@ -27,7 +27,7 @@ O fluxo é estruturado como um funil sequencial, ou seja, as etapas não voltam,
 5 - Pré-agendamento (confirmação): O usuário já forneceu todos os dados e está confirmando os dados e a data escolhida.
 6 - Agendado: O usuário confirmou o agendamento (apenas se o lead confirmar o agendamento na primeira confirmação após os agendamentos / reagendamentos, se houver duas confirmações, ele não entra nesta etapa e retorna "Fora do fluxo").
 7 - Confirmação (1 etapa): O usuário confirmou a primeira etapa da vinda (geralmente 24h antes).  
-8 - Confirmação (2 etapa): O usuário confirmou a segunda etapa da vinda (geralmente 3h antes).
+8 - Confirmação (2 etapa): O usuário confirmou a segunda etapa da vinda (geralmente 3h antes)
 
 # ⚠️ Ramificações possíveis **apenas após a etapa 6**:  
 - Reagendamento: O usuário deseja reagendar. Ele permanece nesta etapa até confirmar um novo agendamento.  

@@ -23,7 +23,8 @@ export default class OpenAIController {
     const { lead_id } = req.body;
     const assistant_id = req.params.assistant_id || process.env.OPENAI_ASSISTANT_ID;
     const leadMessageRepo = new LeadMessagesRepository();
-    const openai = new OpenAIServices({ lead_id });
+    const assistant_name = process.env.OPENAI_ASSISTANT_NAME ? `Atendente ${process.env.OPENAI_ASSISTANT_NAME}` : "Atendente";
+    const openai = new OpenAIServices({ lead_id, assistant_name });
 
     try {
       const decryptedAssistantId = atob(assistant_id);
@@ -60,7 +61,8 @@ export default class OpenAIController {
   static async runAssistantAutoConfirm(req, res, next) {
     const { lead_id } = req.body;
     const assistant_id = req.params.assistant_id || process.env.OPENAI_ASSISTANT_ID;
-    const openai = new OpenAIServices({ lead_id });
+    const assistant_name = process.env.OPENAI_ASSISTANT_NAME ? `Atendente ${process.env.OPENAI_ASSISTANT_NAME}` : "Atendente";
+    const openai = new OpenAIServices({ lead_id, assistant_name });
 
     try {
       const decryptedAssistantId = atob(assistant_id);
@@ -96,7 +98,9 @@ export default class OpenAIController {
   static async runAssistantScheduled(req, res, next) {
     const { lead_id } = req.body;
     const assistant_id = req.params.assistant_id || process.env.OPENAI_ASSISTANT_ID;
-    const openai = new OpenAIServices({ lead_id });
+    const assistant_name = process.env.OPENAI_ASSISTANT_NAME ? `Atendente ${process.env.OPENAI_ASSISTANT_NAME}` : "Atendente";
+    const openai = new OpenAIServices({ lead_id, assistant_name });
+
     try {
       const decryptedAssistantId = atob(assistant_id);
 
